@@ -24,3 +24,6 @@ def addDriver():
 @app.route('/rmDriver')
 def rmDriver():
     return 'Remove Drivers Page'
+
+if __name__ == '__main__':
+        app.run()
