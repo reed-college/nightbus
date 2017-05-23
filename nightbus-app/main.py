@@ -17,11 +17,11 @@ def driver():
 def admin():
     return 'Admins Page'
 
-@app.route('/addDriver')
+@app.route('/add')
 def addDriver():
     return 'Add Drivers Page'
 
-@app.route('/rmDriver')
+@app.route('/remove')
 def rmDriver():
     return 'Remove Drivers Page'
 
