@@ -19,6 +19,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	margin-bottom: 15px;
 	border: 2px solid black;
+	border-radius: 5px;
 }
 
 /*** middle of page content ***/
@@ -37,6 +38,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 	width: 70%;
 	height: 680px;
 	border: 2px solid black;
+	border-radius: 5px;
 	margin-left: 15%;
 }
 
