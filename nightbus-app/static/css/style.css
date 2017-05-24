@@ -21,7 +21,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 	margin-left: 2.5%;
 	margin-bottom: 15px;
 	border: 2px solid black;
-	display: flex;
+  background-color: lightblue;
+  display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
@@ -36,11 +37,13 @@ It should be 1200px for home page and add/remove driver pages ***/
 
 .nav p {
 	text-align: center;
+
 }
 
 /*** middle of page content ***/
 
 .content {
+	margin-top: 15px;
 	width: 100%;
 	height: 1400px;
 	display: flex;
@@ -66,11 +69,19 @@ It should be 1200px for home page and add/remove driver pages ***/
 }
 
 
-/*** font layout ***/ 
+/*** font layout for main header***/ 
 
 h1 {
+	font-family: cursive, times, serif;
 	text-align: center;
 }
+/***font layout for other headers***/
+
+h2 {
+	font-family:"Times New Roman", times, serif;
+	text-align:center;	
+}
+
 
 /*** Buttons ***/
 
@@ -80,6 +91,8 @@ button {
 	border-radius: 5px;
 	margin-left: 5%;
 }
+
+
 
 /*** DESKTOP ***/ 
 
