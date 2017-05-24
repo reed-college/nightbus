@@ -1,11 +1,23 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin
+
 
 app = Flask(__name__)
+
+###### The next line is specific to my computer. In order to test the add driver page you have to set up a database on your own computer.
+###### The format I used is 'postgresql://user:password@localhost/nameofdatabase'.
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://sds:chickencombo@localhost/nightbus'
 db = SQLAlchemy(app)
 
-class Driver(db.Model):
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
@@ -17,6 +29,10 @@ class Driver(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route('/')
 def home():
@@ -38,6 +54,16 @@ def admin():
 def addDriver():
     return render_template('add.html')
 
+@app.route('/newdriver', methods=['POST'])
+def newDriver():
+    username = request.form['username']
+    email = request.form['email']
+    new_driver = User(username, email)
+    db.session.add(new_driver)
+    db.session.commit()
+
+    return "Driver successfully added"
+        
 @app.route('/remove')
 def rmDriver():
     return render_template('remove.html')
