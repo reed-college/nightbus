@@ -21,8 +21,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 	margin-left: 2.5%;
 	margin-bottom: 15px;
 	border: 2px solid black;
-  background-color: lightblue;
-  display: flex;
+  	background-color: lightblue;
+  	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
@@ -114,6 +114,10 @@ button {
 		width: 95%;
 		margin-left: 2.5%;
 
+	}
+
+	.header h1 {
+		margin-left: 15px;
 	}
 
 	.content {
