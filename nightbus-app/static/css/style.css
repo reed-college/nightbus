@@ -17,9 +17,25 @@ It should be 1200px for home page and add/remove driver pages ***/
 /*** header block ***/
 
 .header {
+	width: 95%;
+	margin-left: 2.5%;
 	margin-bottom: 15px;
 	border: 2px solid black;
-	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.nav {
+
+}
+
+.nav a {
+	margin-right: 15px;
+}
+
+.nav p {
+	text-align: center;
 }
 
 /*** middle of page content ***/
@@ -68,6 +84,14 @@ button {
 /*** DESKTOP ***/ 
 
 @media only screen and (min-width: 1000px) {
+
+	.header {
+		flex-direction: row;
+	}
+	.nav {
+		margin-top: 25px;
+		margin-right: 15px;
+	}
 
 	.wrapper {
 		height: 900px;
