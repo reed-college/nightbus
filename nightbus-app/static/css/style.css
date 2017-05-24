@@ -46,7 +46,9 @@ It should be 1200px for home page and add/remove driver pages ***/
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+
 }
+
 
 /*** font layout ***/ 
 
@@ -74,6 +76,7 @@ button {
 	.header {
 		width: 95%;
 		margin-left: 2.5%;
+
 	}
 
 	.content {
