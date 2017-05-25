@@ -1,38 +1,63 @@
+from datetime import datetime
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin
-
+import sqlalchemy
+from sqlalchemy import (Column, Integer, String,
+                                DateTime)
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from flask_login import LoginManager
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
 
 ###### The next line is specific to my computer. In order to test the add driver page you have to set up a database on your own computer.
 ###### The format I used is 'postgresql://user:password@localhost/nameofdatabase'.
 
+Base = declarative_base()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://sds:chickencombo@localhost/nightbus'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/nightbus'
 db = SQLAlchemy(app)
+engine = sqlalchemy.create_engine('postgresql://postgres@localhost/nightbus')
 
+def get_session():
+    Session = sessionmaker(bind=engine)
+    return Session()
+
+migrate = Migrate(app, db)
+
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
+class IdPrimaryMixin(object):
+    id = Column(Integer, primary_key=True)
 
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
+class DateTimeMixin(object):
+    created_on = Column(DateTime, default=datetime.now)
+    updated_on = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+
+
+class User(Base, IdPrimaryMixin, DateTimeMixin):
+    __tablename__ = 'Users'
+
+    firstname = Column(String(20), nullable=False)
+    lastname = Column(String(20), nullable=False)
+    username = Column(String(40), unique=True)
+    email = Column(String(40))
+    role = Column(String(20), unique=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        tpl = 'Person<id: {id}, {firstname} {lastname} {username} {email} {role}>'
+        formatted = tpl.format(id=self.id, firstname=self.firstname, lastname=self.lastname, email=self.email, role=self.role)
+        return formatted
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+Base.metadata.create_all(db.engine)
 
 @app.route('/')
 def home():
@@ -56,11 +81,16 @@ def addDriver():
 
 @app.route('/newdriver', methods=['POST'])
 def newDriver():
+    session = get_session()
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
     username = request.form['username']
     email = request.form['email']
-    new_driver = User(username, email)
-    db.session.add(new_driver)
-    db.session.commit()
+    new_driver = User(firstname=firstname, lastname=lastname, username=username, email=email)
+
+    session.add(new_driver)
+    session.commit()
+    
 
     return "Driver successfully added"
         
