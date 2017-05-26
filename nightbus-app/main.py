@@ -80,7 +80,7 @@ class User(Base, IdPrimaryMixin, DateTimeMixin):
         return formatted
 
 # I honestly don't know why I added this line but the add user page seemed to work without it on my machine so if anyone gets an error with SQLAlchemy this 
-# could be it.
+# could be it. I think this line was here to create all schemas when we were using flask's own sqlalchemy and it doesn't work with the normal sqlalchemy
 #Base.metadata.create_all(db.engine)
 
 @app.route('/')
@@ -118,6 +118,7 @@ def newDriver():
     email = request.form['email']
     role = request.form['role']
 
+    
     # Using the schema we created above we can enter the data we got into the database. Also another copy from http-demo and can be found in line 82 of the http-demo
     new_driver = User(firstname=firstname, lastname=lastname, username=username, email=email, role=role)
 
@@ -137,6 +138,22 @@ def newDriver():
 @app.route('/remove')
 def rmDriver():
     return render_template('remove.html')
+
+@app.route('/removeuser', methods=['POST'])
+def removeUser():
+    # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
+    # that was entered in the form using the request library that comes with flask.
+    session = get_session()
+    username = request.form['username']
+
+    # Next we use the query method to search the table User and we filter our query by the username we got above. This displays the first entry it gets so I don't know how we would handle
+    # two different people having two different user names. More documentation on querying and just general sqlalchemy knowledge can be found at http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
+    # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
+    user = session.query(User).filter_by(username=username).first()
+    session.delete(user)
+    session.commit()
+
+    return "user successfully removed"
 
 if __name__ == '__main__':
         app.run()
