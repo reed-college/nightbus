@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+	<title>Nightbus | Add Users </title>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="header">
+		<h1>Remove Users</h1>
+	</div>
+	<div class="content">
+		<form action="/rmDriver" method="post">
+			<ul class="form-container">
+				<li>
+					Firstname: <input type="text" name="firstname" required><br>
+				</li>				
+				<li>
+					Lastname: <input type="text" name="lastname" required><br>
+				</li>
+				<li>
+					Username: <input type="text" name="username" required><br>
+				</li>
+				<li>
+					Email: <input type="text" name="email" required><br>
+				</li>
+				<li>
+					<input type="submit" value="Remove!">
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+</body>
+</html>

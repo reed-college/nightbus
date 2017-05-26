@@ -1,12 +1,7 @@
 /*** MOBILE ***/ 
 
-
-
 body {
 	min-height: 100vh;
-	background-image: url(https://s3-us-west-2.amazonaws.com/i.cdpn.io/86939.BKJun.1ddac0a8-d1a3-4259-84d7-f59773c308c7.png);
-	background-size: cover;
-	color: #a17f1a;
 }
 
 /*** wrapper is 1550px for riders, drivers, and admin page. 
@@ -25,9 +20,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 	width: 95%;
 	margin-left: 2.5%;
 	margin-bottom: 15px;
-	border: 2px solid white;
-	padding: 5px
-	;
+	border: 2px solid black;
 	border-radius: 5px;
   	background-color: lightblue;
   	display: flex;
@@ -42,11 +35,11 @@ It should be 1200px for home page and add/remove driver pages ***/
 .nav a {
 	margin-right: 15px;
 	text-decoration: none;
-	color: #a17f1a;
+	color: black;
 }
 
 .nav a:visited {
-	color: #a17f1a;
+	color: black;
 }
 
 .nav p {
@@ -70,7 +63,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 .box {
 	width: 70%;
 	height: 680px;
-	border: 2px solid #a17f1a;
+	border: 2px solid black;
 	border-radius: 5px;
 	margin-left: 15%;
 }
@@ -88,13 +81,11 @@ It should be 1200px for home page and add/remove driver pages ***/
 h1 {
 	font-family: cursive, times, serif;
 	text-align: center;
-	color:#a17f1a;
 }
 /***font layout for other headers***/
 
 h2 {
 	font-family:"Times New Roman", times, serif;
-	color: #a17f1a;
 	text-align:center;	
 }
 
@@ -107,6 +98,26 @@ button {
 	border-radius: 5px;
 	margin-left: 5%;
 }
+
+
+/*** Forms ***/
+.form-container {
+	width: 100%;
+	height: 300px;
+	background-color: lightblue;
+	display: flex;
+	flex-direction: column;
+}
+.form-container li {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+
+
+
 
 
 
