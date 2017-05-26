@@ -108,7 +108,20 @@ button {
 	margin-left: 5%;
 }
 
-
+-/*** Forms ***/		
+ .form-container {		
+ 	width: 100%;		
+ 	height: 300px;		
+ 	background-color: lightblue;		
+ 	display: flex;		
+ 	flex-direction: column;		
+ }		
+ .form-container li {		
+ 	display: flex;		
+ 	flex-direction: column;		
+ 	flex-wrap: wrap;		
+ 	align-items: center;		
+ }
 
 /*** DESKTOP ***/ 
 
