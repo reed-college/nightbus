@@ -1,11 +1,14 @@
-
+### This python script was made by following instructions that can be found at http://nodotcom.org/python-facebook-tutorial.html. They are very detailed and concises so anyone can recreate
+### the script. I was able to post to a test facebook page that I made using this script. The only problem is the access_token provided by facebook becomes invalid after a few minutes so that
+### needs to be changed everytime. They have an alternative called long access token that can last for 60 days but I don't know how reasonable that time span is. Maybe we can start looking into
+### a more permanent solution as we move forward.
 
 import facebook
 
 def main(message):
     cfg = {
             "page_id": 132893597268288,
-            "access_token": "EAACEdEose0cBALCAwGTqbpqCyRlyqeKVoywCJlDvlpnwurI5JH5Ct7KnwcIvT9BGDNqHjyN28EMXyRBUCbZCoxZBnKKuothJzOem70kwakZBbZAT8bCF0pp3K7cXPYjFgjbnMUHslqDZCo4sz9lbp4q2dIZCY9tLdiedwtAZCDx3b6X60bUi4p7LyHmgvlXeo0ZD"
+            "access_token": "EAAGrO4c3sioBAEyCOG5nUGdHMQ8OZAled8YTpSWZAqHI6L4dLbeZA0C9PlHR7jYvQA8kWA0dHfTPYUDulXxPPoYXcsv0BAql8FoFZCU5BgYe32QJO6vHFfeiwvrm1whvKfT80Tb9d4m0P38WOgKFUUbWZBQzEXS1wxDWAZBg9wZAHYLzEtms8P5ZA0LyJenfpj8ZD"
         }
 
     api = get_api(cfg)
@@ -14,16 +17,9 @@ def main(message):
 
 def get_api(cfg):
     graph = facebook.GraphAPI(cfg['access_token'])
-    # Get page token to post as the page. You can skip 
-    # the following if you want to post as yourself. 
     resp = graph.get_object('me/accounts')
     for page in resp['data']:
-        print(page)
-        #   if page['id'] == cfg['page_id']:
-      #      print(page)
-       #     print(page['id'])
-
-           # page_access_token = page['access_token']
+         page_access_token = page['access_token']
     graph = facebook.GraphAPI(page_access_token)
     return graph
 
