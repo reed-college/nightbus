@@ -3,6 +3,8 @@
 	<title>Nightbus | Drivers</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+	<script src='../static/main.js'></script>
 </head>
 
 <body>
@@ -11,16 +13,17 @@
 	<div class="header">
 		<h1>The NightBus</h1>
 		<div class="nav">
-			<p><a href="/" >Sign-In</a><a href="../rider">Rider</a><a href="../admin" >Admin</a></p>
+			<h2><a href="/" >Sign-In</a><a href="../rider">Rider</a><a href="../admin" >Admin</a></h2>
 		</div>
 	</div>
-
+		<div class = "statusbox">
+		</div>
 		<div class="content">
 			<div class="butt box">
 				<h2>Buttons</h2>
-				<button type="button">On Campus</button>
-				<button type="button">Just Left</button>
-				<button type="button">Coming Back</button>
+				<button id="here" type="button">On Campus</button>
+				<button id="leaving" type="button">Just Left</button>
+				<button id="coming" type="button">Coming Back</button>
 			</div>
 			<div class="box">
 				<h2>Instructions</h2>
@@ -28,6 +31,5 @@
 		</div>
 
 	</div>
-<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
-<script src='../static/main.js'></script>
+
 </body>
