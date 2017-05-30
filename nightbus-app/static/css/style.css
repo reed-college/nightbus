@@ -56,6 +56,20 @@ It should be 1200px for home page and add/remove driver pages ***/
 
 /*** middle of page content ***/
 
+.statusbox{
+	width: 95%;
+	margin-left: 2.5%;
+	margin-bottom: 15px;
+	border: 2px solid white;
+	padding: 5px
+	;
+	border-radius: 5px;
+  	background-color: lightblue;
+  	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
 .content {
 	margin-top: 15px;
 	width: 100%;

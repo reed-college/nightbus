@@ -1,25 +1,25 @@
 $(document).ready(function(){
     $('#coming').click(function(){
-        $('.box').append('<p>The NightBus is coming!</p>');
+        $('.statusbox').append('<p>Status updated!</p>');
     })
     $(document).on('click','#coming',function() {
         $('p').remove()
-        $('.box').append('<p>The NightBus is coming!</p>');
+        $('.statusbox').append('<p>Status updated!</p>');
    })
         $('#here').click(function(){
-        $('.box').append('<p>The NightBus is here!</p>');
+        $('.statusbox').append('<p>Status updated!</p>');
     })
     $(document).on('click','#here',function() {
         $('p').remove()
-        $('.box').append('<p>The NightBus is here!</p>');
+        $('.statusbox').append('<p>Status updated!</p>');
    })
 
     $('#leaving').click(function(){
-        $('.box').append('<p>The NightBus is gone!</p>');
+        $('.statusbox').append('<p>Status updated!</p>');
     })
     $(document).on('click','#leaving',function() {
         $('p').remove()
-        $('.box').append('<p>The NightBus is gone!</p>');
+        $('.statusbox').append('<p>Status updated!</p>');
    })
 })
 
