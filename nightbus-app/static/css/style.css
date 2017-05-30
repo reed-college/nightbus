@@ -49,7 +49,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 	color: #a17f1a;
 }
 
-.nav p {
+.nav h2 {
 	text-align: center;
 
 }
@@ -109,7 +109,7 @@ h1 {
 h2 {
 	font-family:"Times New Roman", times, serif;
 	color: #a17f1a;
-	text-align:center;	
+	text-align: center;	
 }
 
 
@@ -170,7 +170,7 @@ button {
 		flex-direction: row;
 	}
 	.nav {
-		margin-top: 25px;
+		margin-top: 15px;
 		margin-right: 15px;
 	}
 
