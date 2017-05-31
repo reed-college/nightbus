@@ -14,13 +14,18 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
+# Since we can't store passwords as they are in a database we need to use some sort of encryption tool. I chose to use passlib because it was already
+# available and easy to use with our schema
+
+from passlib.apps import custom_app_context as pwd_context
+from requests.auth import HTTPBasicAuth
+
 # The next three imports don't do anything. I imported them when I was trying to set up migrations and user authentication which I couldn't get done.
 #from flask_login import LoginManager
 #from flask_script import Manager
 #from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
-
 
 # http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/basic_use.html
 Base = declarative_base()
@@ -64,7 +69,7 @@ class DateTimeMixin(object):
 # date updated on, first name, last name, username, email and role. Maybe in the future once we figure out what our user authentication scheme
 # will look like we can add an 11th column called passwords. So in short if we once we create the database and the table we can use this class
 # to add and remove rows from the table. It is basically the same code as schema.py in Ross's http-demo example with three additional columns added.
-
+# In addition to the table that is going to be created by the User class we need to create an Auth table that contains hashed passwords and username
 class User(Base, IdPrimaryMixin, DateTimeMixin):
     __tablename__ = 'Users'
 
@@ -79,9 +84,23 @@ class User(Base, IdPrimaryMixin, DateTimeMixin):
         formatted = tpl.format(id=self.id, firstname=self.firstname, lastname=self.lastname, username=self.username, email=self.email, role=self.role)
         return formatted
 
+# It is easier to authenticate users if we have a separate table that has all the usernames and passwords of all the users
+class Auth(Base, IdPrimaryMixin, DateTimeMixin):
+    __tablename__ = 'Authentication'
+
+    username = Column(String(40), unique = True)
+    password = Column(String(128))
+
+    def encrypt_password(self, password):
+        self.password = pwd_context.encrypt(password)
+
+    def verify_password(self, password):
+        return pwd_context.verify(password, self.password)
+        
+
 # I honestly don't know why I added this line but the add user page seemed to work without it on my machine so if anyone gets an error with SQLAlchemy this 
 # could be it. I think this line was here to create all schemas when we were using flask's own sqlalchemy and it doesn't work with the normal sqlalchemy
-#Base.metadata.create_all(db.engine)
+#Base.metadata.create_all(engine)
 
 @app.route('/')
 def home():
@@ -154,6 +173,54 @@ def removeUser():
     session.commit()
 
     return "user successfully removed"
+
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    return render_template('registration.html')
+
+
+@app.route('/register', methods=['GET','POST'])
+def newUser():
+    # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
+    session = get_session()
+
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    email = request.form['email']
+    username = request.form['username']
+    password = request.form['password']
+    role = request.form['role']
+
+    user = User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
+    user_auth = Auth(username=username)
+    user_auth.encrypt_password(password)
+
+    session.add(user)
+    session.add(user_auth)
+    session.commit()
+
+    return "User successfully registered"
+
+@app.route('/authenticate', methods=['GET', 'POST'])
+def authenticate():
+    return render_template('login.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    session = get_session()
+    username = request.form['username']
+    password = request.form['password']
+
+    user = session.query(Auth).filter_by(username=username).first()
+    if user.verify_password(password):
+        return "Login Successful"
+    else:
+        return "Login Unsuccessful"
+
+    
+
+
 
 if __name__ == '__main__':
         app.run()
