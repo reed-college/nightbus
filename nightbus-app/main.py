@@ -18,7 +18,8 @@ from sqlalchemy.orm import sessionmaker
 # available and easy to use with our schema
 
 from passlib.apps import custom_app_context as pwd_context
-from requests.auth import HTTPBasicAuth
+
+from flask_httpauth import HTTPBasicAuth
 
 # The next three imports don't do anything. I imported them when I was trying to set up migrations and user authentication which I couldn't get done.
 #from flask_login import LoginManager
@@ -26,6 +27,7 @@ from requests.auth import HTTPBasicAuth
 #from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
+auth = HTTPBasicAuth()
 
 # http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/basic_use.html
 Base = declarative_base()
@@ -182,6 +184,10 @@ def registration():
 @app.route('/register', methods=['GET','POST'])
 def newUser():
     # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
+    # it works in similar fashion like the add driver and remove driver functions it connects to the databases using the get session function and gets the data from the form using the
+    # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
+    # the person signed up with. We don't actually store the password we encrypt it using the passlib library that we imported above. We then add both entries to their respective
+    # tables and we commit and then we are done.
     session = get_session()
 
     firstname = request.form['firstname']
@@ -203,11 +209,14 @@ def newUser():
 
 @app.route('/authenticate', methods=['GET', 'POST'])
 def authenticate():
+    # This is the route you should go to in order to test if login works. You have to sign up using the registration page before you can log in. Our next step should be trying to
+    # figure out how to make things visible only for certain users and all that stuff.
     return render_template('login.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # This function asks for a username and a password and it queries the database for that username and uses the predefined verify_password method to log you in or not log you in.
     session = get_session()
     username = request.form['username']
     password = request.form['password']
@@ -217,9 +226,6 @@ def login():
         return "Login Successful"
     else:
         return "Login Unsuccessful"
-
-    
-
 
 
 if __name__ == '__main__':
