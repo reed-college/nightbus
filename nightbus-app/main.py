@@ -1,7 +1,7 @@
 # The datetime module allows us to find the exact time right now automatically. It was imported to record when a user was created and if any changes
 # have been made to the user to record the date the modification was made.
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 # commented the next import out because 1) that's what ross did and 2) it caused a lot of errors when the flask sqlalchemy mixed with the standalone
 # sqlalchemy
 #from flask_sqlalchemy import SQLAlchemy
@@ -21,12 +21,14 @@ from passlib.apps import custom_app_context as pwd_context
 
 from flask_httpauth import HTTPBasicAuth
 
+
 # The next three imports don't do anything. I imported them when I was trying to set up migrations and user authentication which I couldn't get done.
 #from flask_login import LoginManager
 #from flask_script import Manager
 #from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
+app.secret_key = 'This is secret'
 auth = HTTPBasicAuth()
 
 # http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/basic_use.html
@@ -127,7 +129,7 @@ def addDriver():
 @app.route('/newdriver', methods=['POST'])
 def newDriver():
     # create a session or a connection to the nightbus database
-    session = get_session()
+    db_session = get_session()
 
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
     # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of 
@@ -146,8 +148,8 @@ def newDriver():
 
     # Add the new driver we defined above to the database using the built in method 'add' and once again using the built in method 'commit' make sure the record is permanently
     # entered into the databse.
-    session.add(new_driver)
-    session.commit()
+    db_session.add(new_driver)
+    db_session.commit()
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do 
     # SELECT * FROM "Users"; and it should be the last entry in that table.
@@ -164,15 +166,15 @@ def rmDriver():
 def removeUser():
     # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
     # that was entered in the form using the request library that comes with flask.
-    session = get_session()
+    db_session = get_session()
     username = request.form['username']
 
     # Next we use the query method to search the table User and we filter our query by the username we got above. This displays the first entry it gets so I don't know how we would handle
     # two different people having two different user names. More documentation on querying and just general sqlalchemy knowledge can be found at http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
     # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
-    user = session.query(User).filter_by(username=username).first()
-    session.delete(user)
-    session.commit()
+    user = db_session.query(User).filter_by(username=username).first()
+    db_session.delete(user)
+    db_session.commit()
 
     return "user successfully removed"
 
@@ -188,7 +190,7 @@ def newUser():
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
     # the person signed up with. We don't actually store the password we encrypt it using the passlib library that we imported above. We then add both entries to their respective
     # tables and we commit and then we are done.
-    session = get_session()
+    db_session = get_session()
 
     firstname = request.form['firstname']
     lastname = request.form['lastname']
@@ -201,9 +203,9 @@ def newUser():
     user_auth = Auth(username=username)
     user_auth.encrypt_password(password)
 
-    session.add(user)
-    session.add(user_auth)
-    session.commit()
+    db_session.add(user)
+    db_session.add(user_auth)
+    db_session.commit()
 
     return "User successfully registered"
 
@@ -217,15 +219,21 @@ def authenticate():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # This function asks for a username and a password and it queries the database for that username and uses the predefined verify_password method to log you in or not log you in.
-    session = get_session()
+    db_session = get_session()
     username = request.form['username']
     password = request.form['password']
 
-    user = session.query(Auth).filter_by(username=username).first()
+    user = db_session.query(Auth).filter_by(username=username).first()
     if user.verify_password(password):
+        session['username'] = username
         return "Login Successful"
     else:
         return "Login Unsuccessful"
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect (url_for('home'))
 
 
 if __name__ == '__main__':
