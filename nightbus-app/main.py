@@ -1,41 +1,17 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
+from decorators import login_required, user_is
 import schema
 import database
 
 
 from flask_httpauth import HTTPBasicAuth
 
-from functools import wraps
 
 
 app = Flask(__name__)
 app.secret_key = 'This is secret'
 auth = HTTPBasicAuth()
 db = database.get_session()
-
-def login_required(function):
-    @wraps(function)
-    def wrap(*args, **kwargs):
-        if session['logged_in']:
-            return function(*args, **kwargs)
-        else:
-            flash('You need to log in first')
-            return redirect(url_for('login'))
-    return wrap
-
-def user_is(role):
-    def wrapper(function):
-        @wraps(function)
-        def wrap(*args, **kwargs):
-            username = session['username']
-            user = db.query(schema.User).filter_by(username=username).first()
-            if user.role == role:
-                return function(*args, **kwargs)
-            else:
-                flash("You don't have permissions to view this page")
-                return redirect(url_for('login'))
-        return wrap
-    return wrapper
 
 @app.route('/')
 def home():
@@ -135,7 +111,7 @@ def register():
     email = request.form['email']
     username = request.form['username']
     password = request.form['password']
-    role = request.form['role']
+    role = (request.form['role']).lower()
 
     user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
     user_auth = schema.Auth(username=username)
