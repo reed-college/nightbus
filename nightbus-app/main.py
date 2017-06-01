@@ -13,18 +13,28 @@ app.secret_key = 'This is secret'
 auth = HTTPBasicAuth()
 db = database.get_session()
 
-def login_required(test):
-    @wraps(test)
+def login_required(function):
+    @wraps(function)
     def wrap(*args, **kwargs):
-        if session['logged_in']:
-            print('This actually runs')
+        if session['username']:
             return test(*args, **kwargs)
         else:
             flash('You need to log in first')
             return redirect(url_for('login'))
     return wrap
 
-
+def user_is(role):
+    def wrapper(function):
+        @wraps(function)
+        def wrap(*args, **kwargs):
+            user_role = db.query(schema.User).filter_by(username=username).first()
+            if user_role == role:
+                return function(*args, **kwargs)
+            else:
+                flash("You don't have permissions to view this page")
+                return redirect(url_for('login'))
+        return wrap
+    return wrapper
 
 @app.route('/')
 def home():
@@ -36,26 +46,23 @@ def rider():
     return render_template('rider.html')
 
 @app.route('/driver')
+@login_required
 def driver():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    else:
-        return render_template('driver.html')
+    return render_template('driver.html')
 
 @app.route('/admin')
+@login_required
+@user_is('admin')
 def admin():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    else:
-        return render_template('admin.html')
+    return render_template('admin.html')
 
 @app.route('/add')
+@login_required
 def addDriver():
     return render_template('add.html')
 
 @app.route('/adduser', methods=['POST'])
 def addUser():
-    # create a session or a connection to the nightbus database
 
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
     # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of 
@@ -81,10 +88,11 @@ def addUser():
     # SELECT * FROM "Users"; and it should be the last entry in that table.
     # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
     
-
-    return "Driver successfully added"
+    flash("User successfully added")
+    return redirect(url_for('admin'))
         
 @app.route('/remove')
+@login_required
 def rmDriver():
     return render_template('remove.html')
 
@@ -101,7 +109,9 @@ def removeUser():
     db.delete(user)
     db.commit()
 
-    return "user successfully removed"
+
+    flash('User successfully removed')
+    return redirect(url_for('admin'))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -150,19 +160,20 @@ def validate_credentials():
     user_role = db.query(schema.User).filter_by(username=username).first()
 
     if user_auth.verify_password(password):
-        session['logged_in'] = True
+        session['username'] = username
         if user_role.role == 'Admin':
             return redirect(url_for('admin'))
         elif user_role.role == 'Driver':
             return redirect(url_for('driver'))
         else:
-            return redirect(url_for('login'))
+            return redirect(url_for('rider'))
     else:
         flash('Invalid Credentials')
+        return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
-    session['logged_in'] = False
+    session.pop('username', None)
     return redirect (url_for('home'))
 
 
