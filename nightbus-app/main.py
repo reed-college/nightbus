@@ -1,7 +1,7 @@
 # The datetime module allows us to find the exact time right now automatically. It was imported to record when a user was created and if any changes
 # have been made to the user to record the date the modification was made.
 from datetime import datetime
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 # commented the next import out because 1) that's what ross did and 2) it caused a lot of errors when the flask sqlalchemy mixed with the standalone
 # sqlalchemy
 #from flask_sqlalchemy import SQLAlchemy
@@ -116,18 +116,24 @@ def rider():
 
 @app.route('/driver')
 def driver():
-    return render_template('driver.html')
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        return render_template('driver.html')
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    else:
+        return render_template('admin.html')
 
 @app.route('/add')
 def addDriver():
     return render_template('add.html')
 
-@app.route('/newdriver', methods=['POST'])
-def newDriver():
+@app.route('/adduser', methods=['POST'])
+def addUser():
     # create a session or a connection to the nightbus database
     db_session = get_session()
 
@@ -178,13 +184,13 @@ def removeUser():
 
     return "user successfully removed"
 
-@app.route('/registration', methods=['GET', 'POST'])
-def registration():
-    return render_template('registration.html')
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    return render_template('signup.html')
 
 
 @app.route('/register', methods=['GET','POST'])
-def newUser():
+def register():
     # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
     # it works in similar fashion like the add driver and remove driver functions it connects to the databases using the get session function and gets the data from the form using the
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
@@ -209,31 +215,39 @@ def newUser():
 
     return "User successfully registered"
 
-@app.route('/authenticate', methods=['GET', 'POST'])
-def authenticate():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     # This is the route you should go to in order to test if login works. You have to sign up using the registration page before you can log in. Our next step should be trying to
     # figure out how to make things visible only for certain users and all that stuff.
     return render_template('login.html')
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/validate_credentials', methods=['GET', 'POST'])
+def validate_credentials():
     # This function asks for a username and a password and it queries the database for that username and uses the predefined verify_password method to log you in or not log you in.
     db_session = get_session()
     username = request.form['username']
     password = request.form['password']
 
-    user = db_session.query(Auth).filter_by(username=username).first()
-    if user.verify_password(password):
-        session['username'] = username
-        return "Login Successful"
+    user_auth = db_session.query(Auth).filter_by(username=username).first()
+    user_role = db_session.query(User).filter_by(username=username).first()
+
+    if user_auth.verify_password(password):
+        session['logged_in'] = True
+        if user_role.role == 'Admin':
+            return redirect(url_for('admin'))
+        elif user_role.role == 'Driver':
+            return redirect(url_for('driver'))
+        else:
+            return redirect(url_for('login'))
     else:
-        return "Login Unsuccessful"
+        flash('Invalid Credentials')
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    session['logged_in'] = False
     return redirect (url_for('home'))
+
 
 
 if __name__ == '__main__':
