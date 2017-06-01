@@ -16,8 +16,8 @@ db = database.get_session()
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
-        if session['username']:
-            return test(*args, **kwargs)
+        if session['logged_in']:
+            return function(*args, **kwargs)
         else:
             flash('You need to log in first')
             return redirect(url_for('login'))
@@ -27,8 +27,9 @@ def user_is(role):
     def wrapper(function):
         @wraps(function)
         def wrap(*args, **kwargs):
-            user_role = db.query(schema.User).filter_by(username=username).first()
-            if user_role == role:
+            username = session['username']
+            user = db.query(schema.User).filter_by(username=username).first()
+            if user.role == role:
                 return function(*args, **kwargs)
             else:
                 flash("You don't have permissions to view this page")
@@ -47,17 +48,19 @@ def rider():
 
 @app.route('/driver')
 @login_required
+@user_is('Driver')
 def driver():
     return render_template('driver.html')
 
 @app.route('/admin')
 @login_required
-@user_is('admin')
+@user_is('Admin')
 def admin():
     return render_template('admin.html')
 
 @app.route('/add')
 @login_required
+@user_is('Admin')
 def addDriver():
     return render_template('add.html')
 
@@ -93,6 +96,7 @@ def addUser():
         
 @app.route('/remove')
 @login_required
+@user_is('Admin')
 def rmDriver():
     return render_template('remove.html')
 
@@ -161,6 +165,7 @@ def validate_credentials():
 
     if user_auth.verify_password(password):
         session['username'] = username
+        session['logged_in'] = True
         if user_role.role == 'Admin':
             return redirect(url_for('admin'))
         elif user_role.role == 'Driver':
@@ -173,6 +178,7 @@ def validate_credentials():
 
 @app.route('/logout')
 def logout():
+    session['logged_in'] = False
     session.pop('username', None)
     return redirect (url_for('home'))
 
