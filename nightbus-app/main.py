@@ -4,13 +4,13 @@ import schema
 import database
 
 
-from flask_httpauth import HTTPBasicAuth
+#from flask_httpauth import HTTPBasicAuth
 
 
 
 app = Flask(__name__)
 app.secret_key = 'This is secret'
-auth = HTTPBasicAuth()
+#auth = HTTPBasicAuth()
 db = database.get_session()
 
 @app.route('/')
