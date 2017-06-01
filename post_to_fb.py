@@ -8,7 +8,7 @@ import facebook
 def main(message):
     cfg = {
             "page_id": 132893597268288,
-            "access_token": "EAAGrO4c3sioBAEyCOG5nUGdHMQ8OZAled8YTpSWZAqHI6L4dLbeZA0C9PlHR7jYvQA8kWA0dHfTPYUDulXxPPoYXcsv0BAql8FoFZCU5BgYe32QJO6vHFfeiwvrm1whvKfT80Tb9d4m0P38WOgKFUUbWZBQzEXS1wxDWAZBg9wZAHYLzEtms8P5ZA0LyJenfpj8ZD"
+            "access_token": "EAAF7yduKQSsBAKHjZAHxc23NXaaCkBQWNqnSEvCIIURdZCQurtWMF6nNdG8NNxr4XYM0xH9JLMvQ8A8jmhX45ZCOhqHV56kmHZCSafFiEFSvo1dpu3ePDu3riDlJApUeziLtgbsBsn0dT8757leJ"
         }
 
     api = get_api(cfg)
@@ -24,4 +24,4 @@ def get_api(cfg):
     return graph
 
 if __name__ == "__main__":
-        main("Hello, I'm a python script that can post to facebook")
+        main("Hello, I'm a python script that can post to facebook AND I NEVER EXPIRE!!!")
