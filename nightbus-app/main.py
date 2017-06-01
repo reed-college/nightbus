@@ -21,6 +21,7 @@ from passlib.apps import custom_app_context as pwd_context
 
 from flask_httpauth import HTTPBasicAuth
 
+from functools import wraps
 
 # The next three imports don't do anything. I imported them when I was trying to set up migrations and user authentication which I couldn't get done.
 #from flask_login import LoginManager
@@ -106,11 +107,26 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
 # could be it. I think this line was here to create all schemas when we were using flask's own sqlalchemy and it doesn't work with the normal sqlalchemy
 #Base.metadata.create_all(engine)
 
+
+def login_required(test):
+    @wraps(test)
+    def wrap(*args, **kwargs):
+        if session['logged_in']:
+            print('This actually runs')
+            return test(*args, **kwargs)
+        else:
+            flash('You need to log in first')
+            return redirect(url_for('login'))
+    return wrap
+
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
 @app.route('/rider')
+@login_required
 def rider():
     return render_template('rider.html')
 
