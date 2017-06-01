@@ -8,7 +8,7 @@ import facebook
 def main(message):
     cfg = {
             "page_id": 132893597268288,
-            "access_token": "EAAF7yduKQSsBAKHjZAHxc23NXaaCkBQWNqnSEvCIIURdZCQurtWMF6nNdG8NNxr4XYM0xH9JLMvQ8A8jmhX45ZCOhqHV56kmHZCSafFiEFSvo1dpu3ePDu3riDlJApUeziLtgbsBsn0dT8757leJ"
+            "access_token": "EAAF7yduKQSsBADxXM73jiZAOWvkxZB44nxGeiZA60RJeipYQBBxPqRKljVZCmMGP8ZClhBWthMSKdCoYkr4EWzKejYObZC6oiCUhQZBtooWvMhYsZAOUnYTA2Tlbvj5KDBmNj3w0wbZCG1aZC4Llx8iMZCfgZAGKCRfYx00ZD"
         }
 
     api = get_api(cfg)
