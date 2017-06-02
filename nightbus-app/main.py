@@ -14,7 +14,7 @@ app.secret_key = 'This is secret'
 db = database.get_session()
 
 
-#ajax and global status 
+#ajax and global status
 
 status = "here"
 
@@ -65,7 +65,7 @@ def addDriver():
 def addUser():
 
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
-    # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of 
+    # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of
     # name entered using the post method and we can get it on the python end by doing request.form['name'] and since the form has an action called '\newdriver the server will know
     # and run whichever function is below the @app.route('/newdriver) line
     firstname = request.form['firstname']
@@ -74,7 +74,7 @@ def addUser():
     email = request.form['email']
     role = request.form['role']
 
-    
+
     # Using the schema we created above we can enter the data we got into the database. Also another copy from http-demo and can be found in line 82 of the http-demo
     new_driver = schema.User(firstname=firstname, lastname=lastname, username=username, email=email, role=role)
 
@@ -84,13 +84,13 @@ def addUser():
     db.add(new_driver)
     db.commit()
 
-    # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do 
+    # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
     # SELECT * FROM "Users"; and it should be the last entry in that table.
     # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
-    
+
     flash("User successfully added")
     return redirect(url_for('admin'))
-        
+
 @app.route('/remove')
 # @login_required
 # @user_is('Admin')
@@ -182,4 +182,4 @@ def logout():
 
 
 if __name__ == '__main__':
-        app.run()
+    app.run()
