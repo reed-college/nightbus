@@ -6,28 +6,21 @@ import database
 
 db = database.get_session()
 
-def login_required(function):
-    @wraps(function)
-    def wrap(*args, **kwargs):
-        if session['logged_in']:
-            return function(*args, **kwargs)
-        else:
-            flash('You need to log in first')
-            return redirect(url_for('login'))
-    return wrap
-
-def user_is(role):
+def login_required(role):
     def wrapper(function):
         @wraps(function)
         def wrap(*args, **kwargs):
-            username = session['username']
-            user = db.query(schema.User).filter_by(username=username).first()
-            if user.role == role:
-                return function(*args, **kwargs)
+            if session['logged_in']:
+                username = session['username']
+                user = db.query(schema.User).filter_by(username=username).first()
+                has_access = (str(user.role).lower() == str(role).lower())
+                if has_access:
+                    return function(*args, **kwargs)
+                else:
+                    return "You don't have permission to view this page"
+
             else:
-                flash("You don't have permissions to view this page")
+                flash("Invalid Credentials")
                 return redirect(url_for('login'))
         return wrap
     return wrapper
-
-
