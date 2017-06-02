@@ -3,7 +3,7 @@ from sqlalchemy import (Column, Integer, String, DateTime)
 from sqlalchemy.ext.declarative import declarative_base
 from passlib.apps import custom_app_context as pwd_context
 from datetime import datetime
-
+import database
 
 # http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/basic_use.html
 Base = declarative_base()
@@ -50,4 +50,5 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
         return pwd_context.verify(password, self.password)
         
 
+Base.metadata.create_all(database.engine)
 
