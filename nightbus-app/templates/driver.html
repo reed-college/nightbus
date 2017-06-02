@@ -3,7 +3,7 @@
 	<title>Nightbus | Drivers</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
-	<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
 </head>
 
@@ -20,10 +20,9 @@
 		</div>
 		<div class="content">
 			<div class="butt box">
-				<h2>Buttons</h2>
-				<button id="here" type="button">On Campus</button>
-				<button id="leaving" type="button">Just Left</button>
-				<button id="coming" type="button">Coming Back</button>
+				<button value="here" id="here" type="button">On Campus</button>
+				<button value="leaving" id="leaving" type="button">Just Left</button>
+				<button value="coming" id="coming" type="button">Coming Back</button>
 			</div>
 			<div class="box">
 				<h2>Instructions</h2>
@@ -31,5 +30,32 @@
 		</div>
 
 	</div>
+	<script type=text/javascript>
+	$(function() {
+		// set up an event listener for the buttons
+	  $('button').bind('click', function() {
+			// get the value of the clicked  button
+	    var clicked = $(this).val();
+			alert(clicked);
+			// send HTTP request via Ajax
+	    $.ajax({
+	      url: 'update_state/',
+	      data: {'state': clicked},
+	      dataType: "json",
+	      type: 'GET',
+	    });
+			// for testing
+	    $.done( function(){
+	      alert("success");
+	    });
+	    $.fail( function (){
+	      alert("error");
+	    });
+	    $.always( function (){
+	      alert("done");
+	    });
+	  });
+	});
+	</script>
 
 </body>

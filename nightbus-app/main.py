@@ -13,14 +13,35 @@ app.secret_key = 'This is secret'
 #auth = HTTPBasicAuth()
 db = database.get_session()
 
+
+#ajax and global status 
+
+status = "here"
+
+class NightBus:
+    def __init__(self):
+        self.current_status = status
+    def get_current_status(self):
+        return self.current_status
+    def update_status(self,new_status):
+        self.current_status = new_status
+
+b  = NightBus()
+
+@app.route('/update_state/')
+def update_state():
+    status = b.update_status(request.args.get('state'))
+
+@app.route('/rider', methods=['GET'])
+def display_status():
+    status = b.get_current_status()
+    return render_template("rider.html", status=status)
+
+# normal app routes
+
 @app.route('/')
 def home():
     return render_template('index.html')
-
-@app.route('/rider')
-@login_required
-def rider():
-    return render_template('rider.html')
 
 @app.route('/driver')
 @login_required
