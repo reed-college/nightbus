@@ -4,7 +4,7 @@
 
 body {
 	min-height: 100vh;
-	background-image: url(https://s3-us-west-2.amazonaws.com/i.cdpn.io/86939.BKJun.1ddac0a8-d1a3-4259-84d7-f59773c308c7.png);
+	background-image: url(http://cdn.wallpapersafari.com/41/44/6LPwg0.png);
 	background-size: cover;
 	color: #a17f1a;
 }
@@ -119,15 +119,18 @@ h2 {
 button {
 	width: 90%;
 	height: 150px;
-	border-radius: 5px;
+	border-radius: 10px;
 	margin-left: 5%;
+	font-family:"Times New Roman", times, serif;
+	color: #a17f1a;
+	font-size: 20px;
+	background-color: lightblue;
 
 }
 
 #coming {
 	width: 90%;
 	height: 150px;
-	border-radius: 5px;
 	margin-left: 5%;
 
 }
@@ -135,19 +138,17 @@ button {
 #here {
 	width: 90%;
 	height: 150px;
-	border-radius: 5px;
 	margin-left: 5%;
 }
 
 #leaving {
 	width: 90%;
 	height: 150px;
-	border-radius: 5px;
 	margin-left: 5%;
 }
 
 
--/*** Forms ***/		
+/*** Forms ***/		
  .form-container {		
  	width: 100%;		
  	height: 300px;		
@@ -161,6 +162,41 @@ button {
  	flex-wrap: wrap;		
  	align-items: center;		
  }
+
+/*** animation ***/
+
+.icon-wrap {
+	width: 30%;
+	height: 50%;
+	position: absolute;
+	display: block;
+	margin-left: 50px;
+	-webkit-animation: mymove 1s infinite;
+}
+
+.icon {
+	width: 60%;
+	height: 50%;
+	position: relative;
+	display: block;
+	margin-left: 10%;
+	margin-right: 10%;
+	-webkit-animation: mymove 1s infinite;
+}
+
+@-webkit-keyframes mymove {
+	0% {
+      transform: translate3d(50px, 40px, 0px);
+      animation-timing-function: ease-in;
+    }
+    50% {
+      transform: translate3d(50px, 50px, 0px);
+      animation-timing-function: ease-out;
+    }
+    100% {
+      transform: translate3d(50px, 40px, 0px);
+    }
+}
 
 /*** DESKTOP ***/ 
 
