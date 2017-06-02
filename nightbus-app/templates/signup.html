@@ -8,11 +8,17 @@
 <body>
 <div class="wrapper">
 	<div class="header">
-		<h1>Remove Users</h1>
+		<h1>Add Users</h1>
 	</div>
 	<div class="content">
-		<form action="/removeuser" method="post">
+		<form action="/register" method="post">
 			<ul class="form-container">
+				<li>
+					Firstname: <input type="text" name="firstname" required><br>
+				</li>				
+				<li>
+					Lastname: <input type="text" name="lastname" required><br>
+				</li>
 				<li>
 					Username: <input type="text" name="username" required><br>
 				</li>
@@ -20,7 +26,13 @@
 					Email: <input type="text" name="email" required><br>
 				</li>
 				<li>
-					<input type="submit" value="Remove!">
+					Role: <input type="text" name="role" required><br>
+				</li>
+				<li>
+					Password: <input type="password" name="password" required><br>
+				</li>
+				<li>
+					<input type="submit" value="Save!">
 				</li>
 			</ul>
 		</form>

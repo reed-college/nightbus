@@ -10,12 +10,40 @@
     <div class="wrapper">
     
         <div class="header">
-            <h1>Welcome to the Nightbus!</h1>
+            <canvas id="myCanvas" width="1200" height="120%" style="border:1px solid #d3d3d3;">
+             Welcome to the NightBus!</canvas>
+            <script>
+               var ctx = document.querySelector("canvas").getContext("2d"),
+                    dashLen = 220, dashOffset = dashLen, speed = 15,
+                    txt = "Welcome to the NightBus!", x = 300, i = 0;
+
+                ctx.font = "50px cursive, TSCu_Comic, sans-serif"; 
+                ctx.lineWidth = 3; ctx.lineJoin = "round"; ctx.globalAlpha = 1;
+                ctx.strokeStyle = ctx.fillStyle = "#a17f1a;";
+
+                (function loop() {
+                  ctx.clearRect(x, 0, 60, 150);
+                  ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+                  dashOffset -= speed;                                         // reduce dash length
+                  ctx.strokeText(txt[i], x, 90);                               // stroke letter
+
+                 if (dashOffset > 0) requestAnimationFrame(loop);             // animate
+                  else {
+                    ctx.fillText(txt[i], x, 90);                               // fill final letter
+                    dashOffset = dashLen;                                      // prep next char
+                   x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
+                    ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random());        // random y-delta
+                    ctx.rotate(Math.random() * 0.005);                         // random rotation
+                    if (i < txt.length) requestAnimationFrame(loop);
+                  }
+                })();
+                </script>
         </div>
 
         <div class="content">
             <div class="butt box">
                 <h2>Please Sign In</h2>
+                <img class="icon" src="../static/yellowbussie.gif" alt="bus-img"/>
                 <button type="button"><a href="../rider" >Rider</a></button>
                 <button type="button"><a href="../driver" >Driver</a></button>
                 <button type="button"><a href="../admin" >Admin</a></button>

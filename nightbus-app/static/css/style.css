@@ -1,7 +1,12 @@
 /*** MOBILE ***/ 
 
+
+
 body {
 	min-height: 100vh;
+	background-image: url(http://cdn.wallpapersafari.com/41/44/6LPwg0.png);
+	background-size: cover;
+	color: #a17f1a;
 }
 
 /*** wrapper is 1550px for riders, drivers, and admin page. 
@@ -20,7 +25,9 @@ It should be 1200px for home page and add/remove driver pages ***/
 	width: 95%;
 	margin-left: 2.5%;
 	margin-bottom: 15px;
-	border: 2px solid black;
+	border: 2px solid white;
+	padding: 5px
+	;
 	border-radius: 5px;
   	background-color: lightblue;
   	display: flex;
@@ -32,22 +39,42 @@ It should be 1200px for home page and add/remove driver pages ***/
 
 }
 
+a {	
+	text-decoration: none;
+	color: #a17f1a;
+
+}
+
 .nav a {
 	margin-right: 15px;
 	text-decoration: none;
-	color: black;
+	color: #a17f1a;
 }
 
 .nav a:visited {
-	color: black;
+	color: #a17f1a;
 }
 
-.nav p {
+.nav h2 {
 	text-align: center;
 
 }
 
 /*** middle of page content ***/
+
+.statusbox{
+	width: 95%;
+	margin-left: 2.5%;
+	margin-bottom: 15px;
+	border: 2px solid white;
+	padding: 5px
+	;
+	border-radius: 5px;
+  	background-color: lightblue;
+  	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 
 .content {
 	margin-top: 15px;
@@ -63,7 +90,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 .box {
 	width: 70%;
 	height: 680px;
-	border: 2px solid black;
+	border: 2px solid #a17f1a;
 	border-radius: 5px;
 	margin-left: 15%;
 }
@@ -81,45 +108,101 @@ It should be 1200px for home page and add/remove driver pages ***/
 h1 {
 	font-family: cursive, times, serif;
 	text-align: center;
+	color:#a17f1a;
 }
 /***font layout for other headers***/
 
 h2 {
 	font-family:"Times New Roman", times, serif;
-	text-align:center;	
+	color: #a17f1a;
+	text-align: center;	
 }
 
 
 /*** Buttons ***/
 
+
 button {
 	width: 90%;
 	height: 150px;
-	border-radius: 5px;
+	border-radius: 10px;
+	margin-left: 5%;
+	font-family:"Times New Roman", times, serif;
+	color: #a17f1a;
+	font-size: 20px;
+	background-color: lightblue;
+
+}
+
+#coming {
+	width: 90%;
+	height: 150px;
+	margin-left: 5%;
+
+}
+
+#here {
+	width: 90%;
+	height: 150px;
+	margin-left: 5%;
+}
+
+#leaving {
+	width: 90%;
+	height: 150px;
 	margin-left: 5%;
 }
 
 
-/*** Forms ***/
-.form-container {
-	width: 100%;
-	height: 300px;
-	background-color: lightblue;
-	display: flex;
-	flex-direction: column;
+/*** Forms ***/		
+ .form-container {		
+ 	width: 100%;		
+ 	height: 300px;		
+ 	background-color: lightblue;		
+ 	display: flex;		
+ 	flex-direction: column;		
+ }		
+ .form-container li {		
+ 	display: flex;		
+ 	flex-direction: column;		
+ 	flex-wrap: wrap;		
+ 	align-items: center;		
+ }
+
+/*** animation ***/
+
+.icon-wrap {
+	width: 30%;
+	height: 50%;
+	position: absolute;
+	display: block;
+	margin-left: 50px;
+	-webkit-animation: mymove 1s infinite;
 }
-.form-container li {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	align-items: center;
+
+.icon {
+	width: 60%;
+	height: 50%;
+	position: relative;
+	display: block;
+	margin-left: 10%;
+	margin-right: 10%;
+	-webkit-animation: mymove 1s infinite;
 }
 
-
-
-
-
-
+@-webkit-keyframes mymove {
+	0% {
+      transform: translate3d(50px, 40px, 0px);
+      animation-timing-function: ease-in;
+    }
+    50% {
+      transform: translate3d(50px, 50px, 0px);
+      animation-timing-function: ease-out;
+    }
+    100% {
+      transform: translate3d(50px, 40px, 0px);
+    }
+}
 
 /*** DESKTOP ***/ 
 
@@ -129,7 +212,7 @@ button {
 		flex-direction: row;
 	}
 	.nav {
-		margin-top: 25px;
+		margin-top: 15px;
 		margin-right: 15px;
 	}
 
@@ -155,4 +238,3 @@ button {
 		width: 45%;
 		margin-left: 0;
 	} 
-
