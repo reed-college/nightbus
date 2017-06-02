@@ -14,6 +14,8 @@ app.secret_key = 'This is secret'
 db = database.get_session()
 
 
+
+
 #ajax and global status 
 
 status = "here"
@@ -89,7 +91,7 @@ def addUser():
     return redirect(url_for('admin'))
         
 @app.route('/remove')
-@login_required
+@login_required('admin')
 def rmDriver():
     return render_template('remove.html')
 
@@ -152,15 +154,18 @@ def authenticate():
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
     user_role = db.query(schema.User).filter_by(username=username).first()
 
-    if user_auth.verify_password(password):
-        session['username'] = username
-        session['logged_in'] = True
+    if user_auth:
+        if user_auth.verify_password(password):
+            session['username'] = username
+            session['logged_in'] = True
 
-        return redirect(url_for('home'))
+            return redirect(url_for('home'))
 
+        else:
+            flash('Invalid Credentials')
+            return redirect(url_for('login'))
     else:
-        flash('Invalid Credentials')
-        return redirect(url_for('login'))
+        return "User doesn't exist please sign up"
 
 
 @app.route('/logout')
