@@ -39,6 +39,12 @@ It should be 1200px for home page and add/remove driver pages ***/
 
 }
 
+a {	
+	text-decoration: none;
+	color: #a17f1a;
+
+}
+
 .nav a {
 	margin-right: 15px;
 	text-decoration: none;
