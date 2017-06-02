@@ -3,7 +3,7 @@ import facebook
 def main(message):
     cfg = {
         "page_id": 132893597268288,
-        "access_token": "EAARyarxPwBgBAEVhCid6tCDR3D2FC1fZADDag9gaG2hpEkPWzehnqAF4X2lL7nh158630euzeytIxvP2UE72TZBPLgkRJEhBYrELyXdBA92qO1eU4mnTn0bK0Ykb6WJMLwroDUy9jTGZB3DFGeUR9rWFtIx6J4ZD"
+        "access_token": "EAAUg264tb5wBADKZA3dn8x1TUaFWIGGG2ouCOfAfERxnOajfZBaplk2Ivnv2TZATNqd1oCMYNohhwoVzmhN9VZAykP3nfhxQ9xKhQXc2ncdr8qcYwpWrHHZBcQZB2WZBU4OiaBZCZAgHehUhKK3r1sdHybT3tN8E68loZD"
     }
 
     api = get_api(cfg)
@@ -19,4 +19,4 @@ def get_api(cfg):
     return graph
 
 if __name__ == "__main__":
-        main("Hey it's me Hien!")
+    main()

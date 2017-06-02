@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from decorators import login_required, user_is
 import schema
 import database
-
+import post_to_fb
 
 #from flask_httpauth import HTTPBasicAuth
 
@@ -30,11 +30,12 @@ b  = NightBus()
 
 @app.route('/update_state/')
 def update_state():
-    status = b.update_status(request.args.get('state'))
+    b.update_status(request.args.get('state'))
 
 @app.route('/rider', methods=['GET'])
 def display_status():
     status = b.get_current_status()
+    post_to_fb.main("the Nightbus is " + status)
     return render_template("rider.html", status=status)
 
 # normal app routes
@@ -178,7 +179,6 @@ def logout():
     session['logged_in'] = False
     session.pop('username', None)
     return redirect (url_for('home'))
-
 
 
 if __name__ == '__main__':
