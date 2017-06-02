@@ -13,30 +13,51 @@ app.secret_key = 'This is secret'
 #auth = HTTPBasicAuth()
 db = database.get_session()
 
+
+#ajax and global status 
+
+status = "here"
+
+class NightBus:
+    def __init__(self):
+        self.current_status = status
+    def get_current_status(self):
+        return self.current_status
+    def update_status(self,new_status):
+        self.current_status = new_status
+
+b  = NightBus()
+
+@app.route('/update_state/')
+def update_state():
+    status = b.update_status(request.args.get('state'))
+
+@app.route('/rider', methods=['GET'])
+def display_status():
+    status = b.get_current_status()
+    return render_template("rider.html", status=status)
+
+# normal app routes
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/rider')
-@login_required
-def rider():
-    return render_template('rider.html')
-
 @app.route('/driver')
-@login_required
-@user_is('Driver')
+#@login_required
+#@user_is('Driver')
 def driver():
     return render_template('driver.html')
 
 @app.route('/admin')
-@login_required
-@user_is('Admin')
+#@login_required
+#@user_is('Admin')
 def admin():
     return render_template('admin.html')
 
 @app.route('/add')
-@login_required
-@user_is('Admin')
+#@login_required
+#@user_is('Admin')
 def addDriver():
     return render_template('add.html')
 
@@ -71,8 +92,8 @@ def addUser():
     return redirect(url_for('admin'))
         
 @app.route('/remove')
-@login_required
-@user_is('Admin')
+# @login_required
+# @user_is('Admin')
 def rmDriver():
     return render_template('remove.html')
 
@@ -143,11 +164,11 @@ def validate_credentials():
         session['username'] = username
         session['logged_in'] = True
         if user_role.role == 'Admin':
-            return redirect(url_for('admin'))
+            return render_template('admin.html')
         elif user_role.role == 'Driver':
-            return redirect(url_for('driver'))
+            return render_template('driver.html')
         else:
-            return redirect(url_for('rider'))
+            return render_template('rider.html')
     else:
         flash('Invalid Credentials')
         return redirect(url_for('login'))
