@@ -44,20 +44,20 @@ def home():
     return render_template('index.html')
 
 @app.route('/driver')
-@login_required
-@user_is('Driver')
+#@login_required
+#@user_is('Driver')
 def driver():
     return render_template('driver.html')
 
 @app.route('/admin')
-@login_required
-@user_is('Admin')
+#@login_required
+#@user_is('Admin')
 def admin():
     return render_template('admin.html')
 
 @app.route('/add')
-@login_required
-@user_is('Admin')
+#@login_required
+#@user_is('Admin')
 def addDriver():
     return render_template('add.html')
 
@@ -92,8 +92,8 @@ def addUser():
     return redirect(url_for('admin'))
         
 @app.route('/remove')
-@login_required
-@user_is('Admin')
+# @login_required
+# @user_is('Admin')
 def rmDriver():
     return render_template('remove.html')
 
@@ -164,11 +164,11 @@ def validate_credentials():
         session['username'] = username
         session['logged_in'] = True
         if user_role.role == 'Admin':
-            return redirect(url_for('admin'))
+            return render_template('admin.html')
         elif user_role.role == 'Driver':
-            return redirect(url_for('driver'))
+            return render_template('driver.html')
         else:
-            return redirect(url_for('rider'))
+            return render_template('rider.html')
     else:
         flash('Invalid Credentials')
         return redirect(url_for('login'))
