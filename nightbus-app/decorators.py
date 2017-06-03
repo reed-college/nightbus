@@ -17,7 +17,7 @@ def login_required(role):
                 if has_access:
                     return function(*args, **kwargs)
                 else:
-                    return "You don't have permission to view this page"
+                    return render_template('no_access.html')
 
             else:
                 flash("Invalid Credentials")

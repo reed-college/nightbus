@@ -105,7 +105,9 @@ def removeUser():
     # two different people having two different user names. More documentation on querying and just general sqlalchemy knowledge can be found at http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
     # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
     user = db.query(schema.User).filter_by(username=username).first()
+    user_auth = db.query(schema.Auth).filter_by(username=username).first()
     db.delete(user)
+    db.delete(user_auth)
     db.commit()
 
 
@@ -165,7 +167,7 @@ def authenticate():
             flash('Invalid Credentials')
             return redirect(url_for('login'))
     else:
-        return "User doesn't exist please sign up"
+        return render_template('no_user.html')
 
 
 @app.route('/logout')
@@ -174,6 +176,9 @@ def logout():
     session.pop('username', None)
     return redirect (url_for('home'))
 
+@app.route('/no_user')
+def no_user():
+    return render_template('no_user.html')
 
 
 if __name__ == '__main__':
