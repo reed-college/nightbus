@@ -1,4 +1,4 @@
-from flask import session, flash, redirect, url_for
+from flask import session, flash, redirect, url_for, render_template
 from functools import wraps
 import schema
 import database
@@ -13,8 +13,9 @@ def login_required(role):
             if session['logged_in']:
                 username = session['username']
                 user = db.query(schema.User).filter_by(username=username).first()
-                has_access = (str(user.role).lower() == str(role).lower())
-                if has_access:
+                if str(user.role).lower() == 'admin':
+                    return function(*args, **kwargs)
+                elif str(user.role).lower() == str(role).lower():
                     return function(*args, **kwargs)
                 else:
                     return render_template('no_access.html')
