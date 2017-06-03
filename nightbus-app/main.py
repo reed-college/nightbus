@@ -31,11 +31,11 @@ b  = NightBus()
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
+    post_to_fb.main("the Nightbus is " + b.current_status + "!")
 
 @app.route('/rider', methods=['GET'])
 def display_status():
     status = b.get_current_status()
-    post_to_fb.main("the Nightbus is " + status)
     return render_template("rider.html", status=status)
 
 # normal app routes
