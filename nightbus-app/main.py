@@ -26,7 +26,14 @@ class NightBus:
     def update_status(self,new_status):
         self.current_status = new_status
 
+
 b  = NightBus()
+
+
+# I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
+@app.before_request
+def set_session():
+    session['logged_in'] = False
 
 @app.route('/update_state/')
 def update_state():
