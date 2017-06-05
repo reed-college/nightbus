@@ -43,10 +43,16 @@
         <div class="content">
             <div class="butt box">
                 <h2>Please Sign In</h2>
-                <img class="icon" src="../static/yellowbussie.gif" alt="bus-img"/>
-                <a href="../rider" ><button type="button">Rider</button></a>
-                <a href="../driver" ><button type="button">Driver</button></a>
-                <a href="../admin" ><button type="button">Admin</button></a>
+                {% if "here" in status %}
+                <img class="icon" src="../static/here.gif" alt="bus-img"/>
+                {% elif "coming" in status %}
+                <img class="icon" src="../static/coming.gif" alt="bus-img"/>
+                {% else %}
+                <img class="icon" src="../static/leaving.gif" alt="bus-img"/>
+                {% endif %}
+                <button type="button"><a href="../rider" >Rider</a></button>
+                <button type="button"><a href="../driver" >Driver</a></button>
+                <button type="button"><a href="../admin" >Admin</a></button>
             </div>
         </div>
 

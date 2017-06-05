@@ -31,9 +31,9 @@ b  = NightBus()
 
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
-@app.before_request
-def set_session():
-    session['logged_in'] = False
+#@app.before_request
+#def set_session():
+  #  session['logged_in'] = False
 
 @app.route('/update_state/')
 def update_state():
@@ -47,9 +47,10 @@ def display_status():
 
 # normal app routes
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html')
+    status = b.get_current_status()
+    return render_template('index.html', status=status)
 
 @app.route('/driver')
 @login_required('driver')
