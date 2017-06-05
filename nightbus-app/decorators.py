@@ -1,4 +1,4 @@
-from flask import session, flash, redirect, url_for
+from flask import session, flash, redirect, url_for, render_template
 from functools import wraps
 import schema
 import database
@@ -6,28 +6,22 @@ import database
 
 db = database.get_session()
 
-def login_required(function):
-    @wraps(function)
-    def wrap(*args, **kwargs):
-        if session['logged_in']:
-            return function(*args, **kwargs)
-        else:
-            flash('You need to log in first')
-            return redirect(url_for('login'))
-    return wrap
-
-def user_is(role):
+def login_required(role):
     def wrapper(function):
         @wraps(function)
         def wrap(*args, **kwargs):
-            username = session['username']
-            user = db.query(schema.User).filter_by(username=username).first()
-            if user.role == role:
-                return function(*args, **kwargs)
+            if session['logged_in']:
+                username = session['username']
+                user = db.query(schema.User).filter_by(username=username).first()
+                if str(user.role).lower() == 'admin':
+                    return function(*args, **kwargs)
+                elif str(user.role).lower() == str(role).lower():
+                    return function(*args, **kwargs)
+                else:
+                    return render_template('no_access.html')
+
             else:
-                flash("You don't have permissions to view this page")
+                flash("Invalid Credentials")
                 return redirect(url_for('login'))
         return wrap
     return wrapper
-
-

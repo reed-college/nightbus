@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from decorators import login_required, user_is
+from decorators import login_required
 import schema
 import database
 import post_to_fb
@@ -45,20 +45,17 @@ def home():
     return render_template('index.html')
 
 @app.route('/driver')
-#@login_required
-#@user_is('Driver')
+@login_required('driver')
 def driver():
     return render_template('driver.html')
 
 @app.route('/admin')
-#@login_required
-#@user_is('Admin')
+@login_required('admin')
 def admin():
     return render_template('admin.html')
 
 @app.route('/add')
-#@login_required
-#@user_is('Admin')
+@login_required('admin')
 def addDriver():
     return render_template('add.html')
 
@@ -93,8 +90,7 @@ def addUser():
     return redirect(url_for('admin'))
 
 @app.route('/remove')
-# @login_required
-# @user_is('Admin')
+@login_required('admin')
 def rmDriver():
     return render_template('remove.html')
 
@@ -108,7 +104,9 @@ def removeUser():
     # two different people having two different user names. More documentation on querying and just general sqlalchemy knowledge can be found at http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
     # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
     user = db.query(schema.User).filter_by(username=username).first()
+    user_auth = db.query(schema.Auth).filter_by(username=username).first()
     db.delete(user)
+    db.delete(user_auth)
     db.commit()
 
 
@@ -145,34 +143,31 @@ def register():
 
     return "User successfully registered"
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET'])
 def login():
-    # This is the route you should go to in order to test if login works. You have to sign up using the registration page before you can log in. Our next step should be trying to
-    # figure out how to make things visible only for certain users and all that stuff.
     return render_template('login.html')
 
-
-@app.route('/validate_credentials', methods=['GET', 'POST'])
-def validate_credentials():
-    # This function asks for a username and a password and it queries the database for that username and uses the predefined verify_password method to log you in or not log you in.
+@app.route('/authenticate', methods=['POST'])
+def authenticate():
     username = request.form['username']
     password = request.form['password']
 
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
     user_role = db.query(schema.User).filter_by(username=username).first()
 
-    if user_auth.verify_password(password):
-        session['username'] = username
-        session['logged_in'] = True
-        if user_role.role == 'Admin':
-            return render_template('admin.html')
-        elif user_role.role == 'Driver':
-            return render_template('driver.html')
+    if user_auth:
+        if user_auth.verify_password(password):
+            session['username'] = username
+            session['logged_in'] = True
+
+            return redirect(url_for('home'))
+
         else:
-            return render_template('rider.html')
+            flash('Invalid Credentials')
+            return redirect(url_for('login'))
     else:
-        flash('Invalid Credentials')
-        return redirect(url_for('login'))
+        return render_template('no_user.html')
+
 
 @app.route('/logout')
 def logout():
@@ -180,6 +175,9 @@ def logout():
     session.pop('username', None)
     return redirect (url_for('home'))
 
+@app.route('/no_user')
+def no_user():
+    return render_template('no_user.html')
 
 if __name__ == '__main__':
     app.run()
