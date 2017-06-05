@@ -35,10 +35,6 @@ It should be 1200px for home page and add/remove driver pages ***/
 	justify-content: space-between;
 }
 
-.nav {
-
-}
-
 a {	
 	text-decoration: none;
 	color: #a17f1a;
@@ -67,8 +63,7 @@ a {
 	margin-left: 2.5%;
 	margin-bottom: 15px;
 	border: 2px solid white;
-	padding: 5px
-	;
+	padding: 5px;
 	border-radius: 5px;
   	background-color: lightblue;
   	display: flex;
@@ -82,7 +77,7 @@ a {
 	height: 1400px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: flex-start;
 }
 
 /*** individual boxes ***/ 
@@ -93,6 +88,7 @@ a {
 	border: 2px solid #a17f1a;
 	border-radius: 5px;
 	margin-left: 15%;
+	margin-bottom: 20px;
 }
 
 .butt {
@@ -102,6 +98,15 @@ a {
 
 }
 
+.dex-box {
+	width: 70%;
+	height: 850px;
+	border-radius: 5px;
+	margin-left: 15%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;	
+}
 
 /*** font layout for main header***/ 
 
@@ -172,23 +177,27 @@ button {
 /*** animation ***/
 
 .icon-wrap {
-	width: 30%;
-	height: 50%;
-	position: absolute;
-	display: block;
-	margin-left: 50px;
-	-webkit-animation: mymove 1s infinite;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 .icon {
-	width: 60%;
-	height: 50%;
-	position: relative;
-	display: block;
-	margin-left: 10%;
-	margin-right: 10%;
+	height: 350px;
+	width: 350px;
+	margin-right: 15%;
 	-webkit-animation: mymove 1s infinite;
 }
+
+.dex-icon {
+	margin-top: -50px;
+	height: 350px;
+	width: 350px;
+	margin-right: 15%;
+	-webkit-animation: mymove 1s infinite;
+}
+
 
 @-webkit-keyframes mymove {
 	0% {
@@ -242,9 +251,20 @@ th {
 
 	.content {
 		flex-direction: row;
+		justify-content: space-around;
 	}
 
 	.box {
 		width: 45%;
 		margin-left: 0;
 	} 
+
+	.dex-box {
+		margin-left: 0px;
+	}
+
+	.icon {
+		margin-right: 17.5%;
+	}
+
+

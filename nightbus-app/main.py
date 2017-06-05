@@ -53,12 +53,12 @@ def home():
     return render_template('index.html', status=status)
 
 @app.route('/driver')
-@login_required('driver')
+# @login_required('driver')
 def driver():
     return render_template('driver.html')
 
 @app.route('/admin')
-@login_required('admin')
+# @login_required('admin')
 def admin():
     return render_template('admin.html')
 
