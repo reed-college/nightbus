@@ -204,6 +204,16 @@ button {
     }
 }
 
+/*** Rider Page Schedule Tables ***/ 
+
+.schedule {
+	margin-top: 25px;
+}
+
+th {
+	padding-bottom: 20px;
+}
+
 /*** DESKTOP ***/ 
 
 @media only screen and (min-width: 1000px) {
