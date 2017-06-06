@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+	<title>Nightbus | Add Users </title>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="header">
+		<h1>Send Email</h1>
+	</div>
+	<div class="content">
+		<form action="/send_email" method="post">
+			<ul class="form-container">
+				<li>
+					To: <input type="text" name="to" required><br>
+				</li>
+				<li>
+					Subject: <input type="text" name="subject" required><br>
+				</li>
+				<li>
+					Message: <input type ="text" name="message" required><br>
+				</li>
+				<li>
+					<input type="submit" value="Save!">
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+</body>
+</html>
