@@ -19,6 +19,13 @@ It should be 1200px for home page and add/remove driver pages ***/
 	flex-direction: column;
 }
 
+.iwrapper {
+	width: 100%;
+	height: 1050px;
+	display: flex;
+	flex-direction: column;
+}
+
 /*** header block ***/
 
 .header {
