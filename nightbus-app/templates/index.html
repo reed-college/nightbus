@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="iwrapper">
     
         <div class="header">
             <canvas id="myCanvas" width="1200" height="120%" style="border:1px solid #d3d3d3;">
@@ -41,15 +41,16 @@
         </div>
 
         <div class="content">
-            <div class="butt box">
-                <h2>Please Sign In</h2>
+            <div class="dex-box">
+                <div class="icon-wrap">
                 {% if "here" in status %}
-                <img class="icon" src="../static/here.gif" alt="bus-img"/>
+                <img class="dex-icon" src="../static/here.gif" alt="bus-img"/>
                 {% elif "coming" in status %}
-                <img class="icon" src="../static/coming.gif" alt="bus-img"/>
+                <img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
                 {% else %}
-                <img class="icon" src="../static/leaving.gif" alt="bus-img"/>
+                <img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
                 {% endif %}
+                </div>
                 <a href="../rider" ><button type="button">Rider</button></a>
                 <a href="../driver" ><button type="button">Driver</button></a>
                 <a href="../admin" ><button type="button">Admin</button></a>
