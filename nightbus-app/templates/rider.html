@@ -18,10 +18,17 @@
 		<div class="content">
 			<div class="box">
 				<h2>Bus Status</h2>
-				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
-				<div class="icon-wrap">
-					<img class="icon" src="../static/yellowbussie.gif" alt="bus-img">
-				</div>				
+				
+			                <div class="icon-wrap">
+			                {% if "here" in status %}
+			                <img class="dex-icon" src="../static/here.gif" alt="bus-img"/>
+			                {% elif "coming" in status %}
+			                <img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
+			                {% else %}
+			                <img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
+			                {% endif %}
+			                </div>
+			                <h2 id="whereis">The Nightbus is {{ status }}!</h2>			
 			</div>
 			<div class="box">
 				<h2>Schedule</h2>
