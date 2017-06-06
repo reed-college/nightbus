@@ -1,5 +1,1 @@
-nightbus-app/main.pyc
-nightbus-app/database.pyc
-nightbus-app/decorators.pyc
-nightbus-app/post_to_fb.pyc
-nightbus-app/schema.pyc
+nightbus-app/*.pyc
