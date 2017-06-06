@@ -36,4 +36,28 @@ $(document).ready(function(){
 })
 
 
-
+$(function() {
+        // set up an event listener for the buttons
+      $('button').bind('click', function() {
+            // get the value of the clicked  button
+        var clicked = $(this).val();
+            alert(clicked);
+            // send HTTP request via Ajax
+        $.ajax({
+          url: 'update_state/',
+          data: {'state': clicked},
+          dataType: "json",
+          type: 'GET',
+        });
+            // for testing
+        $.done( function(){
+          alert("success");
+        });
+        $.fail( function (){
+          alert("error");
+        });
+        $.always( function (){
+          alert("done");
+        });
+      });
+    });
