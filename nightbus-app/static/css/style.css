@@ -181,7 +181,15 @@ button {
  	align-items: center;		
  }
 
-/*** animation ***/
+ /*** cancel buses button ***/
+
+ .red-button {
+ 	margin-left: 20%;
+ 	height: 350px;
+ 	width: 350px;
+ }
+
+/*** animation and bussie ***/
 
 .icon-wrap {
 	width: 100%;
@@ -274,4 +282,7 @@ th {
 		margin-right: 17.5%;
 	}
 
+	.red-button {
+		margin-left: 12.5%;
+	}
 
