@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from decorators import login_required
+from itsdangerous import URLSafeTimedSerializer
+from flask_mail import Message, Mail 
 import schema
 import database
 import post_to_fb
@@ -12,6 +14,37 @@ app = Flask(__name__)
 app.secret_key = 'This is secret'
 #auth = HTTPBasicAuth()
 db = database.get_session()
+
+mail = Mail()
+ 
+app.config["MAIL_SERVER"]='smtp.gmail.com'
+app.config["MAIL_PORT"]=465
+app.config["MAIL_USE_SSL"]=True
+app.config["MAIL_USERNAME"]='abenezer.mammo@gmail.com'
+app.config["MAIL_PASSWORD"]='a1b2i3arsema@!!@'
+app.config['SECRET_KEY'] = 'TheIli@dofHomer'
+
+mail.init_app(app)
+
+
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    return serializer.dumps(email, salt='ughsecurity')
+
+def confirm_email_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    try:
+        email = serializer.loads(token, salt='ughsecurity', max_age = expiration)
+    except:
+        return False
+
+    return email
+
+def send_mail(to, subject, message):
+    msg = Message(subject, recipients=[to], sender='abmamo@reed.edu')
+    msg.body = message
+    mail.send(msg)
+
 
 
 #ajax and global status
@@ -46,6 +79,7 @@ def display_status():
     return render_template("rider.html", status=status)
 
 # normal app routes
+
 
 @app.route('/')
 def home():
@@ -120,6 +154,21 @@ def removeUser():
     flash('User successfully removed')
     return redirect(url_for('admin'))
 
+@app.route('/email', methods=['GET', 'POST'])
+def email():
+    return render_template('email.html')
+
+@app.route('/send_email', methods=['GET', 'POST'])
+def send_email():
+    to = request.form['to']
+    subject = request.form['subject']
+    message = request.form['message']
+
+    send_mail(to, subject, message)
+
+    return "email successfully sent"
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     return render_template('signup.html')
@@ -148,7 +197,29 @@ def register():
     db.add(user_auth)
     db.commit()
 
+
+    subject = 'Confirm Your Email'
+    token = generate_confirmation_token(email)
+    confirm_url = url_for('confirm_email', token = token, _external=True)
+    html = render_template('activate.html', confirm_url = confirm_url)
+    send_mail(user.email, subject, html)
+
+
     return "User successfully registered"
+
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    email = confirm_email_token(token)
+    
+    user = db.query(schema.User).filter_by(email=email).first()
+
+    user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
+    user_auth.confirmed = True
+
+    db.add(user_auth)
+    db.commit()
+
+    return "E-Mail Successfully Confirmed"
 
 @app.route('/login', methods=['GET'])
 def login():
