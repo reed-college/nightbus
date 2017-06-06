@@ -57,6 +57,24 @@ def home():
 def driver():
     return render_template('driver.html')
 
+
+
+
+##### begin test ######
+
+@app.route('/schedule')
+# @login_required('driver')
+def schedule():
+    drivers = db.query(schema.User).all()
+    return render_template('schedule.html', drivers = drivers)
+
+
+
+
+
+
+##### end test #######
+
 @app.route('/admin')
 # @login_required('admin')
 def admin():
