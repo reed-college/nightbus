@@ -1,1 +1,1 @@
-web gunicorn main:app
+web: gunicorn nightbus-app.wsgi --log-file -
