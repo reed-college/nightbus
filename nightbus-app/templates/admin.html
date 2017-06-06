@@ -3,6 +3,8 @@
 	<title>Nightbus | Drivers</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src='../static/main.js'></script>
 </head>
 
 <body>
@@ -17,7 +19,7 @@
 
 		<div class="content">
 			<div class="butt box">
-				 <img class="red-button" src="https://lh5.ggpht.com/7k1SMyVseMTTGsHApqGYlU68mfz9GJtlrYzn8mlf6OadXdcNRQ3a7Hsq7j2IXO3pY74J=w300">
+				 <button value="cancelled" id="cancelled" type="button">Cancel NightBus</button>
 				<a href="../add" ><button type="button">Add Driver</button></a>
 				<a href="../remove" ><button type="button">Remove Driver</button></a>
 			</div>
@@ -29,5 +31,4 @@
 		</div>
 
 	</div>
-
 </body>
