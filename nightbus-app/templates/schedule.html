@@ -16,8 +16,75 @@
             <h2><a href="/" >Sign-In</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
         </div>
         <div class = "box">
+            <p> Monday </p>
         <div class = "dropdown">
             <form action = "/assignmonday" method="post">
+            <select name = "driver_id">
+            {% for person in drivers %}
+            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+            {% endfor %}
+        </select>
+        <input type ="submit">
+    </form>
+        </div>
+        <p> Tuesday </p>
+        <div class = "dropdown">
+            <form action = "/assigntuesday" method="post">
+            <select name = "driver_id">
+            {% for person in drivers %}
+            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+            {% endfor %}
+        </select>
+        <input type ="submit">
+    </form>
+        </div>
+        <p> Wednesday </p>
+        <div class = "dropdown">
+            <form action = "/assignwednesday" method="post">
+            <select name = "driver_id">
+            {% for person in drivers %}
+            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+            {% endfor %}
+        </select>
+        <input type ="submit">
+    </form>
+        </div>
+        <p> Thursday </p>
+        <div class = "dropdown">
+            <form action = "/assignthursday" method="post">
+            <select name = "driver_id">
+            {% for person in drivers %}
+            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+            {% endfor %}
+        </select>
+        <input type ="submit">
+    </form>
+        </div>
+        <p> Friday </p>
+        <div class = "dropdown">
+            <form action = "/assignfriday" method="post">
+            <select name = "driver_id">
+            {% for person in drivers %}
+            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+            {% endfor %}
+        </select>
+        <input type ="submit">
+    </form>
+        </div>
+        <p> Saturday </p>
+        <div class = "dropdown">
+            <form action = "/assignsaturday" method="post">
+            <select name = "driver_id">
+            {% for person in drivers %}
+            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+            {% endfor %}
+        </select>
+        <input type ="submit">
+    </form>
+        </div>
+        <p> Sunday </p>
+        <div class = "dropdown">
+            <form action = "/assignsunday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
