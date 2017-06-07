@@ -14,7 +14,6 @@ import post_to_fb
 app = Flask(__name__)
 app.secret_key = 'This is secret'
 #auth = HTTPBasicAuth()
-db = database.get_session()
 
 mail = Mail()
  
@@ -102,7 +101,7 @@ def addDriver():
 
 @app.route('/adduser', methods=['POST'])
 def addUser():
-
+    db = database.get_session()
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
     # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of
     # name entered using the post method and we can get it on the python end by doing request.form['name'] and since the form has an action called '\newdriver the server will know
@@ -138,6 +137,7 @@ def rmDriver():
 
 @app.route('/removeuser', methods=['POST'])
 def removeUser():
+    db = database.get_session()
     # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
     # that was entered in the form using the request library that comes with flask.
     username = request.form['username']
@@ -182,6 +182,8 @@ def register():
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
     # the person signed up with. We don't actually store the password we encrypt it using the passlib library that we imported above. We then add both entries to their respective
     # tables and we commit and then we are done.
+    
+    db = database.get_session()
 
     firstname = request.form['firstname']
     lastname = request.form['lastname']
@@ -197,6 +199,7 @@ def register():
     db.add(user)
     db.add(user_auth)
     db.commit()
+    db.close()
 
 
 #    subject = 'Confirm Your Email'
@@ -210,6 +213,7 @@ def register():
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
+    db = database.get_session()
     email = confirm_email_token(token)
     
     user = db.query(schema.User).filter_by(email=email).first()
@@ -228,6 +232,8 @@ def login():
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
+
+    db = database.get_session()
     username = request.form['username']
     password = request.form['password']
 
@@ -240,6 +246,7 @@ def authenticate():
             session['username'] = username
             session['logged_in'] = True
 
+            db.close()
             return redirect(url_for('home'))
 
         else:
