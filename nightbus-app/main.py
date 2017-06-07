@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from decorators import login_required
-from itsdangerous import URLSafeTimedSerializer
 from flask_mail import Message, Mail 
+from mail_confirmation import generate_confirmation_token, confirm_email_token, send_mail
+from itsdangerous import URLSafeTimedSerializer
+import config
 import schema
 import database
 import post_to_fb
@@ -11,40 +13,11 @@ import post_to_fb
 
 
 app = Flask(__name__)
-app.secret_key = 'This is secret'
-#auth = HTTPBasicAuth()
 db = database.get_session()
-
 mail = Mail()
- 
-app.config["MAIL_SERVER"]='smtp.gmail.com'
-app.config["MAIL_PORT"]=465
-app.config["MAIL_USE_SSL"]=True
-app.config["MAIL_USERNAME"]='whateveryouremailis'
-app.config["MAIL_PASSWORD"]='whateveryourpasswordis'
-app.config['SECRET_KEY'] = 'TheIli@dofHomer'
-
+app.config.from_object('config.TestConfig')
 mail.init_app(app)
-
-
-def generate_confirmation_token(email):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    return serializer.dumps(email, salt='ughsecurity')
-
-def confirm_email_token(token, expiration=3600):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    try:
-        email = serializer.loads(token, salt='ughsecurity', max_age = expiration)
-    except:
-        return False
-
-    return email
-
-def send_mail(to, subject, message):
-    msg = Message(subject, recipients=[to], sender='abmamo@reed.edu')
-    msg.body = message
-    mail.send(msg)
-
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
 #ajax and global status
@@ -64,9 +37,9 @@ b  = NightBus()
 
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
-@app.before_request
-def set_session():
-    session['logged_in'] = False
+#@app.before_request
+#def set_session():
+#    session['logged_in'] = False
 
 @app.route('/update_state/')
 def update_state():
@@ -199,7 +172,7 @@ def register():
 
 
     subject = 'Confirm Your Email'
-    token = generate_confirmation_token(email)
+    token = generate_confirmation_token(email, serializer)
     confirm_url = url_for('confirm_email', token = token, _external=True)
     html = render_template('activate.html', confirm_url = confirm_url)
     send_mail(user.email, subject, html)
@@ -209,7 +182,7 @@ def register():
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
-    email = confirm_email_token(token)
+    email = confirm_email_token(token, serializer)
     
     user = db.query(schema.User).filter_by(email=email).first()
 
@@ -238,6 +211,7 @@ def authenticate():
             session['username'] = username
             session['logged_in'] = True
 
+            flash('Welcome')
             return redirect(url_for('home'))
 
         else:
