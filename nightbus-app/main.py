@@ -197,7 +197,6 @@ def register():
     db.add(user)
     db.add(user_auth)
     db.commit()
-    db.close()
 
 
     subject = 'Confirm Your Email'
