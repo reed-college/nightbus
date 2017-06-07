@@ -181,11 +181,11 @@ def register():
         # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they 
         # should be redirected to the function immediately below.
 
-        subject = 'Confirm Your Email'
-        token = generate_confirmation_token(email, serializer)
-        confirm_url = url_for('confirm_email', token = token, _external=True)
-        html = render_template('activate.html', confirm_url = confirm_url)
-        send_mail(user.email, subject, html, mail)
+#        subject = 'Confirm Your Email'
+#        token = generate_confirmation_token(email, serializer)
+#        confirm_url = url_for('confirm_email', token = token, _external=True)
+#        html = render_template('activate.html', confirm_url = confirm_url)
+#        send_mail(user.email, subject, html, mail)
 
         db.close()
         flash('User successfully registered')
