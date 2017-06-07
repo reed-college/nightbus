@@ -53,8 +53,8 @@ class Monday(Base, IdPrimaryMixin):
     __tablename__ = 'monday'
 
     driver_id = Column(Integer)
-    firstname = Column(String(20), nullable=False)
-    lastname = Column(String(20), nullable=False)
+    firstname = Column(String(20))
+    lastname = Column(String(20))
 
         
 

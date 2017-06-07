@@ -76,7 +76,10 @@ def assign():
     #db.delete(old)
     #db.commit()
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    db.query(schema.Monday).add(new)
+    day = db.query(schema.Monday).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
     db.commit()
     flash("Shift successfully assigned")
     return redirect(url_for('schedule'))
