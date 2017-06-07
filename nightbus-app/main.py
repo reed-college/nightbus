@@ -20,8 +20,8 @@ mail = Mail()
 app.config["MAIL_SERVER"]='smtp.gmail.com'
 app.config["MAIL_PORT"]=465
 app.config["MAIL_USE_SSL"]=True
-app.config["MAIL_USERNAME"]='whateveryouremailis'
-app.config["MAIL_PASSWORD"]='whateveryourpasswordis'
+app.config["MAIL_USERNAME"]='abenezer.mammo@gmail.com'
+app.config["MAIL_PASSWORD"]='a1b2i3arsema@!!@'
 app.config['SECRET_KEY'] = 'TheIli@dofHomer'
 
 mail.init_app(app)
@@ -96,7 +96,6 @@ def admin():
     return render_template('admin.html')
 
 @app.route('/add')
-@login_required('admin')
 def addDriver():
     return render_template('add.html')
 
@@ -122,6 +121,7 @@ def addUser():
     # entered into the databse.
     db.add(new_driver)
     db.commit()
+    db.close()
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
     # SELECT * FROM "Users"; and it should be the last entry in that table.
@@ -196,6 +196,7 @@ def register():
     db.add(user)
     db.add(user_auth)
     db.commit()
+    db.close()
 
 
     subject = 'Confirm Your Email'
@@ -218,7 +219,7 @@ def confirm_email(token):
 
     db.add(user_auth)
     db.commit()
-
+    db.close()
     return "E-Mail Successfully Confirmed"
 
 @app.route('/login', methods=['GET'])
@@ -232,6 +233,7 @@ def authenticate():
 
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
     user_role = db.query(schema.User).filter_by(username=username).first()
+
 
     if user_auth:
         if user_auth.verify_password(password):
