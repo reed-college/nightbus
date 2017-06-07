@@ -77,6 +77,10 @@ def driver():
     return render_template('driver.html')
 
 
+@app.route('/display')
+def display():
+    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    return render_template('display.html', drivers = drivers)
 
 
 
