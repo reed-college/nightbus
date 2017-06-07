@@ -95,7 +95,7 @@ def schedule():
 def assignmon():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='monday').first()
+    day = db.query(schema.Schedule).filter_by(id=1).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
@@ -107,7 +107,7 @@ def assignmon():
 def assigntues():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='tuesday').first()
+    day = db.query(schema.Schedule).filter_by(id=2).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
@@ -119,7 +119,7 @@ def assigntues():
 def assignwed():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='wednesday').first()
+    day = db.query(schema.Schedule).filter_by(id=3).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
@@ -131,7 +131,7 @@ def assignwed():
 def assignthurs():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='thursday').first()
+    day = db.query(schema.Schedule).filter_by(id=4).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
@@ -143,7 +143,7 @@ def assignthurs():
 def assignfri():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='friday').first()
+    day = db.query(schema.Schedule).filter_by(id=5).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
@@ -155,7 +155,7 @@ def assignfri():
 def assignsat():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='saturday').first()
+    day = db.query(schema.Schedule).filter_by(id=6).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
@@ -167,7 +167,7 @@ def assignsat():
 def assignsun():
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(day='sunday').first()
+    day = db.query(schema.Schedule).filter_by(id=7).first()
     day.driver_id = new.id
     day.firstname = new.firstname
     day.lastname = new.lastname
