@@ -72,10 +72,10 @@ def schedule():
 @app.route('/assignmonday',  methods=['POST'])
 def assign():
     driver_id = request.form['driver_id']
-    old = db.query(schema.Monday).first()
-    db.delete(old)
-    db.commit()
-    new = db.query(schema.User).filter_by(driver_id=driver_id).first()
+    #old = db.query(schema.Monday).first()
+    #db.delete(old)
+    #db.commit()
+    new = db.query(schema.User).filter_by(id=driver_id).first()
     db.query(schema.Monday).add(new)
     db.commit()
     flash("Shift successfully assigned")

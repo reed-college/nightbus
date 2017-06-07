@@ -49,10 +49,10 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
     def verify_password(self, password):
         return pwd_context.verify(password, self.password)
 
-class Monday(Base):
+class Monday(Base, IdPrimaryMixin):
     __tablename__ = 'monday'
 
-    driver_id = Column(Integer, primary_key=True)
+    driver_id = Column(Integer)
     firstname = Column(String(20), nullable=False)
     lastname = Column(String(20), nullable=False)
 
