@@ -69,7 +69,17 @@ def schedule():
     return render_template('schedule.html', drivers = drivers)
 
 
-
+@app.route('/assignmonday',  methods=['POST'])
+def assign():
+    driver_id = request.form['driver_id']
+    old = db.query(schema.Monday).first()
+    db.delete(old)
+    db.commit()
+    new = db.query(schema.User).filter_by(driver_id=driver_id).first()
+    db.query(schema.Monday).add(new)
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
 
 
 
@@ -84,6 +94,8 @@ def admin():
 @login_required('admin')
 def addDriver():
     return render_template('add.html')
+
+
 
 @app.route('/adduser', methods=['POST'])
 def addUser():
