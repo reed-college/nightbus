@@ -7,4 +7,5 @@ class TestConfig:
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USERNAME = 'abenezer.mammo@gmail.com'
+    MAIL_PASSWORD = 'a1b2i3arsema@!!@'
 

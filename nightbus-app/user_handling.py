@@ -12,9 +12,9 @@ def confirm_email_token(token, serializer, expiration = 3600):
 
     return email
 
-def send_mail(to, subject, message):
+def send_mail(to, subject, message, mail_server):
     msg = Message(subject, recipients=[to], sender='abmamo@reed.edu')
     msg.body = message
-    mail.send(msg)
+    mail_server.send(msg)
 
 
