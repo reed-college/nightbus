@@ -1,1 +1,1 @@
-web: python nightbus-app/ ${PORT}
+web: python nightbus-app
