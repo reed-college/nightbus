@@ -13,7 +13,6 @@ import post_to_fb
 
 
 app = Flask(__name__)
-db = database.get_session()
 mail = Mail()
 
 # I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
@@ -81,6 +80,8 @@ def adduser():
 @app.route('/add', methods=['POST'])
 def add():
 
+    db = database.get_session()
+
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
     # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of
     # name entered using the post method and we can get it on the python end by doing request.form['name'] and since the form has an action called '\newdriver the server will know
@@ -119,6 +120,7 @@ def removeuser():
 
 @app.route('/remove', methods=['POST'])
 def remove():
+    db = database.get_session()
     # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
     # that was entered in the form using the request library that comes with flask.
     username = request.form['username']
@@ -144,6 +146,8 @@ def signup():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+
+    db = database.get_session()
     # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
     # it works in similar fashion like the add driver and remove driver functions it connects to the databases using the get session function and gets the data from the form using the
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
@@ -157,31 +161,39 @@ def register():
     password = request.form['password']
     role = (request.form['role']).lower()
 
-    user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
-    user_auth = schema.Auth(username=username)
-    user_auth.encrypt_password(password)
 
-    db.add(user)
-    db.add(user_auth)
-    db.commit()
-#    db.close()
+    username_exists = db.query(schema.User).filter_by(username=username).first()
 
+    if username_exists:
+        flash('Username already taken pick another username')
+        return redirect(url_for('signup'))
+    else:
+        user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
+        user_auth = schema.Auth(username=username)
+        user_auth.encrypt_password(password)
 
-    # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
-    # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they 
-    # should be redirected to the function immediately below.
-
-    subject = 'Confirm Your Email'
-    token = generate_confirmation_token(email, serializer)
-    confirm_url = url_for('confirm_email', token = token, _external=True)
-    html = render_template('activate.html', confirm_url = confirm_url)
-    send_mail(user.email, subject, html, mail)
+        db.add(user)
+        db.add(user_auth)
+        db.commit()
 
 
-    return "User successfully registered"
+        # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
+        # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they 
+        # should be redirected to the function immediately below.
+
+        subject = 'Confirm Your Email'
+        token = generate_confirmation_token(email, serializer)
+        confirm_url = url_for('confirm_email', token = token, _external=True)
+        html = render_template('activate.html', confirm_url = confirm_url)
+        send_mail(user.email, subject, html, mail)
+
+        db.close()
+        flash('User successfully registered')
+        return redirect(url_for('login'))
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
+    db = database.get_session()
     email = confirm_email_token(token, serializer)
     
     user = db.query(schema.User).filter_by(email=email).first()
@@ -203,6 +215,8 @@ def login():
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
+    db = database.get_session()
+
     username = request.form['username']
     password = request.form['password']
 
