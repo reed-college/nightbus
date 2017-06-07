@@ -13,14 +13,24 @@
     <div class="header">
         <h1>The NightBus</h1>
         <div class="nav">
-            <h2><a href="/" >Sign-In</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
+            <h2><a href="/" >Sign-In</a><a href = "../rider">Rider</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
         </div>
-        <div class = "box">
-            {% for person in drivers %}
-            <p >{{person.day}}, {{ person.firstname}} {{ person.lastname }}</p>
-            {% endfor %}
     </div>
-
+        <div class = "content">
+        <table class = "driverschedule">
+            <tr>
+                <th> Day </th>
+                <th> Driver </th>
+            </tr>
+            {% for person in drivers %}
+            <tr>
+            <td>{{person.day}}</td>
+            <td>{{ person.firstname}} {{ person.lastname }}</td>
+        </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
         </div>
     </div>
 

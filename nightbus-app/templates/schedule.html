@@ -13,11 +13,17 @@
     <div class="header">
         <h1>The NightBus</h1>
         <div class="nav">
-            <h2><a href="/" >Sign-In</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
+            <h2><a href="/" >Sign-In</a><a href = "../rider">Rider</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
         </div>
-        <div class = "box">
-            <p> Monday </p>
-        <div class = "dropdown">
+    </div>
+        <table class = "editdriverschedule">
+            <tr>
+                <th>Day</th>
+                <th> Driver </th>
+            </tr>
+            <tr>
+            <td> Monday </td>
+        <td><div class = "dropdown">
             <form action = "/assignmonday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -26,9 +32,11 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
-        <p> Tuesday </p>
-        <div class = "dropdown">
+        </div> </td>
+    </tr>
+    <tr>
+        <td> Tuesday </td>
+        <td><div class = "dropdown">
             <form action = "/assigntuesday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -37,9 +45,11 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
-        <p> Wednesday </p>
-        <div class = "dropdown">
+        </div></td>
+    </tr>
+    <tr>
+        <td> Wednesday </td>
+        <td><div class = "dropdown">
             <form action = "/assignwednesday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -48,9 +58,11 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
-        <p> Thursday </p>
-        <div class = "dropdown">
+        </div></td>
+    </tr>
+    <tr>
+        <td>Thursday </td>
+        <td><div class = "dropdown">
             <form action = "/assignthursday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -59,9 +71,11 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
-        <p> Friday </p>
-        <div class = "dropdown">
+        </div></td>
+        </tr>
+        <tr>
+        <td> Friday </td>
+        <td><div class = "dropdown">
             <form action = "/assignfriday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -70,9 +84,11 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
-        <p> Saturday </p>
-        <div class = "dropdown">
+        </div></td>
+    </tr>
+    <tr>
+        <td> Saturday </td>
+        <td><div class = "dropdown">
             <form action = "/assignsaturday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -81,9 +97,11 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
-        <p> Sunday </p>
-        <div class = "dropdown">
+        </div></td>
+    </tr>
+    <tr>
+        <td> Sunday </td>
+        <td><div class = "dropdown">
             <form action = "/assignsunday" method="post">
             <select name = "driver_id">
             {% for person in drivers %}
@@ -92,7 +110,9 @@
         </select>
         <input type ="submit">
     </form>
-        </div>
+        </div></td>
+    </tr>
+</table>
     </div>
 
         </div>
