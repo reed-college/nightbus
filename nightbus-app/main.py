@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from decorators import login_required
 from itsdangerous import URLSafeTimedSerializer
