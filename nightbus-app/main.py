@@ -64,7 +64,7 @@ b  = NightBus()
 
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
-@app.before_request
+@app.before_first_request
 def set_session():
     session['logged_in'] = False
 
