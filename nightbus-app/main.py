@@ -263,6 +263,7 @@ def remove():
     db.delete(user)
     db.delete(user_auth)
     db.commit()
+    db.close()
 
 
     flash('User successfully removed')
@@ -336,15 +337,7 @@ def confirm_email(token):
     db.add(user_auth)
     db.commit()
     db.close()
-
-
-#    subject = 'Confirm Your Email'
-#    token = generate_confirmation_token(email)
-#    confirm_url = url_for('confirm_email', token = token, _external=True)
-#    html = render_template('activate.html', confirm_url = confirm_url)
-#    send_mail(user.email, subject, html)
-
-
+    
     flash('Email successfully confimed')
     return redirect(url_for('login'))
 
