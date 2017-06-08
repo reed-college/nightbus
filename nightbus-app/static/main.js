@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 $(function() {
         // set up an event listener for the buttons
-      $('statusbutton').bind('click', function() {
+      $('button').bind('click', function() {
             // get the value of the clicked  button
         var clicked = $(this).val();
             alert(clicked);
@@ -63,7 +63,7 @@ $(function() {
 
 $(function() {
         // set up an event listener for the buttons
-      $('statusbutton').bind('click', function() {
+      $('button').bind('click', function() {
             // get the value of the clicked  button
         var clicked = $(this).val();
             alert(clicked);
