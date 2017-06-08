@@ -100,6 +100,7 @@ def display():
 @app.route('/schedule')
 # @login_required('driver')
 def schedule():
+    db = database.get_session()
     drivers = db.query(schema.User).all()
     return render_template('schedule.html', drivers = drivers)
 
