@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from decorators import login_required
+from flask_mail import Message, Mail 
+from user_handling import generate_confirmation_token, confirm_email_token, send_mail
+from itsdangerous import URLSafeTimedSerializer
+import config
 import schema
 import database
 import post_to_fb
@@ -9,9 +13,15 @@ import post_to_fb
 
 
 app = Flask(__name__)
-app.secret_key = 'This is secret'
-#auth = HTTPBasicAuth()
-db = database.get_session()
+mail = Mail()
+
+# I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
+# we can just create another class called ProdConfig with the appropriate attributes. This wasn't necessary at this point but the main.py was getting messy.
+app.config.from_object('config.TestConfig')
+mail.init_app(app)
+
+# We need to generate a unique token everytime a user registers to confirm their email. We use the URLSafeTimedSerializer serializer from the it's dangerous module.
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
 #ajax and global status
@@ -31,14 +41,15 @@ b  = NightBus()
 
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
-#@app.before_request
-#def set_session():
-  #  session['logged_in'] = False
+@app.before_first_request
+def set_session():
+    session['logged_in'] = False
 
 @app.before_request
 def intialize():
     #old = db.query(schema.Schedule).all()
     #db.delete(old)
+    db = database.get_session()
     monday = schema.Schedule(day="Monday")
     tuesday = schema.Schedule(day="Tuesday")
     wednesday = schema.Schedule(day="Wednesday")
@@ -79,6 +90,7 @@ def driver():
 
 @app.route('/display')
 def display():
+    db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     return render_template('display.html', drivers = drivers)
 
@@ -87,12 +99,14 @@ def display():
 @app.route('/schedule')
 # @login_required('driver')
 def schedule():
+    db = database.get_session()
     drivers = db.query(schema.User).all()
     return render_template('schedule.html', drivers = drivers)
 
 
 @app.route('/assignmonday',  methods=['POST'])
 def assignmon():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=1).first()
@@ -105,6 +119,7 @@ def assignmon():
 
 @app.route('/assigntuesday',  methods=['POST'])
 def assigntues():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=2).first()
@@ -117,6 +132,7 @@ def assigntues():
 
 @app.route('/assignwednesday',  methods=['POST'])
 def assignwed():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=3).first()
@@ -129,6 +145,7 @@ def assignwed():
 
 @app.route('/assignthursday',  methods=['POST'])
 def assignthurs():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=4).first()
@@ -141,6 +158,7 @@ def assignthurs():
 
 @app.route('/assignfriday',  methods=['POST'])
 def assignfri():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=5).first()
@@ -153,6 +171,7 @@ def assignfri():
 
 @app.route('/assignsaturday',  methods=['POST'])
 def assignsat():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=6).first()
@@ -165,6 +184,7 @@ def assignsat():
 
 @app.route('/assignsunday',  methods=['POST'])
 def assignsun():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=7).first()
@@ -181,15 +201,15 @@ def assignsun():
 def admin():
     return render_template('admin.html')
 
-@app.route('/add')
+@app.route('/adduser')
 @login_required('admin')
-def addDriver():
+def adduser():
     return render_template('add.html')
 
+@app.route('/add', methods=['POST'])
+def add():
 
-
-@app.route('/adduser', methods=['POST'])
-def addUser():
+    db = database.get_session()
 
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
     # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of
@@ -210,6 +230,10 @@ def addUser():
     # entered into the databse.
     db.add(new_driver)
     db.commit()
+    db.close()
+
+    # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
+    # it will be a mess.
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
     # SELECT * FROM "Users"; and it should be the last entry in that table.
@@ -218,13 +242,14 @@ def addUser():
     flash("User successfully added")
     return redirect(url_for('admin'))
 
-@app.route('/remove')
+@app.route('/removeuser')
 @login_required('admin')
-def rmDriver():
+def removeuser():
     return render_template('remove.html')
 
-@app.route('/removeuser', methods=['POST'])
-def removeUser():
+@app.route('/remove', methods=['POST'])
+def remove():
+    db = database.get_session()
     # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
     # that was entered in the form using the request library that comes with flask.
     username = request.form['username']
@@ -242,6 +267,7 @@ def removeUser():
     flash('User successfully removed')
     return redirect(url_for('admin'))
 
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     return render_template('signup.html')
@@ -249,6 +275,8 @@ def signup():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+
+    db = database.get_session()
     # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
     # it works in similar fashion like the add driver and remove driver functions it connects to the databases using the get session function and gets the data from the form using the
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
@@ -262,22 +290,62 @@ def register():
     password = request.form['password']
     role = (request.form['role']).lower()
 
-    user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
-    user_auth = schema.Auth(username=username)
-    user_auth.encrypt_password(password)
 
-    db.add(user)
+    username_exists = db.query(schema.User).filter_by(username=username).first()
+
+    if username_exists:
+        flash('Username already taken pick another username')
+        return redirect(url_for('signup'))
+    else:
+        user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
+        user_auth = schema.Auth(username=username)
+        user_auth.encrypt_password(password)
+
+        db.add(user)
+        db.add(user_auth)
+        db.commit()
+
+
+        # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
+        # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they 
+        # should be redirected to the function immediately below.
+
+#        subject = 'Confirm Your Email'
+#        token = generate_confirmation_token(email, serializer)
+#        confirm_url = url_for('confirm_email', token = token, _external=True)
+#        html = render_template('activate.html', confirm_url = confirm_url)
+#        send_mail(user.email, subject, html, mail)
+
+        db.close()
+        flash('User successfully registered')
+        return redirect(url_for('login'))
+
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    db = database.get_session()
+    email = confirm_email_token(token, serializer)
+    
+    user = db.query(schema.User).filter_by(email=email).first()
+
+    user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
+    user_auth.confirmed = True
+
     db.add(user_auth)
     db.commit()
+    db.close()
 
-    return "User successfully registered"
+    flash('Email successfully confimed')
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET'])
 def login():
     return render_template('login.html')
 
+
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
+    db = database.get_session()
+
     username = request.form['username']
     password = request.form['password']
 
@@ -286,10 +354,15 @@ def authenticate():
 
     if user_auth:
         if user_auth.verify_password(password):
-            session['username'] = username
-            session['logged_in'] = True
+            #if user_auth.confirmed:
+                session['username'] = username
+                session['logged_in'] = True
 
-            return redirect(url_for('home'))
+                flash('Welcome')
+                return redirect(url_for('home'))
+            #else:
+                #flash('Please confirm the email address associated with your account.')
+                #return redirect(url_for('login'))
 
         else:
             flash('Invalid Credentials')

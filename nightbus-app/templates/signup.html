@@ -14,6 +14,15 @@
 		<form action="/register" method="post">
 			<ul class="form-container">
 				<li>
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						{% for message in messages %}
+							{{ message }}
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+				</li>
+				<li>
 					Firstname: <input type="text" name="firstname" required><br>
 				</li>				
 				<li>

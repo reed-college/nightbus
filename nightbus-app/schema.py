@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import (Column, Integer, String, DateTime)
+from sqlalchemy import (Column, Boolean, Integer, String, DateTime)
 from sqlalchemy.ext.declarative import declarative_base
 from passlib.apps import custom_app_context as pwd_context
 from datetime import datetime
@@ -42,6 +42,7 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
 
     username = Column(String(40), unique = True)
     password = Column(String(128))
+    # confirmed = Column(Boolean, nullable = False, default = False)
 
     def encrypt_password(self, password):
         self.password = pwd_context.encrypt(password)

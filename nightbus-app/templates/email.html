@@ -8,25 +8,19 @@
 <body>
 <div class="wrapper">
 	<div class="header">
-		<h1>Add Users</h1>
+		<h1>Send Email</h1>
 	</div>
 	<div class="content">
-		<form action="/add" method="post">
+		<form action="/send_email" method="post">
 			<ul class="form-container">
 				<li>
-					Firstname: <input type="text" name="firstname" required><br>
-				</li>				
-				<li>
-					Lastname: <input type="text" name="lastname" required><br>
+					To: <input type="text" name="to" required><br>
 				</li>
 				<li>
-					Username: <input type="text" name="username" required><br>
+					Subject: <input type="text" name="subject" required><br>
 				</li>
 				<li>
-					Email: <input type="text" name="email" required><br>
-				</li>
-				<li>
-					Role: <input type="text" name="role" required><br>
+					Message: <input type ="text" name="message" required><br>
 				</li>
 				<li>
 					<input type="submit" value="Save!">
