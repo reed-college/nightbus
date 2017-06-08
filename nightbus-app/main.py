@@ -45,6 +45,25 @@ b  = NightBus()
 def set_session():
     session['logged_in'] = False
 
+@app.before_request
+def intialize():
+    #old = db.query(schema.Schedule).all()
+    #db.delete(old)
+    monday = schema.Schedule(day="Monday")
+    tuesday = schema.Schedule(day="Tuesday")
+    wednesday = schema.Schedule(day="Wednesday")
+    thursday = schema.Schedule(day="Thursday")
+    friday = schema.Schedule(day="Friday")
+    saturday = schema.Schedule(day="Saturday")
+    sunday = schema.Schedule(day="Sunday")
+    db.add(monday)
+    db.add(tuesday)
+    db.add(wednesday)
+    db.add(thursday)
+    db.add(friday)
+    db.add(saturday)
+    db.add(sunday)
+
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
@@ -57,18 +76,118 @@ def display_status():
 
 # normal app routes
 
-
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html')
+    status = b.get_current_status()
+    return render_template('index.html', status=status)
 
 @app.route('/driver')
-@login_required('driver')
+# @login_required('driver')
 def driver():
     return render_template('driver.html')
 
+
+@app.route('/display')
+def display():
+    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    return render_template('display.html', drivers = drivers)
+
+
+
+@app.route('/schedule')
+# @login_required('driver')
+def schedule():
+    drivers = db.query(schema.User).all()
+    return render_template('schedule.html', drivers = drivers)
+
+
+@app.route('/assignmonday',  methods=['POST'])
+def assignmon():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=1).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assigntuesday',  methods=['POST'])
+def assigntues():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=2).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignwednesday',  methods=['POST'])
+def assignwed():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=3).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignthursday',  methods=['POST'])
+def assignthurs():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=4).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignfriday',  methods=['POST'])
+def assignfri():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=5).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignsaturday',  methods=['POST'])
+def assignsat():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=6).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignsunday',  methods=['POST'])
+def assignsun():
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=7).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+
 @app.route('/admin')
-@login_required('admin')
+# @login_required('admin')
 def admin():
     return render_template('admin.html')
 
@@ -233,7 +352,7 @@ def authenticate():
                 return redirect(url_for('home'))
             else:
                 flash('Please confirm the email address associated with your account.')
-                return redirec(url_for('login'))
+                return redirect(url_for('login'))
 
         else:
             flash('Invalid Credentials')

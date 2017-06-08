@@ -1,7 +1,6 @@
 /*** MOBILE ***/ 
 
 
-
 body {
 	min-height: 100vh;
 	background-image: url(http://cdn.wallpapersafari.com/41/44/6LPwg0.png);
@@ -19,15 +18,28 @@ It should be 1200px for home page and add/remove driver pages ***/
 	flex-direction: column;
 }
 
-/*** header block ***/
+/*** iwrapper is a class specifically for the wrapper of index.html ***/
+
+.iwrapper {
+	width: 100%;
+	height: 1050px;
+	display: flex;
+	flex-direction: column;
+}
+
+
+
+
+
+
+/*** header block + nav items ***/
 
 .header {
 	width: 95%;
 	margin-left: 2.5%;
 	margin-bottom: 15px;
 	border: 2px solid white;
-	padding: 5px
-	;
+	padding: 5px;
 	border-radius: 5px;
   	background-color: lightblue;
   	display: flex;
@@ -35,14 +47,9 @@ It should be 1200px for home page and add/remove driver pages ***/
 	justify-content: space-between;
 }
 
-.nav {
-
-}
-
 a {	
 	text-decoration: none;
 	color: #a17f1a;
-
 }
 
 .nav a {
@@ -60,15 +67,38 @@ a {
 
 }
 
+/*** font layout for main header***/ 
+
+h1 {
+	font-family: cursive, times, serif;
+	text-align: center;
+	color:#a17f1a;
+}
+
+/***font layout for other headers***/
+
+h2 {
+	font-family:"Times New Roman", times, serif;
+	color: #a17f1a;
+	text-align: center;	
+}
+
+
+
+
+
+
 /*** middle of page content ***/
+
+/*** statusbox is the element that is populated by an update 
+message when a button is pressed on the driver page ***/
 
 .statusbox{
 	width: 95%;
 	margin-left: 2.5%;
 	margin-bottom: 15px;
 	border: 2px solid white;
-	padding: 5px
-	;
+	padding: 5px;
 	border-radius: 5px;
   	background-color: lightblue;
   	display: flex;
@@ -76,13 +106,15 @@ a {
 	justify-content: space-between;
 }
 
+/*** content is the wrapper for the box-type middle page elements ***/
+
 .content {
 	margin-top: 15px;
 	width: 100%;
 	height: 1400px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: flex-start;
 }
 
 /*** individual boxes ***/ 
@@ -93,7 +125,61 @@ a {
 	border: 2px solid #a17f1a;
 	border-radius: 5px;
 	margin-left: 15%;
+	margin-bottom: 20px;
 }
+
+/**styling for driver schedule **/
+
+.driverschedule * {
+	border: 3px solid black;
+	border-radius: 2px;
+	text-align: center;
+	font-size: 20px;
+	width: 400px;
+	background-color: lightblue;
+	height: 50px;
+	
+}
+
+.driverschedule tr td:first-child {
+	font-weight: bold;
+}
+
+
+/*styling for admin's driver schedule */
+
+.editdriverschedule td {
+	border: 3px solid black;
+	border-radius: 2px;
+	text-align: center;
+	width: 400px;
+	background-color: lightblue;
+	height: 50px;
+	
+}
+
+.editdriverschedule th {
+	border: 2px solid black;
+	border-radius: 2px;
+	text-align: center;
+	font-size: 20px;
+	width: 400px;
+	background-color: lightblue;
+	height: 50px;
+	
+}
+
+
+.editdriverschedule tr td:first-child {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+
+
+
+/*** butt adds flex-box status to box class elements that hold 
+buttons inside them ***/
 
 .butt {
 	display: flex;
@@ -102,27 +188,145 @@ a {
 
 }
 
+/*** dex-box is a speicifc class targeting the button box
+on index.html ***/
+
+.dex-box {
+	width: 70%;
+	height: 850px;
+	border-radius: 5px;
+	margin-left: 15%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;	
+}
+
+
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Text inside the dropdown */
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown text on hover */
+.dropdown-content p:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
 
 /*** font layout for main header***/ 
 
-h1 {
-	font-family: cursive, times, serif;
-	text-align: center;
-	color:#a17f1a;
-}
-/***font layout for other headers***/
 
-h2 {
-	font-family:"Times New Roman", times, serif;
-	color: #a17f1a;
-	text-align: center;	
+
+
+/* Dropdown Button */
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
+
+/* Dropdown button on hover & focus */
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Text inside the dropdown */
+
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown text on hover */
+
+.dropdown-content p:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+.show {
+	display: block;
+}
+
+
+
 
 
 /*** Buttons ***/
 
 
 button {
+	width: 90%;
+	height: 150px;
+	border-radius: 10px;
+	margin-left: 5%;
+	font-family:"Times New Roman", times, serif;
+	color: #a17f1a;
+	font-size: 20px;
+	background-color: lightblue;
+
+}
+
+.statusbutton {
 	width: 90%;
 	height: 150px;
 	border-radius: 10px;
@@ -153,8 +357,19 @@ button {
 	margin-left: 5%;
 }
 
+ /*** cancel buses button ***/
 
-/*** Forms ***/		
+ .red-button {
+ 	margin-left: 20%;
+ 	height: 350px;
+ 	width: 350px;
+ }
+
+
+
+
+/*** Forms ***/	
+
  .form-container {		
  	width: 100%;		
  	height: 300px;		
@@ -169,26 +384,34 @@ button {
  	align-items: center;		
  }
 
-/*** animation ***/
+
+
+
+
+/*** animation and bussie ***/
 
 .icon-wrap {
-	width: 30%;
-	height: 50%;
-	position: absolute;
-	display: block;
-	margin-left: 50px;
-	-webkit-animation: mymove 1s infinite;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 .icon {
-	width: 60%;
-	height: 50%;
-	position: relative;
-	display: block;
-	margin-left: 10%;
-	margin-right: 10%;
+	height: 350px;
+	width: 350px;
+	margin-right: 15%;
 	-webkit-animation: mymove 1s infinite;
 }
+
+.dex-icon {
+	margin-top: -50px;
+	height: 350px;
+	width: 350px;
+	margin-right: 15%;
+	-webkit-animation: mymove 1s infinite;
+}
+
 
 @-webkit-keyframes mymove {
 	0% {
@@ -203,6 +426,24 @@ button {
       transform: translate3d(50px, 40px, 0px);
     }
 }
+
+
+
+
+
+/*** Rider Page Schedule Tables ***/ 
+
+.schedule {
+	margin-top: 25px;
+}
+
+th {
+	padding-bottom: 20px;
+}
+
+
+
+
 
 /*** DESKTOP ***/ 
 
@@ -232,9 +473,23 @@ button {
 
 	.content {
 		flex-direction: row;
+		justify-content: space-around;
 	}
 
 	.box {
 		width: 45%;
 		margin-left: 0;
 	} 
+
+	.dex-box {
+		margin-left: 0px;
+	}
+
+	.icon {
+		margin-right: 17.5%;
+	}
+
+	.red-button {
+		margin-left: 12.5%;
+	}
+

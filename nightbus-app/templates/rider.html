@@ -18,17 +18,27 @@
 		<div class="content">
 			<div class="box">
 				<h2>Bus Status</h2>
-				<img class="icon-wrap" src="../static/yellowbussie.gif" alt="bus-img">	
-				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
+				
+			                <div class="icon-wrap">
+				     {% if "here" in status %}
+			                <img class="dex-icon" src="../static/here.gif" alt="bus-img"/>
+			                {% elif "coming" in status %}
+			                <img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
+			                {% elif "cancelled" in status%}
+			                <img class="dex-icon" src="../static/cancelled.gif" alt="bus-img"/>
+			                {% else %}
+			                <img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
+			                {% endif %}
+			                </div>
+			                <h2 id="whereis">The Nightbus is {{ status }}!</h2>			
 			</div>
 			<div class="box">
 				<h2>Schedule</h2>
-				<table style="width:100%">
+				<table class="schedule" style="width:100%">
 				  <tr>
 				    <th>Day</th>
 				    <th>Time</th> 
 				  </tr>
-
 				  <tr>
 				    <td rowspan="10"><center>Sunday-Thursday</center></td>
 				    <td><center>10:15 pm</center></td> 
@@ -56,6 +66,8 @@
 				<tr> 
 				    <td><center>2:30 am</center></td> 
 				  </tr>
+				 </table>
+				 <table class="schedule" style="width:100%">
 				  <tr>
 				    <td rowspan="4"><center>Friday & Saturday</center></td>
 				    <td><center>10:15 pm</center></td> 

@@ -49,6 +49,15 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
 
     def verify_password(self, password):
         return pwd_context.verify(password, self.password)
+
+class Schedule(Base, IdPrimaryMixin):
+    __tablename__ = 'schedule'
+
+    day = Column(String(20))
+    driver_id = Column(Integer)
+    firstname = Column(String(20))
+    lastname = Column(String(20))
+
         
 
 Base.metadata.create_all(database.engine)
