@@ -49,6 +49,7 @@ def set_session():
 def intialize():
     #old = db.query(schema.Schedule).all()
     #db.delete(old)
+    db = database.get_session()
     monday = schema.Schedule(day="Monday")
     tuesday = schema.Schedule(day="Tuesday")
     wednesday = schema.Schedule(day="Wednesday")
@@ -89,6 +90,7 @@ def driver():
 
 @app.route('/display')
 def display():
+    db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     return render_template('display.html', drivers = drivers)
 
@@ -97,12 +99,14 @@ def display():
 @app.route('/schedule')
 # @login_required('driver')
 def schedule():
+    db = database.get_session()
     drivers = db.query(schema.User).all()
     return render_template('schedule.html', drivers = drivers)
 
 
 @app.route('/assignmonday',  methods=['POST'])
 def assignmon():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=1).first()
@@ -115,6 +119,7 @@ def assignmon():
 
 @app.route('/assigntuesday',  methods=['POST'])
 def assigntues():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=2).first()
@@ -127,6 +132,7 @@ def assigntues():
 
 @app.route('/assignwednesday',  methods=['POST'])
 def assignwed():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=3).first()
@@ -139,6 +145,7 @@ def assignwed():
 
 @app.route('/assignthursday',  methods=['POST'])
 def assignthurs():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=4).first()
@@ -151,6 +158,7 @@ def assignthurs():
 
 @app.route('/assignfriday',  methods=['POST'])
 def assignfri():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=5).first()
@@ -163,6 +171,7 @@ def assignfri():
 
 @app.route('/assignsaturday',  methods=['POST'])
 def assignsat():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=6).first()
@@ -175,6 +184,7 @@ def assignsat():
 
 @app.route('/assignsunday',  methods=['POST'])
 def assignsun():
+    db = database.get_session()
     driver_id = request.form['driver_id']
     new = db.query(schema.User).filter_by(id=driver_id).first()
     day = db.query(schema.Schedule).filter_by(id=7).first()
@@ -344,15 +354,15 @@ def authenticate():
 
     if user_auth:
         if user_auth.verify_password(password):
-            if user_auth.confirmed:
+            #if user_auth.confirmed:
                 session['username'] = username
                 session['logged_in'] = True
 
                 flash('Welcome')
                 return redirect(url_for('home'))
-            else:
-                flash('Please confirm the email address associated with your account.')
-                return redirect(url_for('login'))
+            #else:
+                #flash('Please confirm the email address associated with your account.')
+                #return redirect(url_for('login'))
 
         else:
             flash('Invalid Credentials')

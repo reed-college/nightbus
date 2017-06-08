@@ -42,7 +42,7 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
 
     username = Column(String(40), unique = True)
     password = Column(String(128))
-    confirmed = Column(Boolean, nullable = False, default = False)
+    # confirmed = Column(Boolean, nullable = False, default = False)
 
     def encrypt_password(self, password):
         self.password = pwd_context.encrypt(password)
