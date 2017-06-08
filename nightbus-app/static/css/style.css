@@ -357,6 +357,12 @@ button {
 	margin-left: 5%;
 }
 
+#cancelled {
+	width: 90%;
+	height: 150px;
+	margin-left: 5%;
+}
+
  /*** cancel buses button ***/
 
  .red-button {
