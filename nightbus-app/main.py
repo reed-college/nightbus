@@ -41,22 +41,21 @@ b  = NightBus()
 
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
-@app.before_first_request
-def set_session():
-    session['logged_in'] = False
 
-@app.before_request
+
+@app.before_first_request
 def intialize():
     #old = db.query(schema.Schedule).all()
     #db.delete(old)
     db = database.get_session()
-    monday = schema.Schedule(day="Monday")
-    tuesday = schema.Schedule(day="Tuesday")
-    wednesday = schema.Schedule(day="Wednesday")
-    thursday = schema.Schedule(day="Thursday")
-    friday = schema.Schedule(day="Friday")
-    saturday = schema.Schedule(day="Saturday")
-    sunday = schema.Schedule(day="Sunday")
+    session['logged_in'] = False
+    monday = schema.Schedule(day="monday")
+    tuesday = schema.Schedule(day="tuesday")
+    wednesday = schema.Schedule(day="wednesday")
+    thursday = schema.Schedule(day="thursday")
+    friday = schema.Schedule(day="friday")
+    saturday = schema.Schedule(day="saturday")
+    sunday = schema.Schedule(day="sunday")
     db.add(monday)
     db.add(tuesday)
     db.add(wednesday)
@@ -64,6 +63,8 @@ def intialize():
     db.add(friday)
     db.add(saturday)
     db.add(sunday)
+    db.commit()
+    db.close()
 
 @app.route('/update_state/')
 def update_state():
@@ -99,7 +100,6 @@ def display():
 @app.route('/schedule')
 # @login_required('driver')
 def schedule():
-    db = database.get_session()
     drivers = db.query(schema.User).all()
     return render_template('schedule.html', drivers = drivers)
 
@@ -260,7 +260,7 @@ def remove():
     user = db.query(schema.User).filter_by(username=username).first()
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
     db.delete(user)
-    db.delete(user_auth)
+    #db.delete(user_auth)
     db.commit()
 
 

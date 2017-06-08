@@ -44,6 +44,17 @@ $(document).ready(function(){
         $('.statusbox').append('<p>Status updated!</p>');
         $('.statusbox').fadeOut(4000)
    })
+
+  $('submit').click(function(){
+        $('.statusbox').append('<p>Shift successfully assigned!</p>');
+        $('.statusbox').fadeOut(4000)
+    })
+    $(document).on('click','submit',function() {
+        $('p').remove()
+        $('.statusbox').show()
+        $('.statusbox').append('<p>Shift successfully assigned!</p>');
+        $('.statusbox').fadeOut(4000)
+   })
 })
 
 
