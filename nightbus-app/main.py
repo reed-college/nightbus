@@ -348,20 +348,6 @@ def confirm_email(token):
     flash('Email successfully confimed')
     return redirect(url_for('login'))
 
-@app.route('/confirm/<token>')
-def confirm_email(token):
-    db = database.get_session()
-    email = confirm_email_token(token)
-    
-    user = db.query(schema.User).filter_by(email=email).first()
-
-    user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-    user_auth.confirmed = True
-
-    db.add(user_auth)
-    db.commit()
-    db.close()
-    return "E-Mail Successfully Confirmed"
 
 @app.route('/login', methods=['GET'])
 def login():
