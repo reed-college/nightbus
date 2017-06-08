@@ -13,12 +13,15 @@ def login_required(role):
             if session['logged_in']:
                 username = session['username']
                 user = db.query(schema.User).filter_by(username=username).first()
-                if str(user.role).lower() == 'admin':
-                    return function(*args, **kwargs)
-                elif str(user.role).lower() == str(role).lower():
-                    return function(*args, **kwargs)
+                if user:
+                    if str(user.role).lower() == 'admin':
+                        return function(*args, **kwargs)
+                    elif str(user.role).lower() == str(role).lower():
+                        return function(*args, **kwargs)
+                    else:
+                        return render_template('no_access.html')
                 else:
-                    return render_template('no_access.html')
+                    return render_template('no_user.html')
 
             else:
                 flash("Invalid Credentials")
