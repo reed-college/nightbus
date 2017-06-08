@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from decorators import login_required
 from flask_mail import Message, Mail 
@@ -82,13 +83,14 @@ def display_status():
 
 # normal app routes
 
-@app.route('/', methods=['GET'])
+
+@app.route('/')
 def home():
     status = b.get_current_status()
     return render_template('index.html', status=status)
-
+    
 @app.route('/driver')
-# @login_required('driver')
+@login_required('driver')
 def driver():
     return render_template('driver.html')
 
@@ -202,7 +204,7 @@ def assignsun():
 
 
 @app.route('/admin')
-# @login_required('admin')
+@login_required('admin')
 def admin():
     return render_template('admin.html')
 
@@ -267,6 +269,7 @@ def remove():
     db.delete(user)
     #db.delete(user_auth)
     db.commit()
+    db.close()
 
 
     flash('User successfully removed')
@@ -287,6 +290,8 @@ def register():
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
     # the person signed up with. We don't actually store the password we encrypt it using the passlib library that we imported above. We then add both entries to their respective
     # tables and we commit and then we are done.
+    
+    db = database.get_session()
 
     firstname = request.form['firstname']
     lastname = request.form['lastname']
@@ -333,14 +338,15 @@ def confirm_email(token):
     user = db.query(schema.User).filter_by(email=email).first()
 
     user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-    user_auth.confirmed = True
+#    user_auth.confirmed = True
 
     db.add(user_auth)
     db.commit()
     db.close()
-
+    
     flash('Email successfully confimed')
     return redirect(url_for('login'))
+
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -350,24 +356,24 @@ def login():
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
     db = database.get_session()
-
     username = request.form['username']
     password = request.form['password']
 
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
     user_role = db.query(schema.User).filter_by(username=username).first()
 
+
     if user_auth:
         if user_auth.verify_password(password):
-            #if user_auth.confirmed:
-                session['username'] = username
-                session['logged_in'] = True
+        #if user_auth.confirmed:
+            session['username'] = username
+            session['logged_in'] = True
 
-                flash('Welcome')
-                return redirect(url_for('home'))
-            #else:
-                #flash('Please confirm the email address associated with your account.')
-                #return redirect(url_for('login'))
+            flash('Welcome')
+            return redirect(url_for('home'))
+        #else:
+            #flash('Please confirm the email address associated with your account.')
+            #return redirect(url_for('login'))
 
         else:
             flash('Invalid Credentials')
@@ -387,4 +393,6 @@ def no_user():
     return render_template('no_user.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.debug = True
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
