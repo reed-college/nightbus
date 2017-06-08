@@ -331,7 +331,7 @@ def confirm_email(token):
     user = db.query(schema.User).filter_by(email=email).first()
 
     user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-    user_auth.confirmed = True
+#    user_auth.confirmed = True
 
     db.add(user_auth)
     db.commit()
@@ -366,15 +366,15 @@ def authenticate():
 
     if user_auth:
         if user_auth.verify_password(password):
-            #if user_auth.confirmed:
-                session['username'] = username
-                session['logged_in'] = True
+        #if user_auth.confirmed:
+            session['username'] = username
+            session['logged_in'] = True
 
-                flash('Welcome')
-                return redirect(url_for('home'))
-            #else:
-                #flash('Please confirm the email address associated with your account.')
-                #return redirect(url_for('login'))
+            flash('Welcome')
+            return redirect(url_for('home'))
+        #else:
+            #flash('Please confirm the email address associated with your account.')
+            #return redirect(url_for('login'))
 
         else:
             flash('Invalid Credentials')
