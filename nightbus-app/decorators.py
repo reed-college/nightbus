@@ -14,9 +14,7 @@ def login_required(role):
                 username = session['username']
                 user = db.query(schema.User).filter_by(username=username).first()
                 if user:
-                    if str(user.role).lower() == 'admin':
-                        return function(*args, **kwargs)
-                    elif str(user.role).lower() == str(role).lower():
+                    if str(user.role).lower() == 'admin' or str(user.role).lower() == str(role).lower():
                         return function(*args, **kwargs)
                     else:
                         return render_template('no_access.html')

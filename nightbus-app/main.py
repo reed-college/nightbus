@@ -1,8 +1,10 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from decorators import login_required
-from itsdangerous import URLSafeTimedSerializer
 from flask_mail import Message, Mail 
+from user_handling import generate_confirmation_token, confirm_email_token, send_mail
+from itsdangerous import URLSafeTimedSerializer
+import config
 import schema
 import database
 import post_to_fb
@@ -12,39 +14,15 @@ import post_to_fb
 
 
 app = Flask(__name__)
-app.secret_key = 'This is secret'
-#auth = HTTPBasicAuth()
-
 mail = Mail()
- 
-app.config["MAIL_SERVER"]='smtp.gmail.com'
-app.config["MAIL_PORT"]=465
-app.config["MAIL_USE_SSL"]=True
-app.config["MAIL_USERNAME"]='abenezer.mammo@gmail.com'
-app.config["MAIL_PASSWORD"]='a1b2i3arsema@!!@'
-app.config['SECRET_KEY'] = 'TheIli@dofHomer'
 
+# I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
+# we can just create another class called ProdConfig with the appropriate attributes. This wasn't necessary at this point but the main.py was getting messy.
+app.config.from_object('config.TestConfig')
 mail.init_app(app)
 
-
-def generate_confirmation_token(email):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    return serializer.dumps(email, salt='ughsecurity')
-
-def confirm_email_token(token, expiration=3600):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    try:
-        email = serializer.loads(token, salt='ughsecurity', max_age = expiration)
-    except:
-        return False
-
-    return email
-
-def send_mail(to, subject, message):
-    msg = Message(subject, recipients=[to], sender='abmamo@reed.edu')
-    msg.body = message
-    mail.send(msg)
-
+# We need to generate a unique token everytime a user registers to confirm their email. We use the URLSafeTimedSerializer serializer from the it's dangerous module.
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
 #ajax and global status
@@ -68,6 +46,26 @@ b  = NightBus()
 def set_session():
     session['logged_in'] = False
 
+@app.before_request
+def intialize():
+    #old = db.query(schema.Schedule).all()
+    #db.delete(old)
+    db = database.get_session()
+    monday = schema.Schedule(day="Monday")
+    tuesday = schema.Schedule(day="Tuesday")
+    wednesday = schema.Schedule(day="Wednesday")
+    thursday = schema.Schedule(day="Thursday")
+    friday = schema.Schedule(day="Friday")
+    saturday = schema.Schedule(day="Saturday")
+    sunday = schema.Schedule(day="Sunday")
+    db.add(monday)
+    db.add(tuesday)
+    db.add(wednesday)
+    db.add(thursday)
+    db.add(friday)
+    db.add(saturday)
+    db.add(sunday)
+
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
@@ -90,18 +88,130 @@ def home():
 def driver():
     return render_template('driver.html')
 
+
+@app.route('/display')
+def display():
+    db = database.get_session()
+    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    return render_template('display.html', drivers = drivers)
+
+
+
+@app.route('/schedule')
+# @login_required('driver')
+def schedule():
+    db = database.get_session()
+    drivers = db.query(schema.User).all()
+    return render_template('schedule.html', drivers = drivers)
+
+
+@app.route('/assignmonday',  methods=['POST'])
+def assignmon():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=1).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assigntuesday',  methods=['POST'])
+def assigntues():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=2).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignwednesday',  methods=['POST'])
+def assignwed():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=3).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignthursday',  methods=['POST'])
+def assignthurs():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=4).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignfriday',  methods=['POST'])
+def assignfri():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=5).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignsaturday',  methods=['POST'])
+def assignsat():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=6).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+@app.route('/assignsunday',  methods=['POST'])
+def assignsun():
+    db = database.get_session()
+    driver_id = request.form['driver_id']
+    new = db.query(schema.User).filter_by(id=driver_id).first()
+    day = db.query(schema.Schedule).filter_by(id=7).first()
+    day.driver_id = new.id
+    day.firstname = new.firstname
+    day.lastname = new.lastname
+    db.commit()
+    flash("Shift successfully assigned")
+    return redirect(url_for('schedule'))
+
+
 @app.route('/admin')
 @login_required('admin')
 def admin():
     return render_template('admin.html')
 
-@app.route('/add')
-def addDriver():
+@app.route('/adduser')
+@login_required('admin')
+def adduser():
     return render_template('add.html')
 
-@app.route('/adduser', methods=['POST'])
-def addUser():
+@app.route('/add', methods=['POST'])
+def add():
+
     db = database.get_session()
+
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
     # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of
     # name entered using the post method and we can get it on the python end by doing request.form['name'] and since the form has an action called '\newdriver the server will know
@@ -123,6 +233,9 @@ def addUser():
     db.commit()
     db.close()
 
+    # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
+    # it will be a mess.
+
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
     # SELECT * FROM "Users"; and it should be the last entry in that table.
     # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
@@ -130,13 +243,13 @@ def addUser():
     flash("User successfully added")
     return redirect(url_for('admin'))
 
-@app.route('/remove')
+@app.route('/removeuser')
 @login_required('admin')
-def rmDriver():
+def removeuser():
     return render_template('remove.html')
 
-@app.route('/removeuser', methods=['POST'])
-def removeUser():
+@app.route('/remove', methods=['POST'])
+def remove():
     db = database.get_session()
     # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
     # that was entered in the form using the request library that comes with flask.
@@ -155,20 +268,6 @@ def removeUser():
     flash('User successfully removed')
     return redirect(url_for('admin'))
 
-@app.route('/email', methods=['GET', 'POST'])
-def email():
-    return render_template('email.html')
-
-@app.route('/send_email', methods=['GET', 'POST'])
-def send_email():
-    to = request.form['to']
-    subject = request.form['subject']
-    message = request.form['message']
-
-    send_mail(to, subject, message)
-
-    return "email successfully sent"
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -177,6 +276,8 @@ def signup():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+
+    db = database.get_session()
     # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
     # it works in similar fashion like the add driver and remove driver functions it connects to the databases using the get session function and gets the data from the form using the
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
@@ -192,11 +293,46 @@ def register():
     password = request.form['password']
     role = (request.form['role']).lower()
 
-    user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
-    user_auth = schema.Auth(username=username)
-    user_auth.encrypt_password(password)
 
-    db.add(user)
+    username_exists = db.query(schema.User).filter_by(username=username).first()
+
+    if username_exists:
+        flash('Username already taken pick another username')
+        return redirect(url_for('signup'))
+    else:
+        user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
+        user_auth = schema.Auth(username=username)
+        user_auth.encrypt_password(password)
+
+        db.add(user)
+        db.add(user_auth)
+        db.commit()
+
+
+        # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
+        # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they 
+        # should be redirected to the function immediately below.
+
+#        subject = 'Confirm Your Email'
+#        token = generate_confirmation_token(email, serializer)
+#        confirm_url = url_for('confirm_email', token = token, _external=True)
+#        html = render_template('activate.html', confirm_url = confirm_url)
+#        send_mail(user.email, subject, html, mail)
+
+        db.close()
+        flash('User successfully registered')
+        return redirect(url_for('login'))
+
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    db = database.get_session()
+    email = confirm_email_token(token, serializer)
+    
+    user = db.query(schema.User).filter_by(email=email).first()
+
+    user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
+    user_auth.confirmed = True
+
     db.add(user_auth)
     db.commit()
     db.close()
@@ -209,7 +345,8 @@ def register():
 #    send_mail(user.email, subject, html)
 
 
-    return "User successfully registered"
+    flash('Email successfully confimed')
+    return redirect(url_for('login'))
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
@@ -230,9 +367,9 @@ def confirm_email(token):
 def login():
     return render_template('login.html')
 
+
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
-
     db = database.get_session()
     username = request.form['username']
     password = request.form['password']
@@ -243,11 +380,15 @@ def authenticate():
 
     if user_auth:
         if user_auth.verify_password(password):
-            session['username'] = username
-            session['logged_in'] = True
+            #if user_auth.confirmed:
+                session['username'] = username
+                session['logged_in'] = True
 
-            db.close()
-            return redirect(url_for('home'))
+                flash('Welcome')
+                return redirect(url_for('home'))
+            #else:
+                #flash('Please confirm the email address associated with your account.')
+                #return redirect(url_for('login'))
 
         else:
             flash('Invalid Credentials')
