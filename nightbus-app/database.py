@@ -5,6 +5,7 @@ from sqlalchemy import (Column, Integer, String,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+
 url = os.environ.get('DATABASE_URL')
 engine = sqlalchemy.create_engine(url)
 
