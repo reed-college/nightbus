@@ -4,25 +4,25 @@
     <title>Nightbus | Home</title>
     <link rel="stylesheet" href="../static/css/normalize.css">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Homemade+Apple|Pinyon+Script|Tangerine" rel="stylesheet">
 </head>
 
 <body>
     <div class="iwrapper">
     
         <div class="header">
-            <canvas id="myCanvas" width="1200" height="120%" style="border:1px solid #d3d3d3;">
+            <canvas id="myCanvas" width="1200" height="120%">
              Welcome to the NightBus!</canvas>
             <script>
                var ctx = document.querySelector("canvas").getContext("2d"),
                     dashLen = 220, dashOffset = dashLen, speed = 15,
-                    txt = "Welcome to the NightBus!", x = 300, i = 0;
+                    txt = "Welcome to the NightBus!", x = 350, i = 0;
 
-                ctx.font = "50px cursive, TSCu_Comic, sans-serif"; 
-                ctx.lineWidth = 3; ctx.lineJoin = "round"; ctx.globalAlpha = 1;
-                ctx.strokeStyle = ctx.fillStyle = "#a17f1a;";
+                ctx.font = "50px 'Great Vibes', cursive"; 
+                ctx.lineWidth = 2; ctx.lineJoin = "round"; ctx.globalAlpha = 1;
+                ctx.strokeStyle = ctx.fillStyle = "black";
 
                 (function loop() {
-                  ctx.clearRect(x, 0, 60, 150);
                   ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
                   dashOffset -= speed;                                         // reduce dash length
                   ctx.strokeText(txt[i], x, 90);                               // stroke letter
