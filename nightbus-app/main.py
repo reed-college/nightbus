@@ -48,9 +48,9 @@ b  = NightBus()
 def intialize():
     #old = db.query(schema.Schedule).all()
     #db.delete(old)
+    session['logged_in'] = False
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
-        session['logged_in'] = False
         db.close()
     else:
         session['logged_in'] = False
@@ -360,7 +360,7 @@ def authenticate():
     password = request.form['password']
 
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
-    user_role = db.query(schema.User).filter_by(username=username).first()
+    user = db.query(schema.User).filter_by(username=username).first()
 
 
     if user_auth:
@@ -370,7 +370,12 @@ def authenticate():
             session['logged_in'] = True
 
             flash('Welcome')
-            return redirect(url_for('home'))
+            if str(user.role).lower() == 'admin':
+                return redirect(url_for('admin'))
+            elif str(user.role).lower() == 'driver':
+                return redirect(url_for('driver'))
+            else:
+                return redirect(url_for('rider'))
         #else:
             #flash('Please confirm the email address associated with your account.')
             #return redirect(url_for('login'))

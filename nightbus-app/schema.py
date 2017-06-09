@@ -1,3 +1,6 @@
+# We are using a flask library called passlib that lets us hash passwords we can switch to a different encryption scenario if the need
+# arises. 
+
 from datetime import datetime
 from sqlalchemy import (Column, Boolean, Integer, String, DateTime)
 from sqlalchemy.ext.declarative import declarative_base
@@ -37,11 +40,15 @@ class User(Base, IdPrimaryMixin, DateTimeMixin):
         return formatted
 
 # It is easier to authenticate users if we have a separate table that has all the usernames and passwords of all the users
+# I still haven't figured out a way to populate one column in a table from an already existing column in another table. The idea is to automatically
+# create a row in the Authentication table with the username from the Users table.
 class Auth(Base, IdPrimaryMixin, DateTimeMixin):
     __tablename__ = 'Authentication'
 
     username = Column(String(40), unique = True)
     password = Column(String(128))
+    # This was commented out because it was a hassle to have everyone confirm their email during development. But once we have ironed out all the details
+    # for everything else we can de comment it. Also I'm not sure anymore about whether we need an email confirmation feature in our application.
     # confirmed = Column(Boolean, nullable = False, default = False)
 
     def encrypt_password(self, password):
@@ -59,6 +66,6 @@ class Schedule(Base, IdPrimaryMixin):
     lastname = Column(String(20))
 
         
-
+# This creates all the tables that we have defined in our schema.py 
 Base.metadata.create_all(database.engine)
 

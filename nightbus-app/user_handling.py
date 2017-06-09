@@ -1,3 +1,8 @@
+# the functions in this file should allow you to generate and confirm authentication tokens for confirming an email address. They
+# can also be used to generate a one time password reset link that can be sent to the user's email address. The last function 
+# should take our pre-configured Mail settings and send a message to that person. We can use different mail server configurations
+# for different emails. We use a flask extension called flask_mail for this and more documentation can be found at
+# https://pythonhosted.org/Flask-Mail/
 from flask_mail import Message
 
 
