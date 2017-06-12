@@ -399,18 +399,27 @@ def no_user():
 
 ##### Error Handling #####
 
+# These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
+# more error handling functionality we can just add the three lines here and add the corresponding html document in our
+# templates folder. Error handlers are just functions that come with flask. More documentation can be found at 
+# http://flask.pocoo.org/docs/0.12/patterns/errorpages/
+
+
 @app.errorhandler(404)
-def pagenotfound():
+def pagenotfound(e):
     return render_template('404.html'), 404
 
 @app.errorhandler(403)
-def forbiddenaccess():
+def forbiddenaccess(e):
     return render_template('403.html'), 403
 
 @app.errorhandler(500)
-def servererror():
+def servererror(e):
     return render_template('500.html'), 500
 
+@app.errorhandler(405)
+def methodnotallowed(e):
+    return render_template('405.html'), 405
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
