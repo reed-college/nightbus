@@ -47,6 +47,7 @@ It should be 1200px for home page and add/remove driver pages ***/
   	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+
 }
 
 a {	
@@ -106,6 +107,7 @@ message when a button is pressed on the driver page ***/
   	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+            display: none;
 }
 
 /*** content is the wrapper for the box-type middle page elements ***/
@@ -325,6 +327,9 @@ button {
 	color: #a17f1a;
 	font-size: 20px;
 	background-color: lightblue;
+    -moz-box-shadow: 5px 5px rgb(0,0,0);
+-webkit-box-shadow: 5px 5px rgb(0,0,0);
+box-shadow: 5px 5px rgb(0,0,0);
 
 }
 
