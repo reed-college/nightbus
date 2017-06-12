@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 /*** MOBILE ***/ 
 
 
@@ -378,21 +380,47 @@ button {
 
  .form-container {		
  	width: 100%;		
- 	height: 300px;		
- 	background-color: lightblue;		
+ 	max-height: 500px;		
+ 	background-color: #233c63;		
  	display: flex;		
  	flex-direction: column;		
+ 	z-index: 1;
+ 	padding: 45px;
+ 	text-align: center;
+ 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
  }		
  .form-container li {		
  	display: flex;		
  	flex-direction: column;		
  	flex-wrap: wrap;		
  	align-items: center;		
+
  }
 
+.form-container li input {
+	background-color: #5e779e;
+	color: #F8F8F8;
+	border: none;
+	border-radius: 20px;
+	padding: 15px;
+	margin: 0 0 15px;
+	outline: 0;
+	font-size: 14px;
+	width: 100%;
+	box-sizing: border-box;
+}
 
+.form-container li .submit-button {
+	background-color: #3973ce;
+	border-radius: 0px;
+	font-size: 14px;
+	width: 100%;
+}
 
-
+.form-container li .submit-button:hover {
+	background-color: #3b81ef;
+	color: #020314;
+}
 
 /*** animation and bussie ***/
 
