@@ -105,6 +105,7 @@ message when a button is pressed on the driver page ***/
   	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+            display: none;
 }
 
 /*** content is the wrapper for the box-type middle page elements ***/
