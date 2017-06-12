@@ -397,6 +397,20 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
+##### Error Handling #####
+
+@app.errorhandler(404)
+def pagenotfound():
+    return render_template('404.html'), 404
+
+@app.errorhandler(403)
+def forbiddenaccess():
+    return render_template('403.html'), 403
+
+@app.errorhandler(500)
+def servererror():
+    return render_template('500.html'), 500
+
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
