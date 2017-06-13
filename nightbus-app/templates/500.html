@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-	<title>Nightbus | Add Users </title>
+	<title>Server Error </title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
 </head>
@@ -8,10 +8,11 @@
 <body>
 <div class="wrapper">
 	<div class="header">
-		<h1>Login</h1>
+		<h1>Internal Server Error</h1>
 	</div>
 	<div class="content">
-		<h4> User doesn't exist. <a href="{{ url_for('signup') }}">Click Here</a> to Sign Up</h4>
+		<h3> Sorry our server is down at the moment. We'll get to it as soon as possible.</h3>
+		<h3> <a href= {{ url_for('home') }}> In the meantime, go some place nice </a></h3>
 	</div>
 </div>
 </body>

@@ -46,9 +46,9 @@ b  = NightBus()
 
 @app.before_first_request
 def intialize():
+    session['logged_in'] = False
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
-        session['logged_in'] = False
         db.close()
     else:
         session['logged_in'] = False
@@ -357,7 +357,7 @@ def authenticate():
     password = request.form['password']
 
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
-    user_role = db.query(schema.User).filter_by(username=username).first()
+    user = db.query(schema.User).filter_by(username=username).first()
 
 
     if user_auth:
@@ -367,7 +367,12 @@ def authenticate():
             session['logged_in'] = True
 
             flash('Welcome')
-            return redirect(url_for('home'))
+            if str(user.role).lower() == 'admin':
+                return redirect(url_for('admin'))
+            elif str(user.role).lower() == 'driver':
+                return redirect(url_for('driver'))
+            else:
+                return redirect(url_for('rider'))
         #else:
             #flash('Please confirm the email address associated with your account.')
             #return redirect(url_for('login'))
@@ -389,6 +394,29 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
+##### Error Handling #####
+
+# These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
+# more error handling functionality we can just add the three lines here and add the corresponding html document in our
+# templates folder. Error handlers are just functions that come with flask. More documentation can be found at 
+# http://flask.pocoo.org/docs/0.12/patterns/errorpages/
+
+
+@app.errorhandler(404)
+def pagenotfound(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(403)
+def forbiddenaccess(e):
+    return render_template('403.html'), 403
+
+@app.errorhandler(500)
+def servererror(e):
+    return render_template('500.html'), 500
+
+@app.errorhandler(405)
+def methodnotallowed(e):
+    return render_template('405.html'), 405
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
