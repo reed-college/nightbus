@@ -20,7 +20,7 @@
 				<h2>Bus Status</h2>
 				
 			                <div class="icon-wrap">
-				     {% if "here" in status %}
+							{% if "here" in status %}
 			                <img class="dex-icon" src="../static/here.gif" alt="bus-img"/>
 			                {% elif "coming" in status %}
 			                <img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
@@ -35,22 +35,27 @@
 			<div class="box">
 				<h2>Schedule</h2>
 				<table class="schedule" style="width:100%">
+				<thead>
 				  <tr>
-				    <th>Day</th>
-				    <th>Time</th> 
+				    <th>Sunday-Thursday</th>
+				    <th>Friday & Saturday</th> 
 				  </tr>
+				</thead>
 				  <tr>
-				    <td rowspan="10"><center>Sunday-Thursday</center></td>
 				    <td><center>10:15 pm</center></td> 
+					<td><center>10:15 pm</center></td>
 				  </tr>
 				  <tr>
 				    <td><center>11:00 pm</center></td> 
+					<td><center>11:00 pm</center></td>
 				   </tr>
 				</tr>
 				    <td><center>11:30 pm</center></td> 
+					<td><center>11:30 pm</center></td>
 				  </tr>
 				  <tr>
 				    <td><center>12:00 am</center></td> 
+					<td><center>12:00 am</center></td>
 				    <tr>
 				    </tr>
 				    <td><center>12:30 am</center></td> 
@@ -67,21 +72,6 @@
 				    <td><center>2:30 am</center></td> 
 				  </tr>
 				 </table>
-				 <table class="schedule" style="width:100%">
-				  <tr>
-				    <td rowspan="4"><center>Friday & Saturday</center></td>
-				    <td><center>10:15 pm</center></td> 
-				  </tr>
-				   <tr>
-				    <td><center>11:00 pm</center></td> 
-				  </tr>
-				  <tr>
-				    <td><center>11:30 pm</center></td> 
-				  </tr>
-				   <tr>
-				    <td><center>12:00 am</center></td> 
-				  </tr>
-				</table>
 			</div>
 		</div>
 

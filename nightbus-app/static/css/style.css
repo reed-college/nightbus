@@ -69,15 +69,15 @@ a {
 /*** font layout for main header***/ 
 
 h1 {
-	font-family: cursive, times, serif;
+	font-family: Roboto, sans-serif;
 	text-align: center;
-	color:#a17f1a;
+	color: ;
 }
 
 /***font layout for other headers***/
 
 h2 {
-	font-family:"Times New Roman", times, serif;
+	font-family: Roboto, sans-serif;
 	color: #a17f1a;
 	text-align: center;	
 }
@@ -468,13 +468,41 @@ box-shadow: 5px 5px rgb(0,0,0);
 
 /*** Rider Page Schedule Tables ***/ 
 
-.schedule {
-	margin-top: 25px;
+table {
+	border-collapse: separate;
+	background: #F8F8F8;
+	margin: 50px auto;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	z-index: 1;
 }
 
-th {
-	padding-bottom: 20px;
+thead {
+	@include border-radius(5px);
 }
+
+thead th {
+	border-right: 2px solid #F8F8F8;
+	border-left: 2px solid #F8F8F8;
+	font-family: Roboto, cursive;
+	font-size: 16px;
+	font-weight: 400;
+	color: #fff;
+	@include text-shadow(1px 1px 0px rgba(0,0,0,0.5));
+	text-align: center;
+	padding: 20px;
+	background-color: #233c63; 
+}
+
+tbody tr td {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:400;
+	color:#5f6062;
+	font-size:13px;
+	padding:20px 20px 20px 20px;
+	border-bottom:1px solid #e0e0e0;
+
+}
+
 
 
 
