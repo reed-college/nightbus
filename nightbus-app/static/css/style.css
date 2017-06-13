@@ -43,7 +43,7 @@ It should be 1200px for home page and add/remove driver pages ***/
   	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-
+	min-height: 50px;
 }
 
 a {	
@@ -55,6 +55,15 @@ a {
 	margin-right: 15px;
 	text-decoration: none;
 	color: #F8F8F8;
+	text-transform: uppercase;
+}
+
+.nav a:hover {
+	border-top: 5px solid #9e785e;
+	padding: 15px;
+	padding-left: 0px;
+	margin: 0 auto;
+	color: #9e785e;
 }
 
 .nav a:visited {
@@ -66,20 +75,23 @@ a {
 
 }
 
+
 /*** font layout for main header***/ 
 
 h1 {
 	font-family: Roboto, sans-serif;
 	text-align: center;
-	color: ;
+	color: #9e785e;
+	margin: 0 auto;
 }
 
 /***font layout for other headers***/
 
 h2 {
 	font-family: Roboto, sans-serif;
-	color: #a17f1a;
+	color: #F8F8FF;
 	text-align: center;	
+	text-transform: uppercase;
 }
 
 
@@ -122,10 +134,7 @@ message when a button is pressed on the driver page ***/
 .box {
 	width: 70%;
 	height: 680px;
-	border: 2px solid #a17f1a;
-	border-radius: 5px;
-	margin-left: 15%;
-	margin-bottom: 20px;
+	margin: 0 auto;
 }
 
 /**styling for driver schedule **/
@@ -315,18 +324,15 @@ on index.html ***/
 
 
 button {
-	width: 90%;
-	height: 150px;
-	border-radius: 10px;
+	width: 100%;
+	height: 60px;
 	margin-left: 5%;
-	font-family:"Times New Roman", times, serif;
-	color: #a17f1a;
-	font-size: 20px;
-	background-color: lightblue;
-    -moz-box-shadow: 5px 5px rgb(0,0,0);
--webkit-box-shadow: 5px 5px rgb(0,0,0);
-box-shadow: 5px 5px rgb(0,0,0);
-
+	font-family:"Roboto", times, serif;
+	background: transparent;
+	color: #F8F8FF;
+	border: 5px solid #233c63;
+	border-radius: 20px;
+	font-size: 15px;
 }
 
 .statusbutton {
@@ -425,6 +431,10 @@ box-shadow: 5px 5px rgb(0,0,0);
 
 /*** animation and bussie ***/
 
+.bussie-center {
+	margin-top: 15%;
+}
+
 .icon-wrap {
 	width: 100%;
 	display: flex;
@@ -480,6 +490,12 @@ thead {
 	@include border-radius(5px);
 }
 
+thead tr th .title {
+	text-align: center;
+	column-span: all;
+	background: #edf0f4;
+}
+
 thead th {
 	border-right: 2px solid #F8F8F8;
 	border-left: 2px solid #F8F8F8;
@@ -503,9 +519,39 @@ tbody tr td {
 
 }
 
+/**** Driver page instructions ****/
 
+.box .instructions {
+	background-color: #F8F8FF;
+	font-family: Roboto, sans-serif;
+	max-width: 100%;
+	height: 50%;
+	color: #9e785e;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	z-index: 1;
+}
 
+.box .instructions h2 {
+	color: #9e785e;
+	align: center;
+}
 
+.box .instructions ul li {
+	list-style-type: none;
+	border-bottom: 1px solid #333;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.box .instructions ul li a {
+	text-decoration: none;
+	color: #233c63;
+	background-color: transparent;
+	border: 2px solid #233c63;
+	border-radius: 20px;
+	padding: 5px;
+	align: center;
+}
 
 
 /*** DESKTOP ***/ 

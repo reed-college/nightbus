@@ -13,7 +13,8 @@
 	<div class="header">
 		<h1>The NightBus</h1>
 		<div class="nav">
-			<h2><a href="{{ url_for('home') }}" >Rider</a><a href="{{ url_for('logout') }}">Sign Out</a></h2>
+			<a href="{{ url_for('home') }}"> Rider</a>
+			<a href="{{ url_for('logout') }}"> Sign Out </a>
 		</div>
 	</div>
 		<div class = "statusbox">
@@ -25,13 +26,15 @@
 				<button value="coming" id="coming" type="button" class = "statusbutton">Coming Back</button>
 			</div>
 			<div class="box">
-				<h2>Instructions</h2>
-				<ul>
-				 	<li> press the "On Campus" when you arrive at Eliot Cirlce. </li>
-				 	<li>Press the "Just Left" button once you are ready to leave. </li>
-				 	<li> Finally, press the "Coming Back" button after you've made your final stop and are about to head back to campus. </li> 
-				 	<h2><a href = "../display"><button type = "button"> View Driver Schedule</button></a>
-				</ul>
+				<div class="instructions">
+					<h2>Instructions</h2>
+					<ul>
+						<li> Press the "On Campus" when you arrive at Eliot Cirlce. </li>
+						<li>Press the "Just Left" button once you are ready to leave. </li>
+						<li> Finally, press the "Coming Back" button after you've made your final stop and are about to head back to campus. </li> 
+						<li><a href = "../display">View Driver Schedule</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 
