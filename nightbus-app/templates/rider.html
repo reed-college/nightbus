@@ -3,6 +3,8 @@
 	<title>Nightbus | Riders</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src='../static/main.js'></script>
 </head>
 
 <body>
@@ -72,6 +74,50 @@
 				    <td><center>2:30 am</center></td> 
 				  </tr>
 				 </table>
+				<br><br>
+				<form action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+				<input type = "submit" value= "I'm late! Please wait 5 minutes!">
+				</form>
+
+				<script>
+					    $('form').submit(function(e) {
+					        e.preventDefault();
+					        $.ajax({
+					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
+					            data: $(this).serialize(),
+					            type: "POST",
+					            dataType: "xml",
+					            success: function(data) {
+					                console.log('Submission successful');
+					            },
+					            error: function(xhr, status, error) {
+					                console.log('Submission failed: ' + error);
+					            }
+					        });
+					    });
+				</script>
+
+				<form action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+				<input type = "submit" value= "Report the NightbusBus Missing">
+				</form>
+
+				<script>
+					    $('form').submit(function(e) {
+					        e.preventDefault();
+					        $.ajax({
+					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
+					            data: $(this).serialize(),
+					            type: "POST",
+					            dataType: "xml",
+					            success: function(data) {
+					                console.log('Submission successful');
+					            },
+					            error: function(xhr, status, error) {
+					                console.log('Submission failed: ' + error);
+					            }
+					        });
+					    });
+				</script>
 			</div>
 		</div>
 
