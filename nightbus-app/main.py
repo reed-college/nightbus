@@ -46,8 +46,6 @@ b  = NightBus()
 
 @app.before_first_request
 def intialize():
-    #old = db.query(schema.Schedule).all()
-    #db.delete(old)
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
         session['logged_in'] = False
@@ -104,7 +102,6 @@ def display():
 
 
 @app.route('/schedule')
-# @login_required('driver')
 def schedule():
     db = database.get_session()
     drivers = db.query(schema.User).all()
