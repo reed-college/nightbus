@@ -5,8 +5,9 @@ import os
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
-
-url = "postgres://postgres@localhost/nightbus"
+url = 'postgresql://postgres@localhost/nightbus'
+#url = os.environ.get('DATABASE_URL')
+engine = sqlalchemy.create_engine(url)
 
 # The engine is the starting point for any application that uses databases. It creates the appropirate dialect and pool to communicate
 # with our database. If we use postgresql then it will use dialect appropriate for postgreql and if we decide to use sqlite it will
