@@ -92,7 +92,9 @@ def home():
 @app.route('/driver')
 @login_required('driver')
 def driver():
-    return render_template('driver.html')
+    db = database.get_session()
+    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    return render_template('driver.html', drivers=drivers)
 
 
 @app.route('/display')

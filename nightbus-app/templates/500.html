@@ -11,8 +11,10 @@
 		<h1>Internal Server Error</h1>
 	</div>
 	<div class="content">
-		<h3> Sorry our server is down at the moment. We'll get to it as soon as possible.</h3>
-		<h3> <a href= {{ url_for('home') }}> In the meantime, go some place nice </a></h3>
+		<div class="instructions">
+			<h2> Sorry our server is down at the moment. We'll get to it as soon as possible.</h2>
+			<h2> <a href= {{ url_for('home') }}> In the meantime, click me to go some place nice </a></h2>
+		</div>
 	</div>
 </div>
 </body>
