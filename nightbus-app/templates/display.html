@@ -10,32 +10,34 @@
 <body>
     <div class="wrapper">
     
-    <div class="header">
-        <h1>The NightBus</h1>
-        <div class="nav">
-			<a href="{{ url_for('home') }}">Rider</a>
-			<a href="{{ url_for('admin') }}">Admin</a>
-        </div>
-    </div>
-        <div class = "content">
-        <table class>
-			<thead>
-            <tr>
-                <th> Day </th>
-                <th> Driver </th>
-            </tr>
-			</thead>
-            {% for person in drivers %}
-            <tr>
-            <td>{{person.day}}</td>
-            <td>{{ person.firstname}} {{ person.lastname }}</td>
-        </tr>
-            {% endfor %}
-        </table>
-    </div>
-</div>
-        </div>
-    </div>
+		<div class="header">
+			<h1>The NightBus</h1>
+			<div class="nav">
+				<a href="{{ url_for('schedule') }}">Schedule</a>
+				<a href="{{ url_for('home') }}">Rider</a>
+				<a href="{{ url_for('admin') }}">Admin</a>
+
+			</div>
+		</div>
+
+		<div class = "content">
+			<div class="schedule-container">
+				<table class>
+					<thead>
+						<tr>
+							<th> Day </th>
+							<th> Driver </th>
+						</tr>
+					</thead>
+				{% for person in drivers %}
+					<tr>
+						<td>{{person.day}}</td>
+						<td>{{ person.firstname}} {{ person.lastname }}</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+		</div>
 
     </div>
 
