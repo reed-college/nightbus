@@ -13,8 +13,7 @@
 	<div class="header">
 		<h1>NightBus Admins</h1>
 		<div class="nav">
-				<a href="{{ url_for('home') }}">Rider</a>
-				<a href="{{ url_for('driver') }}">Driver</a>
+			<h2><a href="{{ url_for('home') }}" >Rider</a><a href="{{ url_for('driver') }}" >Driver</a>
 				{% if session['logged_in'] %}
 					<a href="{{ url_for('logout') }}">Sign Out</a></h2>
       			{% endif %}
@@ -30,9 +29,7 @@
 				<a href="../removeuser" ><button type="button">Remove Driver</button></a>
 			</div>
 			<div class="box">
-				<div class="instructions">
-					<h2>Instructions</h2>
-				</div>
+				<h2>Instructions</h2>
 			</div>
 
   			</div>

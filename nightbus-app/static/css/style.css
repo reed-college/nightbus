@@ -66,6 +66,10 @@ a {
 	color: #9e785e;
 }
 
+.nav a:visited {
+	color: #a17f1a;
+}
+
 .nav h2 {
 	text-align: center;
 
@@ -474,7 +478,6 @@ button {
 /*** Rider Page Schedule Tables ***/ 
 
 table {
-	width: 100%;
 	border-collapse: separate;
 	background: #F8F8F8;
 	margin: 50px auto;
@@ -515,46 +518,13 @@ tbody tr td {
 
 }
 
-tbody tr td input {
-	heignt: 85%;
-	border: 2px solid #233c63;
-	font-family: Roboto, sans-serif;
-	background: transparent;
-	text-align: 20px;
-	color: #233c63;
-	margin: 0 auto;
-}
-
-tbody tr td input:hover {
-	background: #233c63;
-	color: #F8F8FF;
-	transition: all 0.5s ease;
-}
-
-tbody tr td .dropdown select {
-	height: 85%;
-	text-align: 20px;
-	background: #F8F8F8;
-	color: #233c63;
-	border: 2px solid #233c63;
-	border-radius: 0px;
-	-webkit-appearance: none;
-	-mo-appearance: none;
-	appearance: none;
-	cursor: pointer;
-	outline: none;
-}
-
-.schedule-container {
-	width: 75%;
-}
 /**** Driver page instructions ****/
 
 .box .instructions {
 	background-color: #F8F8FF;
 	font-family: Roboto, sans-serif;
 	max-width: 100%;
-	min-height: 50%;
+	height: 50%;
 	color: #9e785e;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	z-index: 1;
@@ -572,7 +542,6 @@ tbody tr td .dropdown select {
 	margin: 0 auto;
 }
 
-
 .box .instructions ul li a {
 	text-decoration: none;
 	color: #233c63;
@@ -581,7 +550,6 @@ tbody tr td .dropdown select {
 	border-radius: 20px;
 	padding: 5px;
 	align: center;
-	margin: auto;
 }
 
 
