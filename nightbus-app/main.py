@@ -85,14 +85,12 @@ def display_status():
 @app.route('/')
 def home():
     status = b.get_current_status()
-    return render_template('rider.html', status=status)
+    return render_template('index.html', status=status)
     
 @app.route('/driver')
 @login_required('driver')
 def driver():
-    db = database.get_session()
-    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
-    return render_template('driver.html', drivers=drivers)
+    return render_template('driver.html')
 
 
 @app.route('/display')

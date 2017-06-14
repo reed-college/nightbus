@@ -5,17 +5,6 @@
 	<link rel="stylesheet" href="../static/css/style.css">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
-	<script>
-		$(document).ready(function() {
-			$('#scheduledown').click(function() {
-				$('#hiddenSchedule').slideDown();
-			});
-
-			$('#scheduleup').click(function() {
-				$('#hiddenSchedule').slideUp();
-			});
-		});
-	</script>
 </head>
 
 <body>
@@ -43,28 +32,7 @@
 						<li> Press the "On Campus" when you arrive at Eliot Cirlce. </li>
 						<li>Press the "Just Left" button once you are ready to leave. </li>
 						<li> Finally, press the "Coming Back" button after you've made your final stop and are about to head back to campus. </li> 
-						<li>
-							<a id="scheduledown" href = "#">View Driver Schedule</a>
-							<a id="scheduleup" href = "#">Hide Driver Schedule</a> 
-						</li>
-						<li id="hiddenSchedule">
-							<table>
-								<thead>
-								<tr>
-									<th> Day </th>
-									<th> Driver </th>
-								</tr>
-								</thead>
-
-								{% for person in drivers %}
-									<tr>
-										<td>{{person.day}}</td>
-										<td>{{ person.firstname}} {{ person.lastname }}</td>
-									</tr>
-								{% endfor %}
-							</table>
-						</li>
-						
+						<li><a href = "../display">View Driver Schedule</a></li>
 					</ul>
 				</div>
 			</div>
