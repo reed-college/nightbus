@@ -1,6 +1,6 @@
 import googlemaps
 
-key = "AIzaSyD99n_ZeIWtWv3oMH7heZGAfWJM6uVQBLQ"
+key = "whatever your key is"
 
 gmaps = googlemaps.Client(key=key)
 
