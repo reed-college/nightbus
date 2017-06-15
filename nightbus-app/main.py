@@ -1,7 +1,7 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
 from decorators import login_required
-from flask_mail import Message, Mail 
+from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
 import config
@@ -86,7 +86,7 @@ def display_status():
 def home():
     status = b.get_current_status()
     return render_template('index.html', status=status)
-    
+
 @app.route('/driver')
 @login_required('driver')
 def driver():
@@ -277,6 +277,12 @@ def remove():
 def signup():
     return render_template('signup.html')
 
+@app.route('/username_exists', methods=['POST'])
+def username_exists():
+    db = database.get_session()
+    username_exists = db.query(schema.User).filter_by(username=request.form['username']).first()
+    if username_exists:
+        return jsonify("Username is already taken. Please pick another.")
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -287,7 +293,7 @@ def register():
     # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
     # the person signed up with. We don't actually store the password we encrypt it using the passlib library that we imported above. We then add both entries to their respective
     # tables and we commit and then we are done.
-    
+
     db = database.get_session()
 
     firstname = request.form['firstname']
@@ -297,25 +303,18 @@ def register():
     password = request.form['password']
     role = (request.form['role']).lower()
 
+    user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
+    user_auth = schema.Auth(username=username)
+    user_auth.encrypt_password(password)
 
-    username_exists = db.query(schema.User).filter_by(username=username).first()
-
-    if username_exists:
-        flash('Username already taken pick another username')
-        return redirect(url_for('signup'))
-    else:
-        user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
-        user_auth = schema.Auth(username=username)
-        user_auth.encrypt_password(password)
-
-        db.add(user)
-        db.add(user_auth)
-        db.commit()
+    db.add(user)
+    db.add(user_auth)
+    db.commit()
 
 
-        # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
-        # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they 
-        # should be redirected to the function immediately below.
+    # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
+    # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they
+    # should be redirected to the function immediately below.
 
 #        subject = 'Confirm Your Email'
 #        token = generate_confirmation_token(email, serializer)
@@ -323,15 +322,15 @@ def register():
 #        html = render_template('activate.html', confirm_url = confirm_url)
 #        send_mail(user.email, subject, html, mail)
 
-        db.close()
-        flash('User successfully registered')
-        return redirect(url_for('login'))
+    db.close()
+    flash('User successfully registered')
+    return redirect(url_for('login'))
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
     db = database.get_session()
     email = confirm_email_token(token, serializer)
-    
+
     user = db.query(schema.User).filter_by(email=email).first()
 
     user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
@@ -340,7 +339,7 @@ def confirm_email(token):
     db.add(user_auth)
     db.commit()
     db.close()
-    
+
     flash('Email successfully confimed')
     return redirect(url_for('login'))
 
@@ -398,7 +397,7 @@ def no_user():
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
 # more error handling functionality we can just add the three lines here and add the corresponding html document in our
-# templates folder. Error handlers are just functions that come with flask. More documentation can be found at 
+# templates folder. Error handlers are just functions that come with flask. More documentation can be found at
 # http://flask.pocoo.org/docs/0.12/patterns/errorpages/
 
 
