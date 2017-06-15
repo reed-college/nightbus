@@ -25,7 +25,7 @@ mail.init_app(app)
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
-#ajax and global status
+#update bus statuses upon hitting buttons on driver page
 
 status = "here"
 
@@ -37,9 +37,17 @@ class NightBus:
     def update_status(self,new_status):
         self.current_status = new_status
 
-
 b  = NightBus()
 
+@app.route('/update_state/')
+def update_state():
+    b.update_status(request.args.get('state'))
+    post_to_fb.main("the Nightbus is " + b.current_status + "!")
+
+@app.route('/rider', methods=['GET'])
+def display_status():
+    status = b.get_current_status()
+    return render_template("rider.html", status=status)
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
 
@@ -69,18 +77,9 @@ def intialize():
         db.commit()
         db.close()
 
-@app.route('/update_state/')
-def update_state():
-    b.update_status(request.args.get('state'))
-    post_to_fb.main("the Nightbus is " + b.current_status + "!")
 
-@app.route('/rider', methods=['GET'])
-def display_status():
-    status = b.get_current_status()
-    return render_template("rider.html", status=status)
 
 # normal app routes
-
 
 @app.route('/')
 def home():
