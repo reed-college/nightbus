@@ -323,25 +323,38 @@ on index.html ***/
 
 
 button {
-	width: 100%;
+	width: 90%;
 	height: 60px;
 	margin-left: 5%;
 	font-family:"Roboto", times, serif;
 	background: transparent;
-	color: #F8F8FF;
+	color: #233c63;
 	border: 5px solid #233c63;
-	border-radius: 20px;
 	font-size: 15px;
 }
 
+button:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
 .statusbutton {
-	width: 100%;
-	height: 150px;
-	border-radius: 10px;
-	font-family:"Times New Roman", times, serif;
-	color: #a17f1a;
-	font-size: 20px;
-	background-color: lightblue;
+	width: 90%;
+	height: 50px;
+	border-radius: 5px solid #233c63;
+	border-radius: 0px;
+	margin-left: 0 auto;
+	font-family: Roboto, times, serif;
+	color: #233c63;
+	font-size: 14px;
+	background-color: transparent;
+}
+
+.statusbutton:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
 
 #coming {
@@ -450,7 +463,7 @@ button {
 	margin-top: -50px;
 	height: 350px;
 	width: 350px;
-	margin-right: 15%;
+	margin-right: 10%;
 	-webkit-animation: mymove 1s infinite;
 }
 
@@ -602,7 +615,7 @@ tbody tr td {
 	}
 
 	.dex-icon {
-		margin-left: 12.5%;
+		margin-right: 0;
 	}
 
 	#whereis {
