@@ -94,9 +94,16 @@ h2 {
 	text-transform: uppercase;
 }
 
+/*Form validation error*/
+.error {
+	display: inline-block !important;
+}
 
-
-
+#messageBox {
+	position: absolute;
+	top: auto;
+	right: 0;
+}
 
 
 /*** middle of page content ***/
