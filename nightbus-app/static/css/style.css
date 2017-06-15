@@ -335,15 +335,13 @@ button {
 }
 
 .statusbutton {
-	width: 90%;
+	width: 100%;
 	height: 150px;
 	border-radius: 10px;
-	margin-left: 5%;
 	font-family:"Times New Roman", times, serif;
 	color: #a17f1a;
 	font-size: 20px;
 	background-color: lightblue;
-
 }
 
 #coming {
@@ -360,12 +358,6 @@ button {
 }
 
 #leaving {
-	width: 90%;
-	height: 150px;
-	margin-left: 5%;
-}
-
-#cancelled {
 	width: 90%;
 	height: 150px;
 	margin-left: 5%;
@@ -426,6 +418,11 @@ button {
 .form-container li .submit-button:hover {
 	background-color: #3b81ef;
 	color: #020314;
+}
+
+.rider-form {
+	margin-left: 17.5%;
+	margin-bottom: 15px;
 }
 
 /*** animation and bussie ***/
@@ -528,6 +525,8 @@ tbody tr td {
 	color: #9e785e;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	z-index: 1;
+	padding: 5px;
+	margin-top: 7.5%;
 }
 
 .box .instructions h2 {
@@ -598,6 +597,14 @@ tbody tr td {
 	}
 
 	.red-button {
+		margin-left: 12.5%;
+	}
+
+	.dex-icon {
+		margin-left: 12.5%;
+	}
+
+	#whereis {
 		margin-left: 12.5%;
 	}
 
