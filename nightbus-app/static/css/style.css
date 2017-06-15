@@ -377,7 +377,7 @@ button {
 /*** Forms ***/	
 
  .form-container {		
- 	width: 100%;		
+ 	width: 70%;		
  	max-height: 500px;		
  	background-color: #233c63;		
  	display: flex;		
@@ -386,6 +386,7 @@ button {
  	padding: 45px;
  	text-align: center;
  	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+ 	margin-left: 10%;
  }		
  .form-container li {		
  	display: flex;		
@@ -606,5 +607,10 @@ tbody tr td {
 
 	#whereis {
 		margin-left: 12.5%;
+	}
+
+	.form-container {
+		width: 100%;
+		margin-left: 0;
 	}
 
