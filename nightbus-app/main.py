@@ -282,6 +282,8 @@ def username_exists():
     username_exists = db.query(schema.User).filter_by(username=request.form['username']).first()
     if username_exists:
         return jsonify("Username is already taken. Please pick another.")
+    else:
+        return jsonify("true")
 
 @app.route('/register', methods=['GET','POST'])
 def register():

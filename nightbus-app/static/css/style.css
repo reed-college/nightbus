@@ -96,17 +96,6 @@ h2 {
 	text-transform: uppercase;
 }
 
-/*Form validation error*/
-.error {
-	display: inline-block !important;
-}
-
-#messageBox {
-	position: absolute;
-	top: auto;
-	right: 0;
-}
-
 
 /*** middle of page content ***/
 
@@ -164,7 +153,7 @@ message when a button is pressed on the driver page ***/
 }
 
 
-/*styling for admin's driver schedule */
+/*** Admin's Driver Schedule ***/
 
 
 .editdriverschedule td {
@@ -194,8 +183,72 @@ message when a button is pressed on the driver page ***/
 	font-size: 20px;
 }
 
+/*** Admin Manage Drivers Flyout Menu ***/
 
+.flyoutmenu ul, .flyoutmenu ul li {
+	color: #f7f7f7;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
 
+.flyoutmenu ul li {
+  /*border-bottom:solid 1px white;*/
+  width: 350px;
+	height: 60px;
+	font-family:"Roboto", times, serif;
+	font-size: 15px;
+	background: transparent;
+	color: #233c63;
+	border: 5px solid #233c63;
+	cursor: pointer;
+}
+
+/*button {
+	width: 90%;
+	height: 60px;
+	margin-left: 5%;
+	font-family:"Roboto", times, serif;
+	background: transparent;
+	color: #233c63;
+	border: 5px solid #233c63;
+	font-size: 15px;
+}
+
+button:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}*/
+
+.flyoutmenu ul li:hover {
+	position: relative;
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+.flyoutmenu ul li ul a {
+	padding: 5px 15px;
+	color: #f7f7f7;
+	display: inline-block;
+	text-decoration: none;
+}
+
+/*.flyoutmenu ul li ul a li {
+	justify-content: space-between;
+}*/
+
+.flyoutmenu ul li ul {
+	position: absolute;
+	display: none;
+}
+
+.flyoutmenu ul li:hover ul {
+	top: 0px;
+	left: 350px;
+	display: block;
+}
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
@@ -415,7 +468,55 @@ button:hover {
 	transition: all 0.6s ease;
 }
 
-/*** animation and bussie ***/
+/*** Form validation error container ***/
+
+.content {
+	position: relative;
+}
+
+#errNm1 {
+	position: absolute;
+	color: #f7f7f7;
+	top: 8%;
+	left: 70%;
+}
+
+#errNm2 {
+	position: absolute;
+	color: #f7f7f7;
+	top: 17%;
+	left: 70%;
+}
+
+#errNm3 {
+	position: absolute;
+	color: #f7f7f7;
+	top: 26%;
+	left: 70%;
+}
+
+#errNm4 {
+	position: absolute;
+	color: #f7f7f7;
+	top: 35%;
+	left: 70%;
+}
+
+#errNm5 {
+	position: absolute;
+	color: #f7f7f7;
+	top: 45%;
+	left: 70%;
+}
+
+#errNm6 {
+	position: absolute;
+	color: #f7f7f7;
+	top: 54%;
+	left: 70%;
+}
+
+/*** Animation  ***/
 
 .bussie-center {
 	margin-top: 15%;
@@ -457,8 +558,6 @@ button:hover {
       transform: translate3d(50px, 40px, 0px);
     }
 }
-
-
 
 
 
