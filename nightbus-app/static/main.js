@@ -43,16 +43,14 @@ $(document).ready(function(){
         $('.statusbox').fadeOut(4000)
    })
 
-  $('submit').click(function(){
-        $('.statusbox').append('<p>Shift successfully assigned!</p>');
-        $('.statusbox').fadeOut(4000)
-    })
-    $(document).on('click','submit',function() {
+})
+
+function submitstatus() {
         $('p').remove()
         $('.statusbox').append('<p>Shift successfully assigned!</p>');
         $('.statusbox').fadeOut(4000)
-   })
-})
+   }
+
 
 
 $(function() {
