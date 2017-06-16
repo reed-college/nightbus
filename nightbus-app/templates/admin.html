@@ -19,12 +19,12 @@
       			{% endif %}
       		</div>
 	</div>
-		<div class = "statusbox">
-		</div>
+
 		<div class="content">
 			<div class="butt box">
-				 <button value="cancelled" class="statusbutton" type="button" >Cancel NightBus</button>
-				<!-- <a href = "../schedule"><button type = "button">Edit Driver Schedule</button></a>
+
+				 <button value="cancelled" id = "cancelled" class="statusbutton" type="button" onclick = "submitstatus()">Cancel NightBus</button>
+				<a href = "../schedule"><button type = "button">Edit Driver Schedule</button></a>
 				<a href="../adduser" ><button type="button">Add Driver</button></a>
 				<a href="../removeuser" ><button type="button">Remove Driver</button></a> -->
 				<div class="flyoutmenu">
@@ -48,4 +48,9 @@
 		</div>
 
 	</div>
+<script>
+function submitstatus() {
+    alert ("NightBus cancelled!")
+        }
+ </script>
 </body>

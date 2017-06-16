@@ -7,7 +7,7 @@ body {
 	min-height: 100vh;
 	background: #9e785e;
 	background-size: cover;
-	color: #a17f1a;
+	color: #633d23;
 }
 
 /*** wrapper is 1550px for riders, drivers, and admin page.
@@ -44,6 +44,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 50px;
+	position: fixed;
+	z-index: 1;
 }
 
 a {
@@ -103,6 +105,7 @@ message when a button is pressed on the driver page ***/
 .statusbox{
 	width: 95%;
 	margin-left: 2.5%;
+	margin-top: 100px;
 	margin-bottom: 15px;
 	border: 2px solid white;
 	padding: 5px;
@@ -116,7 +119,7 @@ message when a button is pressed on the driver page ***/
 /*** content is the wrapper for the box-type middle page elements ***/
 
 .content {
-	margin-top: 15px;
+	margin-top: 100px;
 	width: 100%;
 	height: 1400px;
 	display: flex;
@@ -151,6 +154,7 @@ message when a button is pressed on the driver page ***/
 
 
 /*** Admin's Driver Schedule ***/
+
 
 .editdriverschedule td {
 	border: 3px solid black;
@@ -397,7 +401,7 @@ button:hover {
 /*** Forms ***/
 
  .form-container {
- 	width: 70%;
+ 	width: 100%;
  	max-height: 500px;
  	background-color: #233c63;
  	display: flex;
@@ -443,7 +447,25 @@ button:hover {
 
 .rider-form {
 	margin-left: 17.5%;
+	margin-top: 15%;
 	margin-bottom: 15px;
+}
+.rider-form input{
+	background: transparent;
+	color: #233c63;
+	border-bottom: 5px solid #233c63;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	margin: 0 auto;
+	text-transform: uppercase;
+}
+
+.rider-form input:hover {
+	color: #F8F8FF;
+	border-bottom: 0px;
+	transition-delay: 1s;
+	transition: all 0.6s ease;
 }
 
 /*** Form validation error container ***/
@@ -546,7 +568,7 @@ table {
 	background: #F8F8F8;
 	margin: 50px auto;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	z-index: 1;
+	
 }
 
 thead {
