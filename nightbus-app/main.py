@@ -366,8 +366,10 @@ def authenticate():
 
             flash('Welcome')
             if str(user.role).lower() == 'admin':
+                session['role'] == 'admin'
                 return redirect(url_for('admin'))
             elif str(user.role).lower() == 'driver':
+                session['role'] == 'driver'
                 return redirect(url_for('driver'))
             else:
                 return redirect(url_for('rider'))
