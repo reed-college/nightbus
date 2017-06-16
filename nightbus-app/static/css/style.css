@@ -7,7 +7,7 @@ body {
 	min-height: 100vh;
 	background: #9e785e;
 	background-size: cover;
-	color: #a17f1a;
+	color: #633d23;
 }
 
 /*** wrapper is 1550px for riders, drivers, and admin page.
@@ -348,7 +348,7 @@ button:hover {
 /*** Forms ***/
 
  .form-container {
- 	width: 70%;
+ 	width: 100%;
  	max-height: 500px;
  	background-color: #233c63;
  	display: flex;
@@ -394,7 +394,25 @@ button:hover {
 
 .rider-form {
 	margin-left: 17.5%;
+	margin-top: 15%;
 	margin-bottom: 15px;
+}
+.rider-form input{
+	background: transparent;
+	color: #233c63;
+	border-bottom: 5px solid #233c63;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	margin: 0 auto;
+	text-transform: uppercase;
+}
+
+.rider-form input:hover {
+	color: #F8F8FF;
+	border-bottom: 0px;
+	transition-delay: 1s;
+	transition: all 0.6s ease;
 }
 
 /*** animation and bussie ***/
