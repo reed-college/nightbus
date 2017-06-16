@@ -60,9 +60,8 @@
 			$(function() {
 				$('form').validate({
 
-					// place error messages in the "messageBox" div
 					errorPlacement: function(error, element) {
-						// error.appendTo($("#messageBox"));
+						// place error messages next to their corresponding invalid element
 						if (element.attr("name") == "firstname" ) {
 	              error.appendTo($('#errNm1'));
 	            } else if (element.attr("name") == "lastname" ) {
@@ -76,18 +75,9 @@
 							} else if (element.attr("name") == "password") {
 								error.appendTo($("#errNm6"));
 							} else {
-
+								//do nothing
 							}
 
-						// clear error msgs on keypress and input change
-						$("input").on({
-							keyup: function() {
-								$(error).remove();
-							},
-							change: function() {
-								$(error).remove();
-							}
-						});
 					},
 
 					//Specify validation rules
@@ -118,7 +108,7 @@
 						}
 					},
 
-					// Specify validation error messages
+					// specify validation error messages
 					messages: {
 						firstname: "Please enter your first name",
 						lastname: "Please enter your lastname",
@@ -134,7 +124,6 @@
 					},
 
 					submitHandler: function(form) {
-						// form.valid();
 						form.submit();
 					}
 				});
