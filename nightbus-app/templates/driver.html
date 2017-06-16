@@ -17,13 +17,12 @@
 			<a href="{{ url_for('logout') }}"> Sign Out </a>
 		</div>
 	</div>
-		<div class = "statusbox">
-		</div>
+
 		<div class="content">
 			<div class="butt box">
-				<button value="here" id="here" type="button" class = "statusbutton">On Campus</button>
-				<button value="leaving" id="leaving" type="button" class = "statusbutton">Just Left</button>
-				<button value="coming" id="coming" type="button" class = "statusbutton">Coming Back</button>
+				<button value="here" id="here" type="button" class = "statusbutton" onclick = "submitstatus()">On Campus</button>
+				<button value="leaving" id="leaving" type="button" class = "statusbutton" onclick = "submitstatus()">Just Left</button>
+				<button value="coming" id="coming" type="button" class = "statusbutton" onclick = "submitstatus()">Coming Back</button>
 			</div>
 			<div class="box">
 				<div class="instructions">
@@ -39,4 +38,9 @@
 		</div>
 
 	</div>
+<script>
+function submitstatus() {
+    alert ("Status updated!")
+        }
+ </script>
 </body>
