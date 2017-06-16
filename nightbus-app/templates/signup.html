@@ -16,40 +16,44 @@
 		</div>
 		<div class="content">
 			<form action="/register" method="post">
-				<ul class="form-container">
+				<ul class="form-container" >
 					<li>
 						{% with messages = get_flashed_messages() %}
 							{% if messages %}
 								{% for message in messages %} {{ message }}
-								{% endfor %} 
+								{% endfor %}
 							{% endif %}
 						{% endwith %}
 					</li>
 					<li>
 						<input type="text" placeholder="first name" name="firstname" required><br>
+						<span id="errNm1"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="last name" name="lastname" required><br>
+						<span id="errNm2"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="username" name="username" required><br>
+						<span id="errNm3"></span>
 					</li>
 					<li>
 						<input type="email" placeholder="email" name="email" required><br>
+						<span id="errNm4"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="role" name="role" required><br>
+						<span id="errNm5"></span>
 					</li>
 					<li>
 						<input type="password" placeholder="password" name="password" required><br>
+						<span id="errNm6"></span>
 					</li>
 					<li>
-						<input class="submit-button" type="submit" value="Save!">
+						<input class="submit-button" name="submit" type="submit" value="Save!">
 					</li>
 				</ul>
-				<!-- "messageBox" has to be placed inside the form to prevent duplicate error messages -->
-				<div id="messageBox">
-				</div>
+
 			</form>
 		</div>
 		<script>
@@ -58,17 +62,22 @@
 
 					// place error messages in the "messageBox" div
 					errorPlacement: function(error, element) {
-						error.appendTo($("#messageBox"));
-						// style error msgs
-						offset = element.offset();
-						$("#messageBox").css({
-							'display': 'block',
-							'position': 'absolute',
-							'z-index': '10',
-							'color': '#f7f7f7',
-							'top': offset.top,
-							'left': offset.left + element.outerWidth() + 65
-						});
+						// error.appendTo($("#messageBox"));
+						if (element.attr("name") == "firstname" ) {
+	              error.appendTo($('#errNm1'));
+	            } else if (element.attr("name") == "lastname" ) {
+								error.appendTo($('#errNm2'));
+							} else if (element.attr("name") == "username") {
+								error.appendTo($("#errNm3"));
+							} else if (element.attr("name") == "email") {
+								error.appendTo($("#errNm4"));
+							} else if (element.attr("name") == "role") {
+								error.appendTo($("#errNm5"));
+							} else if (element.attr("name") == "password") {
+								error.appendTo($("#errNm6"));
+							} else {
+
+							}
 
 						// clear error msgs on keypress and input change
 						$("input").on({
@@ -102,6 +111,7 @@
 							required: true,
 							email: true // Specify that email should be validated by the built-in "email" rule
 						},
+						role: "required",
 						password: {
 							required: true,
 							minlength: 5
@@ -119,8 +129,10 @@
 							required: "Please provide a password",
 							minlength: "Your password must be at least 5 characters long"
 						},
-						email: "Please enter a valid email address"
+						email: "Please enter a valid email address",
+						role: "Please fill in your role"
 					},
+
 					submitHandler: function(form) {
 						// form.valid();
 						form.submit();

@@ -9,7 +9,7 @@
 
 <body>
 	<div class="wrapper">
-	
+
 	<div class="header">
 		<h1>NightBus Admins</h1>
 		<div class="nav">
@@ -24,9 +24,21 @@
 		<div class="content">
 			<div class="butt box">
 				 <button value="cancelled" class="statusbutton" type="button" >Cancel NightBus</button>
-				<a href = "../schedule"><button type = "button">Edit Driver Schedule</button></a>
+				<!-- <a href = "../schedule"><button type = "button">Edit Driver Schedule</button></a>
 				<a href="../adduser" ><button type="button">Add Driver</button></a>
-				<a href="../removeuser" ><button type="button">Remove Driver</button></a>
+				<a href="../removeuser" ><button type="button">Remove Driver</button></a> -->
+				<div class="flyoutmenu">
+					<ul>
+						<li>Manage Drivers
+							<ul>
+								<a href = "../schedule"><li>Edit Driver Schedule</li></a>
+								<a href = "../adduser"><li>Add Driver</li></a>
+								<a href = "../removeuser"><li>Remove Driver</li></a>
+							</ul>
+						</li>
+					</ul>
+			</div>
+
 			</div>
 			<div class="box">
 				<h2>Instructions</h2>
