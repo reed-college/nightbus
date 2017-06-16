@@ -16,8 +16,6 @@
             <h2><a href="/" >Sign-In</a><a href = "../rider">Rider</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
         </div>
     </div>
-<div class = "statusbox">
-        </div>
     <div class = "content">
         <table class = "editdriverschedule">
             <tr>
@@ -27,20 +25,20 @@
             <tr>
             <td> Monday </td>
         <td><div class = "dropdown">
-            <form action = "/assignmonday" method="post">
+            <form action = "/assignmonday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
             {% endfor %}
         </select>
-        <input type ="submit">
+        <input type ="submit" value = "Submit">
     </form>
         </div> </td>
     </tr>
     <tr>
         <td> Tuesday </td>
         <td><div class = "dropdown">
-            <form action = "/assigntuesday" method="post">
+            <form action = "/assigntuesday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -53,7 +51,7 @@
     <tr>
         <td> Wednesday </td>
         <td><div class = "dropdown">
-            <form action = "/assignwednesday" method="post">
+            <form action = "/assignwednesday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -66,7 +64,7 @@
     <tr>
         <td>Thursday </td>
         <td><div class = "dropdown">
-            <form action = "/assignthursday" method="post">
+            <form action = "/assignthursday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -79,7 +77,7 @@
         <tr>
         <td> Friday </td>
         <td><div class = "dropdown">
-            <form action = "/assignfriday" method="post">
+            <form action = "/assignfriday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -92,7 +90,7 @@
     <tr>
         <td> Saturday </td>
         <td><div class = "dropdown">
-            <form action = "/assignsaturday" method="post">
+            <form action = "/assignsaturday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -105,7 +103,7 @@
     <tr>
         <td> Sunday </td>
         <td><div class = "dropdown">
-            <form action = "/assignsunday" method="post">
+            <form action = "/assignsunday" method="post" onsubmit = "submitstatus()">
             <select name = "driver_id">
             {% for person in drivers %}
             <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -119,5 +117,9 @@
     </div>
 </div>
 
-
+        <script>
+        function submitstatus() {
+            alert ("Shift successfully assigned!")
+        }
+        </script>
 </body>
