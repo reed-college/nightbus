@@ -4,6 +4,7 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
+from tracking import calculate_duration
 import config
 import schema
 import database
@@ -394,6 +395,10 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
+
+@app.route('/drivermaps')
+def drivermaps():
+    return render_template('maps.html')
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
