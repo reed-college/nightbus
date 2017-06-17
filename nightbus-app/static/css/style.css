@@ -183,72 +183,34 @@ message when a button is pressed on the driver page ***/
 	font-size: 20px;
 }
 
-/*** Admin Manage Drivers Flyout Menu ***/
+/*** Admin Dropdown Menu ***/
 
-.flyoutmenu ul, .flyoutmenu ul li {
-	color: #f7f7f7;
-	margin: 0;
-	padding: 0;
+.flyout {
+	position: relative;
+	width: 1000px !important;
+}
+
+.flyoutBtn {
+	width: 500px;
+}
+
+.flyout-content {
+  position: absolute;
+	display: none;
 	list-style: none;
 }
 
-.flyoutmenu ul li {
-  /*border-bottom:solid 1px white;*/
-  width: 350px;
-	height: 60px;
-	font-family:"Roboto", times, serif;
-	font-size: 15px;
-	background: transparent;
-	color: #233c63;
-	border: 5px solid #233c63;
-	cursor: pointer;
+.flyout:hover .flyout-content {
+	display: inline-block;;
+	left: 540px;
+	min-width: inherit;
 }
 
-/*button {
-	width: 90%;
-	height: 60px;
-	margin-left: 5%;
-	font-family:"Roboto", times, serif;
-	background: transparent;
-	color: #233c63;
-	border: 5px solid #233c63;
-	font-size: 15px;
-}
-
-button:hover {
+.flyout:hover .flyoutBtn {
 	color: #F8F8FF;
 	background-color: #233c63;
-	transition: all 0.5s ease;
-}*/
-
-.flyoutmenu ul li:hover {
-	position: relative;
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
 }
 
-.flyoutmenu ul li ul a {
-	padding: 5px 15px;
-	color: #f7f7f7;
-	display: inline-block;
-	text-decoration: none;
-}
-
-/*.flyoutmenu ul li ul a li {
-	justify-content: space-between;
-}*/
-
-.flyoutmenu ul li ul {
-	position: absolute;
-	display: none;
-}
-
-.flyoutmenu ul li:hover ul {
-	top: 0px;
-	left: 350px;
-	display: block;
-}
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
@@ -386,16 +348,6 @@ button:hover {
 	height: 150px;
 	margin-left: 5%;
 }
-
- /*** cancel buses button ***/
-
- .red-button {
- 	margin-left: 20%;
- 	height: 350px;
- 	width: 350px;
- }
-
-
 
 
 /*** Forms ***/
@@ -568,7 +520,7 @@ table {
 	background: #F8F8F8;
 	margin: 50px auto;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	
+
 }
 
 thead {
