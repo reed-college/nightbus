@@ -187,23 +187,47 @@ message when a button is pressed on the driver page ***/
 
 .flyout {
 	position: relative;
-	width: 1000px !important;
+	width: 1200px !important;
+	height: 50px;
+	margin: 0 auto;
+	margin-left: 5%;
+	/*border: dashed 2px white;*/
+	justify-content: flex-start;
 }
 
 .flyoutBtn {
 	width: 500px;
+	height: 50px;
+	margin-left: 0;
 }
 
 .flyout-content {
   position: absolute;
 	display: none;
 	list-style: none;
+	justify-content: center;
+}
+
+.flyout-content a {
+	display: block;
+	padding: 12px 180px;
+	color: #233c63;
+	border: 5px solid #233c63;
+	font-size: 15px;
+	margin-bottom: 15px;
+	text-align: center;
 }
 
 .flyout:hover .flyout-content {
-	display: inline-block;;
-	left: 540px;
+	display: inline-block;
+	left: 515px;
 	min-width: inherit;
+}
+
+.flyout-content a:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all .5 ease;
 }
 
 .flyout:hover .flyoutBtn {
@@ -568,6 +592,7 @@ tbody tr td {
 	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
+
 }
 
 .box .instructions h2 {
@@ -627,6 +652,7 @@ tbody tr td {
 	.box {
 		width: 45%;
 		margin-left: 0;
+		/*border: dashed 2px white;*/
 	}
 
 	.dex-box {
