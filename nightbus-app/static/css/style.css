@@ -39,8 +39,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  	background-color: #233c63;
-  	display: flex;
+  background-color: #233c63;
+  display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 50px;
@@ -183,72 +183,58 @@ message when a button is pressed on the driver page ***/
 	font-size: 20px;
 }
 
-/*** Admin Manage Drivers Flyout Menu ***/
+/*** Admin Dropdown Menu ***/
 
-.flyoutmenu ul, .flyoutmenu ul li {
-	color: #f7f7f7;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.flyoutmenu ul li {
-  /*border-bottom:solid 1px white;*/
-  width: 350px;
-	height: 60px;
-	font-family:"Roboto", times, serif;
-	font-size: 15px;
-	background: transparent;
-	color: #233c63;
-	border: 5px solid #233c63;
-	cursor: pointer;
-}
-
-/*button {
-	width: 90%;
-	height: 60px;
-	margin-left: 5%;
-	font-family:"Roboto", times, serif;
-	background: transparent;
-	color: #233c63;
-	border: 5px solid #233c63;
-	font-size: 15px;
-}
-
-button:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}*/
-
-.flyoutmenu ul li:hover {
+.flyout {
 	position: relative;
+	width: 200%;
+	height: 50%;
+	margin: 0 auto;
+	margin-left: 5%;
+	/*border: dashed 2px white; */
+	justify-content: flex-start;
+}
+
+.flyoutBtn {
+	width: 500px;
+	height: 50px;
+	margin-left: 0;
+}
+
+.flyout-content {
+  position: absolute;
+	display: none;
+	list-style: none;
+	justify-content: center;
+}
+
+.flyout-content a {
+	display: block;
+	padding: 12px 180px;
+	color: #233c63;
+	border: 5px solid #233c63;
+	font-size: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.flyout:hover .flyout-content {
+	display: inline-block;
+	left: 515px;
+	min-width: inherit;
+}
+
+.flyout-content a:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
-	transition: all 0.5s ease;
+	transition: all .5 ease;
 }
 
-.flyoutmenu ul li ul a {
-	padding: 5px 15px;
-	color: #f7f7f7;
-	display: inline-block;
-	text-decoration: none;
+.flyout:hover .flyoutBtn {
+	color: #F8F8FF;
+	background-color: #233c63;
 }
 
-/*.flyoutmenu ul li ul a li {
-	justify-content: space-between;
-}*/
-
-.flyoutmenu ul li ul {
-	position: absolute;
-	display: none;
-}
-
-.flyoutmenu ul li:hover ul {
-	top: 0px;
-	left: 350px;
-	display: block;
-}
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
@@ -386,16 +372,6 @@ button:hover {
 	height: 150px;
 	margin-left: 5%;
 }
-
- /*** cancel buses button ***/
-
- .red-button {
- 	margin-left: 20%;
- 	height: 350px;
- 	width: 350px;
- }
-
-
 
 
 /*** Forms ***/
@@ -568,7 +544,7 @@ table {
 	background: #F8F8F8;
 	margin: 50px auto;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	
+
 }
 
 thead {
@@ -616,6 +592,7 @@ tbody tr td {
 	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
+
 }
 
 .box .instructions h2 {
@@ -675,6 +652,7 @@ tbody tr td {
 	.box {
 		width: 45%;
 		margin-left: 0;
+		/*border: dashed 2px white;*/
 	}
 
 	.dex-box {
