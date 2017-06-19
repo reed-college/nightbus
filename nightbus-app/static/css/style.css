@@ -39,8 +39,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  	background-color: #233c63;
-  	display: flex;
+  background-color: #233c63;
+  display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 50px;
@@ -187,11 +187,11 @@ message when a button is pressed on the driver page ***/
 
 .flyout {
 	position: relative;
-	width: 1200px !important;
-	height: 50px;
+	width: 200%;
+	height: 50%;
 	margin: 0 auto;
 	margin-left: 5%;
-	/*border: dashed 2px white;*/
+	/*border: dashed 2px white; */
 	justify-content: flex-start;
 }
 
