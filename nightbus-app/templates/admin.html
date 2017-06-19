@@ -13,39 +13,35 @@
 	<div class="header">
 		<h1>NightBus Admins</h1>
 		<div class="nav">
-			<h2><a href="{{ url_for('home') }}" >Rider</a><a href="{{ url_for('driver') }}" >Driver</a>
-				{% if session['logged_in'] %}
-					<a href="{{ url_for('logout') }}">Sign Out</a></h2>
-      			{% endif %}
-      		</div>
+			<a href="{{ url_for('home') }}" >Rider</a>
+			<a href="{{ url_for('driver') }}" >Driver</a>
+			{% if session['logged_in'] %}
+				<a href="{{ url_for('logout') }}">Sign Out</a>
+      		{% endif %}
+      	</div>
 	</div>
 
 		<div class="content">
 			<div class="butt box">
-
 				 <button value="cancelled" id = "cancelled" class="statusbutton" type="button" onclick = "submitstatus()">Cancel NightBus</button>
-
-				<div class="flyout">
-					<button class="flyoutBtn">Manage Drivers</button>
-					<div class="flyout-content">
-						 <a href = "../schedule">Edit Driver Schedule</a>
+					<div class="dropdown">
+						<button onclick="dropmenu()" class="dropbtn">Manage Drivers</button>
+						<div id="admin-dropdown" class="dropdown-content">
+						 <a href="../schedule">Edit Driver Schedule</a>
 						 <a href="../adduser">Add Driver</a>
 						 <a href="../removeuser">Remove Driver</a>
+						</div>
 					</div>
-			</div>
-
 			</div>
 			<div class="box">
 				<h2>Instructions</h2>
 			</div>
-
-  			</div>
 		</div>
-
 	</div>
 <script>
-function submitstatus() {
+
+	function submitstatus() {
     alert ("NightBus cancelled!")
         }
- </script>
+</script>
 </body>
