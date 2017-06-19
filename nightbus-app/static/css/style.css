@@ -30,11 +30,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 }
 
 
-
-
-
-
 /*** header block + nav items ***/
+
 
 .header {
 	width: 100%;
@@ -74,7 +71,6 @@ a {
 
 .nav h2 {
 	text-align: center;
-
 }
 
 
@@ -183,21 +179,21 @@ message when a button is pressed on the driver page ***/
 	font-size: 20px;
 }
 
-/*** Admin Dropdown Menu ***/
+/*** Admin Flyout Menu ***/
 
 .flyout {
 	position: relative;
-	width: 1200px !important;
-	height: 50px;
+	width: 90%;
+	height: 50%;
 	margin: 0 auto;
 	margin-left: 5%;
-	/*border: dashed 2px white;*/
+	/*border: dashed 2px white; */
 	justify-content: flex-start;
 }
 
 .flyoutBtn {
-	width: 500px;
-	height: 50px;
+	width: 100%;
+	height: 100px;
 	margin-left: 0;
 }
 
@@ -209,6 +205,7 @@ message when a button is pressed on the driver page ***/
 }
 
 .flyout-content a {
+	margin-left: 5%;
 	display: block;
 	padding: 12px 180px;
 	color: #233c63;
@@ -234,7 +231,6 @@ message when a button is pressed on the driver page ***/
 	color: #F8F8FF;
 	background-color: #233c63;
 }
-
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
@@ -338,10 +334,9 @@ button:hover {
 
 .statusbutton {
 	width: 90%;
-	height: 50px;
+	height: 100px;
 	border-radius: 5px solid #233c63;
-	border-radius: 0px;
-	margin-left: 0 auto;
+	margin-left: 5%;
 	font-family: Roboto, times, serif;
 	color: #233c63;
 	font-size: 14px;
@@ -352,25 +347,6 @@ button:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
-}
-
-#coming {
-	width: 90%;
-	height: 150px;
-	margin-left: 5%;
-
-}
-
-#here {
-	width: 90%;
-	height: 150px;
-	margin-left: 5%;
-}
-
-#leaving {
-	width: 90%;
-	height: 150px;
-	margin-left: 5%;
 }
 
 
@@ -592,7 +568,6 @@ tbody tr td {
 	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
-
 }
 
 .box .instructions h2 {
@@ -622,9 +597,6 @@ tbody tr td {
 
 @media only screen and (min-width: 1000px) {
 
-	.header {
-		flex-direction: row;
-	}
 	.nav {
 		margin-top: 15px;
 		margin-right: 15px;
@@ -635,6 +607,7 @@ tbody tr td {
 	}
 
 	.header {
+		flex-direction: row;
 		width: 95%;
 		margin-left: 2.5%;
 
@@ -652,7 +625,6 @@ tbody tr td {
 	.box {
 		width: 45%;
 		margin-left: 0;
-		/*border: dashed 2px white;*/
 	}
 
 	.dex-box {

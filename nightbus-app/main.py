@@ -45,7 +45,7 @@ def update_state():
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
 
 @app.route('/rider', methods=['GET'])
-def display_status():
+def home():
     status = b.get_current_status()
     return render_template("rider.html", status=status)
 
@@ -82,7 +82,7 @@ def intialize():
 # normal app routes
 
 @app.route('/')
-def home():
+def index():
     status = b.get_current_status()
     return render_template('index.html', status=status)
 
