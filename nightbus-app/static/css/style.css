@@ -397,6 +397,10 @@ button:hover {
 	color: #020314;
 }
 
+.rider-alerts {
+	margin-left: 15%;
+}
+
 .rider-form {
 	margin-left: 17.5%;
 	margin-top: 15%;
@@ -471,7 +475,7 @@ button:hover {
 /*** Animation  ***/
 
 .bussie-center {
-	margin-top: 15%;
+	margin-top: 5%;
 }
 
 .icon-wrap {
@@ -479,6 +483,7 @@ button:hover {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+
 }
 
 .icon {
