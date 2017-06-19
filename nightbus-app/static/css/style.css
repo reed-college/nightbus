@@ -36,8 +36,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  	background-color: #233c63;
-  	display: flex;
+  background-color: #233c63;
+  display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 50px;
@@ -180,6 +180,7 @@ message when a button is pressed on the driver page ***/
 }
 
 /*** Admin Dropdown Menu ***/
+<<<<<<< HEAD
 
 .flyout {
 	position: relative;
@@ -196,33 +197,60 @@ message when a button is pressed on the driver page ***/
 	height: 20%;
 	margin-left: 0;
 }
+=======
+>>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 
-.flyoutmenu ul, .flyoutmenu ul li {
-	color: #f7f7f7;
-	margin: 0;
-	padding: 0;
-	list-style: none;
+.flyout {
+	position: relative;
+	width: 200%;
+	height: 50%;
+	margin: 0 auto;
+	margin-left: 5%;
+	/*border: dashed 2px white; */
+	justify-content: flex-start;
 }
 
-.flyoutmenu ul li {
-  /*border-bottom:solid 1px white;*/
-  width: 350px;
-	height: 60px;
-	font-family:"Roboto", times, serif;
-	font-size: 15px;
-	background: transparent;
-	color: #233c63;
-	border: 5px solid #233c63;
-	cursor: pointer;
+.flyoutBtn {
+	width: 500px;
+	height: 50px;
+	margin-left: 0;
 }
 
+<<<<<<< HEAD
 .flyoutmenu ul li:hover {
 	position: relative;
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
+=======
+.flyout-content {
+  position: absolute;
+	display: none;
+	list-style: none;
+	justify-content: center;
 }
 
+.flyout-content a {
+	display: block;
+	padding: 12px 180px;
+	color: #233c63;
+	border: 5px solid #233c63;
+	font-size: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.flyout:hover .flyout-content {
+	display: inline-block;
+	left: 515px;
+	min-width: inherit;
+}
+
+.flyout-content a:hover {
+>>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all .5 ease;
+}
+
+<<<<<<< HEAD
 .flyoutmenu ul li ul a {
 	padding: 5px 15px;
 	color: #f7f7f7;
@@ -233,13 +261,13 @@ message when a button is pressed on the driver page ***/
 .flyoutmenu ul li ul {
 	position: absolute;
 	display: none;
+=======
+.flyout:hover .flyoutBtn {
+	color: #F8F8FF;
+	background-color: #233c63;
+>>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 }
 
-.flyoutmenu ul li:hover ul {
-	top: 0px;
-	left: 350px;
-	display: block;
-}
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
@@ -360,6 +388,7 @@ button:hover {
 
 <<<<<<< Updated upstream
 
+<<<<<<< HEAD
  /*** cancel buses button ***/
 
  .red-button {
@@ -371,6 +400,9 @@ button:hover {
 
 =======
 >>>>>>> Stashed changes
+=======
+
+>>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 /*** Forms ***/
 
  .form-container {
@@ -589,6 +621,7 @@ tbody tr td {
 	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
+
 }
 
 .box .instructions h2 {
@@ -646,6 +679,7 @@ tbody tr td {
 	.box {
 		width: 45%;
 		margin-left: 0;
+		/*border: dashed 2px white;*/
 	}
 
 	.dex-box {
