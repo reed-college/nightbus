@@ -36,8 +36,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  background-color: #233c63;
-  display: flex;
+  	background-color: #233c63;
+  	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 50px;
@@ -180,25 +180,6 @@ message when a button is pressed on the driver page ***/
 }
 
 /*** Admin Dropdown Menu ***/
-<<<<<<< HEAD
-
-.flyout {
-	position: relative;
-	width: 200%;
-	height: 50%;
-	margin: 0 auto;
-	margin-left: 5%;
-	/*border: dashed 2px white; */
-	justify-content: flex-start;
-}
-
-.flyoutBtn {
-	width: 500px;
-	height: 20%;
-	margin-left: 0;
-}
-=======
->>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 
 .flyout {
 	position: relative;
@@ -216,10 +197,6 @@ message when a button is pressed on the driver page ***/
 	margin-left: 0;
 }
 
-<<<<<<< HEAD
-.flyoutmenu ul li:hover {
-	position: relative;
-=======
 .flyout-content {
   position: absolute;
 	display: none;
@@ -244,29 +221,16 @@ message when a button is pressed on the driver page ***/
 }
 
 .flyout-content a:hover {
->>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all .5 ease;
 }
 
-<<<<<<< HEAD
-.flyoutmenu ul li ul a {
-	padding: 5px 15px;
-	color: #f7f7f7;
-	display: inline-block;
-	text-decoration: none;
-}
-
-.flyoutmenu ul li ul {
-	position: absolute;
-	display: none;
-=======
 .flyout:hover .flyoutBtn {
 	color: #F8F8FF;
 	background-color: #233c63;
->>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 }
+
 
 
 /*** butt adds flex-box status to box class elements that hold
@@ -386,9 +350,7 @@ button:hover {
 	transition: all 0.5s ease;
 }
 
-<<<<<<< Updated upstream
 
-<<<<<<< HEAD
  /*** cancel buses button ***/
 
  .red-button {
@@ -398,11 +360,6 @@ button:hover {
  }
 
 
-=======
->>>>>>> Stashed changes
-=======
-
->>>>>>> ff492024a1aa63f225998ed930675a95ca37d63a
 /*** Forms ***/
 
  .form-container {
@@ -621,7 +578,6 @@ tbody tr td {
 	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
-
 }
 
 .box .instructions h2 {
@@ -679,7 +635,6 @@ tbody tr td {
 	.box {
 		width: 45%;
 		margin-left: 0;
-		/*border: dashed 2px white;*/
 	}
 
 	.dex-box {
