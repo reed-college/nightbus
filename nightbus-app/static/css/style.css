@@ -340,7 +340,7 @@ button:hover {
 
 .statusbutton {
 	width: 90%;
-	height: 100px;
+	height: 60px;
 	border-radius: 5px solid #233c63;
 	margin-left: 5%;
 	font-family: Roboto, times, serif;
@@ -401,6 +401,10 @@ button:hover {
 .form-container li .submit-button:hover {
 	background-color: #3b81ef;
 	color: #020314;
+}
+
+.rider-alerts {
+	margin-left: 15%;
 }
 
 .rider-form {
@@ -477,7 +481,7 @@ button:hover {
 /*** Animation  ***/
 
 .bussie-center {
-	margin-top: 15%;
+	margin-top: 5%;
 }
 
 .icon-wrap {
@@ -485,6 +489,7 @@ button:hover {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+
 }
 
 .icon {
