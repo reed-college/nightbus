@@ -180,6 +180,9 @@ message when a button is pressed on the driver page ***/
 }
 
 /*** Admin Dropdown Menu ***/
+<<<<<<< HEAD
+=======
+
 
 .flyout {
 	position: relative;
@@ -193,6 +196,15 @@ message when a button is pressed on the driver page ***/
 
 .flyoutBtn {
 	width: 500px;
+	height: 20%;
+	margin-left: 0;
+}
+>>>>>>> 6c35b029702a31f0a9260263479a484132641f5c
+
+
+<<<<<<< HEAD
+.flyoutBtn {
+	width: 500px;
 	height: 50px;
 	margin-left: 0;
 }
@@ -200,35 +212,60 @@ message when a button is pressed on the driver page ***/
 .flyout-content {
   position: absolute;
 	display: none;
+=======
+.flyoutmenu ul, .flyoutmenu ul li {
+	color: #f7f7f7;
+	margin: 0;
+	padding: 0;
+>>>>>>> 6c35b029702a31f0a9260263479a484132641f5c
 	list-style: none;
-	justify-content: center;
 }
 
-.flyout-content a {
-	display: block;
-	padding: 12px 180px;
+.flyoutmenu ul li {
+  /*border-bottom:solid 1px white;*/
+  width: 350px;
+	height: 60px;
+	font-family:"Roboto", times, serif;
+	font-size: 15px;
+	background: transparent;
 	color: #233c63;
 	border: 5px solid #233c63;
-	font-size: 15px;
-	margin-bottom: 15px;
-	text-align: center;
+	cursor: pointer;
 }
 
-.flyout:hover .flyout-content {
-	display: inline-block;
-	left: 515px;
-	min-width: inherit;
-}
-
+<<<<<<< HEAD
 .flyout-content a:hover {
+=======
+.flyoutmenu ul li:hover {
+	position: relative;
+>>>>>>> 6c35b029702a31f0a9260263479a484132641f5c
 	color: #F8F8FF;
 	background-color: #233c63;
-	transition: all .5 ease;
+	transition: all 0.5s ease;
 }
 
+<<<<<<< HEAD
 .flyout:hover .flyoutBtn {
 	color: #F8F8FF;
 	background-color: #233c63;
+=======
+.flyoutmenu ul li ul a {
+	padding: 5px 15px;
+	color: #f7f7f7;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.flyoutmenu ul li ul {
+	position: absolute;
+	display: none;
+}
+
+.flyoutmenu ul li:hover ul {
+	top: 0px;
+	left: 350px;
+	display: block;
+>>>>>>> 6c35b029702a31f0a9260263479a484132641f5c
 }
 
 
@@ -350,8 +387,11 @@ button:hover {
 	transition: all 0.5s ease;
 }
 
+<<<<<<< HEAD
 
  /*** cancel buses button ***/
+=======
+>>>>>>> 6c35b029702a31f0a9260263479a484132641f5c
 
  .red-button {
  	margin-left: 20%;
