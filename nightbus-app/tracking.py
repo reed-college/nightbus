@@ -1,9 +1,8 @@
 import googlemaps
 
-
 def calculate_duration(origin, destinations):
     
-    key="AIzaSyALKGK6Den9VsdlM42bV8dx6rKuKoNnFB8"
+    key = "get google api key"
     gmaps = googlemaps.Client(key=key)
 
     ask_google = gmaps.distance_matrix(origin, destinations)
@@ -12,7 +11,6 @@ def calculate_duration(origin, destinations):
 
     duration = 0
     for address in filter_google_response:
-        print(address['duration']['value']//60)
         duration = duration + address['duration']['value']
 
     return (duration // 60)

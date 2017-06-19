@@ -31,6 +31,9 @@
 					{% endif %}
 				</div>
 				<h2 id="whereis">The Nightbus is {{ status }}!</h2>			
+				{% if duration > 0 %}
+					<h2> The nightbus will be on campus in {{ duration }} minutes </h2>
+				{% endif %}
 				<form class="rider-form" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
 					<input type = "submit" value= "I'm late! Please wait 5 minutes!">
 				</form>
