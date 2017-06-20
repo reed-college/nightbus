@@ -414,6 +414,7 @@ def servererror(e):
 @app.errorhandler(405)
 def methodnotallowed(e):
     return render_template('405.html'), 405
+    
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
