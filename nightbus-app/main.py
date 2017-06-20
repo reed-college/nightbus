@@ -43,6 +43,7 @@ b  = NightBus()
 def update_state():
     b.update_status(request.args.get('state'))
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
+    return ('', 204)
 
 @app.route('/rider', methods=['GET'])
 def home():
@@ -89,21 +90,17 @@ def index():
 @app.route('/driver')
 @login_required('driver')
 def driver():
-    return render_template('driver.html')
-
-
-@app.route('/display')
-def display():
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
-    return render_template('display.html', drivers = drivers)
-
+    db.close()
+    return render_template('driver.html', drivers=drivers)
 
 
 @app.route('/schedule')
 def schedule():
     db = database.get_session()
     drivers = db.query(schema.User).all()
+    db.close()
     return render_template('schedule.html', drivers = drivers)
 
 
