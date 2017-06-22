@@ -78,8 +78,6 @@ def intialize():
         db.commit()
         db.close()
 
-
-
 # normal app routes
 
 @app.route('/')
@@ -124,11 +122,13 @@ def assign():
     mon.firstname = monDriver.firstname
     mon.lastname = monDriver.lastname
 
+
     tue = db.query(schema.Schedule).filter_by(day='Tuesday').first()
     tueDriver = db.query(schema.User).filter_by(id=drivers[1]).first()
     tue.driver_id = tueDriver.id
     tue.firstname = tueDriver.firstname
     tue.lastname = tueDriver.lastname
+
 
     wed = db.query(schema.Schedule).filter_by(day='Wednesday').first()
     wedDriver = db.query(schema.User).filter_by(id=drivers[2]).first()
@@ -136,11 +136,13 @@ def assign():
     wed.firstname = wedDriver.firstname
     wed.lastname = wedDriver.lastname
 
+
     thu = db.query(schema.Schedule).filter_by(day='Thursday').first()
     thuDriver = db.query(schema.User).filter_by(id=drivers[3]).first()
     thu.driver_id = thuDriver.id
     thu.firstname = thuDriver.firstname
     thu.lastname = thuDriver.lastname
+
 
     fri = db.query(schema.Schedule).filter_by(day='Friday').first()
     friDriver = db.query(schema.User).filter_by(id=drivers[4]).first()
@@ -155,6 +157,7 @@ def assign():
     sat.firstname = satDriver.firstname
     sat.lastname =  satDriver.lastname
 
+
     sun = db.query(schema.Schedule).filter_by(day='Sunday').first()
     sunDriver = db.query(schema.User).filter_by(id=drivers[6]).first()
     sun.driver_id = sunDriver.id
@@ -163,7 +166,7 @@ def assign():
 
     db.commit()
     db.close()
-    
+
     # flash("Shift successfully assigned")
     return redirect(url_for('display'))
 

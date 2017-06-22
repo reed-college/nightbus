@@ -6,6 +6,27 @@
   <link rel="stylesheet" href="../static/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='../static/main.js'></script>
+	<style>
+
+#submit-wrap {
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#submitbtn {
+	color:#5f6062;
+	padding:10px 40px;
+	border:2px solid #233c63;
+	background-color: transparent;
+	border-radius: 20px;
+	}
+
+#submitbtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+	</style>
 
 </head>
 
@@ -127,10 +148,13 @@
 
             </div>
           </td>
-
+					<tr>
+						<td id="submit-wrap" colspan="2"><a id="submitbtn" href="display">Submit</a></td>
+					</tr>
         </tr>
-        <a href="display"><button style="width:100px;">Submit</button></a>
+
       </table>
+
 
     </div>
 
@@ -140,7 +164,7 @@
     $(document).ready(function() {
       $('select').change(function() {
 
-      var drivers = [
+      	var drivers = [
 
         $("#mon").find(':selected').val(),
         $("#tue").find(':selected').val(),
@@ -151,21 +175,23 @@
         $("#sun").find(':selected').val(),
       ];
 
-      $('button').click(function() {
+      $('#submitbtn').one('click',function(event) {
+        event.preventDefault();
         $.ajax({
           url: "assign",
           type: "POST",
           data: {drivers: drivers},
           dataType: "json",
           success: function() {
-
             console.log("success");
           },
           error: function() {
             console.log("error");
           }
             });
+
         });
+
       });
     });
   </script>
