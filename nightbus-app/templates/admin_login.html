@@ -8,27 +8,28 @@
 <body>
 <div class="wrapper">
 	<div class="header">
-		<h1>Remove Users</h1>
-		<div class="nav">
-			{% if session['logged_in'] %}
-				<a href="{{ url_for('home') }}">Rider</a>
-				<a href="{{ url_for('driver') }}">Driver</a>
-				<a href="{{ url_for('admin') }}"> Admin</a>
-				<a href="{{ url_for('logout') }}">Sign Out</a>
-			{% endif %}
-		</div>  
+		<h1>Login</h1>
 	</div>
 	<div class="content">
-		<form action="/remove" method="post">
+		<form action="/adminlogin" method="post">
 			<ul class="form-container">
 				<li>
 					<input type="text" placeholder="username" name="username" required><br>
 				</li>
 				<li>
-					<input type="text" placeholder="email" name="email" required><br>
+					<input type="password" placeholder="password" name="password" required><br>
 				</li>
 				<li>
-					<input class="submit-button" type="submit" value="Remove!">
+					<input class="submit-button" type="submit" value="Save!">
+				</li>
+				<li>
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							{% for message in messages %}
+								{{ message }}
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 				</li>
 			</ul>
 		</form>
