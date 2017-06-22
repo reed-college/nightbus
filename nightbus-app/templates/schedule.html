@@ -1,125 +1,172 @@
 <!DOCTYPE html>
+
 <head>
-    <title>Nightbus | Riders</title>
-    <link rel="stylesheet" href="../static/css/normalize.css">
-    <link rel="stylesheet" href="../static/css/style.css">   
-    <script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
-    <script src='../static/main.js'></script>
+  <title>Nightbus | Riders</title>
+  <link rel="stylesheet" href="../static/css/normalize.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='../static/main.js'></script>
+
 </head>
 
 <body>
-    <div class="wrapper">
-    
+  <div class="wrapper">
+
     <div class="header">
-        <h1>The NightBus</h1>
-        <div class="nav">
-            <h2><a href="/" >Sign-In</a><a href = "../rider">Rider</a><a href="../driver" >Driver</a><a href="../admin" >Admin</a></h2>
-        </div>
+      <h1>NightBus | Edit Schedule</h1>
+      <div class="nav">
+        <a href="/">Sign-In</a><a href="../rider">Rider</a><a href="../driver">Driver</a><a href="../admin">Admin</a>
+      </div>
     </div>
-    <div class = "content">
-        <table class = "editdriverschedule">
-            <tr>
-                <th>Day</th>
-                <th> Driver </th>
-            </tr>
-            <tr>
-            <td> Monday </td>
-        <td><div class = "dropdown">
-            <form action = "/assignmonday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit" value = "Submit">
-    </form>
-        </div> </td>
-    </tr>
-    <tr>
-        <td> Tuesday </td>
-        <td><div class = "dropdown">
-            <form action = "/assigntuesday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit">
-    </form>
-        </div></td>
-    </tr>
-    <tr>
-        <td> Wednesday </td>
-        <td><div class = "dropdown">
-            <form action = "/assignwednesday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit">
-    </form>
-        </div></td>
-    </tr>
-    <tr>
-        <td>Thursday </td>
-        <td><div class = "dropdown">
-            <form action = "/assignthursday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit">
-    </form>
-        </div></td>
+    <div class="content">
+      <table>
+        <tr>
+          <th>Day</th>
+          <th> Driver </th>
         </tr>
         <tr>
-        <td> Friday </td>
-        <td><div class = "dropdown">
-            <form action = "/assignfriday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit">
-    </form>
-        </div></td>
-    </tr>
-    <tr>
-        <td> Saturday </td>
-        <td><div class = "dropdown">
-            <form action = "/assignsaturday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit">
-    </form>
-        </div></td>
-    </tr>
-    <tr>
-        <td> Sunday </td>
-        <td><div class = "dropdown">
-            <form action = "/assignsunday" method="post" onsubmit = "submitstatus()">
-            <select name = "driver_id">
-            {% for person in drivers %}
-            <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
-            {% endfor %}
-        </select>
-        <input type ="submit">
-    </form>
-        </div></td>
-    </tr>
-</table>
-    </div>
-</div>
+          <td> Monday </td>
+          <td>
+            <div class="dropdown">
 
-        <script>
-        function submitstatus() {
-            alert ("Shift successfully assigned!")
-        }
-        </script>
+              <select id="mon"  name="driver_id">
+                    {% for person in drivers %}
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> Tuesday </td>
+          <td>
+            <div class="dropdown">
+
+              <select id="tue" name="driver_id">
+                    {% for person in drivers %}
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    {% endfor %}
+                </select>
+
+
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> Wednesday </td>
+          <td>
+            <div class="dropdown">
+
+              <select id="wed" name="driver_id">
+                    {% for person in drivers %}
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    {% endfor %}
+                </select>
+
+
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Thursday </td>
+          <td>
+            <div class="dropdown">
+
+              <select id="thu" name="driver_id">
+                  {% for person in drivers %}
+                  <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                  {% endfor %}
+                </select>
+
+
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> Friday </td>
+          <td>
+            <div class="dropdown">
+
+              <select id="fri" name="driver_id">
+                    {% for person in drivers %}
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    {% endfor %}
+                </select>
+
+
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> Saturday </td>
+          <td>
+            <div class="dropdown">
+
+              <select id="sat" name="driver_id">
+                    {% for person in drivers %}
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    {% endfor %}
+                </select>
+
+
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> Sunday </td>
+          <td>
+            <div class="dropdown">
+
+              <select id="sun" name="driver_id">
+                    {% for person in drivers %}
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    {% endfor %}
+                </select>
+
+
+            </div>
+          </td>
+
+        </tr>
+        <a href="display"><button style="width:100px;">Submit</button></a>
+      </table>
+
+    </div>
+
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('select').change(function() {
+
+      var drivers = [
+
+        $("#mon").find(':selected').val(),
+        $("#tue").find(':selected').val(),
+        $("#wed").find(':selected').val(),
+        $("#thu").find(':selected').val(),
+        $("#fri").find(':selected').val(),
+        $("#sat").find(':selected').val(),
+        $("#sun").find(':selected').val(),
+      ];
+
+      $('button').click(function() {
+        $.ajax({
+          url: "assign",
+          type: "POST",
+          data: {drivers: drivers},
+          dataType: "json",
+          success: function() {
+
+            console.log("success");
+          },
+          error: function() {
+            console.log("error");
+          }
+            });
+        });
+      });
+    });
+  </script>
 </body>
