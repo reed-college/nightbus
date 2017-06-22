@@ -46,44 +46,48 @@
 				</div>
 				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
 				<div class="rider-alerts">
-				<form class="rider-form" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
 					<input type = "submit" value= "I'm late! Please wait 5 minutes!">
 				</form>
 
 				<script>
-					    $('form').submit(function(e) {
+					    $('#late-notice').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
 					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
-					            dataType: "xml",
+					            dataType: "json",
 					            success: function(data) {
+													alert('Your request has been received');
 					                console.log('Submission successful');
 					            },
 					            error: function(xhr, status, error) {
+													alert("Oops, something's wrong. Please try again.");
 					                console.log('Submission failed: ' + error);
 					            }
 					        });
 					    });
 				</script>
 
-				<form class="rider-form" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+				<form class="rider-form" id="report-missing" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
 					<input type = "submit" value= "Report the NightBus missing">
 				</form>
 
 				<script>
-					    $('form').submit(function(e) {
+					    $('#report-missing').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
 					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
-					            dataType: "xml",
+					            dataType: "json",
 					            success: function(data) {
+													alert('Your report has been received');
 					                console.log('Submission successful');
 					            },
 					            error: function(xhr, status, error) {
+													alert("Oops, something's wrong. Please try again");
 					                console.log('Submission failed: ' + error);
 					            }
 					        });
