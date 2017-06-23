@@ -6,27 +6,6 @@
   <link rel="stylesheet" href="../static/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='../static/main.js'></script>
-	<style>
-
-#submit-wrap {
-	text-align: center;
-	text-transform: uppercase;
-}
-
-#submitbtn {
-	color:#5f6062;
-	padding:10px 40px;
-	border:2px solid #233c63;
-	background-color: transparent;
-	border-radius: 20px;
-	}
-
-#submitbtn:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}
-	</style>
 
 </head>
 
@@ -36,19 +15,18 @@
     <div class="header">
       <h1> Nightbus | Edit Schedule </h1>
 
-			<div class="nav">
-				{% if session['logged_in'] %}
-					<a href="{{ url_for('home') }}">Rider</a>
-					<a href="{{ url_for('driver') }}">Driver</a>
-					<a href="{{ url_for('admin') }}"> Admin</a>
-					<a href="{{ url_for('logout') }}">Sign Out</a>
-				{% endif %}
+      <div class="nav">
+        {% if session['logged_in'] %}
+        <a href="{{ url_for('home') }}">Rider</a>
+        <a href="{{ url_for('driver') }}">Driver</a>
+        <a href="{{ url_for('admin') }}"> Admin</a>
+        <a href="{{ url_for('logout') }}">Sign Out</a> {% endif %}
 
-			</div>
-		</div>
+      </div>
+    </div>
 
     <div class="content">
-     <table>
+      <table>
         <tr>
           <th>Day</th>
           <th> Driver </th>
@@ -58,7 +36,7 @@
           <td>
             <div class="dropdown">
 
-              <select id="mon"  name="driver_id">
+              <select id="mon" name="driver_id">
 										<option class="more-opt" selected disabled hidden>Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
@@ -163,9 +141,9 @@
 
             </div>
           </td>
-					<tr>
-						<td id="submit-wrap" colspan="2"><a id="submitbtn" href="display">Submit</a></td>
-					</tr>
+          <tr>
+            <td id="submit-wrap" colspan="2"><a id="submitbtn" href="display">Submit</a></td>
+          </tr>
         </tr>
 
       </table>
@@ -178,32 +156,34 @@
   <script>
     $(document).ready(function() {
       $('select').change(function() {
-				$('.more-opt').prop('selected', false);
-      	var drivers = [
+        $('.more-opt').prop('selected', false);
+        var drivers = [
 
-        $("#mon").find(':selected').val(),
-        $("#tue").find(':selected').val(),
-        $("#wed").find(':selected').val(),
-        $("#thu").find(':selected').val(),
-        $("#fri").find(':selected').val(),
-        $("#sat").find(':selected').val(),
-        $("#sun").find(':selected').val(),
-      ];
+          $("#mon").find(':selected').val(),
+          $("#tue").find(':selected').val(),
+          $("#wed").find(':selected').val(),
+          $("#thu").find(':selected').val(),
+          $("#fri").find(':selected').val(),
+          $("#sat").find(':selected').val(),
+          $("#sun").find(':selected').val(),
+        ];
 
-      $('#submitbtn').one('click',function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: "assign",
-          type: "POST",
-          data: {drivers: drivers},
-          dataType: "json",
-          success: function() {
-            console.log("success");
-          },
-          error: function() {
-            console.log("error");
-          }
-            });
+        $('#submitbtn').one('click', function(event) {
+          event.preventDefault();
+          $.ajax({
+            url: "assign",
+            type: "POST",
+            data: {
+              drivers: drivers
+            },
+            dataType: "json",
+            success: function() {
+              console.log("success");
+            },
+            error: function() {
+              console.log("error");
+            }
+          });
 
         });
 

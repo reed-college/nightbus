@@ -27,6 +27,7 @@
 
 		<div class="content">
 			<div class="butt box">
+				<br><br><br><br>
 				<button value="here" id="here" type="button" class="statusbutton" onclick="submitstatus()">On Campus</button>
 				<button value="leaving" id="leaving" type="button" class="statusbutton" onclick="submitstatus()">Just Left</button>
 				<button value="coming" id="coming" type="button" class="statusbutton" onclick="submitstatus()">Coming Back</button>
@@ -38,12 +39,12 @@
 						<li> Press the "On Campus" button when you arrive at Eliot Circle. </li>
 						<li>Press the "Just Left" button when you are ready to leave. </li>
 						<li> Press the "Coming Back" button after you've made your final stop and are read to return to campus. </li>
-						<li><button id="toggleBtn">View Driver Schedule</button></li>
+						<li style="border: none;"><a id="toggleBtn">View Driver Schedule</a></li>
 					</ul>
 				</div>
 
 				<div id="schedule" style="display:none">
-					<table class>
+					<table>
 						<thead>
 							<tr>
 								<th> Day </th>
@@ -68,7 +69,7 @@
 					});
 				</script>
 
-				<button id="returnBtn" style="display:none">Back</button>
+				<a id="returnBtn" style="display:none">Back</a>
 
 				<script>
 					$(document).ready(function() {
