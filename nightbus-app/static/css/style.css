@@ -289,8 +289,8 @@ button:hover {
 
 .statusbutton {
 	width: 90%;
-	height: 100px;
-	border-radius: 5px solid #233c63;
+	height: 60px;
+	border-radius: 5px solid #890100;
 	margin-left: 5%;
 	font-family: Roboto, times, serif;
 	color: #233c63;
