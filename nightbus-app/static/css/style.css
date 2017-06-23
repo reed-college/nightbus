@@ -134,22 +134,23 @@ message when a button is pressed on the driver page ***/
 
 
 
-/*** Admin's Driver Schedule ***/
+/*** Switch buttons for toggle view ***/
 
-#submit-wrap {
+.switchwrap {
 	text-align: center;
-	text-transform: uppercase;
+	font-size: 15px;
+	font-weight: lighter;
 }
 
-#submitbtn {
+.switchbtn {
 	color: #233c63;
 	padding:5px 20px;
-	border:2px solid #233c63;
+	border: 2px solid #233c63;
 	background-color: transparent;
 	border-radius: 20px;
 	}
 
-#submitbtn:hover {
+.switchbtn:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
@@ -546,18 +547,11 @@ tbody tr td {
 }
 
 #returnBtn {
-	text-decoration: none;
 	color: #233c63;
-	background-color: transparent;
-	font-weight: lighter;
+	padding:5px 20px;
 	border: 2px solid #233c63;
+	background-color: transparent;
 	border-radius: 20px;
-	padding: 10px 30px;
-	align: center;
-	cursor:pointer;
-	position:absolute;
-	left: 69%;
-	top: 70%;
 }
 
 #returnBtn:hover {
