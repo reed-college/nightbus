@@ -83,7 +83,7 @@ def intialize():
 @app.route('/')
 def index():
     status = b.get_current_status()
-    return render_template('index.html', status=status)
+    return render_template('rider.html', status=status)
 
 @app.route('/driver')
 @login_required('driver')
