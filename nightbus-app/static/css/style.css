@@ -151,34 +151,24 @@ message when a button is pressed on the driver page ***/
 
 /*** Admin's Driver Schedule ***/
 
-
-.editdriverschedule td {
-	border: 3px solid black;
-	border-radius: 2px;
+#submit-wrap {
 	text-align: center;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
+	text-transform: uppercase;
 }
 
-.editdriverschedule th {
-	border: 2px solid black;
-	border-radius: 2px;
-	text-align: center;
-	font-size: 20px;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
+#submitbtn {
+	color:#5f6062;
+	padding:10px 40px;
+	border:2px solid #233c63;
+	background-color: transparent;
+	border-radius: 20px;
+	}
 
+#submitbtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
-
-
-.editdriverschedule tr td:first-child {
-	font-weight: bold;
-	font-size: 20px;
-}
-
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
