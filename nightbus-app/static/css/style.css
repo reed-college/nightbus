@@ -131,54 +131,30 @@ message when a button is pressed on the driver page ***/
 	margin: 0 auto;
 }
 
-/** styling for driver schedule **/
 
-.driverschedule * {
-	border: 3px solid black;
-	border-radius: 2px;
+
+
+/*** Switch buttons for toggle view ***/
+
+.switchwrap {
 	text-align: center;
-	font-size: 20px;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
+	font-size: 15px;
+	font-weight: lighter;
 }
 
-.driverschedule tr td:first-child {
-	font-weight: bold;
+.switchbtn {
+	color: #233c63;
+	padding:5px 20px;
+	border: 2px solid #233c63;
+	background-color: transparent;
+	border-radius: 20px;
+	}
+
+.switchbtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
-
-
-/*** Admin's Driver Schedule ***/
-
-
-.editdriverschedule td {
-	border: 3px solid black;
-	border-radius: 2px;
-	text-align: center;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
-}
-
-.editdriverschedule th {
-	border: 2px solid black;
-	border-radius: 2px;
-	text-align: center;
-	font-size: 20px;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
-}
-
-
-.editdriverschedule tr td:first-child {
-	font-weight: bold;
-	font-size: 20px;
-}
-
 
 /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
@@ -207,20 +183,22 @@ on index.html ***/
 /* Dropdown Button */
 
 .dropbtn {
-	width: 90%;
+	width: 80%;
 	height: 60px;
-	margin-left: 5%;
-	font-family:"Roboto", times, serif;
-	background: transparent;
+	border: 3px solid #233c63;
+	margin-left: 12%;
+	font-family: Roboto, times, serif;
 	color: #233c63;
-	border: 5px solid #233c63;
-	font-size: 15px;
+	font-size: 14px;
+	background-color: transparent;
+	text-transform: uppercase;
 }
 
 /* Dropdown button on hover & focus */
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #233c63;
+	color: #F8F8FF;
+  background-color: #233c63;
 	transition: all 0.5s ease;
 }
 
@@ -235,20 +213,33 @@ on index.html ***/
 /* Dropdown Content (Hidden by Default) */
 
 .dropdown-content {
+		position: absolute;
     display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    width: 90%;
-   	height: 130px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-left: 5%;
+}
+
+.dropdown:hover .dropdown-content {
+	display: inline-block;
+	background-color: #f9f9f9;
+	position: absolute;
+	width: 80%;
+	height: 130px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	top: 100%;
+	left: 12%;
+}
+
+.dropdown:hover .dropbtn {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
 
 /* Text inside the dropdown */
 
-.dropdown-content a {
-    color: black;
+.dropdown:hover .dropdown-content a {
+    color: #5f6062;
+		font-family: Roboto, times, serif;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -257,14 +248,6 @@ on index.html ***/
 /* Change color of dropdown text on hover */
 
 .dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-
-.show {
-	display: block;
-}
-
-
 
 /*** Buttons ***/
 
@@ -288,14 +271,15 @@ button:hover {
 }
 
 .statusbutton {
-	width: 90%;
+	width: 80%;
 	height: 60px;
-	border-radius: 5px solid #890100;
-	margin-left: 5%;
+	border: 3px solid #233c63;
+	margin-left: 12%;
 	font-family: Roboto, times, serif;
 	color: #233c63;
 	font-size: 14px;
 	background-color: transparent;
+	text-transform: uppercase;
 }
 
 .statusbutton:hover {
@@ -525,9 +509,9 @@ tbody tr td {
 	height: 50%;
 	color: black;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
+	position: relative;
 }
 
 .box .instructions h2 {
@@ -548,8 +532,32 @@ tbody tr td {
 	background-color: transparent;
 	border: 2px solid #233c63;
 	border-radius: 20px;
-	padding: 5px;
+	padding: 10px;
 	align: center;
+	cursor:pointer;
+	position:absolute;
+	left: 37%;
+	bottom: 12%;
+}
+
+.box .instructions ul li a:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+#returnBtn {
+	color: #233c63;
+	padding:5px 20px;
+	border: 2px solid #233c63;
+	background-color: transparent;
+	border-radius: 20px;
+}
+
+#returnBtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
 
 
