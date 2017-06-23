@@ -142,8 +142,8 @@ message when a button is pressed on the driver page ***/
 }
 
 #submitbtn {
-	color:#5f6062;
-	padding:10px 40px;
+	color: #233c63;
+	padding:10px 30px;
 	border:2px solid #233c63;
 	background-color: transparent;
 	border-radius: 20px;
@@ -182,20 +182,22 @@ on index.html ***/
 /* Dropdown Button */
 
 .dropbtn {
-	width: 90%;
+	width: 80%;
 	height: 60px;
-	margin-left: 5%;
-	font-family:"Roboto", times, serif;
-	background: transparent;
+	border: 3px solid #233c63;
+	margin-left: 12%;
+	font-family: Roboto, times, serif;
 	color: #233c63;
-	border: 5px solid #233c63;
-	font-size: 15px;
+	font-size: 14px;
+	background-color: transparent;
+	text-transform: uppercase;
 }
 
 /* Dropdown button on hover & focus */
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #233c63;
+	color: #F8F8FF;
+  background-color: #233c63;
 	transition: all 0.5s ease;
 }
 
@@ -210,20 +212,33 @@ on index.html ***/
 /* Dropdown Content (Hidden by Default) */
 
 .dropdown-content {
+		position: absolute;
     display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    width: 90%;
-   	height: 130px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-left: 5%;
+}
+
+.dropdown:hover .dropdown-content {
+	display: inline-block;
+	background-color: #f9f9f9;
+	position: absolute;
+	width: 80%;
+	height: 130px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	top: 100%;
+	left: 12%;
+}
+
+.dropdown:hover .dropbtn {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
 
 /* Text inside the dropdown */
 
-.dropdown-content a {
-    color: black;
+.dropdown:hover .dropdown-content a {
+    color: #5f6062;
+		font-family: Roboto, times, serif;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -232,14 +247,6 @@ on index.html ***/
 /* Change color of dropdown text on hover */
 
 .dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-
-.show {
-	display: block;
-}
-
-
 
 /*** Buttons ***/
 
