@@ -5,7 +5,7 @@
 
 body {
 	min-height: 100vh;
-	background: #9e785e;
+	background: #f8f8f8;
 	background-size: cover;
 	color: #633d23;
 }
@@ -58,15 +58,15 @@ a {
 }
 
 .nav a:hover {
-	border-top: 5px solid #9e785e;
+	border-top: 5px solid #f8f8f8;
 	padding: 15px;
 	padding-left: 0px;
 	margin: 0 auto;
-	color: #9e785e;
+	color: #f8f8f8;
 }
 
 .nav a:visited {
-	color: #a17f1a;
+	color: #f8f8f8;
 }
 
 .nav h2 {
@@ -79,7 +79,7 @@ a {
 h1 {
 	font-family: Roboto, sans-serif;
 	text-align: center;
-	color: #9e785e;
+	color: #f8f8f8;
 	margin: 0 auto;
 }
 
@@ -103,7 +103,7 @@ message when a button is pressed on the driver page ***/
 	margin-left: 2.5%;
 	margin-top: 100px;
 	margin-bottom: 15px;
-	border: 2px solid white;
+	border: 2px solid #f8f8f8;
 	padding: 5px;
 	border-radius: 5px;
   	background-color: lightblue;
@@ -523,7 +523,7 @@ tbody tr td {
 	font-family: Roboto, sans-serif;
 	max-width: 100%;
 	height: 50%;
-	color: #9e785e;
+	color: black;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	z-index: 1;
 	padding: 5px;
@@ -531,7 +531,7 @@ tbody tr td {
 }
 
 .box .instructions h2 {
-	color: #9e785e;
+	color: black;
 	align: center;
 }
 
