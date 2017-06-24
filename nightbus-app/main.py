@@ -257,6 +257,16 @@ def username_exists():
     else:
         return jsonify("true")
 
+@app.route('/email_exists', methods=['POST'])
+def email_exists():
+    db = database.get_session()
+    email_exists = db.query(schema.User).filter_by(email=request.form['email']).first()
+    if email_exists:
+        return jsonify("Email address is already registered. Please login instead.")
+    else:
+        return jsonify("true")
+
+
 @app.route('/register', methods=['GET','POST'])
 def register():
 

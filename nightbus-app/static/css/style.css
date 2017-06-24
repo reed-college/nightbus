@@ -363,51 +363,52 @@ button:hover {
 	transition: all 0.6s ease;
 }
 
-/*** Form validation error container ***/
+/*** Form validation ***/
 
-.content {
+.form-container li span {
 	position: relative;
+	text-align: left;
 }
 
 #errNm1 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 8%;
+	color: #5f6062;
+	top: 22%;
 	left: 70%;
 }
 
 #errNm2 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 17%;
+	color: #5f6062;
+	top: 32%;
 	left: 70%;
 }
 
 #errNm3 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 26%;
+	color: #5f6062;
+	top: 42%;
 	left: 70%;
 }
 
 #errNm4 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 35%;
+	color: #5f6062;
+	top: 52%;
 	left: 70%;
 }
 
 #errNm5 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 45%;
+	color: #5f6062;
+	top: 62%;
 	left: 70%;
 }
 
 #errNm6 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 54%;
+	color: #5f6062;
+	top: 72%;
 	left: 70%;
 }
 
