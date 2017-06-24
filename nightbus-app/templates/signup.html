@@ -58,8 +58,12 @@
 		</div>
 		<script>
 			$(function() {
-				$('form').validate({
 
+				$.validator.addMethod("regex", function (value, element, regexpr) {
+					return regexpr.test(value);
+				});
+
+				$('form').validate({
 
 					errorPlacement: function(error, element) {
 						// place error messages next to their corresponding invalid element
@@ -86,10 +90,17 @@
 
 					// Specify validation rules
 					rules: {
-						firstname: "required",
-						lastname: "required",
+						firstname: {
+							required: true,
+							regex: /^[A-Za-z]+$/
+						},
+						lastname: {
+							required: true,
+							regex: /^[A-Za-z]+$/
+						},
 						username: {
 							required: true,
+
 							// check if a username already exists.
 							remote: {
 								url: 'username_exists',
@@ -124,8 +135,14 @@
 
 					// Specify validation error messages
 					messages: {
-						firstname: "Please enter your first name",
-						lastname: "Please enter your lastname",
+						firstname: {
+							required: "Please enter your first name",
+							regex: "Please enter a valid name"
+						},
+						lastname: {
+							required: "Please enter your lastname",
+							regex: "Please enter a valid name"
+						},
 						username: {
 							required: "Please enter your username",
 						},
