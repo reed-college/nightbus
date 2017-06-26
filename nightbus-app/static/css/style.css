@@ -228,6 +228,7 @@ on index.html ***/
 	z-index: 1;
 	top: 100%;
 	left: 12%;
+	outline: none;
 }
 
 .dropdown:hover .dropbtn {
@@ -294,6 +295,7 @@ button:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
+	outline: none; 
 }
 
 
