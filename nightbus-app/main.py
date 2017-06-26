@@ -91,7 +91,8 @@ def intialize():
 @app.route('/')
 def index():
     status = b.get_current_status()
-    return render_template('rider.html', status=status)
+    duration = b.get_trip_duration()
+    return render_template('rider.html', status=status, duration=duration)
 
 @app.route('/driver')
 @login_required('driver')
