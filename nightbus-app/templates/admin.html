@@ -48,9 +48,10 @@
 	</div>
 	<script>
 			$(document).ready(function() {
-    if(navigator.userAgent.match(/Android|webOS|iPhone|iPod|Blackberry/i) ) {
-			$(".dropdown").click(function () {});
-		}
+				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+		            $(".dropdown").click(function () {});
+		        }
+		
 });
 	</script>
 	<script>
