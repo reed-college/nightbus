@@ -218,8 +218,7 @@ on index.html ***/
     display: none;
 }
 
-.dropdown:hover .dropdown-content,
-.dropdown.hover_effect .dropdown-content {
+.dropdown:hover .dropdown-content {
 	display: inline-block;
 	background-color: #f9f9f9;
 	position: absolute;
@@ -231,8 +230,7 @@ on index.html ***/
 	left: 12%;
 }
 
-.dropdown:hover .dropbtn
-.dropdown.hover_effect .dropbtn {
+.dropdown:hover .dropbtn {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
