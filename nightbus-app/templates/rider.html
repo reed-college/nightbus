@@ -3,6 +3,7 @@
 	<title>Nightbus | Riders</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="width=700, initial-scale=1">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
 </head>
@@ -44,9 +45,18 @@
 						<img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
 					{% endif %}
 				</div>
-				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
+				<h2 id="whereis">The Nightbus is {{ status }}!</h2>			
+				{% if duration > 0 %}
+					<h2> The nightbus will be on campus in {{ duration }} minutes </h2>
+				{% endif %}
 				<div class="rider-alerts">
-				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+					Name: <br>
+					<input type = "text" name = "name">
+					<br>
+					Email: <br>
+					<input type = "text" name = "email">
+					<br><br>
 					<input type = "submit" value= "I'm late! Please wait 5 minutes!">
 				</form>
 
@@ -54,7 +64,7 @@
 					    $('#late-notice').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
+					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
 					            dataType: "json",
@@ -70,7 +80,13 @@
 					    });
 				</script>
 
-				<form class="rider-form" id="report-missing" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+				<form class="rider-form" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+					Name: <br>
+					<input type = "text" name = "name">
+					<br>
+					Email: <br>
+					<input type = "text" name = "email">
+					<br><br>
 					<input type = "submit" value= "Report the NightBus missing">
 				</form>
 
@@ -78,7 +94,7 @@
 					    $('#report-missing').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
+					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
 					            dataType: "json",

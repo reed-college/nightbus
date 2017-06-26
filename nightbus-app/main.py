@@ -4,6 +4,7 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
+from tracking import calculate_duration
 import config
 import schema
 import database
@@ -32,10 +33,15 @@ status = "here"
 class NightBus:
     def __init__(self):
         self.current_status = status
+        self.trip_duration = 0
     def get_current_status(self):
         return self.current_status
+    def get_trip_duration(self):
+        return self.trip_duration
     def update_status(self,new_status):
         self.current_status = new_status
+    def update_trip_duration(self, new_duration):
+        self.trip_duration = new_duration
 
 b  = NightBus()
 
@@ -48,7 +54,9 @@ def update_state():
 @app.route('/rider', methods=['GET'])
 def home():
     status = b.get_current_status()
-    return render_template("rider.html", status=status)
+    duration = b.get_trip_duration()
+    return render_template("rider.html", status=status, duration=duration)
+
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
 
@@ -83,7 +91,8 @@ def intialize():
 @app.route('/')
 def index():
     status = b.get_current_status()
-    return render_template('rider.html', status=status)
+    duration = b.get_trip_duration()
+    return render_template('rider.html', status=status, duration=duration)
 
 @app.route('/driver')
 @login_required('driver')
@@ -385,7 +394,35 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
+@app.route('/tracking', methods=['GET', 'POST'])
+def tracking():
+    if request.method == 'POST':
+        origin = request.form['origin']
+        address1 = str(request.form['address1'])
+        address2 = str(request.form['address2'])
+        address3 = str(request.form['address3'])
+        address4 = str(request.form['address4'])
+        address5 = str(request.form['address5'])
 
+        destinations = []
+        destinations.append(address1)
+        destinations.append(address2)
+        destinations.append(address3)
+        destinations.append(address4)
+        destinations.append(address5)
+        destinations.append(origin)
+
+        duration = calculate_duration(origin, destinations)
+
+        b.update_trip_duration(duration)
+
+        return redirect(url_for('driver'))
+
+    return render_template('tracking.html')
+
+@app.route('/drivermaps')
+def drivermaps():
+    return render_template('maps.html')
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need

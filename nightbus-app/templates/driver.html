@@ -4,6 +4,7 @@
 	<title>Nightbus | Drivers</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="width=700, initial-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src='../static/main.js'></script>
 </head>
@@ -15,7 +16,9 @@
 		<h1> NightBus | Drivers</h1>
 		<div class="nav">
 			{% if session['role'] == 'admin' %}
-				<a href="{{ url_for('home') }}"> Rider</a>
+    		<a href="{{ url_for('tracking') }}"> Tracking </a>
+		  	<a href="{{ url_for('drivermaps') }}"> Maps </a>
+        <a href="{{ url_for('home') }}"> Rider</a>
 				<a href="{{ url_for('admin') }}"> Admin</a>
 				<a href="{{ url_for('logout') }}"> Sign Out </a>
 			{% else %}
