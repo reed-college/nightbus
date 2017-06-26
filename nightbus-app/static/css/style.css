@@ -553,6 +553,7 @@ tbody tr td {
 	border: 2px solid #233c63;
 	background-color: transparent;
 	border-radius: 20px;
+	cursor: pointer;
 }
 
 #returnBtn:hover {
