@@ -196,7 +196,7 @@ on index.html ***/
 
 /* Dropdown button on hover & focus */
 
-.dropbtn:hover, .dropbtn.hover_effect, .dropbtn:focus {
+.dropbtn:hover, .dropbtn:focus {
 	color: #F8F8FF;
   background-color: #233c63;
 	transition: all 0.5s ease;
@@ -218,7 +218,8 @@ on index.html ***/
     display: none;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content,
+.dropdown.hover_effect .dropdown-content {
 	display: inline-block;
 	background-color: #f9f9f9;
 	position: absolute;
@@ -230,7 +231,8 @@ on index.html ***/
 	left: 12%;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:hover .dropbtn
+.dropdown.hover_effect .dropbtn {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
