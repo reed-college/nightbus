@@ -324,6 +324,12 @@ button:hover {
 	box-sizing: border-box;
 }
 
+.form-container li input::placeholder {
+	color: #F2F2F2;
+	font-family: 'Roboto';
+}
+
+
 .form-container li .submit-button {
 	background-color: #3973ce;
 	border-radius: 0px;

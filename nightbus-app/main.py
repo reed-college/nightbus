@@ -34,6 +34,7 @@ class NightBus:
     def __init__(self):
         self.current_status = status
         self.trip_duration = 0
+        self.destinations = []
     def get_current_status(self):
         return self.current_status
     def get_trip_duration(self):
@@ -42,6 +43,11 @@ class NightBus:
         self.current_status = new_status
     def update_trip_duration(self, new_duration):
         self.trip_duration = new_duration
+    def get_destinations(self):
+        return self.destinations
+    def update_destinations(self, new_destinations):
+        self.destinations = new_destinations
+
 
 b  = NightBus()
 
@@ -55,6 +61,7 @@ def update_state():
 def home():
     status = b.get_current_status()
     duration = b.get_trip_duration()
+    print(duration)
     return render_template("rider.html", status=status, duration=duration)
 
 
@@ -385,6 +392,7 @@ def no_user():
     return render_template('no_user.html')
 
 @app.route('/tracking', methods=['GET', 'POST'])
+@login_required('driver')
 def tracking():
     if request.method == 'POST':
         origin = request.form['origin']
@@ -405,14 +413,19 @@ def tracking():
         duration = calculate_duration(origin, destinations)
 
         b.update_trip_duration(duration)
+        b.update_destinations(destinations)
 
-        return redirect(url_for('driver'))
+        return redirect(url_for('drivermaps'))
 
     return render_template('tracking.html')
 
 @app.route('/drivermaps')
+@login_required('driver')
 def drivermaps():
-    return render_template('maps.html')
+    destinations = b.get_destinations()
+    no_destination = False
+
+    return render_template('maps.html', destinations = destinations, no_destination = no_destination)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
