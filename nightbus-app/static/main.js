@@ -1,36 +1,33 @@
-
-
-
+// Update the NightBus statuses on Driver page
 
 $(function() {
-        // set up an event listener for the buttons
-      $('.statusbutton').bind('click', function() {
-            // get the value of the clicked  button
-        var clicked = $(this).val();
-            // send HTTP request via Ajax
-        $.ajax({
-          url: 'update_state/',
-          data: {'state': clicked},
-          dataType: "json",
-          type: 'GET',
-        });
-            // for testing
-        $.done( function(){
-          alert("success");
-        });
-        $.fail( function (){
-          alert("error");
-        });
-        $.always( function (){
-          alert("done");
-        });
-      });
+  // set up an event listener for the buttons
+  $('.statusbutton').bind('click', function() {
+    // get the value of status button on click
+    var clicked = $(this).val();
+    // send HTTP request via Ajax
+    $.ajax({
+      url: 'update_state/',
+      data: {
+        'state': clicked
+      },
+      dataType: "json",
+      type: 'GET',
+      success: function() {
+        console.log("Bus status updated successfully");
+      },
+      error: function() {
+        console.log("Failed to update bus status");
+      }
     });
+  });
+});
 
-/* When the user clicks on the button, 
+/* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
+
 function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("myDropdown").classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it

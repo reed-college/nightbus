@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+
 <head>
-	<title>Nightbus | Drivers</title>
+	<title>Nightbus | Admins</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="width=700, initial-scale=1">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
 </head>
@@ -10,47 +12,43 @@
 <body>
 	<div class="wrapper">
 
-	<div class="header">
-		<h1>NightBus Admins</h1>
-		<div class="nav">
-			<h2><a href="{{ url_for('home') }}" >Rider</a><a href="{{ url_for('driver') }}" >Driver</a>
+		<div class="header">
+			<h1>NightBus | Admins</h1>
+			<div class="nav">
 				{% if session['logged_in'] %}
-					<a href="{{ url_for('logout') }}">Sign Out</a></h2>
-      			{% endif %}
-      		</div>
-	</div>
+					<a href="{{ url_for('home') }}">Rider</a>
+					<a href="{{ url_for('driver') }}">Driver</a>
+					<a href="{{ url_for('logout') }}">Sign Out</a>
+				{% endif %}
+			</div>
+		</div>
 
 		<div class="content">
 			<div class="butt box">
-
-				 <button value="cancelled" id = "cancelled" class="statusbutton" type="button" onclick = "submitstatus()">Cancel NightBus</button>
-				<a href = "../schedule"><button type = "button">Edit Driver Schedule</button></a>
-				<a href="../adduser" ><button type="button">Add Driver</button></a>
-				<a href="../removeuser" ><button type="button">Remove Driver</button></a> -->
-				<div class="flyoutmenu">
-					<ul>
-						<li>Manage Drivers
-							<ul>
-								<a href = "../schedule"><li>Edit Driver Schedule</li></a>
-								<a href = "../adduser"><li>Add Driver</li></a>
-								<a href = "../removeuser"><li>Remove Driver</li></a>
-							</ul>
-						</li>
-					</ul>
-			</div>
+				<br><br><br><br>
+				<button value="cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
+				<br><br>
+				<div class="dropdown">
+					<button class="dropbtn">Manage Drivers</button>
+					<div  class="dropdown-content">
+						<a href="../schedule">Edit Driver Schedule</a>
+						<a href="../adduser">Add Driver</a>
+						<a href="../removeuser">Remove Driver</a>
+					</div>
+				</div>
 
 			</div>
 			<div class="box">
 				<h2>Instructions</h2>
 			</div>
 
-  			</div>
 		</div>
+	</div>
 
 	</div>
-<script>
-function submitstatus() {
-    alert ("NightBus cancelled!")
-        }
- </script>
+	<script>
+		function submitstatus() {
+			alert("NightBus cancelled!")
+		}
+	</script>
 </body>

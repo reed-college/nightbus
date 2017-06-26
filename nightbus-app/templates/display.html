@@ -1,42 +1,46 @@
 <!DOCTYPE html>
+
 <head>
-    <title>Nightbus | Riders</title>
-    <link rel="stylesheet" href="../static/css/normalize.css">
-    <link rel="stylesheet" href="../static/css/style.css">   
-    <script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
-    <script src='../static/main.js'></script>
+  <title>Nightbus | View Schedule</title>
+  <link rel="stylesheet" href="../static/css/normalize.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='../static/main.js'></script>
 </head>
 
 <body>
-    <div class="wrapper">
-    
+  <div class="wrapper">
+
     <div class="header">
         <h1>The NightBus</h1>
-        <div class="nav">
-			<a href="{{ url_for('home') }}">Rider</a>
-			<a href="{{ url_for('admin') }}">Admin</a>
-        </div>
+		<div class="nav">
+			{% if session['logged_in'] %}
+				<a href="{{ url_for('home') }}">Rider</a>
+				<a href="{{ url_for('driver') }}">Driver</a>
+				<a href="{{ url_for('admin') }}"> Admin</a>
+				<a href="{{ url_for('logout') }}">Sign Out</a>
+			{% endif %}
+		</div>
     </div>
-        <div class = "content">
-        <table class>
-			<thead>
-            <tr>
-                <th> Day </th>
-                <th> Driver </th>
-            </tr>
-			</thead>
-            {% for person in drivers %}
-            <tr>
-            <td>{{person.day}}</td>
-            <td>{{ person.firstname}} {{ person.lastname }}</td>
+    <div class="content">
+      <table>
+        <thead>
+          <tr>
+            <th> Day </th>
+            <th> Driver </th>
+          </tr>
+        </thead>
+        {% for person in drivers %}
+        <tr>
+          <td>{{person.day}}</td>
+          <td>{{ person.firstname}} {{ person.lastname }}</td>
         </tr>
-            {% endfor %}
-        </table>
+        {% endfor %}
+        <tr>
+          <td class="switchwrap" colspan="2"><a class="switchbtn" href="schedule">Back</a></td>
+        </tr>
+      </table>
     </div>
-</div>
-        </div>
-    </div>
-
-    </div>
+  </div>
 
 </body>

@@ -3,17 +3,32 @@
 	<title>Nightbus | Riders</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="width=700, initial-scale=1">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
 </head>
 
 <body>
 	<div class="wrapper">
-	
+
 	<div class="header">
-		<h1>The NightBus</h1>
+		<h1>NightBus | Riders</h1>
 		<div class="nav nav-button">
-			<a href="{{ url_for('login') }}">Sign In</a>
+			{% if session['logged_in'] %}
+				{% if session['role'] == 'driver' %}
+					<a href="{{ url_for('driver') }}">Driver</a>
+					<a href="{{ url_for('logout') }}">Sign Out</a>
+				{% elif session['role'] == 'admin' %}
+					<a href="{{ url_for('driver') }}">Driver</a>
+					<a href="{{ url_for('admin') }}">Admin</a>
+					<a href="{{ url_for('logout') }}">Sign Out</a>
+				{% else %}
+					<a href="{{ url_for('logout') }}">Sign Out</a>
+				{% endif %}
+			{% else %}
+				<a href="{{ url_for('driverlogin') }}">Driver Login</a>
+				<a href="{{ url_for('adminlogin') }}"> Admin Login</a>
+			{% endif %}
 		</div>
 	</div>
 
@@ -34,91 +49,96 @@
 				{% if duration > 0 %}
 					<h2> The nightbus will be on campus in {{ duration }} minutes </h2>
 				{% endif %}
-				<form class="rider-form" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+				<div class="rider-alerts">
+				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
 					<input type = "submit" value= "I'm late! Please wait 5 minutes!">
 				</form>
 
 				<script>
-					    $('form').submit(function(e) {
+					    $('#late-notice').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
 					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
-					            dataType: "xml",
+					            dataType: "json",
 					            success: function(data) {
+													alert('Your request has been received');
 					                console.log('Submission successful');
 					            },
 					            error: function(xhr, status, error) {
+													alert("Oops, something's wrong. Please try again.");
 					                console.log('Submission failed: ' + error);
 					            }
 					        });
 					    });
 				</script>
 
-				<form class="rider-form" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
-					<input type = "submit" value= "Report the NightbusBus Missing">
+				<form class="rider-form" id="report-missing" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+					<input type = "submit" value= "Report the NightBus missing">
 				</form>
 
 				<script>
-					    $('form').submit(function(e) {
+					    $('#report-missing').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
 					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
-					            dataType: "xml",
+					            dataType: "json",
 					            success: function(data) {
+													alert('Your report has been received');
 					                console.log('Submission successful');
 					            },
 					            error: function(xhr, status, error) {
+													alert("Oops, something's wrong. Please try again");
 					                console.log('Submission failed: ' + error);
 					            }
 					        });
 					    });
 				</script>
-
+			</div>
 			</div>
 			<div class="box">
 				<table>
 				<thead>
-					<tr> 
+					<tr>
 						<th colspan="2">Schedule</th>
 					</tr>
 				  <tr>
 				    <th>Sunday-Thursday</th>
-				    <th>Friday & Saturday</th> 
+				    <th>Friday & Saturday</th>
 				  </tr>
 				</thead>
 				  <tr>
-				    <td><center>10:15 pm</center></td> 
+				    <td><center>10:15 pm</center></td>
 					<td><center>10:15 pm</center></td>
 				  </tr>
 				  <tr>
-				    <td><center>11:00 pm</center></td> 
+				    <td><center>11:00 pm</center></td>
 					<td><center>11:00 pm</center></td>
 				   </tr>
 				</tr>
-				    <td><center>11:30 pm</center></td> 
+				    <td><center>11:30 pm</center></td>
 					<td><center>11:30 pm</center></td>
 				  </tr>
 				  <tr>
-				    <td><center>12:00 am</center></td> 
+				    <td><center>12:00 am</center></td>
 					<td><center>12:00 am</center></td>
 				    <tr>
 				    </tr>
-				    <td><center>12:30 am</center></td> 
+				    <td><center>12:30 am</center></td>
 				  </tr>
 				  <tr>
-				    <td><center>1:00 am</center></td> 
+				    <td><center>1:00 am</center></td>
 				    <tr>
-				    <td><center>1:30 am</center></td> 
+				    <td><center>1:30 am</center></td>
 				  </tr>
 				  <tr>
-				    <td><center>2:00 am</center></td> 
+				    <td><center>2:00 am</center></td>
 				</tr>
-				<tr> 
-				    <td><center>2:30 am</center></td> 
+				<tr>
+				    <td><center>2:30 am</center></td>
 				  </tr>
 				 </table>
 				<br><br>

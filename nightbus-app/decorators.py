@@ -30,7 +30,7 @@ def login_required(role):
                 username = session['username']
                 user = db.query(schema.User).filter_by(username=username).first()
                 if user:
-                    if str(user.role).lower() == 'admin' or str(user.role).lower() == str(role).lower():
+                    if str(user.role).lower() == str(role).lower() or str(user.role).lower() == 'admin':
                         return function(*args, **kwargs)
                     else:
                         return render_template('no_access.html')
@@ -38,7 +38,11 @@ def login_required(role):
                     return render_template('no_user.html')
 
             else:
-                flash("Invalid Credentials")
-                return redirect(url_for('login'))
+                if str(role).lower() == 'driver':
+                    return redirect(url_for('driverlogin'))
+                elif str(role).lower() == 'admin':
+                    return redirect(url_for('adminlogin'))
+                else:
+                    return render_template('500.html')
         return wrap
     return wrapper
