@@ -17,19 +17,19 @@
 				{% if session['logged_in'] %}
 					<a href="{{ url_for('home') }}">Rider</a>
 					<a href="{{ url_for('driver') }}">Driver</a>
-					<a href="{{ url_for('logout') }}">Sign Out</a> 
+					<a href="{{ url_for('logout') }}">Sign Out</a>
 				{% endif %}
 			</div>
 		</div>
 
 		<div class="content">
 			<div class="butt box">
-
+				<br><br><br><br>
 				<button value="cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
-
-				<div class="dropdown">
-					<button onclick="dropmenu()" class="dropbtn">Manage Drivers</button>
-					<div id="admin-dropdown" class="dropdown-content">
+				<br><br>
+				<div class="dropdown hover_effect">
+					<button class="dropbtn">Manage Drivers</button>
+					<div  class="dropdown-content">
 						<a href="../schedule">Edit Driver Schedule</a>
 						<a href="../adduser">Add Driver</a>
 						<a href="../removeuser">Remove Driver</a>
@@ -49,5 +49,13 @@
 		function submitstatus() {
 			alert("NightBus cancelled!")
 		}
+	</script>
+	<script>
+			$(document).ready(function() {
+		    $('.hover').bind('touchstart touchend', function(e) {
+		        e.preventDefault();
+		        $(this).toggleClass('hover_effect');
+		    });
+		});
 	</script>
 </body>
