@@ -48,10 +48,9 @@
 	</div>
 	<script>
 			$(document).ready(function() {
-    $('.hover').bind('touchstart touchend', function(e) {
-        e.preventDefault();
-        $(this).toggleClass('hover_effect');
-    });
+    if(navigator.userAgent.match(/Android|webOS|iPhone|iPod|Blackberry/i) ) {
+			$("dropdown").click(function () {});
+		}
 		function submitstatus() {
 			alert("NightBus cancelled!")
 		}

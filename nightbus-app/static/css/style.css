@@ -218,8 +218,7 @@ on index.html ***/
     display: none;
 }
 
-.dropdown:hover .dropdown-content,
-.dropdown.hover-effect .dropdown-content {
+.dropdown:hover .dropdown-content {
 	display: inline-block;
 	background-color: #f9f9f9;
 	position: absolute;
@@ -231,8 +230,7 @@ on index.html ***/
 	left: 12%;
 }
 
-.dropdown:hover .dropbtn ,
-.dropdown.hover-effect .dropbtn {
+.dropdown:hover .dropbtn {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
@@ -240,8 +238,7 @@ on index.html ***/
 
 /* Text inside the dropdown */
 
-.dropdown:hover .dropdown-content a,
-.dropdown.hover-effect .dropdown-content a {
+.dropdown:hover .dropdown-content a {
     color: #5f6062;
 		font-family: Roboto, times, serif;
 		font-weight: lighter;
