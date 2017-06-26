@@ -58,6 +58,11 @@
 		</div>
 		<script>
 			$(function() {
+
+				$.validator.addMethod("regex", function (value, element, regexpr) {
+					return regexpr.test(value);
+				});
+
 				$('form').validate({
 
 					errorPlacement: function(error, element) {
@@ -77,16 +82,26 @@
 							} else {
 								//do nothing
 							}
-
+							// turn of autovalidation whilst typing
+							$(this).on('change keyup',function() {
+								error.remove();
+							});
 					},
 
-					//Specify validation rules
+					// Specify validation rules
 					rules: {
-						firstname: "required",
-						lastname: "required",
+						firstname: {
+							required: true,
+							regex: /^[A-Za-z]+$/
+						},
+						lastname: {
+							required: true,
+							regex: /^[A-Za-z]+$/
+						},
 						username: {
 							required: true,
-							// check if username already exists.
+
+							// check if a username already exists.
 							remote: {
 								url: 'username_exists',
 								type: 'post',
@@ -99,7 +114,17 @@
 						},
 						email: {
 							required: true,
-							email: true // Specify that email should be validated by the built-in "email" rule
+							email: true, // Specify that email should be validated by the built-in "email" rule
+							// check if an email address is already registered
+							remote: {
+								url: 'email_exists',
+								type: 'post',
+								data: {
+									email: function() {
+										return $("input[name=email]").val()
+									}
+								}
+							}
 						},
 						role: "required",
 						password: {
@@ -108,10 +133,16 @@
 						}
 					},
 
-					// specify validation error messages
+					// Specify validation error messages
 					messages: {
-						firstname: "Please enter your first name",
-						lastname: "Please enter your lastname",
+						firstname: {
+							required: "Please enter your first name",
+							regex: "Please enter a valid name"
+						},
+						lastname: {
+							required: "Please enter your lastname",
+							regex: "Please enter a valid name"
+						},
 						username: {
 							required: "Please enter your username",
 						},
@@ -119,7 +150,10 @@
 							required: "Please provide a password",
 							minlength: "Your password must be at least 5 characters long"
 						},
-						email: "Please enter a valid email address",
+						email: {
+							required: "Please enter your email address",
+							email: "Please enter a valid email address"
+						},
 						role: "Please fill in your role"
 					},
 
