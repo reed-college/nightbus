@@ -47,13 +47,15 @@
 
 	</div>
 	<script>
-	$(document).ready(function () {
-		$('body').bind('touchstart', function() {});
-	});
-	</script>
-	<script>
+			$(document).ready(function() {
+    $('.hover').bind('touchstart touchend', function(e) {
+        e.preventDefault();
+        $(this).toggleClass('hover_effect');
+    });
 		function submitstatus() {
 			alert("NightBus cancelled!")
 		}
+});
+
 	</script>
 </body>
