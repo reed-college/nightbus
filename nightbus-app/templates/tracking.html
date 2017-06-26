@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+	<title>Nightbus | Drivers</title>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src='../static/main.js'></script>
+</head>
+
+<body>
+	<div class="wrapper">
+
+	<div class="header">
+		<h1>The NightBus</h1>
+		<div class="nav">
+			<a href="{{ url_for('tracking') }}"> Tracking </a>
+			<a href="{{ url_for('drivermaps') }}"> Maps </a>
+			<a href="{{ url_for('home') }}"> Rider</a>
+			<a href="{{ url_for('logout') }}"> Sign Out </a>
+		</div>
+	</div>
+		<div class="content">
+			<form action="/tracking" method="post">
+				<ul class="form-container" >
+					<li>
+						<input type="text" placeholder="origin" name="origin" required><br>
+					</li>
+					<li>
+						<input type="text" placeholder="first address" name="address1" required><br>
+					</li>
+					<li>
+						<input type="text" placeholder="second address" name="address2"><br>
+					</li>
+					<li>
+						<input type="text" placeholder="third address" name="address3"><br>
+					</li>
+					<li>
+						<input type="text" placeholder="fourth address" name="address4"><br>
+					</li>
+					<li>
+						<input type="text" placeholder="fifth address" name="address5"><br>
+					</li>
+					<li>
+						<input class="submit-button" name="submit" type="submit" value="Save!">
+					</li>
+				</ul>
+			</form>
+		</div>
+</body>
