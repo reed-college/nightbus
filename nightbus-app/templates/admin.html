@@ -28,7 +28,7 @@
 				<br><br><br><br>
 				<button value="cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
 				<br><br>
-				<div class="dropdown hover_effect">
+				<div class="dropdown">
 					<button class="dropbtn">Manage Drivers</button>
 					<div  class="dropdown-content">
 						<a href="../schedule">Edit Driver Schedule</a>
@@ -49,7 +49,7 @@
 	<script>
 			$(document).ready(function() {
     if(navigator.userAgent.match(/Android|webOS|iPhone|iPod|Blackberry/i) ) {
-			$("dropdown").click(function () {});
+			$(".dropdown").click(function () {});
 		}
 		function submitstatus() {
 			alert("NightBus cancelled!")
