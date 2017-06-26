@@ -28,7 +28,7 @@
 				<button value="cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
 				<br><br>
 				<div class="dropdown">
-					<button class="dropbtn">Manage Drivers</button>
+					<button class="dropbtn hover_effect">Manage Drivers</button>
 					<div  class="dropdown-content">
 						<a href="../schedule">Edit Driver Schedule</a>
 						<a href="../adduser">Add Driver</a>
@@ -49,5 +49,13 @@
 		function submitstatus() {
 			alert("NightBus cancelled!")
 		}
+	</script>
+	<script>
+			$(document).ready(function() {
+		    $('.hover').bind('touchstart touchend', function(e) {
+		        e.preventDefault();
+		        $(this).toggleClass('hover_effect');
+		    });
+		});
 	</script>
 </body>

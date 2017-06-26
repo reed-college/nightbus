@@ -196,11 +196,12 @@ on index.html ***/
 
 /* Dropdown button on hover & focus */
 
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover, .dropbtn.hover_effect, .dropbtn:focus {
 	color: #F8F8FF;
   background-color: #233c63;
 	transition: all 0.5s ease;
 }
+
 
 /* The container <div> - needed to position the dropdown content */
 
