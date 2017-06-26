@@ -289,13 +289,13 @@ button:hover {
 	font-size: 14px;
 	background-color: transparent;
 	text-transform: uppercase;
+	outline: none; 
 }
 
 .statusbutton:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
-	outline: none; 
 }
 
 
