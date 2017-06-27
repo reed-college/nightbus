@@ -61,7 +61,6 @@ def update_state():
 def home():
     status = b.get_current_status()
     duration = b.get_trip_duration()
-    print(duration)
     return render_template("rider.html", status=status, duration=duration)
 
 
@@ -225,18 +224,57 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
+    
+    subject = 'Set Your Password'
+    token = generate_confirmation_token(email, serializer)
+    set_password_url = url_for('set_password', token = token, _external=True)
+    html = render_template('activate.html', set_password_url = set_password_url)
+    send_mail(email, subject, html, mail)
+
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
     # SELECT * FROM "Users"; and it should be the last entry in that table.
     # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
 
-    flash("User successfully added")
     return redirect(url_for('admin'))
+
+@app.route('/set_password/<token>', methods=['GET', 'POST'])
+def set_password(token):
+    if request.method == "POST":
+        db = database.get_session()
+        email = confirm_email_token(token, serializer)
+
+        user = db.query(schema.User).filter_by(email=email).first()
+        
+        new_password = request.form['password']
+        
+        print(user.username)
+
+        user_auth = schema.Auth(username=user.username)
+        user_auth.encrypt_password(new_password)
+
+
+        db.add(user_auth)
+        db.commit()
+        
+        if user.role == 'admin':
+            db.close()
+            return redirect(url_for('adminlogin'))
+        else:
+            db.close()
+            return redirect(url_for('driverlogin'))
+    return render_template('confirm_password.html', token = token)
+    
+
+
 
 @app.route('/removeuser')
 @login_required('admin')
 def removeuser():
-    return render_template('remove.html')
+    if session['logged_in']:
+        return render_template('remove.html')
+    else:
+        return redirect(url_for('adminlogin'))
 
 @app.route('/remove', methods=['POST'])
 def remove():
