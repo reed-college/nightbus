@@ -34,6 +34,7 @@ class NightBus:
     def __init__(self):
         self.current_status = status
         self.trip_duration = 0
+        self.origin = None
         self.destinations = []
     def get_current_status(self):
         return self.current_status
@@ -47,6 +48,10 @@ class NightBus:
         return self.destinations
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
+    def get_origin(self):
+        return self.origin
+    def update_origin(self, new_origin):
+        self.origin = new_origin
 
 
 b  = NightBus()
@@ -428,7 +433,7 @@ def driverlogin():
 
                 return redirect(url_for('driver'))
             else:
-                return redirect(url_for('driver_login.html'))
+                return redirect(url_for('driverlogin'))
         else:
             return render_template('no_user.html')
     else:
@@ -474,25 +479,27 @@ def no_user():
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
+        num_destinations = request.form['num_destinations']
         origin = request.form['origin']
-        address1 = str(request.form['address1'])
-        address2 = str(request.form['address2'])
-        address3 = str(request.form['address3'])
-        address4 = str(request.form['address4'])
-        address5 = str(request.form['address5'])
 
-        destinations = []
-        destinations.append(address1)
-        destinations.append(address2)
-        destinations.append(address3)
-        destinations.append(address4)
-        destinations.append(address5)
+        destinations = [None] * int(num_destinations)
+
+        for i in range(int(num_destinations)):
+            destinations[i] = request.form['address' + str(i+1)]
+
         destinations.append(origin)
 
-        duration = calculate_duration(origin, destinations)
+        duration = 0
+        for destination in destinations:
+            duration += calculate_duration(origin, [destination])
+            origin = destination
+    
+        print(duration)
+
 
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
+        b.update_origin(origin)
 
         return redirect(url_for('drivermaps'))
 
@@ -501,10 +508,11 @@ def tracking():
 @app.route('/drivermaps')
 @login_required('driver')
 def drivermaps():
+    origin = b.get_origin()
     destinations = b.get_destinations()
     no_destination = False
 
-    return render_template('maps.html', destinations = destinations, no_destination = no_destination)
+    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need

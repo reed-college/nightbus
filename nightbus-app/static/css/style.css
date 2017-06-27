@@ -93,6 +93,14 @@ h2 {
 }
 
 
+h2 .status_updates {
+	font-family: Roboto, sans-serif;
+	color: #333;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
 /*** middle of page content ***/
 
 /*** statusbox is the element that is populated by an update

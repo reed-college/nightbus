@@ -62,9 +62,8 @@
 			directionsDisplay.setPanel(document.getElementById('map-panel'));
 
 			var request = {
-				origin: "{{ destinations[0] | string }}",
-				destination: "{{ destinations[4] | string }}",
-				waypoints: [{ location: "{{ destinations[1] | string }}", stopover: true},{ location: "{{ destinations[2] | string }}", stopover: true},{ location: "{{ destinations[3] | string }}", stopover: true}],
+				origin: "{{ origin | string }}",
+				destination: "{{ destinations[0] | string }}",
 				travelMode: google.maps.DirectionsTravelMode.DRIVING
 			};
 
@@ -77,5 +76,5 @@
 	</script>
 	{% endif %}
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&callback=myMap"></script>
 </body>
