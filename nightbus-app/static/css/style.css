@@ -101,6 +101,17 @@ h2 {
 /*** statusbox is the element that is populated by an update
 message when a button is pressed on the driver page ***/
 
+p {	width: 80%;
+	margin: 15%;
+	background-color: #F2F6EA;
+	font-family: Roboto, sans-serif;
+	color: #001848;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	padding: 30px;
+	margin-top: 7.5%;
+	position: relative;
+}
+
 .statusbox{
 	width: 95%;
 	margin-left: 2.5%;
