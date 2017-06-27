@@ -9,12 +9,12 @@
 	<script src='../static/main.js'></script>
 	<style>
 	.mobile-nav ul {
+		position: fixed;
 		list-style-type: none;
     margin: 0;
     padding: 0;
 	}
 	.mobile-nav ul li {
-
 		float: left;
 		width: 20%;
 
@@ -64,12 +64,12 @@
 
 	</div>
 	<script>
+	// changes hover to click event on touch-screen devices
 			$(document).ready(function() {
 				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-		            $(".dropbtn").click(function () {});
-		        }
-
-});
+		      $(".dropbtn").click(function () {});
+		    }
+			});
 	</script>
 	<script>
 	function submitstatus() {
