@@ -8,11 +8,19 @@
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
 	<style>
-	.mobile-nav ul li a {
-		color: black;
+	.mobile-nav ul {
 		list-style-type: none;
+    margin: 0;
+    padding: 0;
+	}
+	.mobile-nav ul li {
+
 		float: left;
 		width: 20%;
+
+	}
+	.mobile-nav ul li a {
+		color: black;
 		text-transform: uppercase;
 	}
 	</style>
