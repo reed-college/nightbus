@@ -172,7 +172,7 @@ def assign():
 
 
 @app.route('/admin')
-@login_required('admin')
+# @login_required('admin')
 def admin():
     return render_template('admin.html')
 
