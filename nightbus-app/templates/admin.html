@@ -7,6 +7,15 @@
 	<meta name="viewport" content="initial-scale=1">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
+	<style>
+	.mobile-nav ul li a {
+		color: black;
+		list-style-type: none;
+		float: left;
+		width: 20%;
+		text-transform: uppercase;
+	}
+	</style>
 </head>
 
 <body>
@@ -61,11 +70,12 @@
 	</script>
 
 	<div data-role="footer">
-	<div data-role="navbar">
+	<div class= "mobile-nav" data-role="navbar">
 		<ul>
-			<li><a href="admin" class="ui-btn-active" style="color: black;">One</a></li>
-			<li><a href="#">Two</a></li>
-			<li><a href="#">Three</a></li>
+			<li><a href="rider">rider</a></li>
+			<li><a href="drider">driver</a></li>
+			<li><a href="admin" class="ui-btn-active">admin</a></li>
+			<li><a href="logout">Sign out</a></li>
 		</ul>
 	</div><!-- /navbar -->
 </div><!-- /footer -->
