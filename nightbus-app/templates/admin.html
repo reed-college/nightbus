@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 	<script src='../static/main.js'></script>
 	<style>
 @media screen and (max-width: 768px) {
@@ -45,7 +46,7 @@
 		text-transform: uppercase;
 	}
 	.mobile-nav ul li a:hover {
-		border-top: 5px solid #F8F8F8;
+		border-bottom: 5px solid #F8F8F8;
 	}
 	.ui-btn-active {
 
@@ -108,8 +109,8 @@
 	<div data-role="footer">
 	<div class= "mobile-nav" data-role="navbar">
 		<ul>
-			<li><a href="rider">rider</a></li>
-			<li><a href="driver">driver</a></li>
+			<li><a href="rider" class="ui-state-persist">rider</a></li>
+			<li><a href="driver" class="ui-state-persist">driver</a></li>
 			<li><a href="#" class="ui-btn-active ui-state-persist">admin</a></li>
 			<li><a href="logout">Sign out</a></li>
 		</ul>
