@@ -238,6 +238,48 @@ def add():
 
     return redirect(url_for('admin'))
 
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == "POST":
+
+        email = request.form['email']
+
+        subject = 'Reset Your Password'
+        token = generate_confirmation_token(email, serializer)
+        reset_password_url = url_for('reset_password', token=token, _external=True)
+        html = render_template('reset.html', reset_password_url = reset_password_url)
+        send_mail(email, subject, html, mail)
+
+        return render_template('check_email.html')
+
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if request.method == "POST":
+        db = database.get_session()
+        email = confirm_email_token(token, serializer)
+
+        user = db.query(schema.User).filter_by(email=email).first()
+        
+        new_password = request.form['password']
+
+        user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
+        user_auth.encrypt_password(new_password)
+
+        db.add(user_auth)
+        db.commit()
+
+        if user.role == 'admin':
+            db.close()
+            return redirect(url_for('adminlogin'))
+        else:
+            db.close()
+            return redirect(url_for('adminlogin'))
+    else:
+        return render_template('reset_password.html', token = token)
+
+
 @app.route('/set_password/<token>', methods=['GET', 'POST'])
 def set_password(token):
     if request.method == "POST":
@@ -247,8 +289,6 @@ def set_password(token):
         user = db.query(schema.User).filter_by(email=email).first()
         
         new_password = request.form['password']
-        
-        print(user.username)
 
         user_auth = schema.Auth(username=user.username)
         user_auth.encrypt_password(new_password)
@@ -288,14 +328,16 @@ def remove():
     # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
     user = db.query(schema.User).filter_by(username=username).first()
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
-    db.delete(user)
-    #db.delete(user_auth)
-    db.commit()
-    db.close()
+    if user:
+        db.delete(user)
+        db.delete(user_auth)
+        db.commit()
+        db.close()
 
+        return redirect(url_for('admin'))
 
-    flash('User successfully removed')
-    return redirect(url_for('admin'))
+    else:
+        return redirect(url_for('no_user'))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -361,7 +403,6 @@ def confirm_email(token):
     user = db.query(schema.User).filter_by(email=email).first()
 
     user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-#    user_auth.confirmed = True
 
     db.add(user_auth)
     db.commit()
