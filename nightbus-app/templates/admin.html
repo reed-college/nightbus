@@ -4,17 +4,17 @@
 	<title>Nightbus | Admins</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
-	<meta name="viewport" content="initial-scale=1">
+	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
 	<style>
-
+@media screen and (max-width: 768px) {
 	footer {
 		width: auto;
 	}
 
 	.mobile-nav {
-		width: inherit;
+		max-width: 100%;
 		bottom: 0;
 		margin: 0 auto;
 		position: fixed;
@@ -43,6 +43,7 @@
 		text-align: center;
 		text-transform: uppercase;
 	}
+}
 	</style>
 </head>
 
