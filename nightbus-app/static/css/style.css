@@ -92,6 +92,9 @@ h2 {
 	text-transform: uppercase;
 }
 
+.box h2{
+	color: #A84649;
+}
 
 /*** middle of page content ***/
 
@@ -484,8 +487,8 @@ thead tr th .title {
 }
 
 thead th {
-	border-right: 2px solid #F2F6EA;
-	border-left: 2px solid #F2F6EA;
+	/*border-right: 2px solid #F2F6EA;*/
+	/*border-left: 2px solid #F2F6EA;*/
 	font-family: Roboto, cursive;
 	font-size: 16px;
 	font-weight: 400;
