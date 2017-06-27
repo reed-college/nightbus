@@ -627,17 +627,15 @@ tbody tr td {
 
 /*** MOBILE ***/
 
-	@media screen and (max-width: 768px) {
-		.wrapper {
-			width: auto;
-			/*height: 768px;*/
-		}
-		.content {
-			max-width: 100%;
-			max-height: 50%;
-		}
-		.form-container {
-			width: inherit;
-			margin: 0 15px;
-		}
+@media screen and (max-width: 768px) {
+	.wrapper {
+		width: auto;
 	}
+	.content {
+		max-width: 100%;
+	}
+	.form-container {
+		width: inherit;
+		margin: 0 15px;
+	}
+}
