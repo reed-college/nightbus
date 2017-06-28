@@ -307,6 +307,43 @@ button:hover {
 }
 
 
+#missingBtn {
+	text-decoration: none;
+	color: #233c63;
+	background-color: transparent;
+	border: 2px solid #233c63;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#missingBtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+#lateBtn {
+	text-decoration: none;
+	color: #233c63;
+	background-color: transparent;
+	border: 2px solid #233c63;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#lateBtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+
 /*** Forms ***/
 
  .form-container {
@@ -521,6 +558,10 @@ tbody tr td {
 	padding:20px 20px 20px 20px;
 	border-bottom:1px solid #e0e0e0;
 
+}
+
+#pink {
+	color:#A84649;
 }
 
 /**** Driver page instructions ****/
