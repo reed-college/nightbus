@@ -80,6 +80,7 @@
 				$('form').validate({
 
 					errorPlacement: function(error, element) {
+						element.attr('style') = 'position: relative';
 						// place error messages next to their corresponding invalid element
 						if (element.attr("name") == "firstname" ) {
 	              error.appendTo($('#errNm1'));
@@ -108,6 +109,7 @@
 							} else if (element.attr("name") == "username") {
 								error.appendTo($("#errNm3"));
 								offset = element.offset();
+
 								$('#errNm3').css({
 									'top': offset.top +50,
 									'position': 'absolute',
