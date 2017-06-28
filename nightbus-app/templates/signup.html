@@ -27,8 +27,8 @@
 		.form-container li span {
 			position: absolute;
 			display: block;
-			z-index: 10;
-			color: white;
+			z-index: 11;
+			color: white !important;
 		}
 	}
 	</style>
@@ -91,7 +91,7 @@
 	              error.appendTo($('#errNm1'));
 								offset = element.offset();
 								$('#errNm1').css({
-									'top': offset.top +50
+									'top': offset.top +100
 
 								});
 	            } else if (element.attr("name") == "lastname" ) {
