@@ -37,24 +37,20 @@
 		height: 50px;
 		line-height: 50px;
 		color: #F8F8F8;
-		text-transform: uppercase;
 		text-align: center;
 		outline: none;
 		padding: 0;
 		border-right: #f8f8f8 1px solid;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 		box-sizing: border-box; /* Box sizing for older browsers */
    -moz-box-sizing: border-box;
    -webkit-box-sizing: border-box;
 	}
-	.mobile-nav ul li a:hover, .mobile-nav ul li a:active, .mobile-nav ul li a.current {
+	.mobile-nav ul li a.current {
 
-		background-color: #f8f8f8;
-		color: black ;
-
-	}
-	.mobile-nav ul li a:link, .mobile-nav ul li a:visited  {
-		background-color: #233c63;
-		color: #f8f8f8;
+		background-color: #f8f8f8 !important;
+		color: black !important;
 
 	}
 }
@@ -115,9 +111,9 @@
 	<footer>
 	<div class= "mobile-nav">
 		<ul>
-			<li><a href="rider">rider</a></li>
-			<li><a href="driver">driver</a></li>
-			<li><a href="#" class="current">admin</a></li>
+			<li><a href="rider">Rider</a></li>
+			<li><a href="driver">Driver</a></li>
+			<li><a href="#" class="current">Admin</a></li>
 			<li><a href="logout">Sign out</a></li>
 		</ul>
 	</div><!-- /navbar -->
