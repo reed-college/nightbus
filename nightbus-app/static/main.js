@@ -20,7 +20,7 @@ window.onclick = function(event) {
 
 // Update the NightBus statuses on Driver page
 
-$(function() {
+function() {
   // set up an event listener for the buttons
   $('.statusbutton').bind('click', function() {
     // get the value of status button on click
