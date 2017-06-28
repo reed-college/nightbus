@@ -4,9 +4,26 @@
 	<title>Nightbus | Add Users </title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
 	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
+	<style>
+	@media screen and (max-width: 768px) {
+		.wrapper {
+			width: auto;
+		}
+		.content {
+			max-width: 100%;
+			/*background-color: brown;*/
+			max-height: 50%;
+		}
+		.form-container {
+			width: inherit;
+			margin: 0 15px;
+		}
+	}
+	</style>
 </head>
 
 <body>
@@ -58,11 +75,6 @@
 		</div>
 		<script>
 			$(function() {
-
-				$.validator.addMethod("regex", function (value, element, regexpr) {
-					return regexpr.test(value);
-				});
-
 				$('form').validate({
 
 					errorPlacement: function(error, element) {
@@ -82,26 +94,16 @@
 							} else {
 								//do nothing
 							}
-							// turn of autovalidation whilst typing
-							$(this).on('change keyup',function() {
-								error.remove();
-							});
+
 					},
 
-					// Specify validation rules
+					//Specify validation rules
 					rules: {
-						firstname: {
-							required: true,
-							regex: /^[A-Za-z]+$/
-						},
-						lastname: {
-							required: true,
-							regex: /^[A-Za-z]+$/
-						},
+						firstname: "required",
+						lastname: "required",
 						username: {
 							required: true,
-
-							// check if a username already exists.
+							// check if username already exists.
 							remote: {
 								url: 'username_exists',
 								type: 'post',
@@ -114,17 +116,7 @@
 						},
 						email: {
 							required: true,
-							email: true, // Specify that email should be validated by the built-in "email" rule
-							// check if an email address is already registered
-							remote: {
-								url: 'email_exists',
-								type: 'post',
-								data: {
-									email: function() {
-										return $("input[name=email]").val()
-									}
-								}
-							}
+							email: true // Specify that email should be validated by the built-in "email" rule
 						},
 						role: "required",
 						password: {
@@ -133,16 +125,10 @@
 						}
 					},
 
-					// Specify validation error messages
+					// specify validation error messages
 					messages: {
-						firstname: {
-							required: "Please enter your first name",
-							regex: "Please enter a valid name"
-						},
-						lastname: {
-							required: "Please enter your lastname",
-							regex: "Please enter a valid name"
-						},
+						firstname: "Please enter your first name",
+						lastname: "Please enter your lastname",
 						username: {
 							required: "Please enter your username",
 						},
@@ -150,10 +136,7 @@
 							required: "Please provide a password",
 							minlength: "Your password must be at least 5 characters long"
 						},
-						email: {
-							required: "Please enter your email address",
-							email: "Please enter a valid email address"
-						},
+						email: "Please enter a valid email address",
 						role: "Please fill in your role"
 					},
 
