@@ -99,12 +99,8 @@
 			$(document).ready(function() {
 				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 		      $(".dropbtn").click(function () {});
-					var headerNav = $('.nav')
-					if (headerNav) {
-						headerNav.hide();
-					} else {
-						console.log ('not found');
-					}
+					$('.nav').hide();
+					$('.mobile-nav').show();
 		    }
 			});
 	</script>
@@ -115,7 +111,7 @@
 	</script>
 
 	<footer>
-	<div class= "mobile-nav">
+	<div class= "mobile-nav" style="display: none;">
 		<ul>
 			<li><a href="rider">Rider</a></li>
 			<li><a href="driver">Driver</a></li>
