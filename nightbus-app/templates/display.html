@@ -4,8 +4,20 @@
   <title>Nightbus | View Schedule</title>
   <link rel="stylesheet" href="../static/css/normalize.css">
   <link rel="stylesheet" href="../static/css/style.css">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='../static/main.js'></script>
+  <style>
+
+  @media screen and (max-width: 768px) {
+  .content {
+    width: auto;
+  }
+  table {
+    max-width: 100%;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -20,7 +32,7 @@
 				<a href="{{ url_for('admin') }}"> Admin</a>
 				<a href="{{ url_for('logout') }}">Sign Out</a>
 			{% endif %}
-		</div>  
+		</div>
     </div>
     <div class="content">
       <table>
