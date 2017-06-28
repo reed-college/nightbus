@@ -5,9 +5,9 @@
 
 body {
 	min-height: 100vh;
-	background: #f3f5f6;
-	background-size: cover;
-	color: #633d23;
+	background-image: url("texture.png");
+	background-color: #001848;
+	color: #F2F6EA;
 }
 
 /*** wrapper is 1550px for riders, drivers, and admin page.
@@ -36,7 +36,7 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  background-color: #233c63;
+  background-color: #83979E;
   display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -47,26 +47,26 @@ It should be 1200px for home page and add/remove driver pages ***/
 
 a {
 	text-decoration: none;
-	color: #F8F8F8;
+	color: #F2F6EA;
 }
 
 .nav a {
 	margin-right: 15px;
 	text-decoration: none;
-	color: #F8F8F8;
+	color: #F2F6EA;
 	text-transform: uppercase;
 }
 
 .nav a:hover {
-	border-top: 5px solid #f8f8f8;
+	border-top: 5px solid #A84649;
 	padding: 15px;
 	padding-left: 0px;
 	margin: 0 auto;
-	color: #f8f8f8;
+	color: #F2F6EA;
 }
 
 .nav a:visited {
-	color: #f8f8f8;
+	color: #F2F6EA;
 }
 
 .nav h2 {
@@ -79,7 +79,7 @@ a {
 h1 {
 	font-family: Roboto, sans-serif;
 	text-align: center;
-	color: #f8f8f8;
+	color: #F2F6EA;
 	margin: 0 auto;
 }
 
@@ -87,16 +87,30 @@ h1 {
 
 h2 {
 	font-family: Roboto, sans-serif;
-	color: #F8F8FF;
+	color: #F2F6EA;
 	text-align: center;
 	text-transform: uppercase;
 }
 
+.box h2{
+	color: #A84649;
+}
 
 /*** middle of page content ***/
 
 /*** statusbox is the element that is populated by an update
 message when a button is pressed on the driver page ***/
+
+p {	width: 80%;
+	margin: 15%;
+	background-color: #F2F6EA;
+	font-family: Roboto, sans-serif;
+	color: #001848;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	padding: 30px;
+	margin-top: 7.5%;
+	position: relative;
+}
 
 .statusbox{
 	width: 95%;
@@ -143,16 +157,16 @@ message when a button is pressed on the driver page ***/
 }
 
 .switchbtn {
-	color: #233c63;
+	color: #001848;
 	padding:5px 20px;
-	border: 2px solid #233c63;
+	border: 2px solid #001848;
 	background-color: transparent;
 	border-radius: 20px;
 	}
 
 .switchbtn:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
+	color: #F2F6EA;
+	background-color: #001848;
 	transition: all 0.5s ease;
 }
 
@@ -185,10 +199,10 @@ on index.html ***/
 .dropbtn {
 	width: 80%;
 	height: 60px;
-	border: 3px solid #233c63;
+	border: 3px solid #83979E;
 	margin-left: 12%;
 	font-family: Roboto, times, serif;
-	color: #233c63;
+	color: #83979E;
 	font-size: 14px;
 	background-color: transparent;
 	text-transform: uppercase;
@@ -197,8 +211,8 @@ on index.html ***/
 /* Dropdown button on hover & focus */
 
 .dropbtn:hover, .dropbtn:focus {
-	color: #F8F8FF;
-  background-color: #233c63;
+	color: #F2F6EA;
+  background-color: #83979E;
 	transition: all 0.5s ease;
 }
 
@@ -221,7 +235,7 @@ on index.html ***/
 
 .dropdown:hover .dropdown-content {
 	display: inline-block;
-	background-color: #f9f9f9;
+	background-color: #83979E;
 	position: absolute;
 	width: 80%;
 	height: 130px;
@@ -232,8 +246,8 @@ on index.html ***/
 }
 
 .dropdown:hover .dropbtn {
-	color: #F8F8FF;
-	background-color: #233c63;
+	color: #83979E;
+	background-color: #F2F6EA;
 	transition: all 0.5s ease;
 }
 
@@ -276,10 +290,10 @@ button:hover {
 .statusbutton {
 	width: 80%;
 	height: 60px;
-	border: 3px solid #233c63;
+	border: 3px solid #83979E;
 	margin-left: 12%;
 	font-family: Roboto, times, serif;
-	color: #233c63;
+	color: #83979E;
 	font-size: 14px;
 	background-color: transparent;
 	text-transform: uppercase;
@@ -287,8 +301,8 @@ button:hover {
 }
 
 .statusbutton:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
+	color: #F2F6EA;
+	background-color: #83979E;
 	transition: all 0.5s ease;
 }
 
@@ -298,7 +312,7 @@ button:hover {
  .form-container {
  	width: 100%;
  	max-height: 500px;
- 	background-color: #233c63;
+ 	background-color: #83979E;
  	display: flex;
  	flex-direction: column;
  	z-index: 1;
@@ -316,8 +330,8 @@ button:hover {
  }
 
 .form-container li input {
-	background-color: #5e779e;
-	color: #F8F8F8;
+	background-color: #F2F6EA;
+	color: #A84649;
 	border: none;
 	border-radius: 20px;
 	padding: 15px;
@@ -329,15 +343,16 @@ button:hover {
 }
 
 .form-container li .submit-button {
-	background-color: #3973ce;
+	background-color: #001848;
 	border-radius: 0px;
+	color: #F2F6EA;
 	font-size: 14px;
 	width: 100%;
 }
 
 .form-container li .submit-button:hover {
-	background-color: #3b81ef;
-	color: #020314;
+	background-color: #A84649;
+	color: #F2F6EA;
 }
 
 .rider-alerts {
@@ -351,8 +366,8 @@ button:hover {
 }
 .rider-form input{
 	background: transparent;
-	color: #233c63;
-	border-bottom: 5px solid #233c63;
+	color: #F2F6EA;
+	border-bottom: 5px solid #83979E;
 	border-top: 0px;
 	border-right: 0px;
 	border-left: 0px;
@@ -361,7 +376,7 @@ button:hover {
 }
 
 .rider-form input:hover {
-	color: #F8F8FF;
+	color: #F2F6EA;
 	border-bottom: 0px;
 	transition-delay: 1s;
 	transition: all 0.6s ease;
@@ -466,7 +481,7 @@ button:hover {
 
 table {
 	border-collapse: separate;
-	background: #F8F8F8;
+	background: #F2F6EA;
 	margin: 50px auto;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
@@ -483,22 +498,22 @@ thead tr th .title {
 }
 
 thead th {
-	border-right: 2px solid #F8F8F8;
-	border-left: 2px solid #F8F8F8;
+	/*border-right: 2px solid #F2F6EA;*/
+	/*border-left: 2px solid #F2F6EA;*/
 	font-family: Roboto, cursive;
 	font-size: 16px;
 	font-weight: 400;
-	color: #fff;
+	color: #F2F6EA;
 	@include text-shadow(1px 1px 0px rgba(0,0,0,0.5));
 	text-align: center;
 	padding: 20px;
-	background-color: #233c63;
+	background-color: #A84649;
 }
 
 tbody tr td {
 	font-family: 'Open Sans', sans-serif;
 	font-weight:400;
-	color:#5f6062;
+	color:#001848;
 	font-size:13px;
 	padding:20px 20px 20px 20px;
 	border-bottom:1px solid #e0e0e0;
@@ -508,11 +523,11 @@ tbody tr td {
 /**** Driver page instructions ****/
 
 .box .instructions {
-	background-color: #F8F8FF;
+	background-color: #F2F6EA;
 	font-family: Roboto, sans-serif;
 	max-width: 100%;
 	height: 50%;
-	color: black;
+	color: #001848;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	padding: 5px;
 	margin-top: 7.5%;
@@ -520,7 +535,7 @@ tbody tr td {
 }
 
 .box .instructions h2 {
-	color: black;
+	color: #A84649;
 	align: center;
 }
 

@@ -40,7 +40,7 @@
 					{% elif "coming" in status %}
 						<img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
 					{% elif "cancelled" in status%}
-						<img class="dex-icon" src="../static/cancelled.gif" alt="bus-img"/>
+						<img class="dex-icon" src="../static/testcancelled.gif" alt="bus-img"/>
 					{% else %}
 						<img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
 					{% endif %}
@@ -49,6 +49,7 @@
 				{% if duration > 0 %}
 					<h2> The nightbus will be on campus in {{ duration }} minutes </h2>
 				{% endif %}
+				<p> The NightBus is a Reed sponsered late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.</p>
 				<div class="rider-alerts">
 				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
 					Name: <br>
@@ -115,10 +116,10 @@
 				<table>
 				<thead>
 					<tr>
-						<th colspan="2">Schedule</th>
+						<th colspan="2">Daily Schedule</th>
 					</tr>
 				  <tr>
-				    <th>Sunday-Thursday</th>
+				    <th>Sunday - Thursday</th>
 				    <th>Friday & Saturday</th>
 				  </tr>
 				</thead>
