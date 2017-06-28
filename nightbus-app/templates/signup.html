@@ -19,13 +19,15 @@
 		.form-container {
 			width: inherit;
 			margin: 0 15px;
+		}
+		.form-container li input {
 			position: relative;
 		}
-		#errNm1, #errNm2, #errNm3, #errNm4, #errNm5, #errNm6  {
-			width: auto;
+		.form-container li span {
 			position: absolute;
-			margin: 0 auto;
-			color: brown;
+			display: block;
+			z-index: 10;
+			color: #f8f8f8;
 		}
 	}
 	</style>
@@ -86,16 +88,46 @@
 						// place error messages next to their corresponding invalid element
 						if (element.attr("name") == "firstname" ) {
 	              error.appendTo($('#errNm1'));
+								offset = element.offset();
+								$('#errNm1').css({
+									'top': offset.top,
+									'left': offset.left + element.outerWidth()
+								});
 	            } else if (element.attr("name") == "lastname" ) {
 								error.appendTo($('#errNm2'));
+								offset = element.offset();
+								$('#errNm2').css({
+									'top': offset.top,
+									'left': offset.left + element.outerWidth()
+								});
 							} else if (element.attr("name") == "username") {
 								error.appendTo($("#errNm3"));
+								offset = element.offset();
+								$('#errNm3').css({
+									'top': offset.top,
+									'left': offset.left + element.outerWidth()
+								});
 							} else if (element.attr("name") == "email") {
 								error.appendTo($("#errNm4"));
+								offset = element.offset();
+								$('#errNm4').css({
+									'top': offset.top,
+									'left': offset.left + element.outerWidth()
+								});
 							} else if (element.attr("name") == "role") {
 								error.appendTo($("#errNm5"));
+								offset = element.offset();
+								$('#errNm5').css({
+									'top': offset.top,
+									'left': offset.left + element.outerWidth()
+								});
 							} else if (element.attr("name") == "password") {
 								error.appendTo($("#errNm6"));
+								offset = element.offset();
+								$('#errNm6').css({
+									'top': offset.top,
+									'left': offset.left + element.outerWidth()
+								});
 							} else {
 								//do nothing
 							}
