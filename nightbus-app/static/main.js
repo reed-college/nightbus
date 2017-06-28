@@ -1,6 +1,6 @@
 // Update the NightBus statuses on Driver page
 
-$(document).ready(function() {
+$(function() {
   // set up an event listener for the buttons
   $('.statusbutton').bind('click', function() {
     // get the value of status button on click
@@ -21,7 +21,7 @@ $(document).ready(function() {
       }
     });
   });
-})
+});
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
