@@ -370,6 +370,8 @@ button:hover {
 	border-right: 0px;
 	border-left: 0px;
 	margin: 0 auto;
+	margin-bottom: 10px;
+	margin-top: 5px;
 	text-transform: uppercase;
 }
 
@@ -379,6 +381,7 @@ button:hover {
 	transition-delay: 1s;
 	transition: all 0.6s ease;
 }
+
 
 /*** Form validation ***/
 
