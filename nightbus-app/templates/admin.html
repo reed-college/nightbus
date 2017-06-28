@@ -4,9 +4,57 @@
 	<title>Nightbus | Admins</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
-	<meta name="viewport" content="width=700, initial-scale=1">
-	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<meta name="viewport" content="initial-scale=1, width=device-width">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src='../static/main.js'></script>
+	<style>
+@media screen and (max-width: 768px) {
+
+	.mobile-nav {
+		width: 100%;
+		bottom: 0;
+		margin: 0 auto;
+		position: fixed;
+	}
+
+	.mobile-nav ul {
+
+		list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+	}
+	.mobile-nav ul li {
+
+		float: left;
+		width: 25%;
+	}
+	.mobile-nav ul li a {
+
+		display: inline-block;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		color: #F8F8F8;
+		background-color: #233c63;
+		text-align: center;
+		outline: none;
+		padding: 0;
+		border: #f8f8f8 1px solid;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		box-sizing: border-box; /* Box sizing for older browsers */
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+	}
+	.mobile-nav ul li a.current {
+
+		background-color: #f8f8f8 !important;
+		color: black !important;
+
+	}
+}
+	</style>
 </head>
 
 <body>
@@ -26,7 +74,7 @@
 		<div class="content">
 			<div class="butt box">
 				<br><br><br><br>
-				<button value="cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
+				<button value = "cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
 				<br><br>
 				<div class="dropdown">
 					<button class="dropbtn">Manage Drivers</button>
@@ -39,7 +87,13 @@
 
 			</div>
 			<div class="box">
-				<h2>Instructions</h2>
+				<div class="instructions">
+					<h2>Instructions</h2>
+					<ul>
+						<li>Press "Cancel Nightbus" to let everyone know the Nightbus has been cancelled for the evening.</li>
+						<li>The "Manage Drivers" tool allows you to add and remove drivers from the Nightbus database, and to assign drivers to a work schedule.</li>
+					</ul>
+				</div>
 			</div>
 
 		</div>
@@ -47,8 +101,30 @@
 
 	</div>
 	<script>
-		function submitstatus() {
-			alert("NightBus cancelled!")
-		}
+	// changes hover to click event on touch-screen devices
+			$(document).ready(function() {
+				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+		      $(".dropbtn").click(function () {});
+					$('.nav').hide();
+					$('.mobile-nav').show();
+		    }
+			});
 	</script>
+	<script>
+	function submitstatus() {
+		alert("NightBus cancelled!")
+	}
+	</script>
+
+	<footer>
+	<div class= "mobile-nav" style="display: none;">
+		<ul>
+			<li><a href="rider">Rider</a></li>
+			<li><a href="driver">Driver</a></li>
+			<li><a href="#" class="current">Admin</a></li>
+			<li><a href="logout">Sign out</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</footer>
+
 </body>

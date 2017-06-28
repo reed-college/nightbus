@@ -38,7 +38,7 @@
 					{% elif "coming" in status %}
 						<img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
 					{% elif "cancelled" in status%}
-						<img class="dex-icon" src="../static/cancelled.gif" alt="bus-img"/>
+						<img class="dex-icon" src="../static/testcancelled.gif" alt="bus-img"/>
 					{% else %}
 						<img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
 					{% endif %}
@@ -46,16 +46,33 @@
 				{% if duration > 0 %}
 					<div class="status_update"> <p>The nightbus will be on campus in {{ duration }} minutes </p>
 				{% endif %}
+				<p> The NightBus is a Reed sponsered late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
+				<br><br><br>
+				<a id = "missingBtn">Report the NightBus missing</a>
+				<br><br><br>
+				<a id= "lateBtn">I'm running late! Wait 5 minutes!</a>
+				</p>
+
+
+
+
+
 				<div class="rider-alerts">
-				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
-					<input type = "submit" value= "I'm late! Please wait 5 minutes!">
+				<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+					Name: <br>
+					<input type = "text" name = "name">
+					<br>
+					Email: <br>
+					<input type = "text" name = "email">
+					<br><br>
+					<input type = "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">
 				</form>
 
 				<script>
 					    $('#late-notice').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
+					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
 					            dataType: "json",
@@ -71,15 +88,21 @@
 					    });
 				</script>
 
-				<form class="rider-form" id="report-missing" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
-					<input type = "submit" value= "Report the NightBus missing">
+				<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+					Name: <br>
+					<input type = "text" name = "name">
+					<br>
+					Email: <br>
+					<input type = "text" name = "email">
+					<br><br>
+					<input type = "submit" id = "missingsubmit" value= "Report the NightBus missing">
 				</form>
 
 				<script>
 					    $('#report-missing').submit(function(e) {
 					        e.preventDefault();
 					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
+					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
 					            data: $(this).serialize(),
 					            type: "POST",
 					            dataType: "json",
@@ -95,15 +118,54 @@
 					    });
 				</script>
 			</div>
+		
 			</div>
+
+			<script>
+					$(document).ready(function() {
+						$("#missingBtn").click(function() {
+							$("p").toggle();
+							$("#report-missing").toggle();
+						});
+					});
+				</script>
+
+			<script>
+					$(document).ready(function() {
+						$("#lateBtn").click(function() {
+							$("p").toggle();
+							$("#late-notice").toggle();
+						});
+					});
+				</script>
+
+
+
+				<script>
+					$(document).ready(function() {
+						$("#missingsubmit").click(function() {
+							$("p").toggle();
+							$("#report-missing").toggle();
+				 		});
+				 	});
+				 </script>
+
+				<script>
+					$(document).ready(function() {
+						$("#latesubmit").click(function() {
+							$("p").toggle();
+							$("#late-notice").toggle();
+				 		});
+				 	});
+				 </script>
 			<div class="box">
 				<table>
 				<thead>
 					<tr>
-						<th colspan="2">Schedule</th>
+						<th colspan="2">Daily Schedule</th>
 					</tr>
 				  <tr>
-				    <th>Sunday-Thursday</th>
+				    <th>Sunday - Thursday</th>
 				    <th>Friday & Saturday</th>
 				  </tr>
 				</thead>
