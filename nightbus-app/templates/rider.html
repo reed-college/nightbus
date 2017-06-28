@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=700, initial-scale=1">
 	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
 	<script src='../static/main.js'></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 </head>
 
 <body>
@@ -64,11 +67,13 @@
 				<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
 					Name: <br>
 					<input type = "text" name = "name">
+					<span id="errNm1"></span>
 					<br>
 					Email: <br>
 					<input type = "text" name = "email">
+					<span id="errNm2"></span>
 					<br><br>
-					<input type = "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">
+					<input type = "submit" id ="latesubmit" name = "submit" value= "I'm late! Please wait 5 minutes!">
 				</form>
 
 				<script>
@@ -94,11 +99,13 @@
 				<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
 					Name: <br>
 					<input type = "text" name = "name">
+					<span id="errNm1"></span>
 					<br>
 					Email: <br>
 					<input type = "text" name = "email">
+					<span id="errNm2"></span>
 					<br><br>
-					<input type = "submit" id = "missingsubmit" value= "Report the NightBus missing">
+					<input type = "submit" id = "missingsubmit" name = "submit" value= "Report the NightBus missing">
 				</form>
 
 				<script>
@@ -161,6 +168,46 @@
 				 		});
 				 	});
 				 </script>
+
+
+				 <script>
+			$(function() {
+				$('form').validate({
+
+					errorPlacement: function(error, element) {
+						// place error messages next to their corresponding invalid element
+						if (element.attr("name") == "name" ) {
+	              						error.appendTo($('#errNm1'));
+	            				} else if (element.attr("name") == "email" ) {
+								error.appendTo($('#errNm2'));
+							
+							} else {
+								//do nothing
+							}
+
+					},
+
+					//Specify validation rules
+					rules: {
+						name: "required",
+						email: {
+							required: true,
+							email: true // Specify that email should be validated by the built-in "email" rule
+						},
+					},
+
+					// specify validation error messages
+					messages: {
+						name: "Please enter your name",
+						email: "Please enter a valid email address",
+					},
+
+					submitHandler: function(form) {
+						form.submit();
+					}
+				});
+			});
+		</script>
 			<div class="box">
 				<table>
 				<thead>
