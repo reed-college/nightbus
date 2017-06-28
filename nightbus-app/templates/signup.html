@@ -19,14 +19,14 @@
 		.form-container {
 			width: inherit;
 			margin: 0 15px;
-			justify-content: center;
+			justify-content: center !important;
 		}
 		.form-container li input {
 			position: relative;
 		}
 		.form-container li span {
 			position: absolute;
-			display: block;
+			display: block !important;
 			z-index: 11;
 			color: white !important;
 		}
@@ -91,42 +91,42 @@
 	              error.appendTo($('#errNm1'));
 								offset = element.offset();
 								$('#errNm1').css({
-									'top': offset.top 
+									'top': offset.top
 
 								});
 	            } else if (element.attr("name") == "lastname" ) {
 								error.appendTo($('#errNm2'));
 								offset = element.offset();
 								$('#errNm2').css({
-									'top': offset.top +50
+									'top': offset.top
 
 								});
 							} else if (element.attr("name") == "username") {
 								error.appendTo($("#errNm3"));
 								offset = element.offset();
 								$('#errNm3').css({
-									'top': offset.top +50
+									'top': offset.top
 
 								});
 							} else if (element.attr("name") == "email") {
 								error.appendTo($("#errNm4"));
 								offset = element.offset();
 								$('#errNm4').css({
-									'top': offset.top +50
+									'top': offset.top
 
 								});
 							} else if (element.attr("name") == "role") {
 								error.appendTo($("#errNm5"));
 								offset = element.offset();
 								$('#errNm5').css({
-									'top': offset.top +50
+									'top': offset.top
 
 								});
 							} else if (element.attr("name") == "password") {
 								error.appendTo($("#errNm6"));
 								offset = element.offset();
 								$('#errNm6').css({
-									'top': offset.top +50
+									'top': offset.top
 
 								});
 							} else {
