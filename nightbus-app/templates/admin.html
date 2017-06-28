@@ -45,7 +45,7 @@
    -moz-box-sizing: border-box;
    -webkit-box-sizing: border-box;
 	}
-	.mobile-nav ul li a:hover, .mobile-nav ul li a:active .mobile-nav ul li a.current {
+	.mobile-nav ul li a:hover, .mobile-nav ul li a:active, .mobile-nav ul li a.current {
 
 		background-color: #f8f8f8;
 		color: black ;
@@ -77,7 +77,7 @@
 		<div class="content">
 			<div class="butt box">
 				<br><br><br><br>
-				<button data-role="none" value="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
+				<button value="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
 				<br><br>
 				<div class="dropdown">
 					<button class="dropbtn">Manage Drivers</button>
@@ -111,8 +111,8 @@
 	}
 	</script>
 
-	<div data-role="footer" style="text-align:center;">
-	<div class= "mobile-nav" data-role="navbar">
+	<footer>
+	<div class= "mobile-nav">
 		<ul>
 			<li><a href="rider">rider</a></li>
 			<li><a href="driver">driver</a></li>
@@ -120,6 +120,6 @@
 			<li><a href="logout">Sign out</a></li>
 		</ul>
 	</div><!-- /navbar -->
-</div><!-- /footer -->
+</footer>
 
 </body>
