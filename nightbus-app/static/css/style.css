@@ -93,9 +93,9 @@ h2 {
 }
 
 
-h2 .status_updates {
+.status_update {
 	font-family: Roboto, sans-serif;
-	color: #333;
+	color: #233c63 !important;
 	text-align: center;
 	text-transform: uppercase;
 }
