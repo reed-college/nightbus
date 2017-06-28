@@ -5,17 +5,10 @@
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
-		<!-- Include jQuery Mobile stylesheets -->
-	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-
-	<!-- Include the jQuery library -->
-	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-	<!-- Include the jQuery Mobile library -->
-	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src='../static/main.js'></script>
 	<style>
 @media screen and (max-width: 768px) {
+
 	.mobile-nav {
 		width: 100%;
 		bottom: 0;
@@ -45,9 +38,23 @@
 		line-height: 50px;
 		color: #F8F8F8;
 		text-transform: uppercase;
+		text-align: center;
+		outline: none;
+		padding: 0;
+		box-sizing: border-box; /* Box sizing for older browsers */
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
 	}
-	.ui-btn-active {
-		background-color: black !important;
+	.mobile-nav ul li a:hover, .mobile-nav ul li a:active .mobile-nav ul li a.current {
+
+		background-color: #f8f8f8;
+		color: black ;
+
+	}
+	.mobile-nav ul li a:link, .mobile-nav ul li a:visited  {
+		background-color: #233c63;
+		color: #f8f8f8;
+
 	}
 }
 	</style>
@@ -109,7 +116,7 @@
 		<ul>
 			<li><a href="rider">rider</a></li>
 			<li><a href="driver">driver</a></li>
-			<li><a href="#" class="ui-btn-active  ui-state-persist">admin</a></li>
+			<li><a href="#" class="current">admin</a></li>
 			<li><a href="logout">Sign out</a></li>
 		</ul>
 	</div><!-- /navbar -->
