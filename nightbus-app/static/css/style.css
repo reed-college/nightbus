@@ -343,6 +343,42 @@ button:hover {
 	transition: all 0.5s ease;
 }
 
+#missinggoback {
+	text-decoration: none;
+	color: #F2F6EA;
+	background-color: transparent;
+	border: 2px solid #F2F6EA;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#missinggoback:hover {
+	color: #001848;
+	background-color: #F2F6EA;
+	transition: all 0.5s ease;
+}
+
+#lategoback {
+	text-decoration: none;
+	color: #F2F6EA;
+	background-color: transparent;
+	border: 2px solid #F2F6EA;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#lategoback:hover {
+	color: #001848;
+	background-color: #F2F6EA;
+	transition: all 0.5s ease;
+}
+
 
 /*** Forms ***/
 

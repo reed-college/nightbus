@@ -69,6 +69,8 @@
 					<input type = "text" name = "email">
 					<br><br>
 					<input type = "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">
+					<br><br>
+					<a id= "lategoback">Go Back</a>
 				</form>
 
 				<script>
@@ -99,6 +101,8 @@
 					<input type = "text" name = "email">
 					<br><br>
 					<input type = "submit" id = "missingsubmit" value= "Report the NightBus missing">
+					<br><br>
+					<a id= "missinggoback">Go Back</a>
 				</form>
 
 				<script>
@@ -156,6 +160,20 @@
 				<script>
 					$(document).ready(function() {
 						$("#latesubmit").click(function() {
+							$("p").toggle();
+							$("#late-notice").toggle();
+				 		});
+				 	});
+
+				 	$(document).ready(function() {
+						$("#missinggoback").click(function() {
+							$("p").toggle();
+							$("#report-missing").toggle();
+				 		});
+				 	});
+
+				 	$(document).ready(function() {
+						$("#lategoback").click(function() {
 							$("p").toggle();
 							$("#late-notice").toggle();
 				 		});
