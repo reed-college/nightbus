@@ -4,6 +4,7 @@
   <title>Nightbus | Edit Schedule</title>
   <link rel="stylesheet" href="../static/css/normalize.css">
   <link rel="stylesheet" href="../static/css/style.css">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='../static/main.js'></script>
 	<style>
@@ -26,7 +27,17 @@
 	background-color: #233c63;
 	transition: all 0.5s ease;
 }
-	</style>
+
+@media screen and (max-width: 768px) {
+.content {
+  width: auto;
+}
+table {
+  max-width: 100%;
+}
+
+}
+</style>
 
 </head>
 
