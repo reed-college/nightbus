@@ -30,7 +30,15 @@
 		</div>
 	</div>
 		<div class="content">
-			<form action="/tracking" method="post">
+			<div class="instructions" id="numOfRiders">
+				<ul>
+					<li>
+						<input type="number" placeholder="number of destinations" name="num_destinations" required><br>
+					</li>
+					<li style="border: none;"><a id="toggleBtn">Add Addresses</a></li>
+				</ul>
+			</div>
+			<form id="addressEntryForm" style="display:none" action="/tracking" method="post">
 				<ul class="form-container" >
 					<li>
 						<input type="number" placeholder="number of destinations" name="num_destinations" required><br>
@@ -56,7 +64,31 @@
 					<li>
 						<input class="submit-button" name="submit" type="submit" value="Save!">
 					</li>
+					<li>
+						<a id="returnBtn" style="display:none">Back</a>
+					</li>
 				</ul>
 			</form>
 		</div>
+			<script>
+				$(document).ready(function() {
+					$("#toggleBtn").click(function() {
+						$("#numofRiders").toggle();
+						$("#addressEntryForm").toggle();
+						$("#returnBtn").toggle();
+					});
+				});
+			</script>
+
+
+
+			<script>
+			$(document).ready(function() {
+				$("#returnBtn").click(function() {
+					$("#numOfRiders").toggle();
+					$("#addressEntryForm").toggle();
+					$("#returnBtn").toggle();
+				});
+			});
+			</script>
 </body>
