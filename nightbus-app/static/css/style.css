@@ -96,6 +96,14 @@ h2 {
 	color: #A84649;
 }
 
+.status_update {
+	font-family: Roboto, sans-serif;
+	color: #233c63 !important;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
 /*** middle of page content ***/
 
 /*** statusbox is the element that is populated by an update
@@ -403,7 +411,7 @@ button:hover {
  }
 
 .form-container li input {
-	background-color: #F2F6EA;
+	background-color: #96afb7;
 	color: #A84649;
 	border: none;
 	border-radius: 20px;
@@ -414,6 +422,12 @@ button:hover {
 	width: 100%;
 	box-sizing: border-box;
 }
+
+.form-container li input::placeholder {
+	color: #F2F2F2;
+	font-family: 'Roboto';
+}
+
 
 .form-container li .submit-button {
 	background-color: #001848;

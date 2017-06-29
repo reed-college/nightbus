@@ -2,7 +2,7 @@ import googlemaps
 
 def calculate_duration(origin, destinations):
     
-    key = "get google api key"
+    key = os.environ.get("GOOGLE_MAPS_API_KEY")
     gmaps = googlemaps.Client(key=key)
 
     ask_google = gmaps.distance_matrix(origin, destinations)
