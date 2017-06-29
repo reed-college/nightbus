@@ -136,53 +136,68 @@ def assign():
 
     db = database.get_session()
 
-    mon = db.query(schema.Schedule).filter_by(day='Monday').first()
-    monDriver = db.query(schema.User).filter_by(id=drivers[0]).first()
-    mon.driver_id = monDriver.id
-    mon.firstname = monDriver.firstname
-    mon.lastname = monDriver.lastname
+    if drivers[0] == "No":
+        pass
+    else:
+        mon = db.query(schema.Schedule).filter_by(day='Monday').first()
+        monDriver = db.query(schema.User).filter_by(id=drivers[0]).first()
+        mon.driver_id = monDriver.id
+        mon.firstname = monDriver.firstname
+        mon.lastname = monDriver.lastname
 
+    if drivers[1] == "No":
+        pass
+    else:
+        tue = db.query(schema.Schedule).filter_by(day='Tuesday').first()
+        tueDriver = db.query(schema.User).filter_by(id=drivers[1]).first()
+        tue.driver_id = tueDriver.id
+        tue.firstname = tueDriver.firstname
+        tue.lastname = tueDriver.lastname
 
-    tue = db.query(schema.Schedule).filter_by(day='Tuesday').first()
-    tueDriver = db.query(schema.User).filter_by(id=drivers[1]).first()
-    tue.driver_id = tueDriver.id
-    tue.firstname = tueDriver.firstname
-    tue.lastname = tueDriver.lastname
+    if drivers[2] == "No":
+        pass
+    else:
+        wed = db.query(schema.Schedule).filter_by(day='Wednesday').first()
+        wedDriver = db.query(schema.User).filter_by(id=drivers[2]).first()
+        wed.driver_id = wedDriver.id
+        wed.firstname = wedDriver.firstname
+        wed.lastname = wedDriver.lastname
 
+    if drivers[3] == "No":
+        pass
+    else:
+        thu = db.query(schema.Schedule).filter_by(day='Thursday').first()
+        thuDriver = db.query(schema.User).filter_by(id=drivers[3]).first()
+        thu.driver_id = thuDriver.id
+        thu.firstname = thuDriver.firstname
+        thu.lastname = thuDriver.lastname
 
-    wed = db.query(schema.Schedule).filter_by(day='Wednesday').first()
-    wedDriver = db.query(schema.User).filter_by(id=drivers[2]).first()
-    wed.driver_id = wedDriver.id
-    wed.firstname = wedDriver.firstname
-    wed.lastname = wedDriver.lastname
+    if drivers[4] == "No":
+        pass
+    else:
+        fri = db.query(schema.Schedule).filter_by(day='Friday').first()
+        friDriver = db.query(schema.User).filter_by(id=drivers[4]).first()
+        fri.driver_id = friDriver.id
+        fri.firstname = friDriver.firstname
+        fri.lastname = friDriver.lastname
 
+    if drivers[5] == "No":
+        pass
+    else:
+        sat = db.query(schema.Schedule).filter_by(day='Saturday').first()
+        satDriver = db.query(schema.User).filter_by(id=drivers[5]).first()
+        sat.driver_id = satDriver.id
+        sat.firstname = satDriver.firstname
+        sat.lastname =  satDriver.lastname
 
-    thu = db.query(schema.Schedule).filter_by(day='Thursday').first()
-    thuDriver = db.query(schema.User).filter_by(id=drivers[3]).first()
-    thu.driver_id = thuDriver.id
-    thu.firstname = thuDriver.firstname
-    thu.lastname = thuDriver.lastname
-
-
-    fri = db.query(schema.Schedule).filter_by(day='Friday').first()
-    friDriver = db.query(schema.User).filter_by(id=drivers[4]).first()
-    fri.driver_id = friDriver.id
-    fri.firstname = friDriver.firstname
-    fri.lastname = friDriver.lastname
-
-
-    sat = db.query(schema.Schedule).filter_by(day='Saturday').first()
-    satDriver = db.query(schema.User).filter_by(id=drivers[5]).first()
-    sat.driver_id = satDriver.id
-    sat.firstname = satDriver.firstname
-    sat.lastname =  satDriver.lastname
-
-
-    sun = db.query(schema.Schedule).filter_by(day='Sunday').first()
-    sunDriver = db.query(schema.User).filter_by(id=drivers[6]).first()
-    sun.driver_id = sunDriver.id
-    sun.firstname = sunDriver.firstname
-    sun.lastname =  sunDriver.lastname
+    if drivers[6] == "No":
+        pass
+    else:
+        sun = db.query(schema.Schedule).filter_by(day='Sunday').first()
+        sunDriver = db.query(schema.User).filter_by(id=drivers[6]).first()
+        sun.driver_id = sunDriver.id
+        sun.firstname = sunDriver.firstname
+        sun.lastname =  sunDriver.lastname
 
     db.commit()
     db.close()
