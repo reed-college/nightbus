@@ -84,6 +84,7 @@
 						// place error messages next to their corresponding invalid element
 						if (element.attr("name") == "firstname" ) {
 	              error.appendTo($('#errNm1'));
+								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 								offset = element.offset();
 								$('#errNm1').css({
 									'top': offset.top +50,
@@ -94,6 +95,7 @@
 									'color':'brown'
 
 								});
+							}
 	            } else if (element.attr("name") == "lastname" ) {
 								error.appendTo($('#errNm2'));
 								offset = element.offset();
