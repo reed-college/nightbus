@@ -422,8 +422,10 @@ def register():
 #        send_mail(user.email, subject, html, mail)
 
     db.close()
-    flash('User successfully registered')
-    return redirect(url_for('login'))
+    if user.role == 'admin':
+        return redirect(url_for('adminlogin'))
+    else:
+        return redirect(url_for('driverlogin'))
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
