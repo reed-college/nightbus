@@ -9,8 +9,12 @@
 	<script src='../static/main.js'></script>
 	<style>
 @media screen and (max-width: 768px) {
+	.nav {
+		display: none;
+	}
 
 	.mobile-nav {
+		display: block;
 		width: 100%;
 		bottom: 0;
 		margin: 0 auto;
@@ -99,8 +103,6 @@
 			$(document).ready(function() {
 				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 		      $(".dropbtn").click(function () {});
-					$('.nav').hide();
-					$('.mobile-nav').show();
 		    }
 			});
 	</script>
