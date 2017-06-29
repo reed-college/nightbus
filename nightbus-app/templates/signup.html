@@ -126,6 +126,7 @@
 							} else if (element.attr("name") == "email") {
 								error.appendTo($("#errNm4"));
 								offset = element.offset();
+								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 								$('#errNm4').css({
 									'top': offset.top +50,
 									'position': 'absolute',
@@ -133,8 +134,8 @@
 									'left': '20%',
 									'font-size': '15px',
 									'color':'brown'
-
 								});
+							}
 							} else if (element.attr("name") == "role") {
 								error.appendTo($("#errNm5"));
 								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
