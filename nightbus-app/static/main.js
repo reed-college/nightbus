@@ -1,4 +1,4 @@
-// Update the NightBus statuses on Driver page
+/* Update the NightBus statuses on Driver page */ 
 
 $(function() {
   // set up an event listener for the buttons
@@ -30,7 +30,8 @@ function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// Close the dropdown menu if the user clicks outside of it
+/* Close the dropdown menu if the user clicks outside of it */
+
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
 
@@ -44,3 +45,8 @@ window.onclick = function(event) {
     }
   }
 }
+
+/* driver submit status button */
+    function submitstatus() {
+      alert("Status updated!")
+    }
