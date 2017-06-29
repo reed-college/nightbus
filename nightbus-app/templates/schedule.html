@@ -35,16 +35,18 @@
     </div>
     <div class="content">
       <table>
-        <tr>
-          <th><span id = "pink">Day</span></th>
-          <th> <span id ="pink">Driver </span></th>
-        </tr>
+        <thead>
+              <tr>
+                <th> Day </th>
+                <th> Driver </th>
+              </tr>
+        </thead>
         <tr>
           <td> Monday </td>
           <td>
             <div class="dropdown">
               <select id="mon" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
@@ -58,7 +60,7 @@
             <div class="dropdown">
 
               <select id="tue" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
@@ -72,7 +74,7 @@
             <div class="dropdown">
 
               <select id="wed" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
@@ -86,7 +88,7 @@
             <div class="dropdown">
 
               <select id="thu" name="driver_id">
-									<option class="more-opt" selected disabled hidden>Choose driver</option>
+									<option class="more-opt" value = "No">Choose driver</option>
                   {% for person in drivers %}
                   <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                   {% endfor %}
@@ -100,7 +102,7 @@
             <div class="dropdown">
 
               <select id="fri" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
@@ -114,7 +116,7 @@
             <div class="dropdown">
 
               <select id="sat" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
@@ -127,7 +129,7 @@
           <td>
             <div class="dropdown">
               <select id="sun" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}

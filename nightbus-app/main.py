@@ -34,6 +34,8 @@ class NightBus:
     def __init__(self):
         self.current_status = status
         self.trip_duration = 0
+        self.origin = None
+        self.destinations = []
     def get_current_status(self):
         return self.current_status
     def get_trip_duration(self):
@@ -42,6 +44,15 @@ class NightBus:
         self.current_status = new_status
     def update_trip_duration(self, new_duration):
         self.trip_duration = new_duration
+    def get_destinations(self):
+        return self.destinations
+    def update_destinations(self, new_destinations):
+        self.destinations = new_destinations
+    def get_origin(self):
+        return self.origin
+    def update_origin(self, new_origin):
+        self.origin = new_origin
+
 
 b  = NightBus()
 
@@ -125,53 +136,68 @@ def assign():
 
     db = database.get_session()
 
-    mon = db.query(schema.Schedule).filter_by(day='Monday').first()
-    monDriver = db.query(schema.User).filter_by(id=drivers[0]).first()
-    mon.driver_id = monDriver.id
-    mon.firstname = monDriver.firstname
-    mon.lastname = monDriver.lastname
+    if drivers[0] == "No":
+        pass
+    else:
+        mon = db.query(schema.Schedule).filter_by(day='Monday').first()
+        monDriver = db.query(schema.User).filter_by(id=drivers[0]).first()
+        mon.driver_id = monDriver.id
+        mon.firstname = monDriver.firstname
+        mon.lastname = monDriver.lastname
 
+    if drivers[1] == "No":
+        pass
+    else:
+        tue = db.query(schema.Schedule).filter_by(day='Tuesday').first()
+        tueDriver = db.query(schema.User).filter_by(id=drivers[1]).first()
+        tue.driver_id = tueDriver.id
+        tue.firstname = tueDriver.firstname
+        tue.lastname = tueDriver.lastname
 
-    tue = db.query(schema.Schedule).filter_by(day='Tuesday').first()
-    tueDriver = db.query(schema.User).filter_by(id=drivers[1]).first()
-    tue.driver_id = tueDriver.id
-    tue.firstname = tueDriver.firstname
-    tue.lastname = tueDriver.lastname
+    if drivers[2] == "No":
+        pass
+    else:
+        wed = db.query(schema.Schedule).filter_by(day='Wednesday').first()
+        wedDriver = db.query(schema.User).filter_by(id=drivers[2]).first()
+        wed.driver_id = wedDriver.id
+        wed.firstname = wedDriver.firstname
+        wed.lastname = wedDriver.lastname
 
+    if drivers[3] == "No":
+        pass
+    else:
+        thu = db.query(schema.Schedule).filter_by(day='Thursday').first()
+        thuDriver = db.query(schema.User).filter_by(id=drivers[3]).first()
+        thu.driver_id = thuDriver.id
+        thu.firstname = thuDriver.firstname
+        thu.lastname = thuDriver.lastname
 
-    wed = db.query(schema.Schedule).filter_by(day='Wednesday').first()
-    wedDriver = db.query(schema.User).filter_by(id=drivers[2]).first()
-    wed.driver_id = wedDriver.id
-    wed.firstname = wedDriver.firstname
-    wed.lastname = wedDriver.lastname
+    if drivers[4] == "No":
+        pass
+    else:
+        fri = db.query(schema.Schedule).filter_by(day='Friday').first()
+        friDriver = db.query(schema.User).filter_by(id=drivers[4]).first()
+        fri.driver_id = friDriver.id
+        fri.firstname = friDriver.firstname
+        fri.lastname = friDriver.lastname
 
+    if drivers[5] == "No":
+        pass
+    else:
+        sat = db.query(schema.Schedule).filter_by(day='Saturday').first()
+        satDriver = db.query(schema.User).filter_by(id=drivers[5]).first()
+        sat.driver_id = satDriver.id
+        sat.firstname = satDriver.firstname
+        sat.lastname =  satDriver.lastname
 
-    thu = db.query(schema.Schedule).filter_by(day='Thursday').first()
-    thuDriver = db.query(schema.User).filter_by(id=drivers[3]).first()
-    thu.driver_id = thuDriver.id
-    thu.firstname = thuDriver.firstname
-    thu.lastname = thuDriver.lastname
-
-
-    fri = db.query(schema.Schedule).filter_by(day='Friday').first()
-    friDriver = db.query(schema.User).filter_by(id=drivers[4]).first()
-    fri.driver_id = friDriver.id
-    fri.firstname = friDriver.firstname
-    fri.lastname = friDriver.lastname
-
-
-    sat = db.query(schema.Schedule).filter_by(day='Saturday').first()
-    satDriver = db.query(schema.User).filter_by(id=drivers[5]).first()
-    sat.driver_id = satDriver.id
-    sat.firstname = satDriver.firstname
-    sat.lastname =  satDriver.lastname
-
-
-    sun = db.query(schema.Schedule).filter_by(day='Sunday').first()
-    sunDriver = db.query(schema.User).filter_by(id=drivers[6]).first()
-    sun.driver_id = sunDriver.id
-    sun.firstname = sunDriver.firstname
-    sun.lastname =  sunDriver.lastname
+    if drivers[6] == "No":
+        pass
+    else:
+        sun = db.query(schema.Schedule).filter_by(day='Sunday').first()
+        sunDriver = db.query(schema.User).filter_by(id=drivers[6]).first()
+        sun.driver_id = sunDriver.id
+        sun.firstname = sunDriver.firstname
+        sun.lastname =  sunDriver.lastname
 
     db.commit()
     db.close()
@@ -218,18 +244,97 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
+    
+    subject = 'Set Your Password'
+    token = generate_confirmation_token(email, serializer)
+    set_password_url = url_for('set_password', token = token, _external=True)
+    html = render_template('activate.html', set_password_url = set_password_url)
+    send_mail(email, subject, html, mail)
+
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
     # SELECT * FROM "Users"; and it should be the last entry in that table.
     # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
 
-    flash("User successfully added")
     return redirect(url_for('admin'))
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == "POST":
+
+        email = request.form['email']
+
+        subject = 'Reset Your Password'
+        token = generate_confirmation_token(email, serializer)
+        reset_password_url = url_for('reset_password', token=token, _external=True)
+        html = render_template('reset.html', reset_password_url = reset_password_url)
+        send_mail(email, subject, html, mail)
+
+        return render_template('check_email.html')
+
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if request.method == "POST":
+        db = database.get_session()
+        email = confirm_email_token(token, serializer)
+
+        user = db.query(schema.User).filter_by(email=email).first()
+        
+        new_password = request.form['password']
+
+        user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
+        user_auth.encrypt_password(new_password)
+
+        db.add(user_auth)
+        db.commit()
+
+        if user.role == 'admin':
+            db.close()
+            return redirect(url_for('adminlogin'))
+        else:
+            db.close()
+            return redirect(url_for('adminlogin'))
+    else:
+        return render_template('reset_password.html', token = token)
+
+
+@app.route('/set_password/<token>', methods=['GET', 'POST'])
+def set_password(token):
+    if request.method == "POST":
+        db = database.get_session()
+        email = confirm_email_token(token, serializer)
+
+        user = db.query(schema.User).filter_by(email=email).first()
+        
+        new_password = request.form['password']
+
+        user_auth = schema.Auth(username=user.username)
+        user_auth.encrypt_password(new_password)
+
+
+        db.add(user_auth)
+        db.commit()
+        
+        if user.role == 'admin':
+            db.close()
+            return redirect(url_for('adminlogin'))
+        else:
+            db.close()
+            return redirect(url_for('driverlogin'))
+    return render_template('confirm_password.html', token = token)
+    
+
+
 
 @app.route('/removeuser')
 @login_required('admin')
 def removeuser():
-    return render_template('remove.html')
+    if session['logged_in']:
+        return render_template('remove.html')
+    else:
+        return redirect(url_for('adminlogin'))
 
 @app.route('/remove', methods=['POST'])
 def remove():
@@ -243,14 +348,16 @@ def remove():
     # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
     user = db.query(schema.User).filter_by(username=username).first()
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
-    db.delete(user)
-    #db.delete(user_auth)
-    db.commit()
-    db.close()
+    if user:
+        db.delete(user)
+        db.delete(user_auth)
+        db.commit()
+        db.close()
 
+        return redirect(url_for('admin'))
 
-    flash('User successfully removed')
-    return redirect(url_for('admin'))
+    else:
+        return redirect(url_for('no_user'))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -326,7 +433,6 @@ def confirm_email(token):
     user = db.query(schema.User).filter_by(email=email).first()
 
     user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-#    user_auth.confirmed = True
 
     db.add(user_auth)
     db.commit()
@@ -352,7 +458,7 @@ def driverlogin():
 
                 return redirect(url_for('driver'))
             else:
-                return redirect(url_for('driver_login.html'))
+                return redirect(url_for('driverlogin'))
         else:
             return render_template('no_user.html')
     else:
@@ -395,34 +501,43 @@ def no_user():
     return render_template('no_user.html')
 
 @app.route('/tracking', methods=['GET', 'POST'])
+@login_required('driver')
 def tracking():
     if request.method == 'POST':
+        num_destinations = request.form['num_destinations']
         origin = request.form['origin']
-        address1 = str(request.form['address1'])
-        address2 = str(request.form['address2'])
-        address3 = str(request.form['address3'])
-        address4 = str(request.form['address4'])
-        address5 = str(request.form['address5'])
 
-        destinations = []
-        destinations.append(address1)
-        destinations.append(address2)
-        destinations.append(address3)
-        destinations.append(address4)
-        destinations.append(address5)
+        destinations = [None] * int(num_destinations)
+
+        for i in range(int(num_destinations)):
+            destinations[i] = request.form['address' + str(i+1)]
+
         destinations.append(origin)
 
-        duration = calculate_duration(origin, destinations)
+        duration = 0
+        for destination in destinations:
+            duration += calculate_duration(origin, [destination])
+            origin = destination
+    
+        print(duration)
+
 
         b.update_trip_duration(duration)
+        b.update_destinations(destinations)
+        b.update_origin(origin)
 
-        return redirect(url_for('driver'))
+        return redirect(url_for('drivermaps'))
 
     return render_template('tracking.html')
 
 @app.route('/drivermaps')
+@login_required('driver')
 def drivermaps():
-    return render_template('maps.html')
+    origin = b.get_origin()
+    destinations = b.get_destinations()
+    no_destination = False
+
+    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
