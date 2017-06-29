@@ -13,6 +13,7 @@ Flask-SQLAlchemy==2.2
 Flask-Stormpath==0.4.8
 Flask-WTF==0.14.2
 googlemaps==2.5.0
+gunicorn==19.7.1
 httplib2==0.10.3
 isodate==0.5.4
 itsdangerous==0.24
