@@ -36,6 +36,7 @@ class NightBus:
         self.trip_duration = 0
         self.origin = None
         self.destinations = []
+        self.num_of_destinations = 0
     def get_current_status(self):
         return self.current_status
     def get_trip_duration(self):
@@ -44,14 +45,14 @@ class NightBus:
         self.current_status = new_status
     def update_trip_duration(self, new_duration):
         self.trip_duration = new_duration
+    def get_num_of_destinations(self):
+        return self.num_of_destinations
+    def update_num_of_destinations(self, new_num):
+        self.num_of_destinations = new_num
     def get_destinations(self):
         return self.destinations
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
-    def get_origin(self):
-        return self.origin
-    def update_origin(self, new_origin):
-        self.origin = new_origin
 
 
 b  = NightBus()
@@ -485,19 +486,27 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
+@app.route('/trackingtest', methods=['POST'])
+def trackingtest():
+    numOfDestinations = request.form['numOfDestinations']
+    b.update_num_of_destinations = numOfDestinations
+    print(b.get_num_of_destinations)
+    return jsonify({'status': 'OK', 'numOfDestinations': numOfDestinations});
+
+
 @app.route('/tracking', methods=['GET', 'POST'])
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        num_destinations = request.form['num_destinations']
-        origin = request.form['origin']
+        num_destinations = b.get_num_of_destinations
 
-        destinations = [None] * int(num_destinations)
+        print(num_destinations)
 
-        for i in range(int(num_destinations)):
+        destinations = [None] * num_destinations
+
+        for i in range(num_destinations):
             destinations[i] = request.form['address' + str(i+1)]
 
-        destinations.append(origin)
 
         duration = 0
         for destination in destinations:
