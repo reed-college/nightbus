@@ -7,19 +7,16 @@
   <meta name="viewport" content="initial-scale=1, width=device-width">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='../static/main.js'></script>
-	<style>
-
+  <style>
 @media screen and (max-width: 768px) {
-.content {
-  width: auto;
+  .content {
+    width: auto;
+  }
+  table {
+    max-width: 100%;
+  }
 }
-table {
-  max-width: 100%;
-}
-
-}
-</style>
-
+  </style>
 </head>
 
 <body>
@@ -28,35 +25,32 @@ table {
     <div class="header">
       <h1> Nightbus | Edit Schedule </h1>
 
-			<div class="nav">
-				{% if session['logged_in'] %}
-					<a href="{{ url_for('home') }}">Rider</a>
-					<a href="{{ url_for('driver') }}">Driver</a>
-					<a href="{{ url_for('admin') }}"> Admin</a>
-					<a href="{{ url_for('logout') }}">Sign Out</a>
-				{% endif %}
-
-			</div>
-		</div>
-
+      <div class="nav">
+        {% if session['logged_in'] %}
+        <a href="{{ url_for('home') }}">Rider</a>
+        <a href="{{ url_for('driver') }}">Driver</a>
+        <a href="{{ url_for('admin') }}"> Admin</a>
+        <a href="{{ url_for('logout') }}">Sign Out</a> {% endif %}
+      </div>
+    </div>
     <div class="content">
-     <table>
-        <tr>
-          <th>Day</th>
-          <th> Driver </th>
-        </tr>
+      <table>
+        <thead>
+              <tr>
+                <th> Day </th>
+                <th> Driver </th>
+              </tr>
+        </thead>
         <tr>
           <td> Monday </td>
           <td>
             <div class="dropdown">
-
-              <select id="mon"  name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+              <select id="mon" name="driver_id">
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
                 </select>
-
             </div>
           </td>
         </tr>
@@ -66,13 +60,11 @@ table {
             <div class="dropdown">
 
               <select id="tue" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
                 </select>
-
-
             </div>
           </td>
         </tr>
@@ -82,13 +74,11 @@ table {
             <div class="dropdown">
 
               <select id="wed" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
                 </select>
-
-
             </div>
           </td>
         </tr>
@@ -98,13 +88,11 @@ table {
             <div class="dropdown">
 
               <select id="thu" name="driver_id">
-									<option class="more-opt" selected disabled hidden>Choose driver</option>
+									<option class="more-opt" value = "No">Choose driver</option>
                   {% for person in drivers %}
                   <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                   {% endfor %}
                 </select>
-
-
             </div>
           </td>
         </tr>
@@ -114,13 +102,11 @@ table {
             <div class="dropdown">
 
               <select id="fri" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
                 </select>
-
-
             </div>
           </td>
         </tr>
@@ -130,13 +116,11 @@ table {
             <div class="dropdown">
 
               <select id="sat" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
                 </select>
-
-
             </div>
           </td>
         </tr>
@@ -144,20 +128,17 @@ table {
           <td> Sunday </td>
           <td>
             <div class="dropdown">
-
               <select id="sun" name="driver_id">
-										<option class="more-opt" selected disabled hidden>Choose driver</option>
+										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
                     <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
                     {% endfor %}
                 </select>
-
-
             </div>
           </td>
-					<tr>
-						<td class="switchwrap" colspan="2"><a class="switchbtn" id="submitbtn" href="display">Submit</a></td>
-					</tr>
+          <tr>
+            <td class="switchwrap" colspan="2"><a class="switchbtn" id="submitbtn" href="display">Submit</a></td>
+          </tr>
         </tr>
 
       </table>
@@ -170,32 +151,34 @@ table {
   <script>
     $(document).ready(function() {
       $('select').change(function() {
-				$('.more-opt').prop('selected', false);
-      	var drivers = [
+        $('.more-opt').prop('selected', false);
+        var drivers = [
 
-        $("#mon").find(':selected').val(),
-        $("#tue").find(':selected').val(),
-        $("#wed").find(':selected').val(),
-        $("#thu").find(':selected').val(),
-        $("#fri").find(':selected').val(),
-        $("#sat").find(':selected').val(),
-        $("#sun").find(':selected').val(),
-      ];
+          $("#mon").find(':selected').val(),
+          $("#tue").find(':selected').val(),
+          $("#wed").find(':selected').val(),
+          $("#thu").find(':selected').val(),
+          $("#fri").find(':selected').val(),
+          $("#sat").find(':selected').val(),
+          $("#sun").find(':selected').val(),
+        ];
 
-      $('#submitbtn').one('click',function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: "assign",
-          type: "POST",
-          data: {drivers: drivers},
-          dataType: "json",
-          success: function() {
-            console.log("success");
-          },
-          error: function() {
-            console.log("error");
-          }
-            });
+        $('#submitbtn').one('click', function(event) {
+          event.preventDefault();
+          $.ajax({
+            url: "assign",
+            type: "POST",
+            data: {
+              drivers: drivers
+            },
+            dataType: "json",
+            success: function() {
+              console.log("success");
+            },
+            error: function() {
+              console.log("error");
+            }
+          });
 
         });
 

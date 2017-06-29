@@ -4,8 +4,16 @@
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="width=700, initial-scale=1">
-	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 	<script src='../static/main.js'></script>
+	<style>
+	.rider-alerts input {
+		position: relative;
+	}
+
+	</style>
 </head>
 
 <body>
@@ -21,8 +29,6 @@
 				{% elif session['role'] == 'admin' %}
 					<a href="{{ url_for('driver') }}">Driver</a>
 					<a href="{{ url_for('admin') }}">Admin</a>
-					<a href="{{ url_for('logout') }}">Sign Out</a>
-				{% else %}
 					<a href="{{ url_for('logout') }}">Sign Out</a>
 				{% endif %}
 			{% else %}
@@ -40,83 +46,209 @@
 					{% elif "coming" in status %}
 						<img class="dex-icon" src="../static/coming.gif" alt="bus-img"/>
 					{% elif "cancelled" in status%}
-						<img class="dex-icon" src="../static/cancelled.gif" alt="bus-img"/>
+						<img class="dex-icon" src="../static/testcancelled.gif" alt="bus-img"/>
 					{% else %}
 						<img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
 					{% endif %}
 				</div>
 				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
-				
+				{% if duration > 0 %}
+					<div class="status_update"> <p>The nightbus will be on campus in {{ duration }} minutes </p>
+				{% endif %}
+				<p> The NightBus is a Reed sponsered late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
+				<br><br><br>
+				<a id = "missingBtn">Report the NightBus missing</a>
+				<br><br><br>
+				<a id= "lateBtn">I'm running late! Wait 5 minutes!</a>
+				</p>
+
 				<div class="rider-alerts">
-				<form class="rider-form" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+				<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
 					Name: <br>
-					<input type = "text" name = "name">
-					<br>
+					<input type = "text" name = "name" required>
+					<span id="err3"></span><br>
 					Email: <br>
-					<input type = "text" name = "email">
+					<input type = "text" name = "email" required>
+					<span id="err4"></span>
 					<br><br>
-					<input type = "submit" value= "I'm late! Please wait 5 minutes!">
+					<button type= "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">I'm late! Please wait 5 minutes!</button>
+					<br><br>
+					<button type="button" id= "lategoback">Go Back</button>
 				</form>
 
-				<script>
-					    $('#late-notice').submit(function(e) {
-					        e.preventDefault();
-					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
-					            data: $(this).serialize(),
-					            type: "POST",
-					            dataType: "json",
-					            success: function(data) {
-													alert('Your request has been received');
-					                console.log('Submission successful');
-					            },
-					            error: function(xhr, status, error) {
-													alert("Oops, something's wrong. Please try again.");
-					                console.log('Submission failed: ' + error);
-					            }
-					        });
-					    });
-				</script>
 
-				<form class="rider-form" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+				<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
 					Name: <br>
-					<input type = "text" name = "name">
-					<br>
+					<input type = "text" name = "name" required>
+					<span id="err1"></span><br>
 					Email: <br>
-					<input type = "text" name = "email">
+					<input type = "text" name = "email" required>
+					<span id="err2"></span>
 					<br><br>
-					<input type = "submit" value= "Report the NightBus missing">
+					<button type = "submit" id ="missingsubmit" value= "Report the NightBus missing">Report the NightBus missing</button>
+					<br><br>
+					<button type="button" id= "missinggoback">Go Back</button>
 				</form>
 
+				</div>
+
 				<script>
-					    $('#report-missing').submit(function(e) {
-					        e.preventDefault();
-					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
-					            data: $(this).serialize(),
-					            type: "POST",
-					            dataType: "json",
-					            success: function(data) {
-													alert('Your report has been received');
-					                console.log('Submission successful');
-					            },
-					            error: function(xhr, status, error) {
-													alert("Oops, something's wrong. Please try again");
-					                console.log('Submission failed: ' + error);
-					            }
-					        });
-					    });
+				$(function() {
+					$("#late-notice").validate({
+						errorPlacement: function(error, element) {
+							if (element.attr('name')=='name') {
+								error.appendTo($('#err3'))	;
+								offset = element.offset();
+								$('#err3').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+							} else {
+								error.appendTo($('#err4'));
+								offset = element.offset();
+								$('#err4').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+								}
+							},
+							rules: {
+								name: "required",
+								email: {
+									required: true,
+									email: true
+								}
+							},
+							messages: {
+								name: "Please enter your name",
+								email: {
+									required: "Please enter your email address",
+									email: "Please enter a valid email address"
+								}
+							},
+							submitHandler: function(form) {
+
+								$.ajax({
+										url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
+										data: $(form).serialize(),
+										type: "POST",
+										dataType: "json",
+										success: function(data) {
+												alert('Your request has been received');
+												console.log('Submission successful');
+
+										},
+										error: function(xhr, status, error) {
+												alert("Oops, something's wrong. Please try again.");
+												console.log('Submission failed: ' + error);
+										}
+									});
+									return false;
+								}
+							});
+						});
+
+					$("#report-missing").validate({
+						errorPlacement: function(error, element) {
+							if (element.attr('name')=='name') {
+								error.appendTo($('#err1'))	;
+								offset = element.offset();
+								$('#err1').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+							} else {
+								error.appendTo($('#err2'));
+								offset = element.offset();
+								$('#err2').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+								}
+							},
+							rules: {
+								name: "required",
+								email: {
+									required: true,
+									email: true
+								}
+							},
+							messages: {
+								name: "Please enter your name",
+								email: {
+									required: "Please enter your email address",
+									email: "Please enter a valid email address"
+								}
+							},
+							submitHandler: function(form) {
+								$.ajax({
+										url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
+										data: $(form).serialize(),
+										type: "POST",
+										dataType: "json",
+										success: function(data) {
+												alert('Your report has been received');
+												console.log('Submission successful');
+										},
+										error: function(xhr, status, error) {
+												alert("Oops, something's wrong. Please try again");
+												console.log('Submission failed: ' + error);
+										}
+								});
+							}
+					  });
 				</script>
+
+
 			</div>
-			</div>
+
+			<script>
+					$(document).ready(function() {
+						$("#missingBtn").click(function() {
+							$("p").toggle();
+							$("#report-missing").toggle();
+						});
+						$("#lateBtn").click(function() {
+							$("p").toggle();
+							$("#late-notice").toggle();
+						});
+						$("#missinggoback").click(function() {
+							$("p").toggle();
+							$("#report-missing").toggle();
+				 		});
+						$("#lategoback").click(function() {
+							$("p").toggle();
+							$("#late-notice").toggle();
+						});
+
+				 	});
+
+				 	
+				 </script>
 			<div class="box">
 				<table>
 				<thead>
 					<tr>
-						<th colspan="2">Schedule</th>
+						<th colspan="2">Daily Schedule</th>
 					</tr>
 				  <tr>
-				    <th>Sunday-Thursday</th>
+				    <th>Sunday - Thursday</th>
 				    <th>Friday & Saturday</th>
 				  </tr>
 				</thead>

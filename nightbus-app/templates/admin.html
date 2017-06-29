@@ -9,12 +9,8 @@
 	<script src='../static/main.js'></script>
 	<style>
 @media screen and (max-width: 768px) {
-	.nav {
-		display: none;
-	}
 
 	.mobile-nav {
-		display: block;
 		width: 100%;
 		bottom: 0;
 		margin: 0 auto;
@@ -78,7 +74,7 @@
 		<div class="content">
 			<div class="butt box">
 				<br><br><br><br>
-				<button value="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
+				<button value = "cancelled" id="cancelled" class="statusbutton" type="button" onclick="submitstatus()">Cancel NightBus</button>
 				<br><br>
 				<div class="dropdown">
 					<button class="dropbtn">Manage Drivers</button>
@@ -91,7 +87,13 @@
 
 			</div>
 			<div class="box">
-				<h2>Instructions</h2>
+				<div class="instructions">
+					<h2>Instructions</h2>
+					<ul>
+						<li>Press "Cancel Nightbus" to let everyone know the Nightbus has been cancelled for the evening.</li>
+						<li>The "Manage Drivers" tool allows you to add and remove drivers from the Nightbus database, and to assign drivers to a work schedule.</li>
+					</ul>
+				</div>
 			</div>
 
 		</div>
@@ -103,6 +105,8 @@
 			$(document).ready(function() {
 				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 		      $(".dropbtn").click(function () {});
+					$('.nav').hide();
+					$('.mobile-nav').show();
 		    }
 			});
 	</script>

@@ -5,9 +5,9 @@
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
-	<script src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 	<style>
 	@media screen and (max-width: 768px) {
 		.wrapper {
@@ -15,14 +15,12 @@
 		}
 		.content {
 			max-width: 100%;
+			/*background-color: brown;*/
+			max-height: 50%;
 		}
 		.form-container {
 			width: inherit;
 			margin: 0 15px;
-			text-align: left !important;
-		}
-		.form-container li input {
-			position: relative;
 		}
 	}
 	</style>
@@ -80,91 +78,23 @@
 				$('form').validate({
 
 					errorPlacement: function(error, element) {
-
 						// place error messages next to their corresponding invalid element
 						if (element.attr("name") == "firstname" ) {
 	              error.appendTo($('#errNm1'));
-								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-								offset = element.offset();
-								$('#errNm1').css({
-									'top': offset.top +50,
-									'position': 'absolute',
-									'display': 'inline-block',
-									'left': '20%',
-									'font-size': '15px',
-									'color':'brown'
-
-								});
-							}
 	            } else if (element.attr("name") == "lastname" ) {
 								error.appendTo($('#errNm2'));
-								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-								offset = element.offset();
-								$('#errNm2').css({
-									'top': offset.top + 50,
-									'position': 'absolute',
-									'display': 'inline-block',
-									'left': '20%',
-									'font-size': '15px',
-									'color':'brown'
-
-								});
-							}
 							} else if (element.attr("name") == "username") {
 								error.appendTo($("#errNm3"));
-								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-								offset = element.offset();
-								$('#errNm3').css({
-									'top': offset.top +50,
-									'position': 'absolute',
-									'display': 'inline-block',
-									'left': '20%',
-									'font-size': '15px',
-									'color':'brown'
-								});
-							}
 							} else if (element.attr("name") == "email") {
 								error.appendTo($("#errNm4"));
-								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-								offset = element.offset();
-								$('#errNm4').css({
-									'top': offset.top +50,
-									'position': 'absolute',
-									'display': 'inline-block',
-									'left': '20%',
-									'font-size': '15px',
-									'color':'brown'
-								});
-							}
 							} else if (element.attr("name") == "role") {
 								error.appendTo($("#errNm5"));
-								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-								offset = element.offset();
-								$('#errNm5').css({
-									'top': offset.top +50,
-									'position': 'absolute',
-									'display': 'inline-block',
-									'left': '20%',
-									'font-size': '15px',
-									'color':'brown'
-								});
-							}
 							} else if (element.attr("name") == "password") {
 								error.appendTo($("#errNm6"));
-								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-								offset = element.offset();
-								$('#errNm6').css({
-									'top': offset.top +50,
-									'position': 'absolute',
-									'display': 'inline-block',
-									'left': '20%',
-									'font-size': '15px',
-									'color':'brown'
-								});
-							}
 							} else {
 								//do nothing
 							}
+
 					},
 
 					//Specify validation rules

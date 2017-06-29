@@ -1,23 +1,17 @@
 import googlemaps
 
-key = "whateveryourkeyis"
+def calculate_duration(origin, destinations):
+    
+    key = os.environ.get("GOOGLE_MAPS_API_KEY")
+    gmaps = googlemaps.Client(key=key)
 
-gmaps = googlemaps.Client(key=key)
+    ask_google = gmaps.distance_matrix(origin, destinations)
 
-origin = "Reed College"
-waypoints = ["7900 NE 33rd Dr.,Portland, OR", "Bagdhad Theatre", "Moreland Theatre", "Salem, OR"]
-destination = "5418 SE Mitchel St., Portland, OR"
+    filter_google_response = ask_google['rows'][0]['elements']
 
-response = gmaps.distance_matrix(origin, waypoints)
+    duration = 0
+    for address in filter_google_response:
+        duration = duration + address['duration']['value']
 
-filtered_response = response['rows'][0]['elements']
+    return (duration // 60)
 
-duration = 0
-for element in filtered_response:
-    duration += element['duration']['value']
-
-# Change the unit to minutes
-duration = duration//60
-print(duration)
-print()
-print(response['rows'][0]['elements'][0]['duration']['text'])
