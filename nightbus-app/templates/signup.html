@@ -98,6 +98,7 @@
 							}
 	            } else if (element.attr("name") == "lastname" ) {
 								error.appendTo($('#errNm2'));
+								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 								offset = element.offset();
 								$('#errNm2').css({
 									'top': offset.top + 50,
@@ -108,10 +109,11 @@
 									'color':'brown'
 
 								});
+							}
 							} else if (element.attr("name") == "username") {
 								error.appendTo($("#errNm3"));
+								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 								offset = element.offset();
-
 								$('#errNm3').css({
 									'top': offset.top +50,
 									'position': 'absolute',
@@ -119,8 +121,8 @@
 									'left': '20%',
 									'font-size': '15px',
 									'color':'brown'
-
 								});
+							}
 							} else if (element.attr("name") == "email") {
 								error.appendTo($("#errNm4"));
 								offset = element.offset();
@@ -135,6 +137,7 @@
 								});
 							} else if (element.attr("name") == "role") {
 								error.appendTo($("#errNm5"));
+								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 								offset = element.offset();
 								$('#errNm5').css({
 									'top': offset.top +50,
@@ -143,10 +146,11 @@
 									'left': '20%',
 									'font-size': '15px',
 									'color':'brown'
-
 								});
+							}
 							} else if (element.attr("name") == "password") {
 								error.appendTo($("#errNm6"));
+								if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 								offset = element.offset();
 								$('#errNm6').css({
 									'top': offset.top +50,
@@ -155,8 +159,8 @@
 									'left': '20%',
 									'font-size': '15px',
 									'color':'brown'
-
 								});
+							}
 							} else {
 								//do nothing
 							}
