@@ -4,8 +4,16 @@
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="width=700, initial-scale=1">
-	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 	<script src='../static/main.js'></script>
+	<style>
+	.rider-alerts input {
+		position: relative;
+	}
+
+	</style>
 </head>
 
 <body>
@@ -54,76 +62,160 @@
 				<a id= "lateBtn">I'm running late! Wait 5 minutes!</a>
 				</p>
 
-
-
-
-
 				<div class="rider-alerts">
 				<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
 					Name: <br>
-					<input type = "text" name = "name" id = "input">
-					<br>
+					<input type = "text" name = "name" required>
+					<span id="err3"></span><br>
 					Email: <br>
-					<input type = "text" name = "email" id = "input">
+					<input type = "text" name = "email" required>
+					<span id="err4"></span>
 					<br><br>
-					<input type = "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">
-					<br><br><br>
-					<a id= "lategoback">Go Back</a>
+					<button type= "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!"></button>
+					<br><br>
+					<button type="button" id= "lategoback">Go Back</button>
 				</form>
 
-				<script>
-					    $('#late-notice').submit(function(e) {
-					        e.preventDefault();
-					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
-					            data: $(this).serialize(),
-					            type: "POST",
-					            dataType: "json",
-					            success: function(data) {
-													alert('Your request has been received');
-					                console.log('Submission successful');
-					            },
-					            error: function(xhr, status, error) {
-													alert("Oops, something's wrong. Please try again.");
-					                console.log('Submission failed: ' + error);
-					            }
-					        });
-					    });
-				</script>
 
 				<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
 					Name: <br>
-					<input type = "text" name = "name" id = "input">
-					<br>
+					<input type = "text" name = "name" required>
+					<span id="err1"></span><br>
 					Email: <br>
-					<input type = "text" name = "email" id = "input">
+					<input type = "text" name = "email" required>
+					<span id="err2"></span>
 					<br><br>
-					<input type = "submit" id = "missingsubmit" value= "Report the NightBus missing">
-					<br><br><br>
-					<a id= "missinggoback">Go Back</a>
+					<button type = "submit" id ="missingsubmit" value= "Report the NightBus missing"></button>
+					<br><br>
+					<button type="button" id= "missinggoback">Go Back</button>
 				</form>
 
+				</div>
+
 				<script>
-					    $('#report-missing').submit(function(e) {
-					        e.preventDefault();
-					        $.ajax({
-					            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
-					            data: $(this).serialize(),
-					            type: "POST",
-					            dataType: "json",
-					            success: function(data) {
-													alert('Your report has been received');
-					                console.log('Submission successful');
-					            },
-					            error: function(xhr, status, error) {
-													alert("Oops, something's wrong. Please try again");
-					                console.log('Submission failed: ' + error);
-					            }
-					        });
-					    });
+				$(function() {
+					$("#late-notice").validate({
+						errorPlacement: function(error, element) {
+							if (element.attr('name')=='name') {
+								error.appendTo($('#err3'))	;
+								offset = element.offset();
+								$('#err3').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+							} else {
+								error.appendTo($('#err4'));
+								offset = element.offset();
+								$('#err4').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+								}
+							},
+							rules: {
+								name: "required",
+								email: {
+									required: true,
+									email: true
+								}
+							},
+							messages: {
+								name: "Please enter your name",
+								email: {
+									required: "Please enter your email address",
+									email: "Please enter a valid email address"
+								}
+							},
+							submitHandler: function(form) {
+
+								$.ajax({
+										url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
+										data: $(form).serialize(),
+										type: "POST",
+										dataType: "json",
+										success: function(data) {
+												alert('Your request has been received');
+												console.log('Submission successful');
+
+										},
+										error: function(xhr, status, error) {
+												alert("Oops, something's wrong. Please try again.");
+												console.log('Submission failed: ' + error);
+										}
+									});
+									return false;
+								}
+							});
+						});
+
+					$("#report-missing").validate({
+						errorPlacement: function(error, element) {
+							if (element.attr('name')=='name') {
+								error.appendTo($('#err1'))	;
+								offset = element.offset();
+								$('#err1').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+							} else {
+								error.appendTo($('#err2'));
+								offset = element.offset();
+								$('#err2').css({
+										'position': 'absolute',
+										'display': 'inline-block',
+										'color': 'white',
+										'top': offset.top,
+										'left': offset.left + element.outerWidth() +20,
+										'z-index': '10'
+									});
+								}
+							},
+							rules: {
+								name: "required",
+								email: {
+									required: true,
+									email: true
+								}
+							},
+							messages: {
+								name: "Please enter your name",
+								email: {
+									required: "Please enter your email address",
+									email: "Please enter a valid email address"
+								}
+							},
+							submitHandler: function(form) {
+								$.ajax({
+										url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
+										data: $(form).serialize(),
+										type: "POST",
+										dataType: "json",
+										success: function(data) {
+												alert('Your report has been received');
+												console.log('Submission successful');
+										},
+										error: function(xhr, status, error) {
+												alert("Oops, something's wrong. Please try again");
+												console.log('Submission failed: ' + error);
+										}
+								});
+							}
+					  });
 				</script>
-			</div>
-		
+
+
 			</div>
 
 			<script>
@@ -132,35 +224,19 @@
 							$("p").toggle();
 							$("#report-missing").toggle();
 						});
-					});
-				</script>
-
-			<script>
-					$(document).ready(function() {
 						$("#lateBtn").click(function() {
 							$("p").toggle();
 							$("#late-notice").toggle();
 						});
-					});
-				</script>
-
-
-
-				<script>
-					$(document).ready(function() {
-						$("#missingsubmit").click(function() {
+						$("#missinggoback").click(function() {
 							$("p").toggle();
 							$("#report-missing").toggle();
 				 		});
-				 	});
-				 </script>
-
-				<script>
-					$(document).ready(function() {
-						$("#latesubmit").click(function() {
+						$("#lategoback").click(function() {
 							$("p").toggle();
 							$("#late-notice").toggle();
-				 		});
+						});
+
 				 	});
 
 				 	$(document).ready(function() {
