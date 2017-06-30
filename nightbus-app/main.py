@@ -15,7 +15,7 @@ import post_to_fb
 
 
 app = Flask(__name__)
-mail = Mail()
+mail = Mail(app)
 
 # I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
 # we can just create another class called ProdConfig with the appropriate attributes. This wasn't necessary at this point but the main.py was getting messy.
@@ -221,6 +221,7 @@ def admin():
 def adduser():
     return render_template('add.html')
 
+s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 @app.route('/add', methods=['POST'])
 def add():
 
@@ -249,12 +250,13 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
-    
-    subject = 'Set Your Password'
-    token = generate_confirmation_token(email, serializer)
-    set_password_url = url_for('set_password', token = token, _external=True)
-    html = render_template('activate.html', set_password_url = set_password_url)
-    send_mail(email, subject, html, mail)
+
+    msg = Message('Set Your Password', sender='reednightbus@gmail.com', recipients = [email])
+    # salt separates tokens of the same input values
+    token = s.dumps(email, salt='set-password')
+    link = url_for('set_password', token=token, _external=True)
+    msg.html = '<p>Confirm your email.</p><p> Please follow this link to activate your account: {}</p>'.format(link)
+    mail.send(msg)
 
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
@@ -268,13 +270,11 @@ def forgot_password():
     if request.method == "POST":
 
         email = request.form['email']
-
-        subject = 'Reset Your Password'
-        token = generate_confirmation_token(email, serializer)
-        reset_password_url = url_for('reset_password', token=token, _external=True)
-        html = render_template('reset.html', reset_password_url = reset_password_url)
-        send_mail(email, subject, html, mail)
-
+        msg = Message('Reset Your Password', sender='reednightbus@gmail.com', recipients = [email])
+        token = s.dumps(email, salt='reset-password')
+        link = url_for('reset_password', token=token, _external=True)
+        msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
+        mail.send(msg)
         return render_template('check_email.html')
 
     return render_template('forgot_password.html')
@@ -283,12 +283,9 @@ def forgot_password():
 def reset_password(token):
     if request.method == "POST":
         db = database.get_session()
-        email = confirm_email_token(token, serializer)
-
+        email = s.loads(token, salt='reset-password')
         user = db.query(schema.User).filter_by(email=email).first()
-        
         new_password = request.form['password']
-
         user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
         user_auth.encrypt_password(new_password)
 
@@ -300,7 +297,7 @@ def reset_password(token):
             return redirect(url_for('adminlogin'))
         else:
             db.close()
-            return redirect(url_for('adminlogin'))
+            return redirect(url_for('driverlogin'))
     else:
         return render_template('reset_password.html', token = token)
 
@@ -309,19 +306,13 @@ def reset_password(token):
 def set_password(token):
     if request.method == "POST":
         db = database.get_session()
-        email = confirm_email_token(token, serializer)
-
+        email = s.loads(token, salt='set-password')
         user = db.query(schema.User).filter_by(email=email).first()
-        
         new_password = request.form['password']
-
         user_auth = schema.Auth(username=user.username)
         user_auth.encrypt_password(new_password)
-
-
         db.add(user_auth)
         db.commit()
-        
         if user.role == 'admin':
             db.close()
             return redirect(url_for('adminlogin'))
@@ -329,8 +320,6 @@ def set_password(token):
             db.close()
             return redirect(url_for('driverlogin'))
     return render_template('confirm_password.html', token = token)
-    
-
 
 
 @app.route('/removeuser')
@@ -515,7 +504,6 @@ def trackingtest():
     b.update_origin(origin)
     return jsonify({'status': 'OK', 'numOfDestinations': numOfDestinations});
 
-
 @app.route('/tracking', methods=['GET', 'POST'])
 @login_required('driver')
 def tracking():
@@ -531,7 +519,7 @@ def tracking():
         for destination in destinations:
             duration += calculate_duration(origin, [destination])
             origin = destination
-    
+
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
 
@@ -546,8 +534,9 @@ def drivermaps():
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
-
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
+
+
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
