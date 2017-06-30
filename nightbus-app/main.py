@@ -4,6 +4,7 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
+from tracking import calculate_duration
 import config
 import schema
 import database
@@ -32,10 +33,31 @@ status = "here"
 class NightBus:
     def __init__(self):
         self.current_status = status
+        self.trip_duration = 0
+        self.origin = None
+        self.destinations = []
+        self.num_of_destinations = 0
     def get_current_status(self):
         return self.current_status
+    def get_trip_duration(self):
+        return self.trip_duration
     def update_status(self,new_status):
         self.current_status = new_status
+    def update_origin(self, new_origin):
+        self.origin = new_origin
+    def get_origin(self):
+        return self.origin
+    def update_trip_duration(self, new_duration):
+        self.trip_duration = new_duration
+    def get_num_of_destinations(self):
+        return self.num_of_destinations
+    def update_num_of_destinations(self, new_num):
+        self.num_of_destinations = new_num
+    def get_destinations(self):
+        return self.destinations
+    def update_destinations(self, new_destinations):
+        self.destinations = new_destinations
+
 
 b  = NightBus()
 
@@ -43,11 +65,14 @@ b  = NightBus()
 def update_state():
     b.update_status(request.args.get('state'))
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
+    return ('', 204)
 
 @app.route('/rider', methods=['GET'])
 def home():
     status = b.get_current_status()
-    return render_template("rider.html", status=status)
+    duration = b.get_trip_duration()
+    return render_template("rider.html", status=status, duration=duration)
+
 
 # I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
 
@@ -77,126 +102,113 @@ def intialize():
         db.commit()
         db.close()
 
-
-
 # normal app routes
 
 @app.route('/')
 def index():
     status = b.get_current_status()
-    return render_template('index.html', status=status)
+    duration = b.get_trip_duration()
+    return render_template('rider.html', status=status, duration=duration)
 
 @app.route('/driver')
 @login_required('driver')
 def driver():
-    return render_template('driver.html')
-
-
-@app.route('/display')
-def display():
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
-    return render_template('display.html', drivers = drivers)
-
+    db.close()
+    return render_template('driver.html', drivers=drivers)
 
 
 @app.route('/schedule')
 def schedule():
     db = database.get_session()
     drivers = db.query(schema.User).all()
+    db.close()
     return render_template('schedule.html', drivers = drivers)
 
 
-@app.route('/assignmonday',  methods=['POST'])
-def assignmon():
+@app.route('/display')
+def display():
     db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=1).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
-    db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
+    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    db.close()
+    return render_template('display.html', drivers = drivers)
 
-@app.route('/assigntuesday',  methods=['POST'])
-def assigntues():
-    db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=2).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
-    db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
 
-@app.route('/assignwednesday',  methods=['POST'])
-def assignwed():
-    db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=3).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
-    db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
+@app.route('/assign', methods=['POST'])
+def assign():
+    drivers= request.form.getlist('drivers[]')
 
-@app.route('/assignthursday',  methods=['POST'])
-def assignthurs():
     db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=4).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
-    db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
 
-@app.route('/assignfriday',  methods=['POST'])
-def assignfri():
-    db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=5).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
-    db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
+    if drivers[0] == "No":
+        pass
+    else:
+        mon = db.query(schema.Schedule).filter_by(day='Monday').first()
+        monDriver = db.query(schema.User).filter_by(id=drivers[0]).first()
+        mon.driver_id = monDriver.id
+        mon.firstname = monDriver.firstname
+        mon.lastname = monDriver.lastname
 
-@app.route('/assignsaturday',  methods=['POST'])
-def assignsat():
-    db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=6).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
-    db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
+    if drivers[1] == "No":
+        pass
+    else:
+        tue = db.query(schema.Schedule).filter_by(day='Tuesday').first()
+        tueDriver = db.query(schema.User).filter_by(id=drivers[1]).first()
+        tue.driver_id = tueDriver.id
+        tue.firstname = tueDriver.firstname
+        tue.lastname = tueDriver.lastname
 
-@app.route('/assignsunday',  methods=['POST'])
-def assignsun():
-    db = database.get_session()
-    driver_id = request.form['driver_id']
-    new = db.query(schema.User).filter_by(id=driver_id).first()
-    day = db.query(schema.Schedule).filter_by(id=7).first()
-    day.driver_id = new.id
-    day.firstname = new.firstname
-    day.lastname = new.lastname
+    if drivers[2] == "No":
+        pass
+    else:
+        wed = db.query(schema.Schedule).filter_by(day='Wednesday').first()
+        wedDriver = db.query(schema.User).filter_by(id=drivers[2]).first()
+        wed.driver_id = wedDriver.id
+        wed.firstname = wedDriver.firstname
+        wed.lastname = wedDriver.lastname
+
+    if drivers[3] == "No":
+        pass
+    else:
+        thu = db.query(schema.Schedule).filter_by(day='Thursday').first()
+        thuDriver = db.query(schema.User).filter_by(id=drivers[3]).first()
+        thu.driver_id = thuDriver.id
+        thu.firstname = thuDriver.firstname
+        thu.lastname = thuDriver.lastname
+
+    if drivers[4] == "No":
+        pass
+    else:
+        fri = db.query(schema.Schedule).filter_by(day='Friday').first()
+        friDriver = db.query(schema.User).filter_by(id=drivers[4]).first()
+        fri.driver_id = friDriver.id
+        fri.firstname = friDriver.firstname
+        fri.lastname = friDriver.lastname
+
+    if drivers[5] == "No":
+        pass
+    else:
+        sat = db.query(schema.Schedule).filter_by(day='Saturday').first()
+        satDriver = db.query(schema.User).filter_by(id=drivers[5]).first()
+        sat.driver_id = satDriver.id
+        sat.firstname = satDriver.firstname
+        sat.lastname =  satDriver.lastname
+
+    if drivers[6] == "No":
+        pass
+    else:
+        sun = db.query(schema.Schedule).filter_by(day='Sunday').first()
+        sunDriver = db.query(schema.User).filter_by(id=drivers[6]).first()
+        sun.driver_id = sunDriver.id
+        sun.firstname = sunDriver.firstname
+        sun.lastname =  sunDriver.lastname
+
     db.commit()
-    flash("Shift successfully assigned")
-    return redirect(url_for('schedule'))
+    db.close()
+
+    # flash("Shift successfully assigned")
+    return redirect(url_for('display'))
 
 
 @app.route('/admin')
@@ -238,6 +250,13 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
+    
+    subject = 'Set Your Password'
+    token = generate_confirmation_token(email, serializer)
+    set_password_url = url_for('set_password', token = token, _external=True)
+    html = render_template('activate.html', set_password_url = set_password_url)
+    send_mail(email, subject, html, mail)
+
 
 
     msg = Message('Set Your Password', sender='reednightbus@gmail.com', recipients = [email])
@@ -252,27 +271,18 @@ def add():
     # SELECT * FROM "Users"; and it should be the last entry in that table.
     # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
 
-    flash("User successfully added")
     return redirect(url_for('admin'))
-
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == "POST":
 
         email = request.form['email']
-        subject = 'Reset Your Password'
-        token = generate_confirmation_token(email, serializer)
-        reset_password_url = url_for('reset_password', token=token, _external=True)
-        html = render_template('reset.html', reset_password_url = reset_password_url)
-        send_mail(email, subject, html, mail)
-
         msg = Message('Reset Your Password', sender='reednightbus@gmail.com', recipients = [email])
         token = s.dumps(email, salt='reset-password')
         link = url_for('reset_password', token=token, _external=True)
         msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
         mail.send(msg)
-
         return render_template('check_email.html')
 
     return render_template('forgot_password.html')
@@ -282,11 +292,8 @@ def reset_password(token):
     if request.method == "POST":
         db = database.get_session()
         email = s.loads(token, salt='reset-password')
-
         user = db.query(schema.User).filter_by(email=email).first()
-
         new_password = request.form['password']
-
         user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
         user_auth.encrypt_password(new_password)
 
@@ -307,20 +314,13 @@ def reset_password(token):
 def set_password(token):
     if request.method == "POST":
         db = database.get_session()
-
         email = s.loads(token, salt='set-password')
-
         user = db.query(schema.User).filter_by(email=email).first()
-
         new_password = request.form['password']
-
         user_auth = schema.Auth(username=user.username)
         user_auth.encrypt_password(new_password)
-
-
         db.add(user_auth)
         db.commit()
-
         if user.role == 'admin':
             db.close()
             return redirect(url_for('adminlogin'))
@@ -330,11 +330,13 @@ def set_password(token):
     return render_template('confirm_password.html', token = token)
 
 
->>>>>>> Stashed changes
 @app.route('/removeuser')
 @login_required('admin')
 def removeuser():
-    return render_template('remove.html')
+    if session['logged_in']:
+        return render_template('remove.html')
+    else:
+        return redirect(url_for('adminlogin'))
 
 @app.route('/remove', methods=['POST'])
 def remove():
@@ -348,14 +350,16 @@ def remove():
     # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
     user = db.query(schema.User).filter_by(username=username).first()
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
-    db.delete(user)
-    #db.delete(user_auth)
-    db.commit()
-    db.close()
+    if user:
+        db.delete(user)
+        db.delete(user_auth)
+        db.commit()
+        db.close()
 
+        return redirect(url_for('admin'))
 
-    flash('User successfully removed')
-    return redirect(url_for('admin'))
+    else:
+        return redirect(url_for('no_user'))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -370,6 +374,16 @@ def username_exists():
         return jsonify("Username is already taken. Please pick another.")
     else:
         return jsonify("true")
+
+@app.route('/email_exists', methods=['POST'])
+def email_exists():
+    db = database.get_session()
+    email_exists = db.query(schema.User).filter_by(email=request.form['email']).first()
+    if email_exists:
+        return jsonify("Email address is already registered. Please login instead.")
+    else:
+        return jsonify("true")
+
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -410,8 +424,10 @@ def register():
 #        send_mail(user.email, subject, html, mail)
 
     db.close()
-    flash('User successfully registered')
-    return redirect(url_for('login'))
+    if user.role == 'admin':
+        return redirect(url_for('adminlogin'))
+    else:
+        return redirect(url_for('driverlogin'))
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
@@ -421,7 +437,6 @@ def confirm_email(token):
     user = db.query(schema.User).filter_by(email=email).first()
 
     user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-#    user_auth.confirmed = True
 
     db.add(user_auth)
     db.commit()
@@ -430,44 +445,53 @@ def confirm_email(token):
     flash('Email successfully confimed')
     return redirect(url_for('login'))
 
+@app.route('/driverlogin', methods=['GET', 'POST'])
+def driverlogin():
+    if request.method == 'POST':
+        db = database.get_session()
+        username = request.form['username']
+        password = request.form['password']
 
-@app.route('/login', methods=['GET'])
-def login():
-    return render_template('login.html')
+        user_auth = db.query(schema.Auth).filter_by(username=username).first()
+        user = db.query(schema.User).filter_by(username=username).first()
 
+        if user_auth:
+            if user_auth.verify_password(password):
+                session['username'] = username
+                session['logged_in'] = True
 
-@app.route('/authenticate', methods=['POST'])
-def authenticate():
-    db = database.get_session()
-    username = request.form['username']
-    password = request.form['password']
-
-    user_auth = db.query(schema.Auth).filter_by(username=username).first()
-    user = db.query(schema.User).filter_by(username=username).first()
-
-
-    if user_auth:
-        if user_auth.verify_password(password):
-        #if user_auth.confirmed:
-            session['username'] = username
-            session['logged_in'] = True
-
-            flash('Welcome')
-            if str(user.role).lower() == 'admin':
-                return redirect(url_for('admin'))
-            elif str(user.role).lower() == 'driver':
                 return redirect(url_for('driver'))
             else:
-                return redirect(url_for('rider'))
-        #else:
-            #flash('Please confirm the email address associated with your account.')
-            #return redirect(url_for('login'))
-
+                return redirect(url_for('driverlogin'))
         else:
-            flash('Invalid Credentials')
-            return redirect(url_for('login'))
+            return render_template('no_user.html')
     else:
-        return render_template('no_user.html')
+        return render_template('driver_login.html')
+
+
+@app.route('/adminlogin', methods=['GET', 'POST'])
+def adminlogin():
+    if request.method == 'POST':
+        db = database.get_session()
+        username = request.form['username']
+        password = request.form['password']
+
+        user_auth = db.query(schema.Auth).filter_by(username=username).first()
+        user = db.query(schema.User).filter_by(username=username).first()
+
+        if user_auth:
+            if user_auth.verify_password(password):
+                session['username'] = username
+                session['logged_in'] = True
+                session['role'] = str(user.role).lower()
+
+                return redirect(url_for('admin'))
+            else:
+                return redirect(url_for('admin_login.html'))
+        else:
+            return render_template('no_user.html')
+    else:
+        return render_template('admin_login.html')
 
 
 @app.route('/logout')
@@ -480,32 +504,32 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
+@app.route('/trackingtest', methods=['POST'])
+def trackingtest():
+    origin = request.form['origin']
+    numOfDestinations = request.form['numOfDestinations']
+    b.update_num_of_destinations(numOfDestinations)
+    b.update_origin(origin)
+    return jsonify({'status': 'OK', 'numOfDestinations': numOfDestinations});
 
 @app.route('/tracking', methods=['GET', 'POST'])
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        num_destinations = request.form['num_destinations']
-        origin = request.form['origin']
-
+        origin = b.get_origin()
+        num_destinations = int(b.get_num_of_destinations())
         destinations = [None] * int(num_destinations)
 
-        for i in range(int(num_destinations)):
+        for i in range(num_destinations):
             destinations[i] = request.form['address' + str(i+1)]
-
-        destinations.append(origin)
 
         duration = 0
         for destination in destinations:
             duration += calculate_duration(origin, [destination])
             origin = destination
-
-        print(duration)
-
-
+    
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
-        b.update_origin(origin)
 
         return redirect(url_for('drivermaps'))
 
@@ -516,9 +540,10 @@ def tracking():
 def drivermaps():
     origin = b.get_origin()
     destinations = b.get_destinations()
+    num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
+return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
-    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
 
 ##### Error Handling #####
 
@@ -543,6 +568,7 @@ def servererror(e):
 @app.errorhandler(405)
 def methodnotallowed(e):
     return render_template('405.html'), 405
+
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))

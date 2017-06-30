@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+
 <head>
 	<title>Nightbus | Drivers</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
-	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<meta name="viewport" content="width=700, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="{{ url_for('static', filename="jquery-3.2.1.js") }}"></script>
 	<script src='../static/main.js'></script>
 </head>
 
@@ -13,34 +16,83 @@
 	<div class="header">
 		<h1> NightBus | Drivers</h1>
 		<div class="nav">
-			<a href="{{ url_for('home') }}"> Rider</a>
-			<a href="{{ url_for('logout') }}"> Sign Out </a>
+		{% if session['logged_in'] %}
+			{% if session['role'] == 'admin' %}
+				<a href="{{ url_for('tracking') }}"> Tracking </a>
+				<a href="{{ url_for('drivermaps') }}"> Maps </a>
+				<a href="{{ url_for('home') }}"> Rider</a>
+				<a href="{{ url_for('admin') }}"> Admin</a>
+				<a href="{{ url_for('logout') }}"> Sign Out </a>
+			{% else %}
+				<a href="{{ url_for('tracking') }}"> Tracking </a>
+				<a href="{{ url_for('drivermaps') }}"> Maps </a>
+				<a href="{{ url_for('home') }}"> Rider</a>
+				<a href="{{ url_for('logout') }}"> Sign Out </a>
+			{% endif %}
+		{% else %}
+			<a href="{{ url_for('driverlogin') }}">Driver Login</a>
+			<a href="{{ url_for('adminlogin') }}">Admin Login</a>
+		{% endif %}
 		</div>
 	</div>
 
 		<div class="content">
 			<div class="butt box">
-				<button value="here" id="here" type="button" class = "statusbutton" onclick = "submitstatus()">On Campus</button>
-				<button value="leaving" id="leaving" type="button" class = "statusbutton" onclick = "submitstatus()">Just Left</button>
-				<button value="coming" id="coming" type="button" class = "statusbutton" onclick = "submitstatus()">Coming Back</button>
+				<br><br><br><br>
+				<button value="here" id="here" type="button" class="statusbutton" onclick="submitstatus()">On Campus</button>
+				<button value="leaving" id="leaving" type="button" class="statusbutton" onclick="submitstatus()">Just Left</button>
+				<button value="coming" id="coming" type="button" class="statusbutton" onclick="submitstatus()">Coming Back</button>
 			</div>
 			<div class="box">
-				<div class="instructions">
+				<div id="instructions" class="instructions">
 					<h2>Instructions</h2>
 					<ul>
 						<li> Press the "On Campus" button when you arrive at Eliot Circle. </li>
 						<li>Press the "Just Left" button when you are ready to leave. </li>
 						<li> Press the "Coming Back" button after you've made your final stop and are read to return to campus. </li>
-						<li><a href = "../display">View Driver Schedule</a></li>
+						<li style="border: none;"><a id="toggleBtn">View Driver Schedule</a></li>
 					</ul>
 				</div>
+
+				<div id="schedule" style="display:none">
+					<table>
+						<thead>
+							<tr>
+								<th> Day </th>
+								<th> Driver </th>
+							</tr>
+						</thead>
+						{% for person in drivers %}
+						<tr>
+							<td>{{person.day}}</td>
+							<td>{{ person.firstname}} {{ person.lastname }}</td>
+						</tr>
+						{% endfor %}
+					<tr>
+						<td class="switchwrap" colspan="2"><a id="returnBtn" style="display:none">Back</a></td>
+					</tr>
+					</table>
+				</div>
+				<script>
+					$(document).ready(function() {
+						$("#toggleBtn").click(function() {
+							$("#schedule").toggle();
+							$("#instructions").toggle();
+							$("#returnBtn").toggle();
+						});
+					});
+				</script>
+
+				<script>
+					$(document).ready(function() {
+						$("#returnBtn").click(function() {
+							$("#schedule").toggle();
+							$("#instructions").toggle();
+							$("#returnBtn").toggle();
+						});
+					});
+				</script>
 			</div>
 		</div>
-
 	</div>
-<script>
-function submitstatus() {
-    alert ("Status updated!")
-        }
- </script>
 </body>
