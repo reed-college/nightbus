@@ -62,7 +62,7 @@
 			directionsDisplay.setPanel(document.getElementById('map-panel'));
 			
 			var stops = [];
-			{% for i in range(num_of_destinations - 1) %}
+			{% for i in range(num_of_destinations) %}
 				stops.push({location: "{{ destinations[i] }}", stopover: true});
 			{% endfor %}
 
