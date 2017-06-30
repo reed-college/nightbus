@@ -330,7 +330,6 @@ def set_password(token):
     return render_template('confirm_password.html', token = token)
 
 
->>>>>>> Stashed changes
 @app.route('/removeuser')
 @login_required('admin')
 def removeuser():
