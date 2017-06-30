@@ -143,6 +143,8 @@
 										dataType: "json",
 										success: function(data) {
 												alert('Your request has been received');
+												// clear form input after submit
+												document.getElementById('late-notice').reset();
 												console.log('Submission successful');
 
 										},
@@ -204,6 +206,8 @@
 										dataType: "json",
 										success: function(data) {
 												alert('Your report has been received');
+												// clear form input after submit
+												document.getElementById('report-missing').reset();
 												console.log('Submission successful');
 										},
 										error: function(xhr, status, error) {
