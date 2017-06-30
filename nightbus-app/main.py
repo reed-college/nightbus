@@ -250,14 +250,6 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
-    
-    subject = 'Set Your Password'
-    token = generate_confirmation_token(email, serializer)
-    set_password_url = url_for('set_password', token = token, _external=True)
-    html = render_template('activate.html', set_password_url = set_password_url)
-    send_mail(email, subject, html, mail)
-
-
 
     msg = Message('Set Your Password', sender='reednightbus@gmail.com', recipients = [email])
     # salt separates tokens of the same input values
