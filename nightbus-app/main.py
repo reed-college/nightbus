@@ -26,7 +26,7 @@ mail.init_app(app)
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
-#update bus statuses upon hitting buttons on driver page
+# functions for udating the NightBus's status and for updating the duration of the trip
 
 status = "here"
 
@@ -61,11 +61,15 @@ class NightBus:
 
 b  = NightBus()
 
+
+#updates the status of the NightBus
+
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
     return ('', 204)
+
 
 @app.route('/rider', methods=['GET'])
 def home():
@@ -80,6 +84,9 @@ def home():
 @app.before_first_request
 def intialize():
     session['logged_in'] = False
+
+    #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
+
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
         db.close()
@@ -113,6 +120,9 @@ def index():
 @app.route('/driver')
 @login_required('driver')
 def driver():
+
+    #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
+
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
@@ -121,6 +131,9 @@ def driver():
 
 @app.route('/schedule')
 def schedule():
+
+    #pulls out all the drivers from the User database so admins can assign them to shifts
+
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
@@ -129,6 +142,9 @@ def schedule():
 
 @app.route('/display')
 def display():
+
+    #displays the new driver schedule after the admin changes the schedule 
+
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
@@ -137,6 +153,10 @@ def display():
 
 @app.route('/assign', methods=['POST'])
 def assign():
+
+    #assigns the new driver to the driver schedule by running an if statment that checks if each day was passed a null value of "no", if it was
+    #then it means that a new driver was not assigned so it passes. if it is not null then it opens up the database and goes to the corresponding day
+    #and adds that driver as the driver for that day
     drivers= request.form.getlist('drivers[]')
 
     db = database.get_session()
@@ -224,6 +244,8 @@ def adduser():
 s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 @app.route('/add', methods=['POST'])
 def add():
+
+    #adds the new user to the User database by taking the form information and creating a User out of it.
 
     db = database.get_session()
 
