@@ -43,6 +43,10 @@ class NightBus:
         return self.trip_duration
     def update_status(self,new_status):
         self.current_status = new_status
+    def update_origin(self, new_origin):
+        self.origin = new_origin
+    def get_origin(self):
+        return self.origin
     def update_trip_duration(self, new_duration):
         self.trip_duration = new_duration
     def get_num_of_destinations(self):
@@ -505,9 +509,10 @@ def no_user():
 
 @app.route('/trackingtest', methods=['POST'])
 def trackingtest():
+    origin = request.form['origin']
     numOfDestinations = request.form['numOfDestinations']
-    b.update_num_of_destinations = numOfDestinations
-    print(b.get_num_of_destinations)
+    b.update_num_of_destinations(numOfDestinations)
+    b.update_origin(origin)
     return jsonify({'status': 'OK', 'numOfDestinations': numOfDestinations});
 
 
@@ -515,27 +520,20 @@ def trackingtest():
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        num_destinations = b.get_num_of_destinations
-
-        print(num_destinations)
-
-        destinations = [None] * num_destinations
+        origin = b.get_origin()
+        num_destinations = int(b.get_num_of_destinations())
+        destinations = [None] * int(num_destinations)
 
         for i in range(num_destinations):
             destinations[i] = request.form['address' + str(i+1)]
-
 
         duration = 0
         for destination in destinations:
             duration += calculate_duration(origin, [destination])
             origin = destination
     
-        print(duration)
-
-
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
-        b.update_origin(origin)
 
         return redirect(url_for('drivermaps'))
 
@@ -546,9 +544,10 @@ def tracking():
 def drivermaps():
     origin = b.get_origin()
     destinations = b.get_destinations()
+    num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
 
-    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
+    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need

@@ -60,10 +60,16 @@
 
 			directionsDisplay.setMap(map);
 			directionsDisplay.setPanel(document.getElementById('map-panel'));
+			
+			var stops = [];
+			{% for i in range(num_of_destinations - 1) %}
+				stops.push({location: "{{ destinations[i] }}", stopover: true});
+			{% endfor %}
 
 			var request = {
 				origin: "{{ origin | string }}",
-				destination: "{{ destinations[0] | string }}",
+				destination: "{{ origin | string }}",
+				waypoints: stops,
 				travelMode: google.maps.DirectionsTravelMode.DRIVING
 			};
 
