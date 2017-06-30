@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+	<title>Nightbus | Drivers</title>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script type=text/javascript src="{{url_for('static',filename='jquery-3.2.1.js') }}"></script>
+	<script src='../static/main.js'></script>
+</head>
+
+<body>
+	<div class="wrapper">
+
+	<div class="header">
+		<h1>The NightBus</h1>
+		<div class="nav">
+			{% if session['logged_in'] %}
+				{% if session['role'] == 'driver' %}
+					<a href="{{ url_for('drivermaps') }}">Maps</a>
+					<a href="{{ url_for('rider') }}">Rider</a>
+					<a href="{{ url_for('logout') }}">Sign Out</a>
+				{% elif session['role'] == 'admin' %}
+					<a href="{{ url_for('drivermaps') }}">Maps</a>
+					<a href="{{ url_for('admin') }}">Admin</a>
+					<a href="{{ url_for('logout') }}">Sign Out</a>
+				{% endif %}
+			{% else %}
+				<a href="{{ url_for('driverlogin') }}">Driver Login</a>
+				<a href="{{ url_for('adminlogin') }}"> Admin Login</a>
+			{% endif %}
+		</div>
+	</div>
+		<div class="content">
+			<form id="numOfDestinationEntryForm" action="/trackingtest" method="post">
+				<ul class="form-container">
+					<li>
+						<input id="origin" type="text" placeholder="origin" name="origin" required><br>
+					</li>
+					<li>
+						<input id="numOfDestinations" type="number" placeholder="number of destinations" name="numOfDestinations" required><br>
+					</li>
+					<li>
+						<a id="toggleBtn">Submit</a>
+					</li>
+
+				</ul>
+			</form>
+			<script>
+				$(function() {
+					$('#toggleBtn').click(function() {
+						var numOfDestinations = $('numOfDestinations').val();
+						$.ajax({
+							url: '/trackingtest',
+							data: $('form').serialize(),
+							type: 'POST',
+							success: function(response) {
+									console.log(response.numOfDestinations);
+									var numOfDestinations = response.numOfDestinations;
+									var container = $('<ul />', { class: "form-container" });
+									for (var i = 1; i <= numOfDestinations; i++) {
+										var address = "address" + i.toString();
+										container.append('<li><input type="text" placeholder=' + address +' name=' + address +' required><br></li>');
+									}
+									container.append('<li><input class="submit-button" name="submit" type="submit" value="Save!"></li>');
+								
+									$('form#addressEntryForm').html(container);
+							},
+							error: function(response) {
+									console.log(response);
+							}
+						});
+					});
+				});
+			</script>
+			<form id="addressEntryForm" style="display:none" action="/tracking" method="post">
+			</form>
+			<script>
+				$(document).ready(function() {
+					$("#toggleBtn").click(function() {
+						$("#numofRiders").toggle();
+						$("#addressEntryForm").toggle();
+						$("#returnBtn").toggle();
+					});
+				});
+			</script>
+
+
+
+			<script>
+			$(document).ready(function() {
+				$("#returnBtn").click(function() {
+					$("#numOfRiders").toggle();
+					$("#addressEntryForm").toggle();
+					$("#returnBtn").toggle();
+				});
+			});
+			</script>
+	</div>
+</body>

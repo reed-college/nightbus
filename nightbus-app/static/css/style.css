@@ -5,9 +5,9 @@
 
 body {
 	min-height: 100vh;
-	background: #9e785e;
-	background-size: cover;
-	color: #633d23;
+	background-image: url("texture.png");
+	background-color: #001848;
+	color: #F2F6EA;
 }
 
 /*** wrapper is 1550px for riders, drivers, and admin page.
@@ -36,8 +36,8 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  	background-color: #233c63;
-  	display: flex;
+  background-color: #83979E;
+  display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 50px;
@@ -47,26 +47,26 @@ It should be 1200px for home page and add/remove driver pages ***/
 
 a {
 	text-decoration: none;
-	color: #F8F8F8;
+	color: #F2F6EA;
 }
 
 .nav a {
 	margin-right: 15px;
 	text-decoration: none;
-	color: #F8F8F8;
+	color: #F2F6EA;
 	text-transform: uppercase;
 }
 
 .nav a:hover {
-	border-top: 5px solid #9e785e;
+	border-top: 5px solid #A84649;
 	padding: 15px;
 	padding-left: 0px;
 	margin: 0 auto;
-	color: #9e785e;
+	color: #F2F6EA;
 }
 
 .nav a:visited {
-	color: #a17f1a;
+	color: #F2F6EA;
 }
 
 .nav h2 {
@@ -79,7 +79,7 @@ a {
 h1 {
 	font-family: Roboto, sans-serif;
 	text-align: center;
-	color: #9e785e;
+	color: #F2F6EA;
 	margin: 0 auto;
 }
 
@@ -87,7 +87,18 @@ h1 {
 
 h2 {
 	font-family: Roboto, sans-serif;
-	color: #F8F8FF;
+	color: #F2F6EA;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.box h2{
+	color: #A84649;
+}
+
+.status_update {
+	font-family: Roboto, sans-serif;
+	color: #233c63 !important;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -98,12 +109,23 @@ h2 {
 /*** statusbox is the element that is populated by an update
 message when a button is pressed on the driver page ***/
 
+p {	width: 80%;
+	margin: 15%;
+	background-color: #F2F6EA;
+	font-family: Roboto, sans-serif;
+	color: #001848;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	padding: 30px;
+	margin-top: 7.5%;
+	position: relative;
+}
+
 .statusbox{
 	width: 95%;
 	margin-left: 2.5%;
 	margin-top: 100px;
 	margin-bottom: 15px;
-	border: 2px solid white;
+	border: 2px solid #f8f8f8;
 	padding: 5px;
 	border-radius: 5px;
   	background-color: lightblue;
@@ -131,105 +153,27 @@ message when a button is pressed on the driver page ***/
 	margin: 0 auto;
 }
 
-/**styling for driver schedule **/
 
-.driverschedule * {
-	border: 3px solid black;
-	border-radius: 2px;
+/*** Switch buttons for toggle view ***/
+
+.switchwrap {
 	text-align: center;
-	font-size: 20px;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
-}
-
-.driverschedule tr td:first-child {
-	font-weight: bold;
-}
-
-
-/*** Admin's Driver Schedule ***/
-
-
-.editdriverschedule td {
-	border: 3px solid black;
-	border-radius: 2px;
-	text-align: center;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
-}
-
-.editdriverschedule th {
-	border: 2px solid black;
-	border-radius: 2px;
-	text-align: center;
-	font-size: 20px;
-	width: 400px;
-	background-color: lightblue;
-	height: 50px;
-
-}
-
-
-.editdriverschedule tr td:first-child {
-	font-weight: bold;
-	font-size: 20px;
-}
-
-/*** Admin Flyout Menu ***/
-
-.flyout {
-	position: relative;
-	width: 90%;
-	height: 50%;
-	margin: 0 auto;
-	margin-left: 5%;
-	/*border: dashed 2px white; */
-	justify-content: flex-start;
-}
-
-.flyoutBtn {
-	width: 100%;
-	height: 100px;
-	margin-left: 0;
-}
-
-.flyout-content {
-  position: absolute;
-	display: none;
-	list-style: none;
-	justify-content: center;
-}
-
-.flyout-content a {
-	margin-left: 5%;
-	display: block;
-	padding: 12px 180px;
-	color: #233c63;
-	border: 5px solid #233c63;
 	font-size: 15px;
-	margin-bottom: 15px;
-	text-align: center;
+	font-weight: lighter;
 }
 
-.flyout:hover .flyout-content {
-	display: inline-block;
-	left: 515px;
-	min-width: inherit;
-}
+.switchbtn {
+	color: #001848;
+	padding:5px 20px;
+	border: 2px solid #001848;
+	background-color: transparent;
+	border-radius: 20px;
+	}
 
-.flyout-content a:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all .5 ease;
-}
-
-.flyout:hover .flyoutBtn {
-	color: #F8F8FF;
-	background-color: #233c63;
+.switchbtn:hover {
+	color: #F2F6EA;
+	background-color: #001848;
+	transition: all 0.5s ease;
 }
 
 /*** butt adds flex-box status to box class elements that hold
@@ -238,7 +182,7 @@ buttons inside them ***/
 .butt {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: flex-start;
 
 }
 
@@ -259,42 +203,66 @@ on index.html ***/
 /* Dropdown Button */
 
 .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+	width: 80%;
+	height: 60px;
+	border: 3px solid #83979E;
+	margin-left: 12%;
+	font-family: Roboto, times, serif;
+	color: #83979E;
+	font-size: 14px;
+	background-color: transparent;
+	text-transform: uppercase;
 }
 
 /* Dropdown button on hover & focus */
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #3e8e41;
+	color: #F2F6EA;
+  background-color: #83979E;
+	transition: all 0.5s ease;
 }
+
 
 /* The container <div> - needed to position the dropdown content */
 
 .dropdown {
     position: relative;
     display: inline-block;
+    width: 100%;
+		outline: none;
 }
 
 /* Dropdown Content (Hidden by Default) */
 
 .dropdown-content {
+	position: absolute;
     display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+	display: inline-block;
+	background-color: #83979E;
+	position: absolute;
+	width: 80%;
+	height: 130px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	top: 100%;
+	left: 12%;
+}
+
+.dropdown:hover .dropbtn {
+	color: #83979E;
+	background-color: #F2F6EA;
+	transition: all 0.5s ease;
 }
 
 /* Text inside the dropdown */
 
-.dropdown-content p {
-    color: black;
+.dropdown:hover .dropdown-content a {
+    color: white;
+	font-family: Roboto, times, serif;
+	font-weight: lighter;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -302,15 +270,9 @@ on index.html ***/
 
 /* Change color of dropdown text on hover */
 
-.dropdown-content p:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-
-.show {
-	display: block;
+.dropdown-content a:hover {
+	background-color: #47476b;
 }
-
-
 
 /*** Buttons ***/
 
@@ -319,6 +281,7 @@ button {
 	width: 90%;
 	height: 60px;
 	margin-left: 5%;
+	margin-top: 30px;
 	font-family:"Roboto", times, serif;
 	background: transparent;
 	color: #233c63;
@@ -333,19 +296,94 @@ button:hover {
 }
 
 .statusbutton {
-	width: 90%;
-	height: 100px;
-	border-radius: 5px solid #233c63;
-	margin-left: 5%;
+	width: 80%;
+	height: 60px;
+	border: 3px solid #83979E;
+	margin-left: 12%;
 	font-family: Roboto, times, serif;
-	color: #233c63;
+	color: #83979E;
 	font-size: 14px;
 	background-color: transparent;
+	text-transform: uppercase;
+	outline: none;
 }
 
 .statusbutton:hover {
+	color: #F2F6EA;
+	background-color: #83979E;
+	transition: all 0.5s ease;
+}
+
+
+#missingBtn {
+	text-decoration: none;
+	color: #233c63;
+	background-color: transparent;
+	border: 2px solid #233c63;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#missingBtn:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+#lateBtn {
+	text-decoration: none;
+	color: #233c63;
+	background-color: transparent;
+	border: 2px solid #233c63;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#lateBtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+#missinggoback {
+	text-decoration: none;
+	color: #F2F6EA;
+	background-color: transparent;
+	border: 2px solid #F2F6EA;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#missinggoback:hover {
+	color: #001848;
+	background-color: #F2F6EA;
+	transition: all 0.5s ease;
+}
+
+#lategoback {
+	text-decoration: none;
+	color: #F2F6EA;
+	background-color: transparent;
+	border: 2px solid #F2F6EA;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+#lategoback:hover {
+	color: #001848;
+	background-color: #F2F6EA;
 	transition: all 0.5s ease;
 }
 
@@ -355,7 +393,7 @@ button:hover {
  .form-container {
  	width: 100%;
  	max-height: 500px;
- 	background-color: #233c63;
+ 	background-color: #83979E;
  	display: flex;
  	flex-direction: column;
  	z-index: 1;
@@ -373,8 +411,8 @@ button:hover {
  }
 
 .form-container li input {
-	background-color: #5e779e;
-	color: #F8F8F8;
+	background-color: #96afb7;
+	color: #A84649;
 	border: none;
 	border-radius: 20px;
 	padding: 15px;
@@ -385,16 +423,23 @@ button:hover {
 	box-sizing: border-box;
 }
 
+.form-container li input::placeholder {
+	color: #F2F2F2;
+	font-family: 'Roboto';
+}
+
+
 .form-container li .submit-button {
-	background-color: #3973ce;
+	background-color: #001848;
 	border-radius: 0px;
+	color: #F2F6EA;
 	font-size: 14px;
 	width: 100%;
 }
 
 .form-container li .submit-button:hover {
-	background-color: #3b81ef;
-	color: #020314;
+	background-color: #A84649;
+	color: #F2F6EA;
 }
 
 .rider-alerts {
@@ -406,69 +451,110 @@ button:hover {
 	margin-top: 15%;
 	margin-bottom: 15px;
 }
-.rider-form input{
+.rider-form #input{
 	background: transparent;
-	color: #233c63;
-	border-bottom: 5px solid #233c63;
+	color: #F2F6EA;
+	border-bottom: 2px solid #A84649;
 	border-top: 0px;
 	border-right: 0px;
 	border-left: 0px;
 	margin: 0 auto;
-	text-transform: uppercase;
+	margin-bottom: 10px;
+	margin-top: 5px;
 }
 
-.rider-form input:hover {
-	color: #F8F8FF;
+.rider-form #input:hover {
+	color: #F2F6EA;
 	border-bottom: 0px;
 	transition-delay: 1s;
 	transition: all 0.6s ease;
 }
 
-/*** Form validation error container ***/
-
-.content {
-	position: relative;
+.rider-form #latesubmit {
+	text-decoration: none;
+	color: #F2F6EA;
+	background-color: transparent;
+	border: 2px solid #F2F6EA;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
 }
+
+.rider-form #latesubmit:hover {
+	color: #001848;
+	background-color: #F2F6EA;
+	transition: all 0.5s ease;
+}
+
+.rider-form #missingsubmit {
+	text-decoration: none;
+	color: #F2F6EA;
+	background-color: transparent;
+	border: 2px solid #F2F6EA;
+	border-radius: 20px;
+	padding: 10px;
+	cursor:pointer;
+	left: 37%;
+	bottom: 12%;
+}
+
+.rider-form #missingsubmit:hover {
+	color: #001848;
+	background-color: #F2F6EA;
+	transition: all 0.5s ease;
+}
+
+
+
+/*** Form validation ***/
+
+.form-container li span {
+	position: relative;
+	text-align: left;
+}
+
 
 #errNm1 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 8%;
+	color: #5f6062;
+	top: 25%;
 	left: 70%;
 }
 
 #errNm2 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 17%;
+	color: #5f6062;
+	top: 35%;
 	left: 70%;
 }
 
 #errNm3 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 26%;
+	color: #5f6062;
+	top: 45%;
 	left: 70%;
 }
 
 #errNm4 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 35%;
+	color: #5f6062;
+	top: 55%;
 	left: 70%;
 }
 
 #errNm5 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 45%;
+	color: #5f6062;
+	top: 65%;
 	left: 70%;
 }
 
 #errNm6 {
 	position: absolute;
-	color: #f7f7f7;
-	top: 54%;
+	color: #5f6062;
+	top: 75%;
 	left: 70%;
 }
 
@@ -522,7 +608,7 @@ button:hover {
 
 table {
 	border-collapse: separate;
-	background: #F8F8F8;
+	background: #F2F6EA;
 	margin: 50px auto;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
@@ -539,44 +625,48 @@ thead tr th .title {
 }
 
 thead th {
-	border-right: 2px solid #F8F8F8;
-	border-left: 2px solid #F8F8F8;
+	/*border-right: 2px solid #F2F6EA;*/
+	/*border-left: 2px solid #F2F6EA;*/
 	font-family: Roboto, cursive;
 	font-size: 16px;
 	font-weight: 400;
-	color: #fff;
+	color: #F2F6EA;
 	@include text-shadow(1px 1px 0px rgba(0,0,0,0.5));
 	text-align: center;
 	padding: 20px;
-	background-color: #233c63;
+	background-color: #A84649;
 }
 
 tbody tr td {
 	font-family: 'Open Sans', sans-serif;
 	font-weight:400;
-	color:#5f6062;
+	color:#001848;
 	font-size:13px;
 	padding:20px 20px 20px 20px;
 	border-bottom:1px solid #e0e0e0;
 
 }
 
+#pink {
+	color:#A84649;
+}
+
 /**** Driver page instructions ****/
 
 .box .instructions {
-	background-color: #F8F8FF;
+	background-color: #F2F6EA;
 	font-family: Roboto, sans-serif;
 	max-width: 100%;
 	height: 50%;
-	color: #9e785e;
+	color: #001848;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	z-index: 1;
 	padding: 5px;
 	margin-top: 7.5%;
+	position: relative;
 }
 
 .box .instructions h2 {
-	color: #9e785e;
+	color: #A84649;
 	align: center;
 }
 
@@ -593,8 +683,33 @@ tbody tr td {
 	background-color: transparent;
 	border: 2px solid #233c63;
 	border-radius: 20px;
-	padding: 5px;
+	padding: 10px;
 	align: center;
+	cursor:pointer;
+	position:absolute;
+	left: 37%;
+	bottom: 12%;
+}
+
+.box .instructions ul li a:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
+}
+
+#returnBtn {
+	color: #233c63;
+	padding:5px 20px;
+	border: 2px solid #233c63;
+	background-color: transparent;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+#returnBtn:hover {
+	color: #F8F8FF;
+	background-color: #233c63;
+	transition: all 0.5s ease;
 }
 
 

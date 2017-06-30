@@ -1,5 +1,5 @@
 # We are using a flask library called passlib that lets us hash passwords we can switch to a different encryption scenario if the need
-# arises. 
+# arises.
 
 from datetime import datetime
 from sqlalchemy import (Column, Boolean, Integer, String, DateTime)
@@ -11,7 +11,7 @@ import database
 # http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/basic_use.html
 Base = declarative_base()
 
-### The schemas below are almost a direct copy from the http demo with a few tweaks. 
+### The schemas below are almost a direct copy from the http demo with a few tweaks.
 class IdPrimaryMixin(object):
     id = Column(Integer, primary_key=True)
 
@@ -20,7 +20,7 @@ class DateTimeMixin(object):
     updated_on = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
 # This class defines the database schema. That is it creates the model that is going to be followed by SQLAlchemy when creating the database.
-# When we initially create the schema it will create a table called 'Users' and that table will have 10 columns called id, date created on, 
+# When we initially create the schema it will create a table called 'Users' and that table will have 10 columns called id, date created on,
 # date updated on, first name, last name, username, email and role. Maybe in the future once we figure out what our user authentication scheme
 # will look like we can add an 11th column called passwords. So in short if we once we create the database and the table we can use this class
 # to add and remove rows from the table. It is basically the same code as schema.py in Ross's http-demo example with three additional columns added.
@@ -60,12 +60,10 @@ class Auth(Base, IdPrimaryMixin, DateTimeMixin):
 class Schedule(Base, IdPrimaryMixin):
     __tablename__ = 'schedule'
 
-    day = Column(String(20))
+    day = Column(String(20), unique=True)
     driver_id = Column(Integer)
     firstname = Column(String(20))
     lastname = Column(String(20))
 
-        
-# This creates all the tables that we have defined in our schema.py 
+# This creates all the tables that we have defined in our schema.py
 Base.metadata.create_all(database.engine)
-
