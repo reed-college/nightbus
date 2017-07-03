@@ -143,7 +143,7 @@ def schedule():
 @app.route('/display')
 def display():
 
-    #displays the new driver schedule after the admin changes the schedule 
+    #displays the new driver schedule after the admin changes the schedule
 
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
@@ -273,7 +273,7 @@ def add():
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
 
-    msg = Message('Set Your Password', sender='reednightbus@gmail.com', recipients = [email])
+    msg = Message('Set Your Password', sender=('Reed College Night Bus','reednightbus@gmail.com'), recipients = [email])
     # salt separates tokens of the same input values
     token = s.dumps(email, salt='set-password')
     link = url_for('set_password', token=token, _external=True)
@@ -292,7 +292,7 @@ def forgot_password():
     if request.method == "POST":
 
         email = request.form['email']
-        msg = Message('Reset Your Password', sender='reednightbus@gmail.com', recipients = [email])
+        msg = Message('Reset Your Password', sender=('Reed College Night Bus','reednightbus@gmail.com'), recipients = [email])
         token = s.dumps(email, salt='reset-password')
         link = url_for('reset_password', token=token, _external=True)
         msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
