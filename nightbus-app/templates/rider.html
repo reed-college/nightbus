@@ -53,8 +53,18 @@
 				</div>
 				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
 				{% if duration > 0 %}
+					<script>
+						var timer = {{ duration }} * 60;
+						var duration = Math.ceil(timer/60);
+
+						var interval = setInterval(function() {
+							timer--;
+							duration = Math.ceil(timer/60);
+							$('.timer').text(duration);
+							if (timer === 0) clearInterval(interval);
+						}, 1000);
+					</script>
 					<div class="status_update"> <p>The nightbus will be on campus in {{ duration }} minutes </p>
-					<div class="timer">{{ duration }}</div>
 				{% endif %}
 				<p> The NightBus is a Reed sponsered late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
 				<br><br><br>
