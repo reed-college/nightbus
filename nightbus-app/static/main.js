@@ -1,4 +1,4 @@
-/* Update the NightBus statuses on Driver page */ 
+/* Update the NightBus statuses on Driver page */
 
 $(function() {
   // set up an event listener for the buttons
@@ -47,6 +47,8 @@ window.onclick = function(event) {
 }
 
 /* driver submit status button */
-    function submitstatus() {
-      alert("Status updated!")
-    }
+function submitstatus() {
+  alert("Status updated!")
+}
+
+/* autocomplete address lookup */
