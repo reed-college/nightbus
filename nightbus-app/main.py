@@ -4,11 +4,12 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
-from tracking import calculate_duration
+from tracking import calculate_duration, geocode
 import config
 import schema
 import database
 import post_to_fb
+
 
 #from flask_httpauth import HTTPBasicAuth
 
@@ -26,7 +27,7 @@ mail.init_app(app)
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
-#update bus statuses upon hitting buttons on driver page
+# functions for udating the NightBus's status and for updating the duration of the trip
 
 status = "here"
 
@@ -61,11 +62,15 @@ class NightBus:
 
 b  = NightBus()
 
+
+#updates the status of the NightBus
+
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
     return ('', 204)
+
 
 @app.route('/rider', methods=['GET'])
 def home():
@@ -80,6 +85,9 @@ def home():
 @app.before_first_request
 def intialize():
     session['logged_in'] = False
+
+    #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
+
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
         db.close()
@@ -113,6 +121,9 @@ def index():
 @app.route('/driver')
 @login_required('driver')
 def driver():
+
+    #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
+
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
@@ -121,6 +132,9 @@ def driver():
 
 @app.route('/schedule')
 def schedule():
+
+    #pulls out all the drivers from the User database so admins can assign them to shifts
+
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
@@ -129,6 +143,9 @@ def schedule():
 
 @app.route('/display')
 def display():
+
+    #displays the new driver schedule after the admin changes the schedule
+
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
@@ -137,6 +154,10 @@ def display():
 
 @app.route('/assign', methods=['POST'])
 def assign():
+
+    #assigns the new driver to the driver schedule by running an if statment that checks if each day was passed a null value of "no", if it was
+    #then it means that a new driver was not assigned so it passes. if it is not null then it opens up the database and goes to the corresponding day
+    #and adds that driver as the driver for that day
     drivers= request.form.getlist('drivers[]')
 
     db = database.get_session()
@@ -225,6 +246,8 @@ s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 @app.route('/add', methods=['POST'])
 def add():
 
+    #adds the new user to the User database by taking the form information and creating a User out of it.
+
     db = database.get_session()
 
     # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
@@ -250,8 +273,15 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
+    
+    subject = 'Set Your Password'
+    token = generate_confirmation_token(email, serializer)
+    set_password_url = url_for('set_password', token = token, _external=True)
+    html = render_template('activate.html', set_password_url = set_password_url)
+    send_mail(email, subject, html, mail)
 
-    msg = Message('Set Your Password', sender='reednightbus@gmail.com', recipients = [email])
+
+    msg = Message('Set Your Password', sender=('Reed College NightBus','reednightbus@gmail.com'), recipients = [email])
     # salt separates tokens of the same input values
     token = s.dumps(email, salt='set-password')
     link = url_for('set_password', token=token, _external=True)
@@ -270,7 +300,7 @@ def forgot_password():
     if request.method == "POST":
 
         email = request.form['email']
-        msg = Message('Reset Your Password', sender='reednightbus@gmail.com', recipients = [email])
+        msg = Message('Reset Your Password', sender=('Reed College NightBus','reednightbus@gmail.com'), recipients = [email])
         token = s.dumps(email, salt='reset-password')
         link = url_for('reset_password', token=token, _external=True)
         msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
@@ -320,7 +350,6 @@ def set_password(token):
             db.close()
             return redirect(url_for('driverlogin'))
     return render_template('confirm_password.html', token = token)
-
 
 @app.route('/removeuser')
 @login_required('admin')
@@ -508,18 +537,26 @@ def trackingtest():
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        origin = b.get_origin()
-        num_destinations = int(b.get_num_of_destinations())
-        destinations = [None] * int(num_destinations)
-
-        for i in range(num_destinations):
-            destinations[i] = request.form['address' + str(i+1)]
+        origin = (45.5062535,-122.62277840000002)
+        # num_destinations = int(b.get_num_of_destinations())
+        # destinations = [None] * int(num_destinations)
+        #
+        # for i in range(num_destinations):
+        #     destinations[i] = request.form['address' + str(i+1)]
+        destinations = request.form.getlist('address')
+        num_destinations = len(destinations)
+        b.update_num_of_destinations = num_destinations
+        print(num_destinations)
 
         duration = 0
-        for destination in destinations:
-            duration += calculate_duration(origin, [destination])
-            origin = destination
+        for i in range(num_destinations):
+            destinations[i] = geocode(destinations[i])
 
+        for destination in destinations:
+            print(destination)
+            duration += calculate_duration(origin, destination)
+            print(duration)
+            origin = destination
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
 
@@ -530,13 +567,14 @@ def tracking():
 @app.route('/drivermaps')
 @login_required('driver')
 def drivermaps():
-    origin = b.get_origin()
+    origin = (45.5062535,-122.62277840000002)
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
 
+    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
