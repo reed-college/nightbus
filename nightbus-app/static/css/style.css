@@ -149,7 +149,7 @@ p {	width: 80%;
 
 .box {
 	width: 70%;
-	height: 680px;
+	height: 880px;
 	margin: 0 auto;
 }
 
@@ -515,8 +515,10 @@ button:hover {
 	text-align: left;
 }
 
+
 #errNm1 {
 	position: absolute;
+<<<<<<< HEAD
 	color: #F2F6EA;
 	top: 22%;
 	left: 70%;

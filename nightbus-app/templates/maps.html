@@ -30,51 +30,60 @@
 
 		</div>
 	</div>
-	<div id="map" class="box">
-	</div>
-	<div id="map-panel" class="box">
-	</div>
 
-	{% if no_destinations %}
-	<script>
-	function myMap() {
-		var mapOptions = {
-			center: new google.maps.LatLng(51.5, -0.12),
-			zoom: 10,
-			mapTypeId: google.maps.MapTypeId.HYBRID
-		}
-		var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-	}
-	</script>
-	{% else %}
-	<script>
+	<div class="content">
+		<div id="map" class="box">
+		</div>
+		<div id="map-panel" class="box">
+		</div>
+
+		{% if no_destinations %}
+		<script>
 		function myMap() {
-			var directionsService = new google.maps.DirectionsService();
-			var directionsDisplay = new google.maps.DirectionsRenderer()
-			var mapProp = {
-				zoom: 13,
-				center: {lat: 45.4807525, lng: -122.6427379},
-			} 
-
-			var map = new google.maps.Map(document.getElementById('map'), mapProp);
-
-			directionsDisplay.setMap(map);
-			directionsDisplay.setPanel(document.getElementById('map-panel'));
-
-			var request = {
-				origin: "{{ origin | string }}",
-				destination: "{{ destinations[0] | string }}",
-				travelMode: google.maps.DirectionsTravelMode.DRIVING
-			};
-
-			directionsService.route(request, function(response, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-				directionsDisplay.setDirections(response);
-				}
-			});
+			var mapOptions = {
+				center: new google.maps.LatLng(51.5, -0.12),
+				zoom: 10,
+				mapTypeId: google.maps.MapTypeId.HYBRID
+			}
+			var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 		}
-	</script>
-	{% endif %}
+		</script>
+		{% else %}
+		<script>
+			function myMap() {
+				var directionsService = new google.maps.DirectionsService();
+				var directionsDisplay = new google.maps.DirectionsRenderer()
+				var mapProp = {
+					zoom: 13,
+					center: {lat: 45.4807525, lng: -122.6427379},
+				} 
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&callback=myMap"></script>
+				var map = new google.maps.Map(document.getElementById('map'), mapProp);
+
+				directionsDisplay.setMap(map);
+				directionsDisplay.setPanel(document.getElementById('map-panel'));
+				
+				var stops = [];
+				{% for i in range(num_of_destinations) %}
+					stops.push({location: "{{ destinations[i] }}", stopover: true});
+				{% endfor %}
+
+				var request = {
+					origin: "{{ origin | string }}",
+					destination: "{{ origin | string }}",
+					waypoints: stops,
+					travelMode: google.maps.DirectionsTravelMode.DRIVING
+				};
+
+				directionsService.route(request, function(response, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+					}
+				});
+			}
+		</script>
+		{% endif %}
+
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&callback=myMap"></script>
+	</div>
 </body>

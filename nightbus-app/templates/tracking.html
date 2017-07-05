@@ -30,33 +30,69 @@
 		</div>
 	</div>
 		<div class="content">
-			<form action="/tracking" method="post">
-				<ul class="form-container" >
+			<form id="numOfDestinationEntryForm" action="/trackingtest" method="post">
+				<ul class="form-container">
 					<li>
-						<input type="number" placeholder="number of destinations" name="num_destinations" required><br>
+						<input id="origin" type="text" placeholder="origin" name="origin" required><br>
 					</li>
 					<li>
-						<input type="text" placeholder="origin" name="origin" required><br>
+						<input id="numOfDestinations" type="number" placeholder="number of destinations" name="numOfDestinations" required><br>
 					</li>
 					<li>
-						<input type="text" placeholder="first address" name="address1" required><br>
+						<a id="toggleBtn">Submit</a>
 					</li>
-					<li>
-						<input type="text" placeholder="second address" name="address2"><br>
-					</li>
-					<li>
-						<input type="text" placeholder="third address" name="address3"><br>
-					</li>
-					<li>
-						<input type="text" placeholder="fourth address" name="address4"><br>
-					</li>
-					<li>
-						<input type="text" placeholder="fifth address" name="address5"><br>
-					</li>
-					<li>
-						<input class="submit-button" name="submit" type="submit" value="Save!">
-					</li>
+
 				</ul>
 			</form>
-		</div>
+			<script>
+				$(function() {
+					$('#toggleBtn').click(function() {
+						var numOfDestinations = $('numOfDestinations').val();
+						$.ajax({
+							url: '/trackingtest',
+							data: $('form').serialize(),
+							type: 'POST',
+							success: function(response) {
+									console.log(response.numOfDestinations);
+									var numOfDestinations = response.numOfDestinations;
+									var container = $('<ul />', { class: "form-container" });
+									for (var i = 1; i <= numOfDestinations; i++) {
+										var address = "address" + i.toString();
+										container.append('<li><input type="text" placeholder=' + address +' name=' + address +' required><br></li>');
+									}
+									container.append('<li><input class="submit-button" name="submit" type="submit" value="Save!"></li>');
+								
+									$('form#addressEntryForm').html(container);
+							},
+							error: function(response) {
+									console.log(response);
+							}
+						});
+					});
+				});
+			</script>
+			<form id="addressEntryForm" style="display:none" action="/tracking" method="post">
+			</form>
+			<script>
+				$(document).ready(function() {
+					$("#toggleBtn").click(function() {
+						$("#numofRiders").toggle();
+						$("#addressEntryForm").toggle();
+						$("#returnBtn").toggle();
+					});
+				});
+			</script>
+
+
+
+			<script>
+			$(document).ready(function() {
+				$("#returnBtn").click(function() {
+					$("#numOfRiders").toggle();
+					$("#addressEntryForm").toggle();
+					$("#returnBtn").toggle();
+				});
+			});
+			</script>
+	</div>
 </body>
