@@ -272,6 +272,13 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
+    
+    subject = 'Set Your Password'
+    token = generate_confirmation_token(email, serializer)
+    set_password_url = url_for('set_password', token = token, _external=True)
+    html = render_template('activate.html', set_password_url = set_password_url)
+    send_mail(email, subject, html, mail)
+
 
     msg = Message('Set Your Password', sender=('Reed College NightBus','reednightbus@gmail.com'), recipients = [email])
     # salt separates tokens of the same input values
@@ -342,7 +349,6 @@ def set_password(token):
             db.close()
             return redirect(url_for('driverlogin'))
     return render_template('confirm_password.html', token = token)
-
 
 @app.route('/removeuser')
 @login_required('admin')
@@ -541,7 +547,6 @@ def tracking():
         for destination in destinations:
             duration += calculate_duration(origin, [destination])
             origin = destination
-
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
 
@@ -559,6 +564,7 @@ def drivermaps():
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
 
+    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
