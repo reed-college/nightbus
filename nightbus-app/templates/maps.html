@@ -56,21 +56,21 @@
 				var mapProp = {
 					zoom: 13,
 					center: {lat: 45.4807525, lng: -122.6427379},
-				} 
+				}
 
 				var map = new google.maps.Map(document.getElementById('map'), mapProp);
 
 				directionsDisplay.setMap(map);
 				directionsDisplay.setPanel(document.getElementById('map-panel'));
-				
+
 				var stops = [];
 				{% for i in range(num_of_destinations) %}
 					stops.push({location: "{{ destinations[i] }}", stopover: true});
 				{% endfor %}
 
 				var request = {
-					origin: "{{ origin | string }}",
-					destination: "{{ origin | string }}",
+					origin: "{{ origin }}",
+					destination: "{{ origin }}",
 					waypoints: stops,
 					travelMode: google.maps.DirectionsTravelMode.DRIVING
 				};
@@ -78,12 +78,16 @@
 				directionsService.route(request, function(response, status) {
 					if (status == google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
-					}
+				} else {
+					alert('error');
+					console.log('error');
+				}
 				});
 			}
 		</script>
 		{% endif %}
-
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&callback=myMap"></script>
+		<script
+		async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE&callback=myMap">
+		</script>
 	</div>
 </body>

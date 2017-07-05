@@ -4,11 +4,12 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
-from tracking import calculate_duration
+from tracking import calculate_duration, geocode
 import config
 import schema
 import database
 import post_to_fb
+
 
 #from flask_httpauth import HTTPBasicAuth
 
@@ -536,16 +537,25 @@ def trackingtest():
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        origin = b.get_origin()
-        num_destinations = int(b.get_num_of_destinations())
-        destinations = [None] * int(num_destinations)
-
-        for i in range(num_destinations):
-            destinations[i] = request.form['address' + str(i+1)]
+        origin = (45.5062535,-122.62277840000002)
+        # num_destinations = int(b.get_num_of_destinations())
+        # destinations = [None] * int(num_destinations)
+        #
+        # for i in range(num_destinations):
+        #     destinations[i] = request.form['address' + str(i+1)]
+        destinations = request.form.getlist('address')
+        num_destinations = len(destinations)
+        b.update_num_of_destinations = num_destinations
+        print(num_destinations)
 
         duration = 0
+        for i in range(num_destinations):
+            destinations[i] = geocode(destinations[i])
+
         for destination in destinations:
-            duration += calculate_duration(origin, [destination])
+            print(destination)
+            duration += calculate_duration(origin, destination)
+            print(duration)
             origin = destination
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
@@ -557,7 +567,7 @@ def tracking():
 @app.route('/drivermaps')
 @login_required('driver')
 def drivermaps():
-    origin = b.get_origin()
+    origin = (45.5062535,-122.62277840000002)
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
