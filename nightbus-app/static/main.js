@@ -1,3 +1,4 @@
+
 /* Update the NightBus statuses on Driver page */
 
 $(function() {
@@ -50,5 +51,3 @@ window.onclick = function(event) {
 function submitstatus() {
   alert("Status updated!")
 }
-
-/* autocomplete address lookup */

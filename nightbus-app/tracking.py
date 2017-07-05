@@ -1,7 +1,7 @@
-import os
+import local_config
 import googlemaps
 
-key = os.environ.get("GOOGLE_MAPS_API_KEY")
+key = local_config.GOOGLE_MAPS_API_KEY
 gmaps = googlemaps.Client(key=key)
 
 def calculate_duration(origin, destinations):
