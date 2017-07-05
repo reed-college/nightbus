@@ -3,6 +3,10 @@
 	<title>Nightbus | Add Users </title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="initial-scale=1, width=device-width">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 </head>
 
 <body>
@@ -23,18 +27,23 @@
 			<ul class="form-container">
 				<li>
 					<input type="text" placeholder="first name" name="firstname" required><br>
-				</li>				
+					<span id="errNm1"></span>
+				</li>
 				<li>
 					<input type="text" placeholder="last name" name="lastname" required><br>
+					<span id="errNm2"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="username" name="username" required><br>
+					<span id="errNm3"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="email" name="email" required><br>
+					<span id="errNm4"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="role" name="role" required><br>
+					<span id="errNm5"></span>
 				</li>
 				<li>
 					<input class="submit-button" type="submit" value="Save!">
@@ -42,6 +51,73 @@
 			</ul>
 		</form>
 	</div>
+	<script>
+		$(function() {
+			$('form').validate({
+
+				errorPlacement: function(error, element) {
+					// place error messages next to their corresponding invalid element
+					if (element.attr("name") == "firstname" ) {
+							error.appendTo($('#errNm1'));
+						} else if (element.attr("name") == "lastname" ) {
+							error.appendTo($('#errNm2'));
+						} else if (element.attr("name") == "username") {
+							error.appendTo($("#errNm3"));
+						} else if (element.attr("name") == "email") {
+							error.appendTo($("#errNm4"));
+						} else if (element.attr("name") == "role") {
+							error.appendTo($("#errNm5"));
+						} else {
+							//do nothing
+						}
+					// clear error messages whilst typing 
+					$('form input').keyup(function (){
+						error.remove();
+					});
+
+				},
+
+				//Specify validation rules
+				rules: {
+					firstname: "required",
+					lastname: "required",
+					username: {
+						required: true,
+						// check if username already exists.
+						remote: {
+							url: 'username_exists',
+							type: 'post',
+							data: {
+								username: function() {
+									return $("input[name=username]").val()
+								}
+							}
+						}
+					},
+					email: {
+						required: true,
+						email: true // Specify that email should be validated by the built-in "email" rule
+					},
+					role: "required"
+				},
+
+				// specify validation error messages
+				messages: {
+					firstname: "Please enter a first name",
+					lastname: "Please enter a lastname",
+					username: {
+						required: "Please enter a username",
+					},
+					email: "Please enter a valid email address",
+					role: "Please enter a role"
+				},
+
+				submitHandler: function(form) {
+					form.submit();
+				}
+			});
+		});
+	</script>
 </div>
 </body>
 </html>
