@@ -232,12 +232,12 @@ def assign():
 
 
 @app.route('/admin')
-@login_required('admin')
+# @login_required('admin')
 def admin():
     return render_template('admin.html')
 
 @app.route('/adduser')
-@login_required('admin')
+# @login_required('admin')
 def adduser():
     return render_template('add.html')
 
@@ -273,14 +273,7 @@ def add():
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
 
-    subject = 'Set Your Password'
-    token = generate_confirmation_token(email, serializer)
-    set_password_url = url_for('set_password', token = token, _external=True)
-    html = render_template('activate.html', set_password_url = set_password_url)
-    send_mail(email, subject, html, mail)
-
-
-    msg = Message('Set Your Password', sender=('Reed College NightBus','reednightbus@gmail.com'), recipients = [email])
+    msg = Message('Set Your Password', sender=('Reed College Nightbus','reednightbus@gmail.com'), recipients = [email])
     # salt separates tokens of the same input values
     token = s.dumps(email, salt='set-password')
     link = url_for('set_password', token=token, _external=True)
@@ -299,7 +292,7 @@ def forgot_password():
     if request.method == "POST":
 
         email = request.form['email']
-        msg = Message('Reset Your Password', sender=('Reed College NightBus','reednightbus@gmail.com'), recipients = [email])
+        msg = Message('Reset Your Password', sender=('Reed College Nightbus','reednightbus@gmail.com'), recipients = [email])
         token = s.dumps(email, salt='reset-password')
         link = url_for('reset_password', token=token, _external=True)
         msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
