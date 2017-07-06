@@ -227,8 +227,7 @@ def assign():
 
     db.commit()
     db.close()
-
-    # flash("Shift successfully assigned")
+    flash("Shift successfully assigned")
     return redirect(url_for('display'))
 
 
@@ -273,7 +272,7 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
-    
+
     subject = 'Set Your Password'
     token = generate_confirmation_token(email, serializer)
     set_password_url = url_for('set_password', token = token, _external=True)
@@ -525,37 +524,22 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
-@app.route('/trackingtest', methods=['POST'])
-def trackingtest():
-    origin = request.form['origin']
-    numOfDestinations = request.form['numOfDestinations']
-    b.update_num_of_destinations(numOfDestinations)
-    b.update_origin(origin)
-    return jsonify({'status': 'OK', 'numOfDestinations': numOfDestinations});
-
 @app.route('/tracking', methods=['GET', 'POST'])
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        origin = (45.5062535,-122.62277840000002)
-        # num_destinations = int(b.get_num_of_destinations())
-        # destinations = [None] * int(num_destinations)
-        #
-        # for i in range(num_destinations):
-        #     destinations[i] = request.form['address' + str(i+1)]
+        origin = 'Reed College'
         destinations = request.form.getlist('address')
         num_destinations = len(destinations)
-        b.update_num_of_destinations = num_destinations
-        print(num_destinations)
+        b.update_num_of_destinations(num_destinations)
+        print(b.num_of_destinations)
 
         duration = 0
         for i in range(num_destinations):
             destinations[i] = geocode(destinations[i])
 
         for destination in destinations:
-            print(destination)
             duration += calculate_duration(origin, destination)
-            print(duration)
             origin = destination
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
@@ -567,14 +551,12 @@ def tracking():
 @app.route('/drivermaps')
 @login_required('driver')
 def drivermaps():
-    origin = (45.5062535,-122.62277840000002)
+    origin = 'Reed College'
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
-
-    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination)
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need

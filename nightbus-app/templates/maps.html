@@ -79,15 +79,12 @@
 					if (status == google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
 				} else {
-					alert('error');
 					console.log('error');
 				}
-				});
-			}
+			});
+		}
 		</script>
 		{% endif %}
-		<script
-		async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE&callback=myMap">
-		</script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE&callback=myMap"></script>
 	</div>
 </body>
