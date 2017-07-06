@@ -13,8 +13,6 @@ import post_to_fb
 
 #from flask_httpauth import HTTPBasicAuth
 
-
-
 app = Flask(__name__)
 mail = Mail(app)
 
@@ -232,12 +230,12 @@ def assign():
 
 
 @app.route('/admin')
-# @login_required('admin')
+@login_required('admin')
 def admin():
     return render_template('admin.html')
 
 @app.route('/adduser')
-# @login_required('admin')
+@login_required('admin')
 def adduser():
     return render_template('add.html')
 
