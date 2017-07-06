@@ -539,9 +539,7 @@ def tracking():
             destinations[i] = geocode(destinations[i])
 
         for destination in destinations:
-            print(destination)
             duration += calculate_duration(origin, destination)
-            print(duration)
             origin = destination
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
@@ -557,7 +555,6 @@ def drivermaps():
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
-    print(num_of_destinations)
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
 ##### Error Handling #####
