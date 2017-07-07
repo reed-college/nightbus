@@ -335,9 +335,11 @@ def set_password(token):
         db.commit()
         if user.role == 'admin':
             db.close()
+            flash("Account registered successfully. Please login")
             return redirect(url_for('adminlogin'))
         else:
             db.close()
+            flash("Account registered successfully. Please login")
             return redirect(url_for('driverlogin'))
     return render_template('confirm_password.html', token = token)
 
@@ -523,7 +525,6 @@ def tracking():
         destinations = request.form.getlist('address')
         num_destinations = len(destinations)
         b.update_num_of_destinations(num_destinations)
-        print(b.num_of_destinations)
 
         duration = 0
         for i in range(num_destinations):
