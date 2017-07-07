@@ -383,19 +383,21 @@ def signup():
 def username_exists():
     db = database.get_session()
     username_exists = db.query(schema.User).filter_by(username=request.form['username']).first()
+    db.close()
     if username_exists:
-        return jsonify("Username is already taken. Please pick another.")
+        return "false"
     else:
-        return jsonify("true")
+        return "true"
 
 @app.route('/email_exists', methods=['POST'])
 def email_exists():
     db = database.get_session()
     email_exists = db.query(schema.User).filter_by(email=request.form['email']).first()
+    db.close()
     if email_exists:
-        return jsonify("Email address is already registered. Please login instead.")
+        return "false"
     else:
-        return jsonify("true")
+        return "true"
 
 
 @app.route('/register', methods=['GET','POST'])

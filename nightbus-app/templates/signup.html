@@ -22,6 +22,9 @@
 			width: inherit;
 			margin: 0 15px;
 		}
+		#messageBox {
+
+		}
 	}
 	</style>
 </head>
@@ -44,28 +47,20 @@
 					</li>
 					<li>
 						<input type="text" placeholder="first name" name="firstname" required><br>
-						<span id="errNm1"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="last name" name="lastname" required><br>
-						<span id="errNm2"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="username" name="username" required><br>
-						<span id="errNm3"></span>
 					</li>
 					<li>
 						<input type="email" placeholder="email" name="email" required><br>
-						<span id="errNm4"></span>
-					</li>
-					<li>
-						<input type="text" placeholder="role" name="role" required><br>
-						<span id="errNm5"></span>
 					</li>
 					<li>
 						<input type="password" placeholder="password" name="password" required><br>
-						<span id="errNm6"></span>
 					</li>
+					<li id="messageBox"></li>
 					<li>
 						<input class="submit-button" name="submit" type="submit" value="Save!">
 					</li>
@@ -77,24 +72,23 @@
 			$(function() {
 				$('form').validate({
 
+					// place error messages in the error box
 					errorPlacement: function(error, element) {
-						// place error messages next to their corresponding invalid element
-						if (element.attr("name") == "firstname" ) {
-	              error.appendTo($('#errNm1'));
-	            } else if (element.attr("name") == "lastname" ) {
-								error.appendTo($('#errNm2'));
-							} else if (element.attr("name") == "username") {
-								error.appendTo($("#errNm3"));
-							} else if (element.attr("name") == "email") {
-								error.appendTo($("#errNm4"));
-							} else if (element.attr("name") == "role") {
-								error.appendTo($("#errNm5"));
-							} else if (element.attr("name") == "password") {
-								error.appendTo($("#errNm6"));
-							} else {
-								//do nothing
-							}
+						error.appendTo($('#messageBox'));
+						$('#messageBox').css({
+							'display': 'block',
+							'position': 'absolute',
+							'width': '100%',
+							'height': '33%',
+							'left': '110%',
+							'top': '55%',
+							'text-align': 'left'
+						});
 
+						//turn off auto validate whilst typing
+						element.keyup( function() {
+	 					 $('#messageBox').empty();
+	 				 });
 					},
 
 					//Specify validation rules
@@ -116,9 +110,17 @@
 						},
 						email: {
 							required: true,
-							email: true // Specify that email should be validated by the built-in "email" rule
+							email: true, // Specify that email should be validated by the built-in "email" rule
+							remote: {
+								url: 'email_exists',
+								type: 'post',
+								data: {
+									email: function() {
+										return $('input[name=email]').val()
+									}
+								}
+							}
 						},
-						role: "required",
 						password: {
 							required: true,
 							minlength: 5
@@ -127,17 +129,21 @@
 
 					// specify validation error messages
 					messages: {
-						firstname: "Please enter your first name",
-						lastname: "Please enter your lastname",
+						firstname: "<br>" + "Please enter your first name",
+						lastname: "<br>" + "Please enter your lastname",
 						username: {
-							required: "Please enter your username",
+							required: "<br>" + "Please enter your username",
+							remote: jQuery.validator.format("<br>" + "Username is already taken")
 						},
 						password: {
-							required: "Please provide a password",
-							minlength: "Your password must be at least 5 characters long"
+							required: "<br>"+ "Please provide a password" ,
+							minlength: "<br>" + "Your password must be at least 5 characters long"
 						},
-						email: "Please enter a valid email address",
-						role: "Please fill in your role"
+						email: {
+							required: "<br>" + "Please enter an email address",
+							email: "<br>"+ "Please enter a valid email address",
+							remote: jQuery.validator.format("<br>" +  "Email is already registered")
+						}
 					},
 
 					submitHandler: function(form) {
