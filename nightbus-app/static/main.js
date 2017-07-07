@@ -48,7 +48,7 @@ window.onclick = function(event) {
   }
 }
 
-/* form validation */
+/* Form Validation for Signup page */
 
 function validateForm() {
   $('form').validate({
@@ -132,3 +132,132 @@ function validateForm() {
     }
   });
 }
+
+/* Form Validation for Rider page */
+
+function validateMissing() {
+  $("#report-missing").validate({
+    errorPlacement: function(error, element) {
+      if (element.attr('name')=='name') {
+        error.appendTo($('#err1'))	;
+        offset = element.offset();
+        $('#err1').css({
+            'position': 'absolute',
+            'display': 'inline-block',
+            'color': 'brown',
+            'top': offset.top,
+            'left': offset.left + element.outerWidth() +20,
+            'z-index': '10'
+          });
+      } else {
+        error.appendTo($('#err2'));
+        offset = element.offset();
+        $('#err2').css({
+            'position': 'absolute',
+            'display': 'inline-block',
+            'color': 'brown',
+            'top': offset.top,
+            'left': offset.left + element.outerWidth() +20,
+            'z-index': '10'
+          });
+        }
+      },
+      rules: {
+        name: "required",
+        email: {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        name: "Please enter your name",
+        email: {
+          required: "Please enter your email address",
+          email: "Please enter a valid email address"
+        }
+      },
+      submitHandler: function(form) {
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
+            data: $(form).serialize(),
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                alert('Your report has been received');
+                // clear form input after submit
+                document.getElementById('report-missing').reset();
+                console.log('Submission successful');
+            },
+            error: function(xhr, status, error) {
+                alert("Oops, something's wrong. Please try again");
+                console.log('Submission failed: ' + error);
+            }
+        });
+      }
+    });
+}
+
+function validateLate() {
+  $("#late-notice").validate({
+    errorPlacement: function(error, element) {
+      if (element.attr('name')=='name') {
+        error.appendTo($('#err3'))	;
+        offset = element.offset();
+        $('#err3').css({
+            'position': 'absolute',
+            'display': 'inline-block',
+            'color': 'brown',
+            'top': offset.top,
+            'left': offset.left + element.outerWidth() +20,
+            'z-index': '10'
+          });
+      } else {
+        error.appendTo($('#err4'));
+        offset = element.offset();
+        $('#err4').css({
+            'position': 'absolute',
+            'display': 'inline-block',
+            'color': 'brown',
+            'top': offset.top,
+            'left': offset.left + element.outerWidth() +20,
+            'z-index': '10'
+          });
+        }
+      },
+      rules: {
+        name: "required",
+        email: {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        name: "Please enter your name",
+        email: {
+          required: "Please enter your email address",
+          email: "Please enter a valid email address"
+        }
+      },
+      submitHandler: function(form) {
+
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
+            data: $(form).serialize(),
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                alert('Your request has been received');
+                // clear form input after submit
+                document.getElementById('late-notice').reset();
+                console.log('Submission successful');
+
+            },
+            error: function(xhr, status, error) {
+                alert("Oops, something's wrong. Please try again.");
+                console.log('Submission failed: ' + error);
+            }
+          });
+          return false;
+        }
+      });
+  }

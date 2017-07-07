@@ -63,165 +63,37 @@
 				</p>
 
 				<div class="rider-alerts">
-				<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
-					Name: <br>
-					<input type = "text" name = "name" required>
-					<span id="err3"></span><br>
-					Email: <br>
-					<input type = "text" name = "email" required>
-					<span id="err4"></span>
-					<br><br>
-					<button type= "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">I'm late! Please wait 5 minutes!</button>
-					<br><br>
-					<button type="button" id= "lategoback">Go Back</button>
-				</form>
+
+					<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+						Name: <br>
+						<input type = "text" name = "name" required>
+						<span id="err3"></span><br>
+						Email: <br>
+						<input type = "text" name = "email" required>
+						<span id="err4"></span>
+						<br><br>
+						<button type= "submit" id ="latesubmit" onclick="validateLate()" value= "I'm late! Please wait 5 minutes!">I'm late! Please wait 5 minutes!</button>
+						<br><br>
+						<button type="button" id= "lategoback">Go Back</button>
+					</form>
 
 
-				<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
-					Name: <br>
-					<input type = "text" name = "name" required>
-					<span id="err1"></span><br>
-					Email: <br>
-					<input type = "text" name = "email" required>
-					<span id="err2"></span>
-					<br><br>
-					<button type = "submit" id ="missingsubmit" value= "Report the NightBus missing">Report the NightBus missing</button>
-					<br><br>
-					<button type="button" id= "missinggoback">Go Back</button>
-				</form>
+					<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+						Name: <br>
+						<input type = "text" name = "name" required>
+						<span id="err1"></span><br>
+						Email: <br>
+						<input type = "text" name = "email" required>
+						<span id="err2"></span>
+						<br><br>
+						<button type = "submit" id ="missingsubmit" onclick="validateMissing()" value= "Report the NightBus missing">Report the NightBus missing</button>
+						<br><br>
+						<button type="button" id= "missinggoback">Go Back</button>
+					</form>
 
 				</div>
-
-				<script>
-				$(function() {
-					$("#late-notice").validate({
-						errorPlacement: function(error, element) {
-							if (element.attr('name')=='name') {
-								error.appendTo($('#err3'))	;
-								offset = element.offset();
-								$('#err3').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'white',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-							} else {
-								error.appendTo($('#err4'));
-								offset = element.offset();
-								$('#err4').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'white',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-								}
-							},
-							rules: {
-								name: "required",
-								email: {
-									required: true,
-									email: true
-								}
-							},
-							messages: {
-								name: "Please enter your name",
-								email: {
-									required: "Please enter your email address",
-									email: "Please enter a valid email address"
-								}
-							},
-							submitHandler: function(form) {
-
-								$.ajax({
-										url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
-										data: $(form).serialize(),
-										type: "POST",
-										dataType: "json",
-										success: function(data) {
-												alert('Your request has been received');
-												// clear form input after submit
-												document.getElementById('late-notice').reset();
-												console.log('Submission successful');
-
-										},
-										error: function(xhr, status, error) {
-												alert("Oops, something's wrong. Please try again.");
-												console.log('Submission failed: ' + error);
-										}
-									});
-									return false;
-								}
-							});
-						});
-
-					$("#report-missing").validate({
-						errorPlacement: function(error, element) {
-							if (element.attr('name')=='name') {
-								error.appendTo($('#err1'))	;
-								offset = element.offset();
-								$('#err1').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'white',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-							} else {
-								error.appendTo($('#err2'));
-								offset = element.offset();
-								$('#err2').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'white',
-										'color': 'brown',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-								}
-							},
-							rules: {
-								name: "required",
-								email: {
-									required: true,
-									email: true
-								}
-							},
-							messages: {
-								name: "Please enter your name",
-								email: {
-									required: "Please enter your email address",
-									email: "Please enter a valid email address"
-								}
-							},
-							submitHandler: function(form) {
-								$.ajax({
-										url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
-										data: $(form).serialize(),
-										type: "POST",
-										dataType: "json",
-										success: function(data) {
-												alert('Your report has been received');
-												// clear form input after submit
-												document.getElementById('report-missing').reset();
-												console.log('Submission successful');
-										},
-										error: function(xhr, status, error) {
-												alert("Oops, something's wrong. Please try again");
-												console.log('Submission failed: ' + error);
-										}
-								});
-							}
-					  });
-				</script>
-
-
 			</div>
+
 			<script>
 					$(document).ready(function() {
 						$("#missingBtn").click(function() {
@@ -240,10 +112,9 @@
 							$("p").toggle();
 							$("#late-notice").toggle();
 						});
-
 				 	});
+			</script>
 
-				 </script>
 			<div class="box">
 				<table>
 				<thead>
