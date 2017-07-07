@@ -1,10 +1,2 @@
 nightbus-app/local_config.py
-nightbus-app/config.pyc
-nightbus-app/database.pyc
-nightbus-app/decorators.pyc
-nightbus-app/local_config.pyc
-nightbus-app/main.pyc
-nightbus-app/post_to_fb.pyc
-nightbus-app/schema.pyc
-nightbus-app/tracking.pyc
-nightbus-app/user_handling.pyc
+nightbus-app/*.pyc
