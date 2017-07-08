@@ -523,6 +523,34 @@ button:hover {
 	transition: all 0.5s ease;
 }
 
+/* Form validation */
+
+.messageBox {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: auto;
+	top: 60%;
+	left: 110%;
+	text-align:left !important;
+	background-color: brown;
+}
+
+.rider-alerts {
+	position: relative;
+	width: 100%;
+}
+
+.rider-errors {
+	display: block;
+	position: absolute;
+	width: auto;
+	height: auto;
+	top: 1%;
+	left: 55%;
+	text-align: left;
+	z-index: 10;
+}
 
 /*** Animation  ***/
 

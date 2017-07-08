@@ -51,24 +51,15 @@ window.onclick = function(event) {
 /* Form Validation for Signup page */
 
 function validateForm() {
-  $('form').validate({
+  $('#signupForm').validate({
 
     // place error messages in the error box
     errorPlacement: function(error, element) {
-      error.appendTo($('#messageBox'));
-      $('#messageBox').css({
-        'display': 'block',
-        'position': 'absolute',
-        'width': '100%',
-        'height': '33%',
-        'left': '110%',
-        'top': '55%',
-        'text-align': 'left'
-      });
+      error.appendTo($('.messageBox'));
 
-      //turn off auto validate whilst typing
+      //clear error messages whilst typing
       element.keyup( function() {
-       $('#messageBox').empty();
+       $('.messageBox').empty();
      });
     },
 
@@ -84,7 +75,7 @@ function validateForm() {
           type: 'post',
           data: {
             username: function() {
-              return $("input[name=username]").val()
+              return $("#signupForm:input[name=username]").val()
             }
           }
         }
@@ -97,7 +88,7 @@ function validateForm() {
           type: 'post',
           data: {
             email: function() {
-              return $('input[name=email]').val()
+              return $('#signupForm:input[name=email]').val()
             }
           }
         }
@@ -110,20 +101,20 @@ function validateForm() {
 
     // specify validation error messages
     messages: {
-      firstname: "<br>" + "Please enter your first name",
-      lastname: "<br>" + "Please enter your lastname",
+      firstname: "Please enter your first name",
+      lastname:  "Please enter your lastname",
       username: {
-        required: "<br>" + "Please enter your username",
-        remote: jQuery.validator.format("<br>" + "Username is already taken")
+        required: "Please enter your username",
+        remote: jQuery.validator.format( "Username is already taken")
       },
       password: {
-        required: "<br>"+ "Please provide a password" ,
-        minlength: "<br>" + "Your password must be at least 5 characters long"
+        required: "Please provide a password" ,
+        minlength: "Your password must be at least 5 characters long"
       },
       email: {
-        required: "<br>" + "Please enter an email address",
-        email: "<br>"+ "Please enter a valid email address",
-        remote: jQuery.validator.format("<br>" +  "Email is already registered")
+        required: "Please enter an email address",
+        email: "Please enter a valid email address",
+        remote: jQuery.validator.format("Email is already registered")
       }
     },
 
@@ -137,30 +128,9 @@ function validateForm() {
 
 function validateMissing() {
   $("#report-missing").validate({
+
     errorPlacement: function(error, element) {
-      if (element.attr('name')=='name') {
-        error.appendTo($('#err1'))	;
-        offset = element.offset();
-        $('#err1').css({
-            'position': 'absolute',
-            'display': 'inline-block',
-            'color': 'brown',
-            'top': offset.top,
-            'left': offset.left + element.outerWidth() +20,
-            'z-index': '10'
-          });
-      } else {
-        error.appendTo($('#err2'));
-        offset = element.offset();
-        $('#err2').css({
-            'position': 'absolute',
-            'display': 'inline-block',
-            'color': 'brown',
-            'top': offset.top,
-            'left': offset.left + element.outerWidth() +20,
-            'z-index': '10'
-          });
-        }
+      error.appendTo($('#missing-errors'));
       },
       rules: {
         name: "required",
@@ -170,10 +140,10 @@ function validateMissing() {
         }
       },
       messages: {
-        name: "Please enter your name",
+        name: "<br>"+ "Please enter your name",
         email: {
-          required: "Please enter your email address",
-          email: "Please enter a valid email address"
+          required: "<br><br>"+ "Please enter your email address",
+          email: "<br><br>"+ "Please enter a valid email address"
         }
       },
       submitHandler: function(form) {
@@ -199,30 +169,9 @@ function validateMissing() {
 
 function validateLate() {
   $("#late-notice").validate({
+
     errorPlacement: function(error, element) {
-      if (element.attr('name')=='name') {
-        error.appendTo($('#err3'))	;
-        offset = element.offset();
-        $('#err3').css({
-            'position': 'absolute',
-            'display': 'inline-block',
-            'color': 'brown',
-            'top': offset.top,
-            'left': offset.left + element.outerWidth() +20,
-            'z-index': '10'
-          });
-      } else {
-        error.appendTo($('#err4'));
-        offset = element.offset();
-        $('#err4').css({
-            'position': 'absolute',
-            'display': 'inline-block',
-            'color': 'brown',
-            'top': offset.top,
-            'left': offset.left + element.outerWidth() +20,
-            'z-index': '10'
-          });
-        }
+      error.appendTo($('#late-errors'));
       },
       rules: {
         name: "required",
@@ -232,10 +181,10 @@ function validateLate() {
         }
       },
       messages: {
-        name: "Please enter your name",
+        name: "<br>"+ "Please enter your name",
         email: {
-          required: "Please enter your email address",
-          email: "Please enter a valid email address"
+          required:"<br><br>"+ "Please enter your email address",
+          email: "<br><br>"+ "Please enter a valid email address"
         }
       },
       submitHandler: function(form) {
