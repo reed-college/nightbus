@@ -11,43 +11,56 @@
 <body>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
-		function geoLocate() {
+		function geoLocate(callback) {
 			var output = document.getElementById("out");
 
 			if(!navigator.geolocation) {
-				output.innerHTML = "<p> Geolocation is not supported by this browser </p>";
-				return;
+				//output.innerHTML = "<p> Geolocation is not supported by this browser </p>";
+				callback({'error': 'Geolocation is not supported by this browser </p>'});
 			}
 
 			function success(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
+				var location = [lat, lng];
 
-				var socket = io.connect('http://' + document.domain + ':' + location.port);
-				socket.on('connect', function() {
-					socket.emit('my event', {data: lat});
-				});
-
-				output.innerHTML = "<p>Latitude is " + lat + "<br> Longitudte is " + lng + "</p>";
+				//output.innerHTML = "<p>Latitude is " + lat + "<br> Longitudte is " + lng + "</p>";
+				callback({'success': location});
 			}
 
 			function error(position) {
-				output.innerHTML = "<p> Unable to retrieve your location </p>"; 
+				//	output.innerHTML = "<p> Unable to retrieve your location </p>"; 
+				callback({'error': 'Unable to retrieve your location'});
 			}
 
 			output.innerHTML = "<p> Locating .... </p>";
 
 			navigator.geolocation.getCurrentPosition(success, error);
-		}
-		
+
+		};
+
 		var locate = setInterval(function () { 
-								geoLocate (); 
-					}, 1000);
+			var locateMe = geoLocate (function(locateMe) {
+				var location = locateMe['success'];
+					$.ajax({
+						url: '/geolocationtest',
+						data: JSON.stringify(location), 
+						dataType: 'json',
+						contentType: 'application/json',
+						type: 'POST',
+						success: function(response) {
+							console.log(response);
+						},
+						error: function(error) {
+							console.log(error);
+						},
+						dataType: "json",
+						contentType: "application/json"
+					});
+			}); 
+		}, 30000);
 
 	</script>
-
-	geoLocate(){};
-	setInterval(geoLocate
 	<div id="out"></div>
 </body>
 </html>

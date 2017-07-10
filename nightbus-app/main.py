@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, json
 from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
@@ -75,16 +75,16 @@ def home():
     duration = b.get_trip_duration()
     return render_template("rider.html", status=status, duration=duration)
 
+@app.route('/t', methods=['GET'])
+def t():
+    return render_template('geolocationtest.html')
 
-@app.route('/geolocationtest', methods=['GET'])
+@app.route('/geolocationtest', methods=['POST'])
 def geolocationtest():
-    return render_template("geolocationtest.html")
-
-@socketio.on('my event')
-def handle_custom_event(json):
-    print("received json " + str(json))
-
-# I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
+    if request.method == 'POST':
+        location = request.get_json()
+        print(location)
+        return json.dumps({'status':'OK'})
 
 
 @app.before_first_request
