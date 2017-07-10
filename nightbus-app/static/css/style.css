@@ -148,6 +148,16 @@ p {	width: 80%;
 	justify-content: flex-start;
 }
 
+.rider-content {
+	margin-top: 100px;
+	margin-left: -5%;
+	width: 100%;
+	height: 1400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
 /*** individual boxes ***/
 
 .box {
@@ -561,7 +571,7 @@ button:hover {
 .icon-wrap {
 	width: 100%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 
 }
@@ -577,7 +587,7 @@ button:hover {
 	margin-top: -50px;
 	height: 350px;
 	width: 350px;
-	margin-right: 10%;
+	margin-left: 20%;
 	-webkit-animation: mymove 1s infinite;
 }
 
@@ -740,6 +750,12 @@ tbody tr td {
 		justify-content: space-around;
 	}
 
+	.rider-content{
+		flex-direction: row;
+		justify-content: space-around;
+		margin-left: 0;
+	}
+
 	.box {
 		width: 45%;
 		margin-left: 0;
@@ -764,7 +780,7 @@ tbody tr td {
 	}
 
 	.dex-icon {
-		margin-right: 0;
+		margin-left: 15%;
 	}
 
 	#whereis {
