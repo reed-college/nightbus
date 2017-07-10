@@ -13,8 +13,3 @@ def calculate_duration(origin, destinations):
         duration = duration + address['duration']['value']
 
     return (duration // 60)
-
-def geocode(address):
-    results = gmaps.geocode({address: address})
-    result = results[0]['formatted_address']
-    return result

@@ -529,8 +529,6 @@ def tracking():
         b.update_num_of_destinations(num_destinations)
 
         duration = 0
-        for i in range(num_destinations):
-            destinations[i] = geocode(destinations[i])
 
         for destination in destinations:
             duration += calculate_duration(origin, destination)
