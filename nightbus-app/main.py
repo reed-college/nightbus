@@ -4,7 +4,7 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
-from tracking import calculate_duration, geocode
+from tracking import calculate_duration
 import config
 import schema
 import database
@@ -33,7 +33,7 @@ class NightBus:
     def __init__(self):
         self.current_status = status
         self.trip_duration = 0
-        self.origin = None
+        self.origin = 'Reed College'
         self.destinations = []
         self.num_of_destinations = 0
     def get_current_status(self):
@@ -523,14 +523,12 @@ def no_user():
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
-        origin = 'Reed College'
+        origin = b.get_origin()
         destinations = request.form.getlist('address')
         num_destinations = len(destinations)
         b.update_num_of_destinations(num_destinations)
 
         duration = 0
-        for i in range(num_destinations):
-            destinations[i] = geocode(destinations[i])
 
         for destination in destinations:
             duration += calculate_duration(origin, destination)
@@ -545,7 +543,7 @@ def tracking():
 @app.route('/drivermaps')
 @login_required('driver')
 def drivermaps():
-    origin = 'Reed College'
+    origin = b.get_origin()
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
