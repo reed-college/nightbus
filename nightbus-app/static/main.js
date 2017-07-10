@@ -1,7 +1,7 @@
 
 /* Update the NightBus statuses on Driver page */
 
-function submitstatus() {
+$(function() {
   // set up an event listener for the buttons
   $('.statusbutton').bind('click', function() {
     // get the value of status button on click
@@ -15,7 +15,6 @@ function submitstatus() {
       dataType: "json",
       type: 'GET',
       success: function() {
-        alert("Status updated!");
         console.log("Bus status updated successfully");
       },
       error: function() {
@@ -23,7 +22,12 @@ function submitstatus() {
       }
     });
   });
-}
+});
+
+/* driver submit status button */
+    function submitstatus() {
+      alert("Status updated!")
+    }
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
