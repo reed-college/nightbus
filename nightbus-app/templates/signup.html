@@ -23,9 +23,6 @@
 			width: inherit;
 			margin: 0 15px;
 		}
-		#messageBox {
-
-		}
 	}
 	</style>
 </head>
@@ -36,7 +33,7 @@
 			<h1>Add Users</h1>
 		</div>
 		<div class="content">
-			<form action="/register" method="post">
+			<form id="signupForm" action="/register" method="post">
 				<ul class="form-container" >
 					<li>
 						<input type="text" placeholder="first name" name="firstname" required><br>
@@ -53,7 +50,7 @@
 					<li>
 						<input type="password" placeholder="password" name="password" required><br>
 					</li>
-					<li id="messageBox"></li>
+					<li class="messageBox"></li>
 					<li>
 						<input class="submit-button" name="submit" type="submit" onclick="validateForm()" value="Save!">
 					</li>
