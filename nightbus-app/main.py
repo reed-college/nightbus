@@ -5,7 +5,6 @@ from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
 from tracking import calculate_duration
-from flask_socketio import SocketIO
 import config
 import schema
 import database
@@ -16,7 +15,6 @@ import post_to_fb
 
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 mail = Mail()
 
 # I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
@@ -596,4 +594,4 @@ def methodnotallowed(e):
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
-    socketio.run(host='0.0.0.0', port=port)
+    app.runt(host='0.0.0.0', port=port)
