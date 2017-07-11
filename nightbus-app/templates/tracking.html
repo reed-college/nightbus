@@ -32,7 +32,7 @@
 						<input id="autocomplete_0" onFocus="initAutocomplete()" type="text" placeholder="address" name="address" required><br>
 					</li>
 					<li>
-						<a id="toggleBtn">Add another address</a>
+						<input id="toggleBtn" class="submit-button" type="button" value="Add another address">
 					</li>
 					<li>
 						<input class="submit-button" name="submit" type="submit" value="Save!">
@@ -48,7 +48,7 @@
 				});
 
 				function createInput(element) {
-					var id = current_id + 1;
+					var id = current_id ++;
 					current_id = id;
 					var newInputField = element.clone()
 																.find("input:text").val("").end();
