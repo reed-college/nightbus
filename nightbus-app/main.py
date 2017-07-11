@@ -39,6 +39,7 @@ class NightBus:
         self.origin = None
         self.destinations = []
         self.num_of_destinations = 0
+        self.current_location = None
     def get_current_status(self):
         return self.current_status
     def get_trip_duration(self):
@@ -59,6 +60,10 @@ class NightBus:
         return self.destinations
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
+    def get_current_location(self):
+        return self.current_location
+    def update_current_location(self, new_location):
+        self.current_location = new_location
 
 
 b  = NightBus()
@@ -75,17 +80,19 @@ def home():
     duration = b.get_trip_duration()
     return render_template("rider.html", status=status, duration=duration)
 
-@app.route('/t', methods=['GET'])
-def t():
-    return render_template('geolocationtest.html')
+@app.route('/realtimetracking', methods=['GET'])
+def realtimetracking():
+    return render_template('realtimetracking.html')
 
-@app.route('/geolocationtest', methods=['POST'])
-def geolocationtest():
+@app.route('/updateduration', methods=['POST'])
+def updateduration():
     if request.method == 'POST':
-        location = request.get_json()
-        print(location)
-        return json.dumps({'status':'OK'})
+        location = reqeust.get_json()
+        b.update_current_location((location[0], location[1]))
+        duration = calculate_duration("Reed College", b.get_current_location())
+        b.update_trip_duration(duration)
 
+        return ('', 204)
 
 @app.before_first_request
 def intialize():
