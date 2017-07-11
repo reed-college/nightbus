@@ -33,13 +33,29 @@
 				callback({'error': 'Unable to retrieve your location'});
 			}
 
-			output.innerHTML = "<p> Locating .... </p>";
 
 			navigator.geolocation.getCurrentPosition(success, error);
 
 		};
 
-		var locate = setInterval(function () { 
+		function sendLocation() {
+			var locateMe = geoLocate (function(locateMe) {
+				var location = locateMe['success'];
+					$.ajax({
+						url: '/updateduration',
+						data: JSON.stringify(location),
+						dataType: 'json',
+						contentType: 'application/json',
+						type: 'POST',
+						dataType: 'json',
+					});
+			});
+		};
+		
+		sendLocation();
+		setInterval(sendLocation, 30000);
+
+/*		var locate = setInterval(function sen () { 
 			var locateMe = geoLocate (function(locateMe) {
 				var location = locateMe['success'];
 					$.ajax({
@@ -53,7 +69,7 @@
 					});
 			}); 
 		}, 1000);
-
+*/
 	</script>
 	<div id="out"></div>
 </body>

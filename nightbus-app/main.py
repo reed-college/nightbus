@@ -87,7 +87,8 @@ def realtimetracking():
 @app.route('/updateduration', methods=['POST'])
 def updateduration():
     if request.method == 'POST':
-        location = reqeust.get_json()
+        location = request.get_json()
+        print(location)
         b.update_current_location((location[0], location[1]))
         duration = calculate_duration("Reed College", b.get_current_location())
         b.update_trip_duration(duration)
