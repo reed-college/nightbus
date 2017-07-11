@@ -32,7 +32,7 @@
 		</div>
 	</div>
 
-		<div class="content">
+		<div class="rider-content">
 			<div class="box bussie-center">
 				<div class="icon-wrap">
 					{% if "here" in status %}
@@ -44,11 +44,13 @@
 					{% else %}
 						<img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
 					{% endif %}
+					<h2 id="whereis">The Nightbus is {{ status }}!</h2>
+					<div class="status_update">
+						{% if duration > 0 %} 
+						<p>The nightbus will be on campus in {{ duration }} minutes </p>
+						{% endif %}
+					</div>
 				</div>
-				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
-				{% if duration > 0 %}
-					<div class="status_update"> <p>The nightbus will be on campus in {{ duration }} minutes </p>
-				{% endif %}
 				<p> The NightBus is a Reed sponsered late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
 				<br><br><br>
 				<a id = "missingBtn">Report the NightBus missing</a>
