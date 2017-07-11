@@ -48,13 +48,12 @@
 				});
 
 				function createInput(element) {
-					var id = current_id ++;
+					var id = current_id + 1;
 					current_id = id;
 					var newInputField = element.clone()
 																.find("input:text").val("").end();
-
-					newInputField.find("input:text").attr('id', element.find("input:text").attr('id').split('_')[0] + '_' + id);
-				 	element.after(newInputField);
+					newInputField.children().attr('id', element.children().attr('id').split('_')[0] + '_' + id);
+					$('#toggleBtn').before(newInputField);
 				}
 
 				var autocomplete;
