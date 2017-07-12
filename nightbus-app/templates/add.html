@@ -69,7 +69,7 @@
 					$('#errContainer').css('display', 'block');
 					// clear error messages whilst typing
 					element.keyup(function (){
-						$('#errContainer').empty();
+						document.getElementById("errContainer").style.display = "none"
 					});
 
 				},
