@@ -65,12 +65,18 @@
 			$('form').validate({
 
 				errorPlacement: function(error, element) {
-					$("errContainer").prepend();
+					var hidden = false
+					if (hidden == true) {
+						$("errContainer").toggle();
+						hidden = false}
 					error.appendTo($('#errContainer'));
 					$('#errContainer').css('display', 'block');
 					// clear error messages whilst typing
 					element.keyup(function (){
-						$('#errContainer').detach();
+						$('#errContainer').empty()
+						if (hidden == false) {
+							$('#errContainer').toggle();
+							hidden = true}
 					});
 
 				},
