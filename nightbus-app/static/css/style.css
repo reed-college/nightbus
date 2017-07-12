@@ -415,7 +415,7 @@ form {
 
  .form-container {
  	width: 100%;
- 	max-height: 80%;
+ 	max-height: 500px;
  	background-color: #83979E;
  	display: flex;
  	flex-direction: column;
@@ -424,14 +424,11 @@ form {
  	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
  	margin-left: 10%;
 	box-sizing: border-box;
+	overflow-y: auto;
  }
 
  .form-container li {
- 	display: flex;
- 	flex-direction: column;
- 	flex-wrap: wrap;
- 	align-items: center;
-
+	display: block;
  }
 
 .form-container li input {
