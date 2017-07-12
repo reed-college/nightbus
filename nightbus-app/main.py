@@ -314,10 +314,10 @@ def reset_password(token):
 
         if user.role == 'admin':
             db.close()
-            return redirect(url_for('adminlogin'))
+            return redirect(url_for('login'))
         else:
             db.close()
-            return redirect(url_for('driverlogin'))
+            return redirect(url_for('login'))
     else:
         return render_template('reset_password.html', token = token)
 
@@ -336,11 +336,11 @@ def set_password(token):
         if user.role == 'admin':
             db.close()
             flash("Account registered successfully. Please login")
-            return redirect(url_for('adminlogin'))
+            return redirect(url_for('login'))
         else:
             db.close()
             flash("Account registered successfully. Please login")
-            return redirect(url_for('driverlogin'))
+            return redirect(url_for('login'))
     return render_template('confirm_password.html', token = token)
 
 @app.route('/removeuser')
@@ -349,7 +349,7 @@ def removeuser():
     if session['logged_in']:
         return render_template('remove.html')
     else:
-        return redirect(url_for('adminlogin'))
+        return redirect(url_for('login'))
 
 @app.route('/remove', methods=['POST'])
 def remove():
@@ -439,10 +439,7 @@ def register():
 #        send_mail(user.email, subject, html, mail)
 
     db.close()
-    if user.role == 'admin':
-        return redirect(url_for('adminlogin'))
-    else:
-        return redirect(url_for('driverlogin'))
+    return redirect(url_for('login'))
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
