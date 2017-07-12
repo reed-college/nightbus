@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, json
 from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
@@ -36,6 +36,7 @@ class NightBus:
         self.origin = 'Reed College'
         self.destinations = []
         self.num_of_destinations = 0
+        self.current_location = None
     def get_current_status(self):
         return self.current_status
     def get_trip_duration(self):
@@ -56,6 +57,10 @@ class NightBus:
         return self.destinations
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
+    def get_current_location(self):
+        return self.current_location
+    def update_current_location(self, new_location):
+        self.current_location = new_location
 
 
 b  = NightBus()
@@ -76,9 +81,20 @@ def home():
     duration = b.get_trip_duration()
     return render_template("rider.html", status=status, duration=duration)
 
+@app.route('/realtimetracking', methods=['GET'])
+def realtimetracking():
+    return render_template('realtimetracking.html')
 
-# I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
+@app.route('/updateduration', methods=['POST'])
+def updateduration():
+    if request.method == 'POST':
+        location = request.get_json()
+        print(location)
+        b.update_current_location((location[0], location[1]))
+        duration = calculate_duration("Reed College", b.get_current_location())
+        b.update_trip_duration(duration)
 
+        return ('', 204)
 
 @app.before_first_request
 def intialize():
@@ -549,6 +565,7 @@ def drivermaps():
     no_destination = False
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
+
 ##### Error Handling #####
 
 # These four felt like the major and most commonly occuring errors and I only added error handling for them but if we need
@@ -576,4 +593,4 @@ def methodnotallowed(e):
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.runt(host='0.0.0.0', port=port)

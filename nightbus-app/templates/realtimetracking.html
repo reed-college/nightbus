@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+<title>Nightbus | Geolocation Test </title>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="initial-scale=1, width=device-width">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		function geoLocate(callback) {
+			var output = document.getElementById("out");
+
+			if(!navigator.geolocation) {
+				//output.innerHTML = "<p> Geolocation is not supported by this browser </p>";
+				callback({'error': 'Geolocation is not supported by this browser </p>'});
+			}
+
+			function success(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				var location = [lat, lng];
+
+				//output.innerHTML = "<p>Latitude is " + lat + "<br> Longitudte is " + lng + "</p>";
+				callback({'success': location});
+			}
+
+			function error(position) {
+				//	output.innerHTML = "<p> Unable to retrieve your location </p>"; 
+				callback({'error': 'Unable to retrieve your location'});
+			}
+
+
+			navigator.geolocation.getCurrentPosition(success, error);
+
+		};
+
+		function sendLocation() {
+			var locateMe = geoLocate (function(locateMe) {
+				var location = locateMe['success'];
+					$.ajax({
+						url: '/updateduration',
+						data: JSON.stringify(location),
+						dataType: 'json',
+						contentType: 'application/json',
+						type: 'POST',
+						dataType: 'json',
+					});
+			});
+		};
+		
+		sendLocation();
+		setInterval(sendLocation, 30000);
+
+	</script>
+</body>
+</html>
+
