@@ -14,7 +14,7 @@
 # modules we use to a minimum we decided to write our own decorator. 
 
 # A documentation on flask view decorators can be found at http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
-from flask import session, flash, redirect, url_for, render_template
+from flask import session, flash, redirect, url_for, render_template, request
 from functools import wraps
 import schema
 import database
@@ -28,7 +28,7 @@ def login_required(role):
         def wrap(*args, **kwargs):
             if session['logged_in']:
                 username = session['username']
-                user = db.query(schema.User).filter_by(username=username).first()
+                user = db.query(schema.User).filter_by(username = username).first()
                 if user:
                     if str(user.role).lower() == str(role).lower() or str(user.role).lower() == 'admin':
                         return function(*args, **kwargs)
@@ -36,13 +36,7 @@ def login_required(role):
                         return render_template('no_access.html')
                 else:
                     return render_template('no_user.html')
-
             else:
-                if str(role).lower() == 'driver':
-                    return redirect(url_for('driverlogin'))
-                elif str(role).lower() == 'admin':
-                    return redirect(url_for('adminlogin'))
-                else:
-                    return render_template('500.html')
+                return render_template('login.html', next = request.path)
         return wrap
     return wrapper

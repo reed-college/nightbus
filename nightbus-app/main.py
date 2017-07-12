@@ -460,8 +460,8 @@ def confirm_email(token):
     flash('Email successfully confimed')
     return redirect(url_for('login'))
 
-@app.route('/driverlogin', methods=['GET', 'POST'])
-def driverlogin():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
         db = database.get_session()
         username = request.form['username']
@@ -475,39 +475,13 @@ def driverlogin():
                 session['username'] = username
                 session['logged_in'] = True
 
-                return redirect(url_for('driver'))
+                return redirect(request.args.get("next"))
             else:
-                return redirect(url_for('driverlogin'))
+                return redirect(url_for('login'))
         else:
             return render_template('no_user.html')
     else:
-        return render_template('driver_login.html')
-
-
-@app.route('/adminlogin', methods=['GET', 'POST'])
-def adminlogin():
-    if request.method == 'POST':
-        db = database.get_session()
-        username = request.form['username']
-        password = request.form['password']
-
-        user_auth = db.query(schema.Auth).filter_by(username=username).first()
-        user = db.query(schema.User).filter_by(username=username).first()
-
-        if user_auth:
-            if user_auth.verify_password(password):
-                session['username'] = username
-                session['logged_in'] = True
-                session['role'] = str(user.role).lower()
-
-                return redirect(url_for('admin'))
-            else:
-                return redirect(url_for('admin_login.html'))
-        else:
-            return render_template('no_user.html')
-    else:
-        return render_template('admin_login.html')
-
+        return render_template('login.html')
 
 @app.route('/logout')
 def logout():
