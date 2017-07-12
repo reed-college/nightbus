@@ -36,13 +36,18 @@ It should be 1200px for home page and add/remove driver pages ***/
 .header {
 	width: 100%;
 	padding: 5px;
-  background-color: #83979E;
-  display: flex;
+  	background-color: #83979E;
+  	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	min-height: 50px;
+	height: 75px;
 	position: fixed;
 	z-index: 1;
+}
+
+.nav {
+	display: flex;
+	justify-content: center;
 }
 
 a {
@@ -59,9 +64,7 @@ a {
 
 .nav a:hover {
 	border-top: 5px solid #A84649;
-	padding: 15px;
-	padding-left: 0px;
-	margin: 0 auto;
+	padding-top: 5px;
 	color: #F2F6EA;
 }
 
@@ -145,11 +148,27 @@ p {	width: 80%;
 	justify-content: flex-start;
 }
 
+.rider-content {
+	margin-top: 100px;
+	margin-left: -5%;
+	width: 100%;
+	height: 1400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
 /*** individual boxes ***/
 
 .box {
 	width: 70%;
-	height: 680px;
+	height: 880px;
+	margin: 0 auto;
+}
+
+.short-box {
+	width: 70%;
+	height: 400px;
 	margin: 0 auto;
 }
 
@@ -390,18 +409,23 @@ button:hover {
 
 /*** Forms ***/
 
+form {
+	width: 368px;
+}
+
  .form-container {
  	width: 100%;
- 	max-height: 500px;
+ 	max-height: 80%;
  	background-color: #83979E;
  	display: flex;
  	flex-direction: column;
- 	z-index: 1;
  	padding: 45px;
  	text-align: center;
  	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
  	margin-left: 10%;
+	box-sizing: border-box;
  }
+
  .form-container li {
  	display: flex;
  	flex-direction: column;
@@ -440,6 +464,11 @@ button:hover {
 .form-container li .submit-button:hover {
 	background-color: #A84649;
 	color: #F2F6EA;
+}
+
+.login {
+	width: 60%;
+	margin-left: 15%;
 }
 
 .rider-alerts {
@@ -506,56 +535,33 @@ button:hover {
 	transition: all 0.5s ease;
 }
 
+/* Form validation */
 
+.messageBox {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: auto;
+	top: 60%;
+	left: 110%;
+	text-align:left !important;
+	background-color: brown;
+}
 
-/*** Form validation ***/
-
-.form-container li span {
+.rider-alerts {
 	position: relative;
+	width: 100%;
+}
+
+.rider-errors {
+	display: block;
+	position: absolute;
+	width: auto;
+	height: auto;
+	top: 1%;
+	left: 55%;
 	text-align: left;
-}
-
-
-#errNm1 {
-	position: absolute;
-	color: #5f6062;
-	top: 25%;
-	left: 70%;
-}
-
-#errNm2 {
-	position: absolute;
-	color: #5f6062;
-	top: 35%;
-	left: 70%;
-}
-
-#errNm3 {
-	position: absolute;
-	color: #5f6062;
-	top: 45%;
-	left: 70%;
-}
-
-#errNm4 {
-	position: absolute;
-	color: #5f6062;
-	top: 55%;
-	left: 70%;
-}
-
-#errNm5 {
-	position: absolute;
-	color: #5f6062;
-	top: 65%;
-	left: 70%;
-}
-
-#errNm6 {
-	position: absolute;
-	color: #5f6062;
-	top: 75%;
-	left: 70%;
+	z-index: 10;
 }
 
 /*** Animation  ***/
@@ -567,7 +573,7 @@ button:hover {
 .icon-wrap {
 	width: 100%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 
 }
@@ -583,7 +589,7 @@ button:hover {
 	margin-top: -50px;
 	height: 350px;
 	width: 350px;
-	margin-right: 10%;
+	margin-left: 20%;
 	-webkit-animation: mymove 1s infinite;
 }
 
@@ -651,47 +657,37 @@ tbody tr td {
 	color:#A84649;
 }
 
-/**** Driver page instructions ****/
+/**** Driver + Admin page instructions ****/
 
-.box .instructions {
+.instructions {
 	background-color: #F2F6EA;
 	font-family: Roboto, sans-serif;
 	max-width: 100%;
-	height: 50%;
 	color: #001848;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	padding: 5px;
-	margin-top: 7.5%;
+	height: 400px;
+	margin-left: 15px;
 	position: relative;
 }
 
-.box .instructions h2 {
+
+.instructions h2 {
 	color: #A84649;
 	align: center;
 }
 
-.box .instructions ul li {
+.instructions ul li {
 	list-style-type: none;
 	border-bottom: 1px solid #333;
 	padding: 15px;
 	margin: 0 auto;
+	margin-right: 20px;
+	margin-top: 20px;
 }
 
-.box .instructions ul li a {
-	text-decoration: none;
-	color: #233c63;
-	background-color: transparent;
-	border: 2px solid #233c63;
-	border-radius: 20px;
-	padding: 10px;
-	align: center;
-	cursor:pointer;
-	position:absolute;
-	left: 37%;
-	bottom: 12%;
-}
 
-.box .instructions ul li a:hover {
+.instructions ul li a:hover {
 	color: #F8F8FF;
 	background-color: #233c63;
 	transition: all 0.5s ease;
@@ -712,6 +708,16 @@ tbody tr td {
 	transition: all 0.5s ease;
 }
 
+.instructions ul li a {
+	text-decoration: none;
+	color: #233c63;
+	background-color: transparent;
+	border: 2px solid #233c63;
+	border-radius: 20px;
+	padding: 10px;
+	align: center;
+	cursor: pointer;
+}
 
 /*** DESKTOP ***/
 
@@ -726,11 +732,15 @@ tbody tr td {
 		height: 900px;
 	}
 
+	.iwrapper {
+		height: 600px;
+	}
+
 	.header {
 		flex-direction: row;
 		width: 95%;
 		margin-left: 2.5%;
-
+		height: 40px;
 	}
 
 	.header h1 {
@@ -742,10 +752,22 @@ tbody tr td {
 		justify-content: space-around;
 	}
 
+	.rider-content{
+		flex-direction: row;
+		justify-content: space-around;
+		margin-left: 0;
+	}
+
 	.box {
 		width: 45%;
 		margin-left: 0;
 	}
+
+	.short-box {
+		width: 45%;
+		height: 600px;
+		margin: 0 auto;
+}
 
 	.dex-box {
 		margin-left: 0px;
@@ -760,7 +782,7 @@ tbody tr td {
 	}
 
 	.dex-icon {
-		margin-right: 0;
+		margin-left: 15%;
 	}
 
 	#whereis {
@@ -769,5 +791,12 @@ tbody tr td {
 
 	.form-container {
 		width: 100%;
+		margin-left: 0;
+		position: relative;
+	}
+
+	.instructions {
+		margin-top: 7%;
+		margin-right: 15px;
 		margin-left: 0;
 	}

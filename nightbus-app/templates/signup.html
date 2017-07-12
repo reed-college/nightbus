@@ -8,6 +8,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
 	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
+	<script src='../static/main.js'></script>
 	<style>
 	@media screen and (max-width: 768px) {
 		.wrapper {
@@ -32,120 +33,31 @@
 			<h1>Add Users</h1>
 		</div>
 		<div class="content">
-			<form action="/register" method="post">
+			<form id="signupForm" action="/register" method="post">
 				<ul class="form-container" >
 					<li>
-						{% with messages = get_flashed_messages() %}
-							{% if messages %}
-								{% for message in messages %} {{ message }}
-								{% endfor %}
-							{% endif %}
-						{% endwith %}
-					</li>
-					<li>
 						<input type="text" placeholder="first name" name="firstname" required><br>
-						<span id="errNm1"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="last name" name="lastname" required><br>
-						<span id="errNm2"></span>
 					</li>
 					<li>
 						<input type="text" placeholder="username" name="username" required><br>
-						<span id="errNm3"></span>
 					</li>
 					<li>
 						<input type="email" placeholder="email" name="email" required><br>
-						<span id="errNm4"></span>
-					</li>
-					<li>
-						<input type="text" placeholder="role" name="role" required><br>
-						<span id="errNm5"></span>
 					</li>
 					<li>
 						<input type="password" placeholder="password" name="password" required><br>
-						<span id="errNm6"></span>
 					</li>
+					<li class="messageBox"></li>
 					<li>
-						<input class="submit-button" name="submit" type="submit" value="Save!">
+						<input class="submit-button" name="submit" type="submit" onclick="validateForm()" value="Save!">
 					</li>
 				</ul>
 
 			</form>
 		</div>
-		<script>
-			$(function() {
-				$('form').validate({
-
-					errorPlacement: function(error, element) {
-						// place error messages next to their corresponding invalid element
-						if (element.attr("name") == "firstname" ) {
-	              error.appendTo($('#errNm1'));
-	            } else if (element.attr("name") == "lastname" ) {
-								error.appendTo($('#errNm2'));
-							} else if (element.attr("name") == "username") {
-								error.appendTo($("#errNm3"));
-							} else if (element.attr("name") == "email") {
-								error.appendTo($("#errNm4"));
-							} else if (element.attr("name") == "role") {
-								error.appendTo($("#errNm5"));
-							} else if (element.attr("name") == "password") {
-								error.appendTo($("#errNm6"));
-							} else {
-								//do nothing
-							}
-
-					},
-
-					//Specify validation rules
-					rules: {
-						firstname: "required",
-						lastname: "required",
-						username: {
-							required: true,
-							// check if username already exists.
-							remote: {
-								url: 'username_exists',
-								type: 'post',
-								data: {
-									username: function() {
-										return $("input[name=username]").val()
-									}
-								}
-							}
-						},
-						email: {
-							required: true,
-							email: true // Specify that email should be validated by the built-in "email" rule
-						},
-						role: "required",
-						password: {
-							required: true,
-							minlength: 5
-						}
-					},
-
-					// specify validation error messages
-					messages: {
-						firstname: "Please enter your first name",
-						lastname: "Please enter your lastname",
-						username: {
-							required: "Please enter your username",
-						},
-						password: {
-							required: "Please provide a password",
-							minlength: "Your password must be at least 5 characters long"
-						},
-						email: "Please enter a valid email address",
-						role: "Please fill in your role"
-					},
-
-					submitHandler: function(form) {
-						form.submit();
-					}
-				});
-			});
-		</script>
 	</div>
 </body>
 

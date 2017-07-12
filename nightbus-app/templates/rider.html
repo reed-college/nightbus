@@ -8,12 +8,6 @@
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
 	<script src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 	<script src='../static/main.js'></script>
-	<style>
-	.rider-alerts input {
-		position: relative;
-	}
-
-	</style>
 </head>
 
 <body>
@@ -38,7 +32,7 @@
 		</div>
 	</div>
 
-		<div class="content">
+		<div class="rider-content">
 			<div class="box bussie-center">
 				<div class="icon-wrap">
 					{% if "here" in status %}
@@ -50,6 +44,12 @@
 					{% else %}
 						<img class="dex-icon" src="../static/leaving.gif" alt="bus-img"/>
 					{% endif %}
+					<h2 id="whereis">The Nightbus is {{ status }}!</h2>
+					<div class="status_update">
+						{% if duration > 0 %} 
+						<p>The nightbus will be on campus in {{ duration }} minutes </p>
+						{% endif %}
+					</div>
 				</div>
 				<h2 id="whereis">The Nightbus is {{ status }}!</h2>
 				{% if duration > 0 %}
@@ -65,159 +65,28 @@
 				</p>
 
 				<div class="rider-alerts">
-				<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
-					Name: <br>
-					<input type = "text" name = "name" required>
-					<span id="err3"></span><br>
-					Email: <br>
-					<input type = "text" name = "email" required>
-					<span id="err4"></span>
-					<br><br>
-					<button type= "submit" id ="latesubmit" value= "I'm late! Please wait 5 minutes!">I'm late! Please wait 5 minutes!</button>
-					<br><br>
-					<button type="button" id= "lategoback">Go Back</button>
-				</form>
 
+					<form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+						Name: <br>
+						<input type = "text" name = "name" required><br><br>
+						Email: <br>
+						<input type = "text" name = "email" required><br><br>
+						<span id="late-errors" class="rider-errors"></span>
+						<input type= "submit" id ="latesubmit" onclick="validateLate()" value= "I'm late! Please wait 5 minutes!"><br><br>
+						<input type="button" id= "lategoback" value="Go Back">
+					</form>
 
-				<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
-					Name: <br>
-					<input type = "text" name = "name" required>
-					<span id="err1"></span><br>
-					Email: <br>
-					<input type = "text" name = "email" required>
-					<span id="err2"></span>
-					<br><br>
-					<button type = "submit" id ="missingsubmit" value= "Report the NightBus missing">Report the NightBus missing</button>
-					<br><br>
-					<button type="button" id= "missinggoback">Go Back</button>
-				</form>
+					<form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+						Name: <br>
+						<input type = "text" name = "name" required><br><br>
+						Email: <br>
+						<input type = "text" name = "email" required><br><br>
+						<span id="missing-errors" class="rider-errors"></span>
+						<input type = "submit" id ="missingsubmit" onclick="validateMissing()" value= "Report the NightBus missing"><br><br>
+						<input type="submit" id= "missinggoback" value="Go Back">
+					</form>
 
 				</div>
-
-				<script>
-				$(function() {
-					$("#late-notice").validate({
-						errorPlacement: function(error, element) {
-							if (element.attr('name')=='name') {
-								error.appendTo($('#err3'))	;
-								offset = element.offset();
-								$('#err3').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'brown',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-							} else {
-								error.appendTo($('#err4'));
-								offset = element.offset();
-								$('#err4').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'brown',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-								}
-							},
-							rules: {
-								name: "required",
-								email: {
-									required: true,
-									email: true
-								}
-							},
-							messages: {
-								name: "Please enter your name",
-								email: {
-									required: "Please enter your email address",
-									email: "Please enter a valid email address"
-								}
-							},
-							submitHandler: function(form) {
-
-								$.ajax({
-										url: "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec",
-										data: $(form).serialize(),
-										type: "POST",
-										dataType: "json",
-										success: function(data) {
-												alert('Your request has been received');
-												console.log('Submission successful');
-
-										},
-										error: function(xhr, status, error) {
-												alert("Oops, something's wrong. Please try again.");
-												console.log('Submission failed: ' + error);
-										}
-									});
-									return false;
-								}
-							});
-						});
-
-					$("#report-missing").validate({
-						errorPlacement: function(error, element) {
-							if (element.attr('name')=='name') {
-								error.appendTo($('#err1'))	;
-								offset = element.offset();
-								$('#err1').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'brown',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-							} else {
-								error.appendTo($('#err2'));
-								offset = element.offset();
-								$('#err2').css({
-										'position': 'absolute',
-										'display': 'inline-block',
-										'color': 'brown',
-										'top': offset.top,
-										'left': offset.left + element.outerWidth() +20,
-										'z-index': '10'
-									});
-								}
-							},
-							rules: {
-								name: "required",
-								email: {
-									required: true,
-									email: true
-								}
-							},
-							messages: {
-								name: "Please enter your name",
-								email: {
-									required: "Please enter your email address",
-									email: "Please enter a valid email address"
-								}
-							},
-							submitHandler: function(form) {
-								$.ajax({
-										url: "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec",
-										data: $(form).serialize(),
-										type: "POST",
-										dataType: "json",
-										success: function(data) {
-												alert('Your report has been received');
-												console.log('Submission successful');
-										},
-										error: function(xhr, status, error) {
-												alert("Oops, something's wrong. Please try again");
-												console.log('Submission failed: ' + error);
-										}
-								});
-							}
-					  });
-				</script>
-
-
 			</div>
 
 			<script>
@@ -238,11 +107,9 @@
 							$("p").toggle();
 							$("#late-notice").toggle();
 						});
-
 				 	});
+			</script>
 
-
-				 </script>
 			<div class="box">
 				<table>
 				<thead>

@@ -3,6 +3,21 @@
 	<title>Nightbus | Add Users </title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<meta name="viewport" content="initial-scale=1, width=device-width">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
+	<style>
+
+	#errContainer {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		background-color: brown;
+		padding: 5px;
+		box-sizing: border-box;
+	}
+	</style>
 </head>
 
 <body>
@@ -23,7 +38,7 @@
 			<ul class="form-container">
 				<li>
 					<input type="text" placeholder="first name" name="firstname" required><br>
-				</li>				
+				</li>
 				<li>
 					<input type="text" placeholder="last name" name="lastname" required><br>
 				</li>
@@ -39,9 +54,68 @@
 				<li>
 					<input class="submit-button" type="submit" value="Save!">
 				</li>
+				<li>
+					<span id="errContainer" style="display:none"></span>
+				</li>
 			</ul>
 		</form>
 	</div>
+	<script>
+		$(function() {
+			$('form').validate({
+
+				errorPlacement: function(error, element) {
+					error.appendTo($('#errContainer'));
+					$('#errContainer').css('display', 'block');
+					// clear error messages whilst typing
+					element.keyup(function (){
+						$('#errContainer').empty();
+					});
+
+				},
+
+				//Specify validation rules
+				rules: {
+					firstname: "required",
+					lastname: "required",
+					username: {
+						required: true,
+						// check if username already exists.
+						remote: {
+							url: 'username_exists',
+							type: 'post',
+							data: {
+								username: function() {
+									return $("input[name=username]").val()
+								}
+							}
+						}
+					},
+					email: {
+						required: true,
+						email: true // Specify that email should be validated by the built-in "email" rule
+					},
+					role: "required"
+				},
+
+				// specify validation error messages
+				messages: {
+					firstname: "Please enter a first name<br>",
+					lastname: "Please enter a lastname<br>",
+					username: {
+						required: "Please enter a username<br>",
+						remote: "Username is already taken<br>"
+					},
+					email: "Please enter a valid email address<br>",
+					role: "Please assign a role<br>"
+				},
+
+				submitHandler: function(form) {
+					form.submit();
+				}
+			});
+		});
+	</script>
 </div>
 </body>
 </html>

@@ -10,12 +10,11 @@ import schema
 import database
 import post_to_fb
 
+
 #from flask_httpauth import HTTPBasicAuth
 
-
-
 app = Flask(__name__)
-mail = Mail()
+mail = Mail(app)
 
 # I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
 # we can just create another class called ProdConfig with the appropriate attributes. This wasn't necessary at this point but the main.py was getting messy.
@@ -26,7 +25,7 @@ mail.init_app(app)
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 
-#update bus statuses upon hitting buttons on driver page
+# functions for udating the NightBus's status and for updating the duration of the trip
 
 status = "here"
 
@@ -34,7 +33,7 @@ class NightBus:
     def __init__(self):
         self.current_status = status
         self.trip_duration = 0
-        self.origin = None
+        self.origin = 'Reed College'
         self.destinations = []
         self.num_of_destinations = 0
         self.current_location = None
@@ -66,11 +65,15 @@ class NightBus:
 
 b  = NightBus()
 
+
+#updates the status of the NightBus
+
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
     return ('', 204)
+
 
 @app.route('/rider', methods=['GET'])
 def home():
@@ -96,6 +99,9 @@ def updateduration():
 @app.before_first_request
 def intialize():
     session['logged_in'] = False
+
+    #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
+
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
         db.close()
@@ -129,6 +135,9 @@ def index():
 @app.route('/driver')
 @login_required('driver')
 def driver():
+
+    #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
+
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
@@ -137,6 +146,9 @@ def driver():
 
 @app.route('/schedule')
 def schedule():
+
+    #pulls out all the drivers from the User database so admins can assign them to shifts
+
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
@@ -145,6 +157,9 @@ def schedule():
 
 @app.route('/display')
 def display():
+
+    #displays the new driver schedule after the admin changes the schedule
+
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
@@ -153,6 +168,10 @@ def display():
 
 @app.route('/assign', methods=['POST'])
 def assign():
+
+    #assigns the new driver to the driver schedule by running an if statment that checks if each day was passed a null value of "no", if it was
+    #then it means that a new driver was not assigned so it passes. if it is not null then it opens up the database and goes to the corresponding day
+    #and adds that driver as the driver for that day
     drivers= request.form.getlist('drivers[]')
 
     db = database.get_session()
@@ -222,8 +241,7 @@ def assign():
 
     db.commit()
     db.close()
-
-    # flash("Shift successfully assigned")
+    flash("Shift successfully assigned")
     return redirect(url_for('display'))
 
 
@@ -237,8 +255,11 @@ def admin():
 def adduser():
     return render_template('add.html')
 
+s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 @app.route('/add', methods=['POST'])
 def add():
+
+    #adds the new user to the User database by taking the form information and creating a User out of it.
 
     db = database.get_session()
 
@@ -265,12 +286,13 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
-    
-    subject = 'Set Your Password'
-    token = generate_confirmation_token(email, serializer)
-    set_password_url = url_for('set_password', token = token, _external=True)
-    html = render_template('activate.html', set_password_url = set_password_url)
-    send_mail(email, subject, html, mail)
+
+    msg = Message('Set Your Password', sender=('Reed College Nightbus','reednightbus@gmail.com'), recipients = [email])
+    # salt separates tokens of the same input values
+    token = s.dumps(email, salt='set-password')
+    link = url_for('set_password', token=token, _external=True)
+    msg.html = '<p>Confirm your email.</p><p> Please follow this link to activate your account: {}</p>'.format(link)
+    mail.send(msg)
 
 
     # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
@@ -284,13 +306,11 @@ def forgot_password():
     if request.method == "POST":
 
         email = request.form['email']
-
-        subject = 'Reset Your Password'
-        token = generate_confirmation_token(email, serializer)
-        reset_password_url = url_for('reset_password', token=token, _external=True)
-        html = render_template('reset.html', reset_password_url = reset_password_url)
-        send_mail(email, subject, html, mail)
-
+        msg = Message('Reset Your Password', sender=('Reed College Nightbus','reednightbus@gmail.com'), recipients = [email])
+        token = s.dumps(email, salt='reset-password')
+        link = url_for('reset_password', token=token, _external=True)
+        msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
+        mail.send(msg)
         return render_template('check_email.html')
 
     return render_template('forgot_password.html')
@@ -299,12 +319,9 @@ def forgot_password():
 def reset_password(token):
     if request.method == "POST":
         db = database.get_session()
-        email = confirm_email_token(token, serializer)
-
+        email = s.loads(token, salt='reset-password')
         user = db.query(schema.User).filter_by(email=email).first()
-        
         new_password = request.form['password']
-
         user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
         user_auth.encrypt_password(new_password)
 
@@ -316,7 +333,7 @@ def reset_password(token):
             return redirect(url_for('adminlogin'))
         else:
             db.close()
-            return redirect(url_for('adminlogin'))
+            return redirect(url_for('driverlogin'))
     else:
         return render_template('reset_password.html', token = token)
 
@@ -325,29 +342,22 @@ def reset_password(token):
 def set_password(token):
     if request.method == "POST":
         db = database.get_session()
-        email = confirm_email_token(token, serializer)
-
+        email = s.loads(token, salt='set-password')
         user = db.query(schema.User).filter_by(email=email).first()
-        
         new_password = request.form['password']
-
         user_auth = schema.Auth(username=user.username)
         user_auth.encrypt_password(new_password)
-
-
         db.add(user_auth)
         db.commit()
-        
         if user.role == 'admin':
             db.close()
+            flash("Account registered successfully. Please login")
             return redirect(url_for('adminlogin'))
         else:
             db.close()
+            flash("Account registered successfully. Please login")
             return redirect(url_for('driverlogin'))
     return render_template('confirm_password.html', token = token)
-    
-
-
 
 @app.route('/removeuser')
 @login_required('admin')
@@ -389,19 +399,21 @@ def signup():
 def username_exists():
     db = database.get_session()
     username_exists = db.query(schema.User).filter_by(username=request.form['username']).first()
+    db.close()
     if username_exists:
-        return jsonify("Username is already taken. Please pick another.")
+        return "false"
     else:
-        return jsonify("true")
+        return "true"
 
 @app.route('/email_exists', methods=['POST'])
 def email_exists():
     db = database.get_session()
     email_exists = db.query(schema.User).filter_by(email=request.form['email']).first()
+    db.close()
     if email_exists:
-        return jsonify("Email address is already registered. Please login instead.")
+        return "false"
     else:
-        return jsonify("true")
+        return "true"
 
 
 @app.route('/register', methods=['GET','POST'])
@@ -523,31 +535,20 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
-@app.route('/trackingtest', methods=['POST'])
-def trackingtest():
-    origin = request.form['origin']
-    numOfDestinations = request.form['numOfDestinations']
-    b.update_num_of_destinations(numOfDestinations)
-    b.update_origin(origin)
-    return jsonify({'status': 'OK', 'numOfDestinations': numOfDestinations});
-
-
 @app.route('/tracking', methods=['GET', 'POST'])
 @login_required('driver')
 def tracking():
     if request.method == 'POST':
         origin = b.get_origin()
-        num_destinations = int(b.get_num_of_destinations())
-        destinations = [None] * int(num_destinations)
-
-        for i in range(num_destinations):
-            destinations[i] = request.form['address' + str(i+1)]
+        destinations = request.form.getlist('address')
+        num_destinations = len(destinations)
+        b.update_num_of_destinations(num_destinations)
 
         duration = 0
+
         for destination in destinations:
-            duration += calculate_duration(origin, [destination])
+            duration += calculate_duration(origin, destination)
             origin = destination
-    
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
 
@@ -562,9 +563,7 @@ def drivermaps():
     destinations = b.get_destinations()
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
-
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
-
 
 
 ##### Error Handling #####
