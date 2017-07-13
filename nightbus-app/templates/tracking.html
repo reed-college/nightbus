@@ -25,8 +25,8 @@
 	 float: left !important;
 	 box-sizing: border-box;
  }
-.btn-rmv {
-		position: relative;
+
+	.btn-rmv {
 		display: inline-block;
 		top: 0;
 		right: 0;
@@ -93,6 +93,7 @@
 					newInputField.children().attr('id', element.children().attr('id').split('_')[0] + '_' + id);
 
 					newInputField.addClass('removable');
+
 					// Add a remove button next to the new address field. The button style is determined by Bootstrap CSS
 					newInputField.append('<button type="button" class="btn btn-rmv btn-warning btn-circle"><i class="glyphicon glyphicon-remove"></i></button>')
 
