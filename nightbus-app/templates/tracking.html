@@ -4,8 +4,40 @@
 	<title>Nightbus | Drivers</title>
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src='../static/js/main.js'></script>
+	<style>
+
+	#user-input input {
+	 background-color: #96afb7;
+	 color: #A84649;
+	 border: none;
+	 border-radius: 20px;
+	 padding: 15px;
+	 margin: 0 0 15px;
+	 outline: 0;
+	 font-size: 14px;
+	 width: 85% !important;
+	 float: left !important;
+	 box-sizing: border-box;
+ }
+.btn-rmv {
+		position: relative;
+		display: inline-block;
+		top: 0;
+		right: 0;
+	  width: 30px;
+	  height: 30px;
+	  text-align: center;
+	  padding: 6px 0;
+	  font-size: 12px;
+	  line-height: 1.428571429;
+	  border-radius: 50%;
+		float: right;
+		margin-top: 12px;
+	}
+	</style>
 </head>
 
 <body>
@@ -26,10 +58,10 @@
 			</div>
 		</div>
 		<div class="content">
-			<form  action="/tracking" method="post">
+			<form id="addressForm" action="/tracking" method="post">
 				<ul class="form-container">
 					<li id="user-input">
-						<input id="autocomplete_0" onFocus="initAutocomplete()" type="text" placeholder="address" name="address" required><br>
+						<input id="autocomplete_0" class='address'  type="text" placeholder="address" name="address" required><br>
 					</li>
 					<li>
 						<input id="toggleBtn" class="submit-button" type="button" value="Add another address">
@@ -44,33 +76,51 @@
 			<script>
 				var current_id = 0;
 				$('#toggleBtn').click(function() {
-					createInput($('#user-input'));
+						createInput($('#user-input'));
 				});
 
 				function createInput(element) {
+					// We need to set unique ids so the Google Maps API requests can be called for each unique address field
 					var id = current_id + 1;
 					current_id = id;
+					// Clear the value of the previous address field, if it's already been filled, and clone it to create a new address field
 					var newInputField = element.clone()
 																.find("input:text").val("").end();
+					// Update the id of the new address field
 					newInputField.children().attr('id', element.children().attr('id').split('_')[0] + '_' + id);
+
+					newInputField.addClass('removable');
+					// Add a remove button next to the new address field. The button style is determined by Bootstrap CSS
+					newInputField.append('<button type="button" class="btn btn-rmv btn-warning btn-circle"><i class="glyphicon glyphicon-remove"></i></button>')
+
+					// Place the new address field above the add address button
 					$('#toggleBtn').before(newInputField);
-				}
+
+					// When the user clicks the button, remove the address field
+					$('.btn-rmv').click(function() {
+						$(this).parent().remove();
+					});
+
 
 				var autocomplete;
 
-				function initAutocomplete() {
+			 $('.address').focus(function () {
 					// Create the autocomplete object
-					autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete_' + current_id));
+					autocomplete = new google.maps.places.Autocomplete($(this)[0]);
 
 					// When the user selects an address from the dropdown, populate the address fields in the form.
 					autocomplete.addListener('place_changed', fillInAddress);
-				}
+				});
 
 				function fillInAddress() {
 					// Get the place details from the autocomplete object.
 					var place = autocomplete.getPlace();
 				}
+}
 			</script>
+
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&libraries=places" async defer></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		</div>
 </body>
