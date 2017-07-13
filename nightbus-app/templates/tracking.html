@@ -88,7 +88,7 @@
 					newInputField.children().attr('id', element.children().attr('id').split('_')[0] + '_' + id);
 
 					newInputField.addClass('removable');
-					// Add a remove button next to the new address field
+					// Add a remove button next to the new address field. The button style is determined by Bootstrap CSS
 					newInputField.append('<button type="button" class="btn btn-rmv btn-warning btn-circle"><i class="glyphicon glyphicon-remove"></i></button>')
 
 					// Place the new address field above the add address button
@@ -116,10 +116,7 @@
 				}
 
 			</script>
-			<script>
 
-
-			</script>
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&libraries=places" async defer></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
