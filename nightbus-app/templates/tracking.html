@@ -9,10 +9,6 @@
 	<script src='../static/main.js'></script>
 	<style>
 
-#addressForm {
-	width: 400px;
-}
-
 	#user-input input {
 	 background-color: #96afb7;
 	 color: #A84649;
@@ -26,8 +22,8 @@
 	 float: left !important;
 	 box-sizing: border-box;
  }
-
-	.btn-rmv {
+.btn-rmv {
+		position: relative;
 		display: inline-block;
 		top: 0;
 		right: 0;
@@ -65,7 +61,7 @@
 			<form id="addressForm" action="/tracking" method="post">
 				<ul class="form-container">
 					<li id="user-input">
-						<input id="autocomplete_0" onFocus="initAutocomplete()" type="text" placeholder="address" name="address" required><br>
+						<input id="autocomplete_0" class='address'  type="text" placeholder="address" name="address" required><br>
 					</li>
 					<li>
 						<input id="toggleBtn" class="submit-button" type="button" value="Add another address">
@@ -80,7 +76,7 @@
 			<script>
 				var current_id = 0;
 				$('#toggleBtn').click(function() {
-					createInput($('#user-input'));
+						createInput($('#user-input'));
 				});
 
 				function createInput(element) {
@@ -94,7 +90,6 @@
 					newInputField.children().attr('id', element.children().attr('id').split('_')[0] + '_' + id);
 
 					newInputField.addClass('removable');
-
 					// Add a remove button next to the new address field. The button style is determined by Bootstrap CSS
 					newInputField.append('<button type="button" class="btn btn-rmv btn-warning btn-circle"><i class="glyphicon glyphicon-remove"></i></button>')
 
@@ -105,23 +100,23 @@
 					$('.btn-rmv').click(function() {
 						$(this).parent().remove();
 					});
-				}
+
 
 				var autocomplete;
 
-				function initAutocomplete() {
+			 $('.address').focus(function () {
 					// Create the autocomplete object
-					autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete_' + current_id));
+					autocomplete = new google.maps.places.Autocomplete($(this)[0]);
 
 					// When the user selects an address from the dropdown, populate the address fields in the form.
 					autocomplete.addListener('place_changed', fillInAddress);
-				}
+				});
 
 				function fillInAddress() {
 					// Get the place details from the autocomplete object.
 					var place = autocomplete.getPlace();
 				}
-
+}
 			</script>
 
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&libraries=places" async defer></script>
