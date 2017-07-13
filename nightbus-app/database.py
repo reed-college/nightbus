@@ -4,8 +4,10 @@
 import os
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
+import local_config
 
-url = 'postgresql://postgres@localhost/nightbus'
+url = local_config.DATABASE_URL
+#url = 'postgresql://postgres@localhost/nightbus'
 #url = os.environ.get('DATABASE_URL')
 engine = sqlalchemy.create_engine(url)
 
