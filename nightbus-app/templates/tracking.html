@@ -22,11 +22,11 @@
 	 float: left !important;
 	 box-sizing: border-box;
  }
-
-	.btn-rmv {
+.btn-rmv {
+		position: relative;
 		display: inline-block;
-		float: right;
-		margin: 6px auto;
+		top: 0;
+		right: 0;
 	  width: 30px;
 	  height: 30px;
 	  text-align: center;
@@ -34,6 +34,8 @@
 	  font-size: 12px;
 	  line-height: 1.428571429;
 	  border-radius: 50%;
+		float: right;
+		margin-top: 12px;
 	}
 	</style>
 </head>
@@ -56,7 +58,7 @@
 			</div>
 		</div>
 		<div class="content">
-			<form  action="/tracking" method="post">
+			<form id="addressForm" action="/tracking" method="post">
 				<ul class="form-container">
 					<li id="user-input">
 						<input id="autocomplete_0" onFocus="initAutocomplete()" type="text" placeholder="address" name="address" required><br>

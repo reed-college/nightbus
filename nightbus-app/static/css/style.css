@@ -407,8 +407,7 @@ form {
  	width: 100%;
  	max-height: 500px;
  	background-color: #83979E;
- 	display: flex;
- 	flex-direction: column;
+ 	display: block;
  	padding: 45px;
  	text-align: center;
  	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
