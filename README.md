@@ -4,18 +4,18 @@ The *Nightbus* a simple web app designed to improve accessibility to, and stream
 
 Last updated:
 
-#Overview
+# Overview
 
-#Contents
+# Contents
 
-#Requirements
+# Requirements
 Python 2.7 or later
 
 #Setup
 `pip install -r requirements.txt`
 
-#Documentation
-The collection of documentation for the project can be found here at [Read the Docs!] ()
+# Documentation
+The collection of documentation for the project can be found here at # ![Read the Docs] ()
 
-#Running it
+# Running it
 `python nightbus-app`
