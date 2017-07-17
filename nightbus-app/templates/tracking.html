@@ -74,6 +74,22 @@
 			</form>
 
 			<script>
+
+			var autocomplete;
+
+		 $('#autocomplete_0').focus(function () {
+				// Create the autocomplete object
+				autocomplete = new google.maps.places.Autocomplete($(this)[0]);
+
+				// When the user selects an address from the dropdown, populate the address fields in the form.
+				autocomplete.addListener('place_changed', fillInAddress);
+			});
+
+			function fillInAddress() {
+				// Get the place details from the autocomplete object.
+				var place = autocomplete.getPlace();
+			}
+			
 				var current_id = 0;
 				$('#toggleBtn').click(function() {
 						createInput($('#user-input'));
@@ -101,7 +117,6 @@
 						$(this).parent().remove();
 					});
 
-
 				var autocomplete;
 
 			 $('.address').focus(function () {
@@ -116,7 +131,7 @@
 					// Get the place details from the autocomplete object.
 					var place = autocomplete.getPlace();
 				}
-}
+			}
 			</script>
 
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK9cnUO7ivzLXGMxizbxt5y-sng3IjTIo&libraries=places" async defer></script>
