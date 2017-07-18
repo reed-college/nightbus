@@ -1,0 +1,12 @@
+.wrapper {
+  width: auto;
+}
+
+/* ======== Rider Page ======== */
+
+.rider-content {
+  max-width: 100%;
+}
+.listview {
+  display: block;
+}
