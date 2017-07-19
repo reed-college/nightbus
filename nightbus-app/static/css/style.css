@@ -205,6 +205,7 @@ on index.html ***/
     justify-content: space-around;
   }
   /*  =========== Dropdown Button  =========== */
+
   .dropbtn {
     width: 80%;
     height: 60px;
@@ -260,7 +261,7 @@ on index.html ***/
   }
   /***  =========== All Buttons  =========== ***/
 
-button {
+  button {
     width: 90%;
     height: 60px;
     margin-left: 5%;
