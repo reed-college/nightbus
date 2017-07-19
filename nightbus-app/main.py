@@ -81,6 +81,14 @@ def home():
     duration = b.get_trip_duration()
     return render_template("rider.html", status=status, duration=duration)
 
+@app.route('/rider/instructions')
+def riderInst():
+    return render_template("rider_inst.html")
+
+@app.route('/rider/schedule')
+def riderSch():
+    return render_template("rider_sch.html")
+
 @app.route('/realtimetracking', methods=['GET'])
 def realtimetracking():
     return render_template('realtimetracking.html')

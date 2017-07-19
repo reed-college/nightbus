@@ -2,15 +2,16 @@
 
 <head>
 	<title>Nightbus | Admins</title>
-	<link rel="stylesheet" href="../static/css/normalize.css">
-	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src='../static/js/main.js'></script>
+	<link href="../static/css/normalize.css" rel="stylesheet">
+	<link href="../static/css/style.css" rel="stylesheet">
+	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
 </head>
 
 <body>
-	<div class="iwrapper">
+	<div class="wrapper">
 
 		<div class="header">
 			<h1>NightBus | Admins</h1>
@@ -56,9 +57,7 @@
 			$(document).ready(function() {
 				if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 		      $(".dropbtn").click(function () {});
-					$('.nav').hide();
-					$('.mobile-nav').show();
-		    }
+				}
 			});
 	</script>
 	<script>
@@ -66,16 +65,4 @@
 		alert("NightBus cancelled!")
 	}
 	</script>
-
-	<footer>
-	<div class= "mobile-nav" style="display: none;">
-		<ul>
-			<li><a href="rider">Rider</a></li>
-			<li><a href="driver">Driver</a></li>
-			<li><a href="#" class="current">Admin</a></li>
-			<li><a href="logout">Sign out</a></li>
-		</ul>
-	</div><!-- /navbar -->
-</footer>
-
 </body>
