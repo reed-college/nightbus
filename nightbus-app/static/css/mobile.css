@@ -302,7 +302,7 @@ on index.html ***/
   }
   #missingBtn:hover, #lateBtn:hover {
     border-bottom-color:#F2F6EA;
-    transition: all 0.5s linear;
+    transition: all 0.5s ease;
   }
   #missinggoback, #lategoback {
     text-decoration: none;
@@ -367,10 +367,6 @@ on index.html ***/
   .form-container li .submit-button:hover {
     background-color: #A84649;
     color: #F2F6EA;
-  }
-  .login {
-    width: 60%;
-    margin-left: 15%;
   }
 
   /*  =========== Rider forms  =========== */
