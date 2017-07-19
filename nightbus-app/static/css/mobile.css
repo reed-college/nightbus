@@ -57,15 +57,6 @@
     flex-direction: column;
     justify-content: flex-start;
   }
-  .rider-content {
-    margin-top: 100px;
-    margin-left: 0;
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
   .short-box {
     width: 45%;
     height: 600px;
@@ -79,9 +70,6 @@
   }
   .red-button {
     margin-left: 12.5%;
-  }
-  #whereis {
-    margin-left: 15%;
   }
   .form-container {
     width: 100%;
@@ -116,8 +104,8 @@
   /*** statusbox is the element that is populated by an update
 message when a button is pressed on the driver page ***/
   p {
-    width: 80%;
-    margin: 15%;
+    max-width: 100%;
+    margin: 10%;
     background-color: #F2F6EA;
     font-family: Roboto, sans-serif;
     color: #001848;
@@ -142,9 +130,8 @@ message when a button is pressed on the driver page ***/
   /***  =========== Box Containers =========== ***/
 
   .box {
-    max-width: 80%;
+    max-width: 100%;
     height: 880px;
-    margin: 0 auto;
   }
   .short-box {
     width: 100%;
@@ -472,7 +459,7 @@ on index.html ***/
     margin-top: -50px;
     height: 350px;
     width: 350px;
-    margin-right: 15%;
+    margin-right: 25%;
     -webkit-animation: mymove 1s infinite;
   }
   @-webkit-keyframes mymove {
@@ -588,11 +575,18 @@ on index.html ***/
   }
   .rider-content {
     max-width: 100%;
+    margin-top: 100px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
   #rider-instructions {
-    margin-right: 8%;
-    margin-left: -5%;
+    max-width: 100%;
   }
   #rider-schedule {
     margin-right: 4%;
+  }
+  #whereis {
+    margin: 0 10%;
   }
