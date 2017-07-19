@@ -63,7 +63,6 @@
     width: 100%;
     height: auto;
     display: flex;
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
@@ -81,11 +80,8 @@
   .red-button {
     margin-left: 12.5%;
   }
-  .dex-icon {
-    margin-left: 15%;
-  }
   #whereis {
-    margin-left: 12.5%;
+    margin-left: 15%;
   }
   .form-container {
     width: 100%;
@@ -151,7 +147,7 @@ message when a button is pressed on the driver page ***/
   /***  =========== Box Containers =========== ***/
 
   .box {
-    width: 70%;
+    max-width: 80%;
     height: 880px;
     margin: 0 auto;
   }
@@ -294,39 +290,21 @@ on index.html ***/
     background-color: #83979E;
     transition: all 0.5s ease;
   }
-  #missingBtn {
-    text-decoration: none;
+
+  /***  =========== Rider Alert Buttons  =========== ***/
+
+  #missingBtn, #lateBtn {
     color: #233c63;
     background-color: transparent;
-    border: 2px solid #233c63;
-    border-radius: 20px;
-    padding: 10px;
+    border-bottom: solid 2px #233c63;
+    padding-bottom: 2px;
     cursor: pointer;
-    left: 37%;
-    bottom: 12%;
   }
-  #missingBtn:hover {
-    color: #F8F8FF;
-    background-color: #233c63;
-    transition: all 0.5s ease;
+  #missingBtn:hover, #lateBtn:hover {
+    border-bottom-color:#F2F6EA;
+    transition: all 0.5s linear;
   }
-  #lateBtn {
-    text-decoration: none;
-    color: #233c63;
-    background-color: transparent;
-    border: 2px solid #233c63;
-    border-radius: 20px;
-    padding: 10px;
-    cursor: pointer;
-    left: 37%;
-    bottom: 12%;
-  }
-  #lateBtn:hover {
-    color: #F8F8FF;
-    background-color: #233c63;
-    transition: all 0.5s ease;
-  }
-  #missinggoback {
+  #missinggoback, #lategoback {
     text-decoration: none;
     color: #F2F6EA;
     background-color: transparent;
@@ -337,23 +315,7 @@ on index.html ***/
     left: 37%;
     bottom: 12%;
   }
-  #missinggoback:hover {
-    color: #001848;
-    background-color: #F2F6EA;
-    transition: all 0.5s ease;
-  }
-  #lategoback {
-    text-decoration: none;
-    color: #F2F6EA;
-    background-color: transparent;
-    border: 2px solid #F2F6EA;
-    border-radius: 20px;
-    padding: 10px;
-    cursor: pointer;
-    left: 37%;
-    bottom: 12%;
-  }
-  #lategoback:hover {
+  #missinggoback:hover, #lategoback:hover {
     color: #001848;
     background-color: #F2F6EA;
     transition: all 0.5s ease;
@@ -519,7 +481,7 @@ on index.html ***/
     margin-top: -50px;
     height: 350px;
     width: 350px;
-    margin-left: 20%;
+    margin-right: 15%;
     -webkit-animation: mymove 1s infinite;
   }
   @-webkit-keyframes mymove {
@@ -574,7 +536,7 @@ on index.html ***/
     color: #A84649;
   }
 
-/**  =========== Driver + Admin page instructions  =========== **/
+ /**  =========== Driver/Admin Instructions  =========== **/
 
   .instructions {
     background-color: #F2F6EA;
@@ -635,4 +597,11 @@ on index.html ***/
   }
   .rider-content {
     max-width: 100%;
+  }
+  #rider-instructions {
+    margin-right: 8%;
+    margin-left: -5%;
+  }
+  #rider-schedule {
+    margin-right: 4%;
   }

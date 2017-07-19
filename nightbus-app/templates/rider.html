@@ -8,7 +8,7 @@
 	<script src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
 	<script src='../static/js/main.js'></script>
 	<link href="../static/css/normalize.css" rel="stylesheet">
-	<link href="../static/css/style.css" rel="stylesheet">
+	<link href="../static/css/style.css" media="screen and (min-device-width: 768px)" rel="stylesheet">
 	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
 </head>
 
@@ -18,14 +18,19 @@
 		<div class="header">
 			<h1>NightBus | Riders</h1>
 			<div class="nav nav-button">
-				{% if session['logged_in'] %} {% if session['role'] == 'driver' %}
-				<a href="{{ url_for('driver') }}">Driver</a>
-				<a href="{{ url_for('logout') }}">Sign Out</a> {% elif session['role'] == 'admin' %}
-				<a href="{{ url_for('driver') }}">Driver</a>
-				<a href="{{ url_for('admin') }}">Admin</a>
-				<a href="{{ url_for('logout') }}">Sign Out</a> {% endif %} {% else %}
-				<a href="{{ url_for('driverlogin') }}">Driver Login</a>
-				<a href="{{ url_for('adminlogin') }}"> Admin Login</a> {% endif %}
+				{% if session['logged_in'] %}
+					{% if session['role'] == 'driver' %}
+						<a href="{{ url_for('driver') }}">Driver</a>
+						<a href="{{ url_for('logout') }}">Sign Out</a>
+					{% elif session['role'] == 'admin' %}
+						<a href="{{ url_for('driver') }}">Driver</a>
+						<a href="{{ url_for('admin') }}">Admin</a>
+						<a href="{{ url_for('logout') }}">Sign Out</a>
+					{% endif %}
+				{% else %}
+						<a href="{{ url_for('driverlogin') }}">Driver Login</a>
+						<a href="{{ url_for('adminlogin') }}"> Admin Login</a>
+				{% endif %}
 			</div>
 			<!-- <div class="mobile-nav dropdown" id="nav-dropdown">
 			<button class="btn btn-default btn-lg">
@@ -45,16 +50,20 @@
 
 				<div class="icon-wrap">
 					{% if "here" in status %}
-					<img class="dex-icon" src="../static/gifs/here.gif" alt="bus-img" /> {% elif "coming" in status %}
-					<img class="dex-icon" src="../static/gifs/coming.gif" alt="bus-img" /> {% elif "cancelled" in status%}
-					<img class="dex-icon" src="../static/gifs/testcancelled.gif" alt="bus-img" /> {% else %}
-					<img class="dex-icon" src="../static/gifs/leaving.gif" alt="bus-img" /> {% endif %}
+					<img class="dex-icon" src="../static/gifs/here.gif" alt="bus-img" />
+					{% elif "coming" in status %}
+					<img class="dex-icon" src="../static/gifs/coming.gif" alt="bus-img" />
+					{% elif "cancelled" in status%}
+					<img class="dex-icon" src="../static/gifs/testcancelled.gif" alt="bus-img" />
+					{% else %}
+					<img class="dex-icon" src="../static/gifs/leaving.gif" alt="bus-img" />
+					{% endif %}
 				</div>
 				{% if duration > 0 %}
 				<h2 id="whereis">The nightbus will be on campus in {{ duration }} minutes </h2> {% else %}
 				<h2 id="whereis">The nightbus is {{status}}! </h2> {% endif %}
 
-				<div id="instructions">
+				<div id="rider-instructions">
 					<p> The NightBus is a Reed sponsored late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the
 						NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
 						<br><br><br>
@@ -108,7 +117,7 @@
 				});
 			</script>
 
-			<div id="schedule" class="box">
+			<div id="rider-schedule" class="box">
 				<table>
 					<thead>
 						<tr>
