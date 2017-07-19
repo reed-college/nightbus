@@ -367,9 +367,9 @@ on index.html ***/
     background-color: #83979E;
     display: block;
     padding: 45px;
+    margin: 40px 20px;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    margin-left: 10%;
     box-sizing: border-box;
     overflow-y: auto;
   }
