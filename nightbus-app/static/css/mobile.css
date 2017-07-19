@@ -88,11 +88,6 @@
     margin-left: 0;
     position: relative;
   }
-  .instructions {
-    margin-top: 7%;
-    margin-right: 15px;
-    margin-left: 0;
-  }
   /*** font layout for main header ***/
   h1 {
     font-family: Roboto, sans-serif;
@@ -152,7 +147,7 @@ message when a button is pressed on the driver page ***/
     margin: 0 auto;
   }
   .short-box {
-    width: 70%;
+    width: 100%;
     height: 400px;
     margin: 0 auto;
     display: flex;
@@ -542,8 +537,8 @@ on index.html ***/
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     padding: 5px;
     height: 400px;
-    margin-left: 15px;
     position: relative;
+    margin: 7% 5% 0 5%;
   }
   .instructions h2 {
     color: #A84649;
