@@ -131,7 +131,6 @@ message when a button is pressed on the driver page ***/
 
   .box {
     max-width: 100%;
-    height: 880px;
   }
   .short-box {
     width: 100%;
@@ -583,9 +582,6 @@ on index.html ***/
   }
   #rider-instructions {
     max-width: 100%;
-  }
-  #rider-schedule {
-    margin-right: 4%;
   }
   #whereis {
     margin: 0 10%;

@@ -17,7 +17,7 @@
 
 		<div class="header">
 			<h1>NightBus | Riders</h1>
-			<div class="nav nav-button">
+			<div class="nav">
 				{% if session['logged_in'] %}
 					{% if session['role'] == 'driver' %}
 						<a href="{{ url_for('driver') }}">Driver</a>
