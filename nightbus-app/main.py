@@ -551,6 +551,7 @@ def tracking():
             origin = destination
         b.update_trip_duration(duration)
         b.update_destinations(destinations)
+        post_to_fb.main("the Nightbus is " + str(duration) + " minutes away!")
 
         return redirect(url_for('drivermaps'))
 

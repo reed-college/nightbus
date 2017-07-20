@@ -35,7 +35,9 @@
 		<div class="rider-content">
 			<div class="box bussie-center">
 				<div class="icon-wrap">
-					{% if "here" in status %}
+					{% if "here" in status and duration > 0%}
+						<img class="dex-icon" src="../static/gifs/fancygone.gif" alt="bus-img"/>
+					{% elif "here" in status %}
 						<img class="dex-icon" src="../static/gifs/fancyhere.gif" alt="bus-img"/>
 					{% elif "coming" in status %}
 						<img class="dex-icon" src="../static/gifs/fancycoming.gif" alt="bus-img"/>
