@@ -522,7 +522,7 @@ on index.html ***/
     color: #001848;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     padding: 5px;
-    height: 400px;
+    height: auto;
     position: relative;
     margin: 7% 5% 0 5%;
   }
