@@ -1,4 +1,3 @@
 nightbus-app/local_config.py
 nightbus-app/*.pyc
 .DS_Store
-nightbus-app/static/.DS_Store

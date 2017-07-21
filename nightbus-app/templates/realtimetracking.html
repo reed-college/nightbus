@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
 <head>
-<title>Nightbus | Geolocation Test </title>
-	<link rel="stylesheet" href="../static/css/normalize.css">
-	<link rel="stylesheet" href="../static/css/style.css">
+<title>Nightbus | Geolocation Test </title>>
 	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
 </head>
 
 <body>
@@ -29,7 +30,7 @@
 			}
 
 			function error(position) {
-				//	output.innerHTML = "<p> Unable to retrieve your location </p>"; 
+				//	output.innerHTML = "<p> Unable to retrieve your location </p>";
 				callback({'error': 'Unable to retrieve your location'});
 			}
 
@@ -51,11 +52,10 @@
 					});
 			});
 		};
-		
+
 		sendLocation();
 		setInterval(sendLocation, 30000);
 
 	</script>
 </body>
 </html>
-

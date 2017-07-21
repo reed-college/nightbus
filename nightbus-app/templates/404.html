@@ -1,8 +1,10 @@
 <!doctype html>
 <head>
 	<title>Page Not Found </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
+	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
 </head>
 
 <body>
@@ -11,8 +13,8 @@
 		<h1>Page Not Found</h1>
 	</div>
 	<div class="content">
-		<h3> Oh no!!! The page you're looking for is gone. </h3>
-		<h3> <a href= {{ url_for('home') }}> Go some place nice </a></h3>
+		<h3> The page you're looking for doesn't exist. </h3>
+		<h3> <a style="border-bottom: solid 2px #233c63" href= {{ url_for('home') }}> Go back </a></h3>
 	</div>
 </div>
 </body>
