@@ -566,6 +566,11 @@ on index.html ***/
     align: center;
     cursor: pointer;
   }
+  select {
+    background: url(../pix/down-arrow.png) no-repeat;
+    background-size: cover;
+    border: none;
+  }
   /* ======== Rider Page ======== */
 
   .icon-wrap {

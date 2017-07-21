@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
   <title>Nightbus | Edit Schedule</title>
   <meta name="viewport" content="initial-scale=1, width=device-width">
@@ -16,16 +15,12 @@
   table {
     max-width: 100%;
   }
-}
   </style>
 </head>
-
 <body>
   <div class="wrapper">
-
     <div class="header">
       <h1> Nightbus | Edit Schedule </h1>
-
       <div class="nav">
         {% if session['logged_in'] %}
         <a href="{{ url_for('home') }}">Rider</a>
@@ -49,7 +44,7 @@
               <select id="mon" name="driver_id">
 										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
-                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -59,11 +54,10 @@
           <td> Tuesday </td>
           <td>
             <div class="dropdown">
-
               <select id="tue" name="driver_id">
 										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
-                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -73,11 +67,10 @@
           <td> Wednesday </td>
           <td>
             <div class="dropdown">
-
               <select id="wed" name="driver_id">
 										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
-                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -87,11 +80,10 @@
           <td>Thursday </td>
           <td>
             <div class="dropdown">
-
               <select id="thu" name="driver_id">
 									<option class="more-opt" value = "No">Choose driver</option>
                   {% for person in drivers %}
-                  <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                  <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                   {% endfor %}
                 </select>
             </div>
@@ -101,11 +93,10 @@
           <td> Friday </td>
           <td>
             <div class="dropdown">
-
               <select id="fri" name="driver_id">
 										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
-                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -115,11 +106,10 @@
           <td> Saturday </td>
           <td>
             <div class="dropdown">
-
               <select id="sat" name="driver_id">
 										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
-                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -132,7 +122,7 @@
               <select id="sun" name="driver_id">
 										<option class="more-opt" value = "No">Choose driver</option>
                     {% for person in drivers %}
-                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -141,20 +131,14 @@
             <td class="switchwrap" colspan="2"><a class="switchbtn" id="submitbtn" href="display">Submit</a></td>
           </tr>
         </tr>
-
       </table>
-
-
     </div>
-
   </div>
-
   <script>
     $(document).ready(function() {
       $('select').change(function() {
         $('.more-opt').prop('selected', false);
         var drivers = [
-
           $("#mon").find(':selected').val(),
           $("#tue").find(':selected').val(),
           $("#wed").find(':selected').val(),
@@ -163,7 +147,6 @@
           $("#sat").find(':selected').val(),
           $("#sun").find(':selected').val(),
         ];
-
         $('#submitbtn').one('click', function(event) {
           event.preventDefault();
           $.ajax({
@@ -180,9 +163,7 @@
               console.log("error");
             }
           });
-
         });
-
       });
     });
   </script>
