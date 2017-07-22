@@ -499,41 +499,31 @@ on index.html ***/
 
   /***  =========== Animation  =========== ***/
 
-  .bussie-center {
-    margin-top: 5%;
-  }
-  .icon-wrap {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .icon {
-    height: 350px;
-    width: 350px;
-    margin-right: 15%;
-    -webkit-animation: mymove 1s infinite;
-  }
-  .dex-icon {
-    margin-top: -50px;
-    height: 350px;
-    width: 350px;
-    margin-left: 20%;
-    -webkit-animation: mymove 1s infinite;
-  }
-  @-webkit-keyframes mymove {
-    0% {
-      transform: translate3d(50px, 40px, 0px);
-      animation-timing-function: ease-in;
-    }
-    50% {
-      transform: translate3d(50px, 50px, 0px);
-      animation-timing-function: ease-out;
-    }
-    100% {
-      transform: translate3d(50px, 40px, 0px);
-    }
-  }
+
+.bussie-center {
+	margin-top: 5%;
+}
+
+.icon-wrap {
+	width: 350px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+
+}
+
+.icon {
+	height: 350px;
+	width: 350px;
+	margin-right: 15%;
+}
+
+.dex-icon {
+	margin-top: -50px;
+	height: 350px;
+	width: 350px;
+	margin-left: 12.5%;
+}
 
   /***  =========== Rider Page Schedule Tables  =========== ***/
 
