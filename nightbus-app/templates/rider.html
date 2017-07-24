@@ -49,7 +49,7 @@
 						<img class="dex-icon" src="../static/gifs/reedgone.gif" alt="bus-img"/>
 					{% endif %}
 				</div>
-				{% if duration > 0 %}
+				{% if duration > 0 and "cancelled" not in status %}
 				<h2 id="whereis">The nightbus will be on campus in {{ duration }} minutes </h2> {% else %}
 				<h2 id="whereis">The nightbus is {{status}}! </h2> {% endif %}
 
