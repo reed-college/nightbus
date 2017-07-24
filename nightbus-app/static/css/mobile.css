@@ -305,15 +305,15 @@ on index.html ***/
   /*** =========== Forms  =========== ***/
 
   form {
-    width: 368px;
+    width: auto;
   }
   .form-container {
-    width: 100%;
+    width: 90%;
     max-height: 500px;
     background-color: #83979E;
     display: block;
-    padding: 45px;
-    margin: 40px 20px;
+    padding: 30px;
+    margin-left: 5%;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     box-sizing: border-box;
