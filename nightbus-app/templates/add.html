@@ -1,12 +1,24 @@
 <!doctype html>
 <head>
 	<title>Nightbus | Add Users </title>
-	<link rel="stylesheet" href="../static/css/normalize.css">
-	<link rel="stylesheet" href="../static/css/style.css">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
 	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
+	<style>
+
+	#errContainer {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		background-color: brown;
+		padding: 5px;
+		box-sizing: border-box;
+	}
+	</style>
 </head>
 
 <body>
@@ -24,29 +36,27 @@
 	</div>
 	<div class="content">
 		<form action="/add" method="post">
-			<ul class="form-container login">
+			<ul class="form-container">
 				<li>
 					<input type="text" placeholder="first name" name="firstname" required><br>
-					<span id="errNm1"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="last name" name="lastname" required><br>
-					<span id="errNm2"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="username" name="username" required><br>
-					<span id="errNm3"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="email" name="email" required><br>
-					<span id="errNm4"></span>
 				</li>
 				<li>
 					<input type="text" placeholder="role" name="role" required><br>
-					<span id="errNm5"></span>
 				</li>
 				<li>
 					<input class="submit-button" type="submit" value="Save!">
+				</li>
+				<li>
+					<span id="errContainer" style="display:none"></span>
 				</li>
 			</ul>
 		</form>
@@ -54,29 +64,21 @@
 	<script>
 		$(function() {
 			$('form').validate({
-
 				errorPlacement: function(error, element) {
-					// place error messages next to their corresponding invalid element
-					if (element.attr("name") == "firstname" ) {
-							error.appendTo($('#errNm1'));
-						} else if (element.attr("name") == "lastname" ) {
-							error.appendTo($('#errNm2'));
-						} else if (element.attr("name") == "username") {
-							error.appendTo($("#errNm3"));
-						} else if (element.attr("name") == "email") {
-							error.appendTo($("#errNm4"));
-						} else if (element.attr("name") == "role") {
-							error.appendTo($("#errNm5"));
-						} else {
-							//do nothing
-						}
-					// clear error messages whilst typing 
-					$('form input').keyup(function (){
-						error.remove();
+					var hidden = false
+					if (hidden == true) {
+						$("errContainer").toggle();
+						hidden = false}
+					error.appendTo($('#errContainer'));
+					$('#errContainer').css('display', 'block');
+					// clear error messages whilst typing
+					element.keyup(function (){
+						$('#errContainer').empty()
+						if (hidden == false) {
+							$('#errContainer').toggle();
+							hidden = true}
 					});
-
 				},
-
 				//Specify validation rules
 				rules: {
 					firstname: "required",
@@ -100,18 +102,17 @@
 					},
 					role: "required"
 				},
-
 				// specify validation error messages
 				messages: {
-					firstname: "Please enter a first name",
-					lastname: "Please enter a lastname",
+					firstname: "Please enter a first name<br>",
+					lastname: "Please enter a lastname<br>",
 					username: {
-						required: "Please enter a username",
+						required: "Please enter a username<br>",
+						remote: "Username is already taken<br>"
 					},
-					email: "Please enter a valid email address",
-					role: "Please enter a role"
+					email: "Please enter a valid email address<br>",
+					role: "Please assign a role<br>"
 				},
-
 				submitHandler: function(form) {
 					form.submit();
 				}

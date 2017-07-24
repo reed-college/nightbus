@@ -1,0 +1,44 @@
+<head>
+	<title>Nightbus | Riders</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+	<script src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script>
+	<link rel="stylesheet" href="../static/css/normalize.css">
+	<link rel="stylesheet" href="../static/css/mobile.css" media="screen and (max-device-with: 480px)">
+</head>
+
+<body>
+  <div id="instructions">
+  <p> The NightBus is a Reed sponsored late night transportation service that transports Reedies home. All drivers are fellow Reed students. The NightBus picks up riders every night from Eliot Circle. If the NightBus does not show up please report the NightBus missing using the form below. Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
+  <br><br><br>
+  <a id = "missingBtn">Report the NightBus missing</a>
+  <br><br><br>
+  <a id= "lateBtn">I'm running late! Wait 5 minutes!</a>
+  </p>
+
+  <div class="rider-alerts">
+
+    <form class="rider-form" style = "display:none" id="late-notice" action = "https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec"  method="post" enctype="text/plain">
+      Name: <br>
+      <input type = "text" name = "name" required><br><br>
+      Email: <br>
+      <input type = "text" name = "email" required><br><br>
+      <span id="late-errors" class="rider-errors"></span>
+      <input type= "submit" id ="latesubmit" onclick="validateLate()" value= "I'm late! Please wait 5 minutes!"><br><br>
+      <input type="button" id= "lategoback" value="Go Back">
+    </form>
+
+    <form class="rider-form" style = "display:none" id="report-missing" action = "https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec"  method="post" enctype="text/plain">
+      Name: <br>
+      <input type = "text" name = "name" required><br><br>
+      Email: <br>
+      <input type = "text" name = "email" required><br><br>
+      <span id="missing-errors" class="rider-errors"></span>
+      <input type = "submit" id ="missingsubmit" onclick="validateMissing()" value= "Report the NightBus missing"><br><br>
+      <input type="button" id= "missinggoback" value="Go Back">
+    </form>
+
+  </div>
+</div>
+</body>

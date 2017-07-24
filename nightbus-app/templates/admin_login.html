@@ -4,23 +4,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../static/css/normalize.css">
 	<link rel="stylesheet" href="../static/css/style.css">
-<meta name="viewport" content="initial-scale=1, width=device-width">
-<style>
-@media screen and (max-width: 768px) {
-	.wrapper {
-		width: auto;
+	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
+	<style>
+	@media screen and (max-width: 768px) {
+		.wrapper {
+			width: auto;
+		}
+		.content {
+			max-width: 100%;
+			/*background-color: brown;*/
+			max-height: 50%;
+		}
+		.form-container {
+			width: inherit;
+			margin: 0 15px;
+		}
 	}
-	.content {
-		max-width: 100%;
-		/*background-color: brown;*/
-		max-height: 50%;
-	}
-	.form-container {
-		width: inherit;
-		margin: 0 15px;
-	}
-}
-</style>
+	</style>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 		<h1>Login</h1>
 	</div>
 	<div class="content">
-		<form action="{{ url_for('login', next = next)}}" method="post">
+		<form action="/adminlogin" method="post">
 			<ul class="form-container login">
 				<li>
 					<input type="text" placeholder="username" name="username" required><br>

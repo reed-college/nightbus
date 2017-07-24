@@ -13,13 +13,25 @@
 		<h1>Login</h1>
 	</div>
 	<div class="content">
-		<form action="/forgot_password" method="post">
-			<ul class="form-container">
+		<form action="/driverlogin" method="post">
+			<ul class="form-container login">
 				<li>
-					<input type="email" placeholder="Enter Email" name="email" required><br>
+					<input type="text" placeholder="username" name="username" required><br>
+				</li>
+				<li>
+					<input type="password" placeholder="password" name="password" required><br>
 				</li>
 				<li>
 					<input class="submit-button" type="submit" value="Save!">
+				</li>
+				<li>
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							{% for message in messages %}
+								{{ message }}
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 				</li>
 			</ul>
 		</form>
