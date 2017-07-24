@@ -48,20 +48,14 @@
 		<div class="header">
 			<h1>The NightBus</h1>
 			<div class="nav">
-				{% if session['logged_in'] %}
-					{% if session['role'] == 'driver' %}
-						<a href="{{ url_for('drivermaps') }}">Maps</a>
-						<a href="{{ url_for('rider') }}">Rider</a>
-						<a href="{{ url_for('logout') }}">Sign Out</a>
-							{% elif session['role'] == 'admin' %}
-						<a href="{{ url_for('drivermaps') }}">Maps</a>
-						<a href="{{ url_for('admin') }}">Admin</a>
-						<a href="{{ url_for('logout') }}">Sign Out</a>
-					{% endif %}
-				{% else %}
-					<a href="{{ url_for('driverlogin') }}">Driver Login</a>
-					<a href="{{ url_for('adminlogin') }}"> Admin Login</a>
-				{% endif %}
+				{% if session['logged_in'] %} {% if session['role'] == 'driver' %}
+				<a href="{{ url_for('drivermaps') }}">Maps</a>
+				<a href="{{ url_for('rider') }}">Rider</a>
+				<a href="{{ url_for('logout') }}">Sign Out</a> {% elif session['role'] == 'admin' %}
+				<a href="{{ url_for('drivermaps') }}">Maps</a>
+				<a href="{{ url_for('admin') }}">Admin</a>
+				<a href="{{ url_for('logout') }}">Sign Out</a> {% endif %} {% else %}
+				<a href="{{ url_for('login') }}"> Admin Login</a> {% endif %}
 			</div>
 		</div>
 		<div class="content">
