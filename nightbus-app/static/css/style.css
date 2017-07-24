@@ -1,784 +1,615 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-/*** MOBILE ***/
+  body {
+    min-height: 100vh;
+    background-image: url("texture.png");
+    background-color: #001848;
+    color: #F2F6EA;
+  }
+  .nav {
+    margin-top: 15px;
+    margin-right: 15px;
+  }
+  a {
+    text-decoration: none;
+    color: #F2F6EA;
+  }
+  .nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #F2F6EA;
+    text-transform: uppercase;
+    border-top: hidden;
+  }
+  .nav a:hover {
+    border-top: 5px solid #A84649;
+    padding-top: 5px;
+    color: #A84649 !important;
+  }
+  .nav a:visited {
+    color: #F2F6EA;
+  }
+  .nav h2 {
+    text-align: center;
+  }
+  .wrapper {
+    width: 100%;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+  }
+  .header {
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    background-color: #83979E;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 1;
+  }
+  .header h1 {
+    margin-left: 15px;
+  }
+  .content {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .rider-content {
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 0;
+  }
+  .short-box {
+    width: 45%;
+    height: 600px;
+    margin: 0 auto;
+  }
+  .dex-box {
+    margin-left: 0px;
+  }
+  .icon {
+    margin-right: 17.5%;
+  }
+  .red-button {
+    margin-left: 12.5%;
+  }
+  .dex-icon {
+    margin-left: 15%;
+  }
+  #whereis {
+    margin-left: 12.5%;
+  }
+  .form-container {
+    width: 100%;
+    margin-left: 0;
+    position: relative;
+  }
+  .instructions {
+    margin-top: 7%;
+    margin-right: 15px;
+    margin-left: 0;
+  }
+  /*** font layout for main header***/
+  h1 {
+    font-family: Roboto, sans-serif;
+    text-align: center;
+    color: #F2F6EA;
+    margin: 0 auto;
+  }
+  /***font layout for other headers***/
+  h2 {
+    font-family: Roboto, sans-serif;
+    color: #F2F6EA;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .box h2 {
+    color: #A84649;
+  }
+  .status_update {
+    font-family: Roboto, sans-serif;
+    color: #233c63 !important;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  /***  =========== Middle of page content  ===========  ***/
 
-
-body {
-	min-height: 100vh;
-	background-image: url("texture.png");
-	background-color: #001848;
-	color: #F2F6EA;
-}
-
-/*** wrapper is 1550px for riders, drivers, and admin page.
-It should be 1200px for home page and add/remove driver pages ***/
-
-.wrapper {
-	width: 100%;
-	height: 1550px;
-	display: flex;
-	flex-direction: column;
-}
-
-/*** iwrapper is a class specifically for the wrapper of index.html ***/
-
-.iwrapper {
-	width: 100%;
-	height: 1050px;
-	display: flex;
-	flex-direction: column;
-}
-
-
-/*** header block + nav items ***/
-
-
-.header {
-	width: 100%;
-	padding: 5px;
-  	background-color: #83979E;
-  	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	height: 75px;
-	position: fixed;
-	z-index: 1;
-}
-
-.nav {
-	display: flex;
-	justify-content: center;
-}
-
-a {
-	text-decoration: none;
-	color: #F2F6EA;
-}
-
-.nav a {
-	margin-right: 15px;
-	text-decoration: none;
-	color: #F2F6EA;
-	text-transform: uppercase;
-}
-
-.nav a:hover {
-	border-top: 5px solid #A84649;
-	padding-top: 5px;
-	color: #F2F6EA;
-}
-
-.nav a:visited {
-	color: #F2F6EA;
-}
-
-.nav h2 {
-	text-align: center;
-}
-
-
-/*** font layout for main header***/
-
-h1 {
-	font-family: Roboto, sans-serif;
-	text-align: center;
-	color: #F2F6EA;
-	margin: 0 auto;
-}
-
-/***font layout for other headers***/
-
-h2 {
-	font-family: Roboto, sans-serif;
-	color: #F2F6EA;
-	text-align: center;
-	text-transform: uppercase;
-}
-
-.box h2{
-	color: #A84649;
-}
-
-.status_update {
-	font-family: Roboto, sans-serif;
-	color: #233c63 !important;
-	text-align: center;
-	text-transform: uppercase;
-}
-
-
-/*** middle of page content ***/
-
-/*** statusbox is the element that is populated by an update
+  /*** statusbox is the element that is populated by an update
 message when a button is pressed on the driver page ***/
-
-p {	width: 80%;
-	margin: 15%;
-	background-color: #F2F6EA;
-	font-family: Roboto, sans-serif;
-	color: #001848;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	padding: 30px;
-	margin-top: 7.5%;
-	position: relative;
-}
-
-.statusbox{
-	width: 95%;
-	margin-left: 2.5%;
-	margin-top: 100px;
-	margin-bottom: 15px;
-	border: 2px solid #f8f8f8;
-	padding: 5px;
-	border-radius: 5px;
-  	background-color: lightblue;
-  	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-/*** content is the wrapper for the box-type middle page elements ***/
-
-.content {
-	margin-top: 100px;
-	width: 100%;
-	height: 1400px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-}
-
-.rider-content {
-	margin-top: 100px;
-	margin-left: -5%;
-	width: 100%;
-	height: 1400px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-}
-
-/*** individual boxes ***/
-
-.box {
-	width: 70%;
-	height: 880px;
-	margin: 0 auto;
-}
-
-.short-box {
-	width: 70%;
-	height: 400px;
-	margin: 0 auto;
-}
-
-
-/*** Switch buttons for toggle view ***/
-
-.switchwrap {
-	text-align: center;
-	font-size: 15px;
-	font-weight: lighter;
-}
-
-.switchbtn {
-	color: #001848;
-	padding:5px 20px;
-	border: 2px solid #001848;
-	background-color: transparent;
-	border-radius: 20px;
-	}
-
-.switchbtn:hover {
-	color: #F2F6EA;
-	background-color: #001848;
-	transition: all 0.5s ease;
-}
-
-/*** butt adds flex-box status to box class elements that hold
+  p {
+    width: 80%;
+    margin: 15%;
+    background-color: #F2F6EA;
+    font-family: Roboto, sans-serif;
+    color: #001848;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    padding: 30px;
+    margin-top: 7.5%;
+    position: relative;
+  }
+  .statusbox {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 100px;
+    margin-bottom: 15px;
+    border: 2px solid #f8f8f8;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  /*** content is the wrapper for the box-type middle page elements ***/
+  .content {
+    margin-top: 100px;
+    width: 100%;
+    height: 1400px;
+    display: flex;
+    flex-direction: row;
+		justify-content: space-around;
+  }
+  .rider-content {
+    margin-top: 100px;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  /***  =========== Box Containers =========== ***/
+  .box {
+    width: 70%;
+    height: 880px;
+    margin: 0 auto;
+  }
+  .short-box {
+    width: 70%;
+    height: 400px;
+    margin: 0 auto;
+  }
+  /***  =========== Toggle buttons  =========== ***/
+  .switchwrap {
+    text-align: center;
+    font-size: 15px;
+    font-weight: lighter;
+  }
+  .switchbtn {
+    color: #001848;
+    padding: 5px 20px;
+    border: 2px solid #001848;
+    background-color: transparent;
+    border-radius: 20px;
+  }
+  .switchbtn:hover {
+    color: #F2F6EA;
+    background-color: #001848;
+    transition: all 0.5s ease;
+  }
+  /*** butt adds flex-box status to box class elements that hold
 buttons inside them ***/
-
-.butt {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-
-}
-
-/*** dex-box is a speicifc class targeting the button box
+  .butt {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  /*** dex-box is a speicifc class targeting the button box
 on index.html ***/
+  .dex-box {
+    width: 70%;
+    height: 850px;
+    border-radius: 5px;
+    margin-left: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  /*  =========== Dropdown Button  =========== */
 
-.dex-box {
-	width: 70%;
-	height: 850px;
-	border-radius: 5px;
-	margin-left: 15%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-}
-
-
-/* Dropdown Button */
-
-.dropbtn {
-	width: 80%;
-	height: 60px;
-	border: 3px solid #83979E;
-	margin-left: 12%;
-	font-family: Roboto, times, serif;
-	color: #83979E;
-	font-size: 14px;
-	background-color: transparent;
-	text-transform: uppercase;
-}
-
-/* Dropdown button on hover & focus */
-
-.dropbtn:hover, .dropbtn:focus {
-	color: #F2F6EA;
-  background-color: #83979E;
-	transition: all 0.5s ease;
-}
-
-
-/* The container <div> - needed to position the dropdown content */
-
-.dropdown {
+  .dropbtn {
+    width: 80%;
+    height: 60px;
+    border: 3px solid #83979E;
+    margin-left: 12%;
+    font-family: Roboto, times, serif;
+    color: #83979E;
+    font-size: 14px;
+    background-color: transparent;
+    text-transform: uppercase;
+  }
+  .dropbtn:hover, .dropbtn:focus {
+    color: #F2F6EA;
+    background-color: #83979E;
+    transition: all 0.5s ease;
+  }
+  .dropdown {
     position: relative;
     display: inline-block;
     width: 100%;
-		outline: none;
-}
-
-/* Dropdown Content (Hidden by Default) */
-
-.dropdown-content {
-	position: absolute;
+    outline: none;
+  }
+  .dropdown-content {
+    position: absolute;
     display: none;
-}
-
-.dropdown:hover .dropdown-content {
-	display: inline-block;
-	background-color: #83979E;
-	position: absolute;
-	width: 80%;
-	height: 130px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
-	top: 100%;
-	left: 12%;
-}
-
-.dropdown:hover .dropbtn {
-	color: #83979E;
-	background-color: #F2F6EA;
-	transition: all 0.5s ease;
-}
-
-/* Text inside the dropdown */
-
-.dropdown:hover .dropdown-content a {
+  }
+  .dropdown:hover .dropdown-content {
+    display: inline-block;
+    background-color: #83979E;
+    position: absolute;
+    width: 80%;
+    height: 130px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%;
+    left: 12%;
+  }
+  .dropdown:hover .dropbtn {
+    color: #83979E;
+    background-color: #F2F6EA;
+    transition: all 0.5s ease;
+  }
+  .dropdown:hover .dropdown-content a {
     color: white;
-	font-family: Roboto, times, serif;
-	font-weight: lighter;
+    font-family: Roboto, times, serif;
+    font-weight: lighter;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+  }
+  .dropdown-content a:hover {
+    background-color: #47476b;
+  }
+  /***  =========== All Buttons  =========== ***/
+
+  button {
+    width: 90%;
+    height: 60px;
+    margin-left: 5%;
+    margin-top: 30px;
+    font-family:"Roboto", times, serif;
+    background: transparent;
+    color: #233c63;
+    border: 5px solid #233c63;
+    font-size: 15px;
 }
-
-/* Change color of dropdown text on hover */
-
-.dropdown-content a:hover {
-	background-color: #47476b;
-}
-
-/*** Buttons ***/
-
-
-button {
-	width: 90%;
-	height: 60px;
-	margin-left: 5%;
-	margin-top: 30px;
-	font-family:"Roboto", times, serif;
-	background: transparent;
-	color: #233c63;
-	border: 5px solid #233c63;
-	font-size: 15px;
-}
-
-button:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}
-
-.statusbutton {
-	width: 80%;
-	height: 60px;
-	border: 3px solid #83979E;
-	margin-left: 12%;
-	font-family: Roboto, times, serif;
-	color: #83979E;
-	font-size: 14px;
-	background-color: transparent;
-	text-transform: uppercase;
-	outline: none;
-}
-
-.statusbutton:hover {
-	color: #F2F6EA;
-	background-color: #83979E;
-	transition: all 0.5s ease;
-}
-
-
-#missingBtn {
-	text-decoration: none;
-	color: #233c63;
-	background-color: transparent;
-	border: 2px solid #233c63;
-	border-radius: 20px;
-	padding: 10px;
-	cursor:pointer;
-	left: 37%;
-	bottom: 12%;
-}
-
-#missingBtn:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}
-
-#lateBtn {
-	text-decoration: none;
-	color: #233c63;
-	background-color: transparent;
-	border: 2px solid #233c63;
-	border-radius: 20px;
-	padding: 10px;
-	cursor:pointer;
-	left: 37%;
-	bottom: 12%;
-}
-
-#lateBtn:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}
-
-#missinggoback {
-	text-decoration: none;
-	color: #F2F6EA;
-	background-color: transparent;
-	border: 2px solid #F2F6EA;
-	border-radius: 20px;
-	padding: 10px;
-	cursor:pointer;
-	left: 37%;
-	bottom: 12%;
-}
-
-#missinggoback:hover {
-	color: #001848;
-	background-color: #F2F6EA;
-	transition: all 0.5s ease;
-}
-
-#lategoback {
-	text-decoration: none;
-	color: #F2F6EA;
-	background-color: transparent;
-	border: 2px solid #F2F6EA;
-	border-radius: 20px;
-	padding: 10px;
-	cursor:pointer;
-	left: 37%;
-	bottom: 12%;
-}
-
-#lategoback:hover {
-	color: #001848;
-	background-color: #F2F6EA;
-	transition: all 0.5s ease;
-}
-
-
-/*** Forms ***/
-
-form {
-	width: 368px;
-}
-
- .form-container {
- 	width: 100%;
- 	max-height: 500px;
- 	background-color: #83979E;
- 	display: block;
- 	padding: 45px;
- 	text-align: center;
- 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
- 	margin-left: 10%;
-	box-sizing: border-box;
-	overflow-y: auto;
- }
-
- .form-container li {
-	display: block;
- }
-
-.form-container li input {
-	background-color: #96afb7;
-	color: #A84649;
-	border: none;
-	border-radius: 20px;
-	padding: 15px;
-	margin: 0 0 15px;
-	outline: 0;
-	font-size: 14px;
-	width: 100%;
-	box-sizing: border-box;
-}
-
-.form-container li input::placeholder {
-	color: #F2F2F2;
-	font-family: 'Roboto';
-}
-
-
-.form-container li .submit-button {
-	background-color: #001848;
-	border-radius: 0px;
-	color: #F2F6EA;
-	font-size: 14px;
-	width: 100%;
-}
-
-.form-container li .submit-button:hover {
-	background-color: #A84649;
-	color: #F2F6EA;
-}
-
-.login {
-	width: 60%;
-	margin-left: 15%;
-}
-
-.rider-alerts {
-	margin-left: 15%;
-}
-
-.rider-form {
-	margin-left: 17.5%;
-	margin-top: 15%;
-	margin-bottom: 15px;
-}
-.rider-form #input{
-	background: transparent;
-	color: #F2F6EA;
-	border-bottom: 2px solid #A84649;
-	border-top: 0px;
-	border-right: 0px;
-	border-left: 0px;
-	margin: 0 auto;
-	margin-bottom: 10px;
-	margin-top: 5px;
-}
-
-.rider-form #input:hover {
-	color: #F2F6EA;
-	border-bottom: 0px;
-	transition-delay: 1s;
-	transition: all 0.6s ease;
-}
-
-.rider-form #latesubmit {
-	text-decoration: none;
-	color: #F2F6EA;
-	background-color: transparent;
-	border: 2px solid #F2F6EA;
-	border-radius: 20px;
-	padding: 10px;
-	cursor:pointer;
-	left: 37%;
-	bottom: 12%;
-}
-
-.rider-form #latesubmit:hover {
-	color: #001848;
-	background-color: #F2F6EA;
-	transition: all 0.5s ease;
-}
-
-.rider-form #missingsubmit {
-	text-decoration: none;
-	color: #F2F6EA;
-	background-color: transparent;
-	border: 2px solid #F2F6EA;
-	border-radius: 20px;
-	padding: 10px;
-	cursor:pointer;
-	left: 37%;
-	bottom: 12%;
-}
-
-.rider-form #missingsubmit:hover {
-	color: #001848;
-	background-color: #F2F6EA;
-	transition: all 0.5s ease;
-}
-
-/* Form validation */
-
-.messageBox {
-	display: block;
-	position: absolute;
-	width: 100%;
-	height: auto;
-	top: 60%;
-	left: 110%;
-	text-align:left !important;
-	background-color: brown;
-}
-
-.rider-alerts {
-	position: relative;
-	width: 100%;
-}
-
-.rider-errors {
-	display: block;
-	position: absolute;
-	width: auto;
-	height: auto;
-	top: 1%;
-	left: 55%;
-	text-align: left;
-	z-index: 10;
-}
-
-/*** Animation  ***/
-
-.bussie-center {
-	margin-top: 5%;
-}
-
-.icon-wrap {
-	width: 350px;
-	display: flex;
-	flex-direction: column;
-	margin: auto;
-
-}
-
-.icon {
-	height: 350px;
-	width: 350px;
-	margin-right: 15%;
-}
-
-.dex-icon {
-	margin-top: -50px;
-	height: 350px;
-	width: 350px;
-	margin-left: 12.5%;
-}
-
-
-
-
-
-
-/*** Rider Page Schedule Tables ***/
-
-table {
-	border-collapse: separate;
-	background: #F2F6EA;
-	margin: 50px auto;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-
-}
-
-thead {
-	@include border-radius(5px);
-}
-
-thead tr th .title {
-	text-align: center;
-	column-span: all;
-	background: #edf0f4;
-}
-
-thead th {
-	/*border-right: 2px solid #F2F6EA;*/
-	/*border-left: 2px solid #F2F6EA;*/
-	font-family: Roboto, cursive;
-	font-size: 16px;
-	font-weight: 400;
-	color: #F2F6EA;
-	@include text-shadow(1px 1px 0px rgba(0,0,0,0.5));
-	text-align: center;
-	padding: 20px;
-	background-color: #A84649;
-}
-
-tbody tr td {
-	font-family: 'Open Sans', sans-serif;
-	font-weight:400;
-	color:#001848;
-	font-size:13px;
-	padding:20px 20px 20px 20px;
-	border-bottom:1px solid #e0e0e0;
-
-}
-
-#pink {
-	color:#A84649;
-}
-
-/**** Driver + Admin page instructions ****/
-
-.instructions {
-	background-color: #F2F6EA;
-	font-family: Roboto, sans-serif;
-	max-width: 100%;
-	color: #001848;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	padding: 5px;
-	height: 400px;
-	margin-left: 15px;
-	position: relative;
-}
-
-
-.instructions h2 {
-	color: #A84649;
-	align: center;
-}
-
-.instructions ul li {
-	list-style-type: none;
-	border-bottom: 1px solid #333;
-	padding: 15px;
-	margin: 0 auto;
-	margin-right: 20px;
-	margin-top: 20px;
-}
-
-
-.instructions ul li a:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}
-
-#returnBtn {
-	color: #233c63;
-	padding:5px 20px;
-	border: 2px solid #233c63;
-	background-color: transparent;
-	border-radius: 20px;
-	cursor: pointer;
-}
-
-#returnBtn:hover {
-	color: #F8F8FF;
-	background-color: #233c63;
-	transition: all 0.5s ease;
-}
-
-.instructions ul li a {
-	text-decoration: none;
-	color: #233c63;
-	background-color: transparent;
-	border: 2px solid #233c63;
-	border-radius: 20px;
-	padding: 10px;
-	align: center;
-	cursor: pointer;
-}
-
-/*** DESKTOP ***/
-
-@media only screen and (min-width: 1000px) {
-
-	.nav {
-		margin-top: 15px;
-		margin-right: 15px;
-	}
-
-	.wrapper {
-		height: 900px;
-	}
-
-	.iwrapper {
-		height: 600px;
-	}
-
-	.header {
-		flex-direction: row;
-		width: 95%;
-		margin-left: 2.5%;
-		height: 40px;
-	}
-
-	.header h1 {
-		margin-left: 15px;
-	}
-
-	.content {
-		flex-direction: row;
-		justify-content: space-around;
-	}
-
-	.rider-content{
-		flex-direction: row;
-		justify-content: space-around;
-		margin-left: 0;
-	}
-
-	.box {
-		width: 45%;
-		margin-left: 0;
-	}
-
-	.short-box {
-		width: 45%;
-		height: 600px;
-		margin: 0 auto;
-}
-
-	.dex-box {
-		margin-left: 0px;
-	}
-
-	.icon {
-		margin-right: 17.5%;
-	}
-
-	.red-button {
-		margin-left: 12.5%;
-	}
-
-	.dex-icon {
-		margin-left: 12.5%;
-	}
-
-	#whereis {
-		margin-left: 12.5%;
-	}
-
-	.form-container {
-		width: 100%;
-		margin-left: 0;
-		position: relative;
-	}
-
-	.instructions {
-		margin-top: 7%;
-		margin-right: 15px;
-		margin-left: 0;
-	}
+  button:hover {
+    color: #F8F8FF;
+    background-color: #233c63;
+    transition: all 0.5s ease;
+  }
+
+ /***  =========== Status Buttons  =========== ***/
+
+  .statusbutton {
+    width: 80%;
+    height: 60px;
+    border: 3px solid #83979E;
+    margin-left: 12%;
+    font-family: Roboto, times, serif;
+    color: #83979E;
+    font-size: 14px;
+    background-color: transparent;
+    text-transform: uppercase;
+    outline: none;
+  }
+  .statusbutton:hover {
+    color: #F2F6EA;
+    background-color: #83979E;
+    transition: all 0.5s ease;
+  }
+  #missingBtn {
+    text-decoration: none;
+    color: #233c63;
+    background-color: transparent;
+    border: 2px solid #233c63;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    left: 37%;
+    bottom: 12%;
+  }
+  #missingBtn:hover {
+    color: #F8F8FF;
+    background-color: #233c63;
+    transition: all 0.5s ease;
+  }
+  #lateBtn {
+    text-decoration: none;
+    color: #233c63;
+    background-color: transparent;
+    border: 2px solid #233c63;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    left: 37%;
+    bottom: 12%;
+  }
+  #lateBtn:hover {
+    color: #F8F8FF;
+    background-color: #233c63;
+    transition: all 0.5s ease;
+  }
+  #missinggoback {
+    text-decoration: none;
+    color: #F2F6EA;
+    background-color: transparent;
+    border: 2px solid #F2F6EA;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    left: 37%;
+    bottom: 12%;
+  }
+  #missinggoback:hover {
+    color: #001848;
+    background-color: #F2F6EA;
+    transition: all 0.5s ease;
+  }
+  #lategoback {
+    text-decoration: none;
+    color: #F2F6EA;
+    background-color: transparent;
+    border: 2px solid #F2F6EA;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    left: 37%;
+    bottom: 12%;
+  }
+  #lategoback:hover {
+    color: #001848;
+    background-color: #F2F6EA;
+    transition: all 0.5s ease;
+  }
+
+  /*** =========== Forms  =========== ***/
+
+  form {
+    width: 368px;
+  }
+  .form-container {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    background-color: #83979E;
+    display: block;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .form-container li {
+    display: block;
+  }
+  .form-container li input {
+    background-color: #96afb7;
+    color: #A84649;
+    border: none;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 0 0 15px;
+    outline: 0;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-container li input::placeholder {
+    color: #F2F2F2;
+    font-family: 'Roboto';
+  }
+  .form-container li .submit-button {
+    background-color: #001848;
+    border-radius: 0px;
+    color: #F2F6EA;
+    font-size: 14px;
+    width: 100%;
+  }
+  .form-container li .submit-button:hover {
+    background-color: #A84649;
+    color: #F2F6EA;
+  }
+
+/*  =========== Rider forms  =========== */
+
+  .rider-alerts {
+    margin-left: 15%;
+  }
+  .rider-form {
+    margin-left: 17.5%;
+    margin-top: 15%;
+    margin-bottom: 15px;
+  }
+  .rider-form #input {
+    background: transparent;
+    color: #F2F6EA;
+    border-bottom: 2px solid #A84649;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+  .rider-form #input:hover {
+    color: #F2F6EA;
+    border-bottom: 0px;
+    transition-delay: 1s;
+    transition: all 0.6s ease;
+  }
+  .rider-form #latesubmit {
+    text-decoration: none;
+    color: #F2F6EA;
+    background-color: transparent;
+    border: 2px solid #F2F6EA;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    left: 37%;
+    bottom: 12%;
+  }
+  .rider-form #latesubmit:hover {
+    color: #001848;
+    background-color: #F2F6EA;
+    transition: all 0.5s ease;
+  }
+  .rider-form #missingsubmit {
+    text-decoration: none;
+    color: #F2F6EA;
+    background-color: transparent;
+    border: 2px solid #F2F6EA;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    left: 37%;
+    bottom: 12%;
+  }
+  .rider-form #missingsubmit:hover {
+    color: #001848;
+    background-color: #F2F6EA;
+    transition: all 0.5s ease;
+  }
+
+  /*  =========== Form validation  =========== */
+
+  .messageBox {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 60%;
+    left: 110%;
+    text-align: left !important;
+    background-color: brown;
+  }
+  .rider-alerts {
+    position: relative;
+    width: 100%;
+  }
+  .rider-errors {
+    display: block;
+    position: absolute;
+    width: auto;
+    height: auto;
+    top: 1%;
+    left: 55%;
+    text-align: left;
+    z-index: 10;
+  }
+
+  /***  =========== Animation  =========== ***/
+
+  .bussie-center {
+    margin-top: 10%;
+  }
+  .icon-wrap {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+  .icon {
+    height: 350px;
+    width: 350px;
+    margin-right: 15%;
+  }
+  .dex-icon {
+    margin-top: -50px;
+    height: 350px;
+    width: 350px;
+    margin-left: 12.5%;
+  }
+
+  /***  =========== Rider Page Schedule Tables  =========== ***/
+
+  table {
+    border-collapse: separate;
+    background: #F2F6EA;
+    margin: 50px auto;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  thead {
+    @include border-radius(5px);
+  }
+  thead tr th .title {
+    text-align: center;
+    column-span: all;
+    background: #edf0f4;
+  }
+  thead th {
+    font-family: Roboto, cursive;
+    font-size: 16px;
+    font-weight: 400;
+    color: #F2F6EA;
+    @include text-shadow(1px 1px 0px rgba(0, 0, 0, 0.5));
+    text-align: center;
+    padding: 20px;
+    background-color: #A84649;
+  }
+  tbody tr td {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    color: #001848;
+    font-size: 13px;
+    padding: 20px 20px 20px 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  #pink {
+    color: #A84649;
+  }
+
+  /**  =========== Driver/Admin Instructions  =========== **/
+
+  .instructions {
+    background-color: #F2F6EA;
+    font-family: Roboto, sans-serif;
+    max-width: 100%;
+    color: #001848;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    padding: 5px;
+    height: 400px;
+    margin-left: 15px;
+    position: relative;
+  }
+  .instructions h2 {
+    color: #A84649;
+    align: center;
+  }
+  .instructions ul li {
+    list-style-type: none;
+    border-bottom: 1px solid #333;
+    padding: 15px;
+    margin: 0 auto;
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+  .instructions ul li a:hover {
+    color: #F8F8FF;
+    background-color: #233c63;
+    transition: all 0.5s ease;
+  }
+  #returnBtn {
+    color: #233c63;
+    padding: 5px 20px;
+    border: 2px solid #233c63;
+    background-color: transparent;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  #returnBtn:hover {
+    color: #F8F8FF;
+    background-color: #233c63;
+    transition: all 0.5s ease;
+  }
+  .instructions ul li a {
+    text-decoration: none;
+    color: #233c63;
+    background-color: transparent;
+    border: 2px solid #233c63;
+    border-radius: 20px;
+    padding: 10px;
+    align: center;
+    cursor: pointer;
+  }

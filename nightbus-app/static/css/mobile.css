@@ -37,11 +37,13 @@
     text-decoration: none;
     color: #F2F6EA;
     text-transform: uppercase;
+    border-top: 5px solid #A84649;
+    border-top-style: hidden;
   }
   .nav a:hover {
-    border-top: 5px solid #A84649;
+    border-top-style: solid;
     padding-top: 5px;
-    color: #F2F6EA;
+    color: #A84649;
   }
   .nav a:visited {
     color: #F2F6EA;
