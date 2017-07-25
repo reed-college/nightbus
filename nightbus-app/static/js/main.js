@@ -136,6 +136,10 @@ function validateMissing() {
     errorPlacement: function(error, element) {
       error.appendTo($('#missing-errors'));
       $('#missing-errors').show();
+      //clear error messages whilst typing
+        element.keyup( function() {
+         $('#missing-errors').empty().hide();
+       });
       },
       rules: {
         name: "required",
@@ -178,6 +182,10 @@ function validateLate() {
     errorPlacement: function(error, element) {
       error.appendTo($('#late-errors'));
       $('#late-errors').show();
+      //clear error messages whilst typing
+        element.keyup( function() {
+         $('#late-errors').empty().hide();
+       });
       },
       rules: {
         name: "required",
