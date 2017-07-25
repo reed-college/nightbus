@@ -135,6 +135,7 @@ function validateMissing() {
 
     errorPlacement: function(error, element) {
       error.appendTo($('#missing-errors'));
+      $('#missing-errors').show();
       },
       rules: {
         name: "required",
@@ -144,10 +145,10 @@ function validateMissing() {
         }
       },
       messages: {
-        name: "<br>"+ "Please enter your name",
+        name: "Please enter your name",
         email: {
-          required: "<br><br>"+ "Please enter your email address",
-          email: "<br><br>"+ "Please enter a valid email address"
+          required: "<br>Please enter your email address",
+          email:  "<br>Please enter a valid email address"
         }
       },
       submitHandler: function(form) {
@@ -176,6 +177,7 @@ function validateLate() {
 
     errorPlacement: function(error, element) {
       error.appendTo($('#late-errors'));
+      $('#late-errors').show();
       },
       rules: {
         name: "required",
@@ -185,10 +187,10 @@ function validateLate() {
         }
       },
       messages: {
-        name: "<br>"+ "Please enter your name",
+        name: "Please enter your name",
         email: {
-          required:"<br><br>"+ "Please enter your email address",
-          email: "<br><br>"+ "Please enter a valid email address"
+          required: "<br>Please enter your email address",
+          email: "<br>Please enter a valid email address"
         }
       },
       submitHandler: function(form) {

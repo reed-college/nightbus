@@ -11,7 +11,6 @@
 	<link href="../static/css/style.css" media="screen and (min-device-width:768px)" rel="stylesheet">
 	<link href="../static/css/mobile.css" media="screen and (max-device-width:480px)" rel="stylesheet">
 </head>
-
 <body>
 	<div class="wrapper">
 		<div class="header">
@@ -62,25 +61,25 @@
 					</p>
 
 					<div class="rider-alerts">
-
 						<form class="rider-form" style="display:none" id="late-notice" action="https://script.google.com/macros/s/AKfycbzjwNLeHqatAsZVkRZf4mmibkplaHAxarPx1MHafy2HORV-mXVR/exec" method="post" enctype="text/plain">
-							Name: <br>
-							<input type="text" name="name" required><br><br> Email: <br>
+							Name:
+							<input type="text" name="name" required><br>
+							Email:
 							<input type="text" name="email" required><br><br>
-							<span id="late-errors" class="rider-errors"></span>
-							<input type="submit" id="latesubmit" onclick="validateLate()" value="I'm late! Please wait 5 minutes!"><br><br>
+							<span id="late-errors" class="rider-errors" style="display:none"></span>
+							<input type="submit" id="latesubmit" onclick="validateLate()" value="I'm late! Please wait 5 minutes!"><br>
 							<input type="button" id="lategoback" value="Go Back">
 						</form>
 
 						<form class="rider-form" style="display:none" id="report-missing" action="https://script.google.com/macros/s/AKfycbyjGWQhgB2aWIm0WiGr-cNxYmPLI3LNAHrNCMImGOoFNcOPpYeS/exec" method="post" enctype="text/plain">
-							Name: <br>
-							<input type="text" name="name" required><br><br> Email: <br>
+							Name:
+							<input type="text" name="name" required><br>
+							Email:
 							<input type="text" name="email" required><br><br>
-							<span id="missing-errors" class="rider-errors"></span>
-							<input type="submit" id="missingsubmit" onclick="validateMissing()" value="Report the NightBus missing"><br><br>
+							<span id="missing-errors" class="rider-errors" style="display:none"></span>
+							<input type="submit" id="missingsubmit" onclick="validateMissing()" value="Report the NightBus missing"><br>
 							<input type="button" id="missinggoback" value="Go Back">
 						</form>
-
 					</div>
 				</div>
 			</div>
@@ -177,5 +176,4 @@
 			</div>
 		</div>
 	</div>
-
 </body>
