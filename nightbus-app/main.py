@@ -379,7 +379,7 @@ def remove():
             pass
         db.commit()
         db.close()
-        return redirect(url_for('admin'))
+        return redirect(url_for('removeuser'))
 
     else:
         return redirect(url_for('no_user'))
