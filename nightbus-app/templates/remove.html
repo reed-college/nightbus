@@ -25,17 +25,14 @@
 			<ul class="form-container login">
 				<li>
 					<span class="custom-dropdown custom-dropdown--white">
-					    <select class="custom-dropdown__select custom-dropdown__select--white">
+					    <select class="custom-dropdown__select custom-dropdown__select--white" name = "username">
 					    		<option value = "" disabled selected> Choose user </option>
 					                    {% for person in drivers %}
-					                    <option value = {{person.id}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
+					                    <option value = {{person.username}} >{{ person.firstname}} {{ person.lastname }}, ID: {{ person.id }}</option>
 					                    {% endfor %}
 					    </select>
 					</span>
 					<br><br>
-				</li>
-				<li>
-					<input type="text" placeholder="email" name="email" required><br>
 				</li>
 				<li>
 					<input class="submit-button" type="submit" value="Remove!">
