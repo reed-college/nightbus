@@ -346,29 +346,39 @@ def set_password(token):
 @app.route('/removeuser')
 @login_required('admin')
 def removeuser():
+    db = database.get_session()
+    drivers = db.query(schema.User).all()
+    db.close()
     if session['logged_in']:
-        return render_template('remove.html')
+        return render_template('remove.html', drivers = drivers)
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('adminlogin'))
 
 @app.route('/remove', methods=['POST'])
 def remove():
     db = database.get_session()
-    # This function is basically identical to the user addition function. We use the get_session method to create a connection with the database. Next we get the value of the username
-    # that was entered in the form using the request library that comes with flask.
+    # This function is basically identical to the user addition function.
+    # We use the get_session method to create a connection with the database.
+    # Next we get the value of the username that was entered in the form
+    # using the request library that comes with flask.
     username = request.form['username']
 
-    # Next we use the query method to search the table User and we filter our query by the username we got above. This displays the first entry it gets so I don't know how we would handle
-    # two different people having two different user names. More documentation on querying and just general sqlalchemy knowledge can be found at http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
-    # After that we just use the built in delete method to remove the user and then we have to make sure we commit after that to make the deletion permanent.
+    # Next we use the query method to search the table User and we filter our query by the username we got above.
+    # More documentation on querying and just general sqlalchemy knowledge can be found at
+    # http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
+    # After that we just use the built in delete method to remove the user and then
+    # we have to make sure we commit after that to make the deletion permanent.
+
     user = db.query(schema.User).filter_by(username=username).first()
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
     if user:
         db.delete(user)
-        db.delete(user_auth)
+        if user_auth:
+            db.delete(user_auth)
+        else:
+            pass
         db.commit()
         db.close()
-
         return redirect(url_for('admin'))
 
     else:
