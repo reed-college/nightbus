@@ -37,11 +37,13 @@
     text-decoration: none;
     color: #F2F6EA;
     text-transform: uppercase;
+    border-top: 5px solid #A84649;
+    border-top-style: hidden;
   }
   .nav a:hover {
-    border-top: 5px solid #A84649;
+    border-top-style: solid;
     padding-top: 5px;
-    color: #F2F6EA;
+    color: #A84649;
   }
   .nav a:visited {
     color: #F2F6EA;
@@ -306,14 +308,15 @@ on index.html ***/
 
   form {
     width: 368px;
+    margin: 0 auto;
   }
   .form-container {
-    width: 100%;
+    width: 90%;
     max-height: 500px;
     background-color: #83979E;
     display: block;
-    padding: 45px;
-    margin: 40px 20px;
+    padding: 30px;
+    margin-left: 5%;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     box-sizing: border-box;
@@ -440,7 +443,7 @@ on index.html ***/
   /***  =========== Animation  =========== ***/
 
   .bussie-center {
-    margin-top: 5%;
+    margin-top: 15%;
   }
   .icon-wrap {
     width: 100%;
@@ -452,28 +455,12 @@ on index.html ***/
     height: 350px;
     width: 350px;
     margin-right: 15%;
-    -webkit-animation: mymove 1s infinite;
   }
   .dex-icon {
     margin-top: -50px;
     height: 350px;
     width: 350px;
-    margin-right: 25%;
-    -webkit-animation: mymove 1s infinite;
-  }
-  @-webkit-keyframes mymove {
-    0% {
-      transform: translate3d(50px, 40px, 0px);
-      animation-timing-function: ease-in;
-    }
-    50% {
-      transform: translate3d(50px, 50px, 0px);
-      animation-timing-function: ease-out;
-    }
-    100% {
-      transform: translate3d(50px, 40px, 0px);
-    }
-  }
+}
 
   /***  =========== Rider Page Schedule Tables  =========== ***/
 
@@ -589,5 +576,5 @@ on index.html ***/
     max-width: 100%;
   }
   #whereis {
-    margin: 0 10%;
+    margin: 10%;
   }
