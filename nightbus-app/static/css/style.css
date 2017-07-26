@@ -129,6 +129,20 @@ message when a button is pressed on the driver page ***/
     margin-top: 7.5%;
     position: relative;
   }
+
+
+  #missing:hover {
+    color: #A84649;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #late:hover {
+    color: #A84649;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   .statusbox {
     width: 95%;
     margin-left: 2.5%;
