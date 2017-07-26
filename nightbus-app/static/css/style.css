@@ -46,6 +46,7 @@
     flex-direction: row;
     position: fixed;
     z-index: 1;
+    opacity: 0.95;
   }
   .header h1 {
     margin-left: 15px;
@@ -78,6 +79,7 @@
   }
   #whereis {
     margin-left: 12.5%;
+    font-size: 30px;
   }
   .form-container {
     width: 100%;
@@ -127,6 +129,20 @@ message when a button is pressed on the driver page ***/
     margin-top: 7.5%;
     position: relative;
   }
+
+
+  #missing:hover {
+    color: #A84649;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #late:hover {
+    color: #A84649;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   .statusbox {
     width: 95%;
     margin-left: 2.5%;
@@ -597,7 +613,7 @@ on index.html ***/
   /***  =========== Animation  =========== ***/
 
   .bussie-center {
-    margin-top: 10%;
+    margin-top: 8%;
   }
   .icon-wrap {
     width: 350px;

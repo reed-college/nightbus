@@ -48,7 +48,7 @@
 					{% endif %}
 				</div>
 				{% if duration > 0 and "cancelled" not in status %}
-				<h2 id="whereis">The nightbus will be on campus in {{ duration }} minutes </h2> {% else %}
+				<h2 id="whereis">The nightbus will be on campus in {{ duration }} minutes! </h2> {% else %}
 				<h2 id="whereis">The nightbus is {{status}}! </h2> {% endif %}
 
 				<div id="rider-instructions">
@@ -59,12 +59,9 @@
 						<br><br>
 						Shuttle boundaries are: Burnside to the north, Johnson Creek to the south, 82nd Avenue to the east, and downtown to the west.
 						<br><br>
-						If the NightBus does not arrive at the designated times please report the NightBus missing using the form below.
-						Additionally, if you are running late, but are still hoping to catch the NightBus please use the "Wait 5 minutes" form to ask the NightBus driver to wait for your arrival.
-						<br><br><br>
-						<a id="missingBtn">Report the NightBus missing</a>
-						<br><br><br>
-						<a id="lateBtn">I'm running late! Wait 5 minutes!</a>
+						If the NightBus does not arrive at the designated times please report the NightBus missing <span id = "missing" ><b>HERE</b></span>.
+						<br><br>
+						Additionally, if you are running late, but are still hoping to catch the NightBus click <span id = "late"><b>HERE</b></span> to ask the NightBus driver to wait for your arrival.
 					</p>
 
 					<div class="rider-alerts">
@@ -93,11 +90,11 @@
 
 			<script>
 				$(document).ready(function() {
-					$("#missingBtn").click(function() {
+					$("#missing").click(function() {
 						$("p").toggle();
 						$("#report-missing").toggle();
 					});
-					$("#lateBtn").click(function() {
+					$("#late").click(function() {
 						$("p").toggle();
 						$("#late-notice").toggle();
 					});
