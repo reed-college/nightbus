@@ -660,12 +660,14 @@ on index.html ***/
   .instructions {
     background-color: #F2F6EA;
     font-family: Roboto, sans-serif;
+    max-height: 500px;
     max-width: 100%;
     color: #001848;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     padding: 5px;
     margin-right: 65px;
     position: relative;
+    overflow-y: auto;
   }
   .instructions h2 {
     color: #A84649;
