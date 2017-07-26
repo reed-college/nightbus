@@ -46,6 +46,7 @@
     flex-direction: row;
     position: fixed;
     z-index: 1;
+    opacity: 0.95;
   }
   .header h1 {
     margin-left: 15px;
@@ -78,6 +79,7 @@
   }
   #whereis {
     margin-left: 12.5%;
+    font-size: 30px;
   }
   .form-container {
     width: 100%;
@@ -597,7 +599,7 @@ on index.html ***/
   /***  =========== Animation  =========== ***/
 
   .bussie-center {
-    margin-top: 10%;
+    margin-top: 8%;
   }
   .icon-wrap {
     width: 350px;
