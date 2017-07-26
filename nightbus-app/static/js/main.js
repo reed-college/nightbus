@@ -149,10 +149,10 @@ function validateMissing() {
         }
       },
       messages: {
-        name: "<br>"+ "Please enter your name",
+        name: "Please enter your name",
         email: {
-          required: "<br><br>"+ "Please enter your email address",
-          email: "<br><br>"+ "Please enter a valid email address"
+          required: "<br>Please enter your email address",
+          email:  "<br>Please enter a valid email address"
         }
       },
       submitHandler: function(form) {
@@ -195,10 +195,10 @@ function validateLate() {
         }
       },
       messages: {
-        name: "<br>"+ "Please enter your name",
+        name: "Please enter your name",
         email: {
-          required:"<br><br>"+ "Please enter your email address",
-          email: "<br><br>"+ "Please enter a valid email address"
+          required: "<br>Please enter your email address",
+          email: "<br>Please enter a valid email address"
         }
       },
       submitHandler: function(form) {
