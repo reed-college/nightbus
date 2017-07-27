@@ -102,9 +102,17 @@ def intialize():
 
     db = database.get_session()
     if db.query(schema.Schedule).filter_by(id=1).first():
-        db.close()
+        if db.query(schema.Auth).filter_by(id=1).first():
+                db.close()
+        else:
+                admin = schema.Auth(username="admin")
+                admin.encrypt_password('123')
+                db.add(admin)
+                db.commit()
     else:
         session['logged_in'] = False
+        admin = schema.Auth(username="admin")
+        user_auth.encrypt_password('123')
         monday = schema.Schedule(day="Monday")
         tuesday = schema.Schedule(day="Tuesday")
         wednesday = schema.Schedule(day="Wednesday")
@@ -121,6 +129,7 @@ def intialize():
         db.add(sunday)
         db.commit()
         db.close()
+
 
 # normal app routes
 
