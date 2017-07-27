@@ -69,6 +69,20 @@ def update_state():
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
     return ('', 204)
 
+@app.route('/realtimetracking', methods=['GET'])
+def realtimetracking():
+    return render_template('realtimetracking.html')
+
+@app.route('/updateduration', methods=['POST'])
+def updateduration():
+    if request.method == 'POST':
+        location = request.get_json()
+        print(location)
+        b.update_current_location((location[0], location[1]))
+        duration = calculate_duration("Reed College", b.get_current_location())
+        b.update_trip_duration(duration)
+
+        return ('', 204)
 
 @app.route('/rider', methods=['GET'])
 def home():
