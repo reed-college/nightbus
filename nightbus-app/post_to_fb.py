@@ -2,7 +2,7 @@
 import facebook
 import requests
 
-proxies {
+proxies = {
     "http":"http://tinyproxy.reed.edu:8888/,
     "https": "https://tinyproxy.reed.edu:8888/"
 }
