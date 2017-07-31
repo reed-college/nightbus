@@ -13,7 +13,7 @@
 <body>
 	<div class="wrapper">
 	<div class="header">
-		<h1> NightBus | Drivers</h1>
+		<a href="{{ url_for('home')}}"><h1> NightBus | Drivers</h1></a>
 		<div class="nav">
 		{% if session['logged_in'] %}
 			{% if session['role'] == 'admin' %}
