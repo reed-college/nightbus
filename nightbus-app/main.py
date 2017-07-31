@@ -120,11 +120,7 @@ def intialize():
 
 @app.route('/')
 def index():
-    status = b.get_current_status()
-    username = request.environ.get('REMOTE_USER')
-    user = get_user(username)
-
-    return render_template('rider.html', status=status, user=user)
+    return redirct('/login')
 
 @app.route('/driver')
 def driver():
@@ -150,11 +146,11 @@ def schedule():
     db.close()
     return render_template('schedule.html', drivers = drivers)
 
-# @app.route('/login', methods = ['GET'])
-# def login():
-#     status = b.get_current_status()
-#     duration = b.get_trip_duration()
-#     return render_template("rider.html", status=status, duration=duration)
+@app.route('/login', methods = ['GET'])
+def login():
+    status = b.get_current_status()
+    duration = b.get_trip_duration()
+    return render_template("rider.html", status=status, duration=duration)
 
 
 
