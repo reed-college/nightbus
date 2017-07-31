@@ -120,7 +120,7 @@ def intialize():
 
 @app.route('/')
 def index():
-    return redirct('/login')
+    return redirect('/login')
 
 @app.route('/driver')
 def driver():
