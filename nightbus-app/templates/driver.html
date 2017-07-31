@@ -13,18 +13,14 @@
 <body>
 	<div class="wrapper">
 	<div class="header">
-		<h1> NightBus | Drivers</h1>
+		<a href="{{ url_for('home')}}"><h1> NightBus | Drivers</h1></a>
 		<div class="nav">
 		{% if session['logged_in'] %}
 			{% if session['role'] == 'admin' %}
-				<a href="{{ url_for('tracking') }}"> Tracking </a>
-				<a href="{{ url_for('drivermaps') }}"> Maps </a>
 				<a href="{{ url_for('home') }}"> Rider</a>
 				<a href="{{ url_for('admin') }}"> Admin</a>
 				<a href="{{ url_for('logout') }}"> Sign Out </a>
 			{% else %}
-				<a href="{{ url_for('tracking') }}"> Tracking </a>
-				<a href="{{ url_for('drivermaps') }}"> Maps </a>
 				<a href="{{ url_for('home') }}"> Rider</a>
 				<a href="{{ url_for('logout') }}"> Sign Out </a>
 			{% endif %}
@@ -61,7 +57,7 @@
 							<br><br>
 							Pressing the "Maps" tab will take your to the map and turn by turn instruction page.
 							<br><br>
-							Warning: this feature will remain engaged until you press one of the status buttons, so please press "Here" when 
+							Warning: this feature will remain engaged until you press one of the status buttons, so please press "Here" when
 							you arrive back on campus in order to disengage the tracking updates. </li>
 						<li> <b> Finally, riders may communicate with you by using the rider alert forms on the homepage. There are two different forms: </b>
 							<br><br>
@@ -70,7 +66,7 @@
 						when and if the NightBus will arrive.
 						<br><br>
 						The "I'm late! Please wait 5 minutes!" form allows a rider to request that the NightBus wait a few minutes for them to arrive. This feature also sends
-						 an email to reednightbus@gmail.com that allows you to reply directly to them. This way you can inform them whether or not you can meet their request. </li>
+						 an email to reednightbus@gmail.com that allows you to reply directly to them. </li>
 						<li style="border: none;"><a id="toggleBtn">View Driver Schedule</a></li>
 					</ul>
 				</div>
