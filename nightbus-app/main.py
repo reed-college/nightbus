@@ -29,6 +29,11 @@ serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 status = "here"
 
+def get_user(username):
+    db = database.get_session()
+    user = db.query(schema.User).filter_by(username=username).first()
+    return user
+
 class NightBus:
     def __init__(self):
         self.current_status = status
@@ -80,7 +85,7 @@ def home():
 def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     db = database.get_session()
-    username = os.getenv('REMOTE_USER', default=None)
+    username = request.environ['REMOTE_USER']
     
     if db.query(schema.Schedule).filter_by(id=1).first():
         if db.query(schema.Auth).filter_by(id=1).first():
@@ -116,7 +121,6 @@ def intialize():
 @app.route('/')
 def index():
     status = b.get_current_status()
-
     user = get_user(username)
 
     return render_template('rider.html', status=status, user=user)
@@ -333,10 +337,7 @@ def drivermaps():
     no_destination = False
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
 
-def get_user(username):
-    db = database.get_session()
-    user = db.query(schema.User).filter_by(username=username).first()
-    return user
+
 
 ##### Error Handling #####
 
