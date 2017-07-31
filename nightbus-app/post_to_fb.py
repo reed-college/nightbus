@@ -1,6 +1,11 @@
 
 import facebook
+import requests
 
+proxies {
+    "http":"http://tinyproxy.reed.edu:8888/,
+    "https": "https://tinyproxy.reed.edu:8888/"
+}
 def main(message):
     cfg = {
         "page_id": 132893597268288,
@@ -16,7 +21,7 @@ def get_api(cfg):
     resp = graph.get_object('me/accounts')
     for page in resp['data']:
          page_access_token = page['access_token']
-    graph = facebook.GraphAPI(page_access_token)
+    graph = facebook.GraphAPI(page_access_token, proxies=proxies)
     return graph
 
 if __name__ == "__main__":
