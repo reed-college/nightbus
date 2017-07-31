@@ -79,7 +79,7 @@ def update_state():
 def home():
     status = b.get_current_status()
     username = request.environ.get('REMOTE_USER')
-    return render_template("rider.html", status=status, duration=duration)
+    return render_template("rider.html", status=status)
 
 @app.before_first_request
 def intialize():
