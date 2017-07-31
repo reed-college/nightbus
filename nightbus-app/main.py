@@ -100,7 +100,6 @@ def intialize():
 
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     user = request.environ['REMOTE_USER']
-    print(user)
     db = database.get_session()
     if db.query(schema.User).filter_by(username=user).first():
         vistor = db.query(schema.User).filter_by(username=user).first()
@@ -148,15 +147,16 @@ def index():
     return render_template('rider.html', status=status, duration=duration)
 
 @app.route('/driver')
-@login_required('driver')
 def driver():
+    if vistor.role == 'driver' or vistor.role == 'admin' :
+        #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
 
-    #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
-
-    db = database.get_session()
-    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
-    db.close()
-    return render_template('driver.html', drivers=drivers)
+        db = database.get_session()
+        drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+        db.close()
+        return render_template('driver.html', drivers=drivers)
+    else:
+        return redirect(url_for('/rider'))
 
 
 @app.route('/schedule')
