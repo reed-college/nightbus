@@ -16,6 +16,7 @@
 # A documentation on flask view decorators can be found at http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
 from flask import session, flash, redirect, url_for, render_template, request
 from functools import wraps
+import os
 import schema
 import database
 

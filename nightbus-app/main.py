@@ -127,19 +127,16 @@ def index():
 
 @app.route('/driver')
 def driver():
-    if session['role'] == 'driver' or session['role'] == 'admin' :
-        #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
+    #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
 
-        db = database.get_session()
-        drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    db = database.get_session()
+    drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
 
-        user = get_user(username)
+    user = get_user(username)
 
 
-        db.close()
-        return render_template('driver.html', drivers=drivers, user=user)
-    else:
-        return redirect(url_for('/rider'))
+    db.close()
+    return render_template('driver.html', drivers=drivers, user=user)
 
 
 @app.route('/schedule')
