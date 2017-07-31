@@ -137,7 +137,7 @@ function validateMissing() {
       error.appendTo($('#missing-errors'));
       $('#missing-errors').show();
       //clear error messages whilst typing
-        element.keyup( function() {
+        element.on('keyup change', function() {
          $('#missing-errors').empty().hide();
        });
       },
@@ -149,10 +149,10 @@ function validateMissing() {
         }
       },
       messages: {
-        name: "Please enter your name",
+        name: "Please enter your name<br>",
         email: {
-          required: "<br>Please enter your email address",
-          email:  "<br>Please enter a valid email address"
+          required: "Please enter your email address<br>",
+          email:  "Please enter a valid email address<br>"
         }
       },
       submitHandler: function(form) {
@@ -183,7 +183,7 @@ function validateLate() {
       error.appendTo($('#late-errors'));
       $('#late-errors').show();
       //clear error messages whilst typing
-        element.keyup( function() {
+        element.on('keyup change', function() {
          $('#late-errors').empty().hide();
        });
       },
@@ -195,10 +195,10 @@ function validateLate() {
         }
       },
       messages: {
-        name: "Please enter your name",
+        name: "Please enter your name<br>",
         email: {
-          required: "<br>Please enter your email address",
-          email: "<br>Please enter a valid email address"
+          required: "Please enter your email address<br>",
+          email: "Please enter a valid email address<br>"
         }
       },
       submitHandler: function(form) {

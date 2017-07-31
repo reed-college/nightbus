@@ -14,7 +14,7 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<h1>NightBus | Riders</h1>
+			<h1><a href="{{ url_for('home')}}">NightBus | Riders</a></h1>
 			<div class="nav">
 			{% if user != None %}
 				{% if user.role == 'admin' %}
@@ -49,7 +49,7 @@
 				<h2 id="whereis">The nightbus is {{status}}! </h2> 
 
 				<div id="rider-instructions">
-					<p> 
+					<p>
 						The Reed NightBus is a shuttle service provided by Reed College to make students who live off campus feel safe getting home late at night. All drivers are fellow Reed students.
 						<br><br>
 						Pick up location: Eliot Circle.
@@ -59,6 +59,7 @@
 						If the NightBus does not arrive at the designated times please report the NightBus missing <span id = "missing" ><b>HERE</b></span>.
 						<br><br>
 						Additionally, if you are running late, but are still hoping to catch the NightBus click <span id = "late"><b>HERE</b></span> to ask the NightBus driver to wait for your arrival.
+						Disclaimer: Though you can request the driver to wait, there is no guarantee that the driver will wait.
 					</p>
 
 					<div class="rider-alerts">

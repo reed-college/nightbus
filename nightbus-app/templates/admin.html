@@ -14,7 +14,7 @@
 	<div class="wrapper">
 
 		<div class="header">
-			<h1>NightBus | Admins</h1>
+			<h1><a href="{{ url_for('home')}}">NightBus | Admins</a></h1>			
 			<div class="nav">
 			{% if user != None %}
 					<a href="{{ url_for('home') }}"> Rider</a>

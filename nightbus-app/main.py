@@ -4,7 +4,6 @@ from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
-from tracking import calculate_duration
 import config
 import schema
 import database
@@ -89,13 +88,7 @@ def intialize():
     username = request.environ.get('REMOTE_USER')
     
     if db.query(schema.Schedule).filter_by(id=1).first():
-        if db.query(schema.Auth).filter_by(id=1).first():
-                db.close()
-        else:
-                admin = schema.Auth(username="admin")
-                admin.encrypt_password('123')
-                db.add(admin)
-                db.commit()
+        db.close()
     else:
         admin = schema.Auth(username="admin")
         user_auth.encrypt_password('123')
@@ -362,4 +355,3 @@ if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-
