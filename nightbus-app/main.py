@@ -498,28 +498,28 @@ def confirm_email(token):
     flash('Email successfully confimed')
     return redirect(url_for('login'))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        db = database.get_session()
-        username = request.form['username']
-        password = request.form['password']
+#@app.route('/login', methods=['GET', 'POST'])
+#def login():
+#    if request.method == 'POST':
+#        db = database.get_session()
+#        username = request.form['username']
+#        password = request.form['password']
 
-        user_auth = db.query(schema.Auth).filter_by(username=username).first()
-        user = db.query(schema.User).filter_by(username=username).first()
+#        user_auth = db.query(schema.Auth).filter_by(username=username).first()
+#        user = db.query(schema.User).filter_by(username=username).first()
 
-        if user_auth:
-            if user_auth.verify_password(password):
-                session['username'] = username
-                session['logged_in'] = True
+#        if user_auth:
+#            if user_auth.verify_password(password):
+#                session['username'] = username
+#                session['logged_in'] = True
 
-                return redirect(request.args.get("next"))
-            else:
-                return redirect(url_for('login'))
-        else:
-            return render_template('no_user.html')
-    else:
-        return render_template('login.html')
+#                return redirect(request.args.get("next"))
+#            else:
+#                return redirect(url_for('login'))
+#        else:
+#            return render_template('no_user.html')
+#    else:
+#        return render_template('login.html')
 
 @app.route('/logout')
 def logout():

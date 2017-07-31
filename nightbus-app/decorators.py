@@ -26,8 +26,8 @@ def login_required(role):
     def wrapper(function):
         @wraps(function)
         def wrap(*args, **kwargs):
-            if session['logged_in']:
-                username = session['username']
+            username = os.environ.get['REMOTE_USER']
+            if username:
                 user = db.query(schema.User).filter_by(username = username).first()
                 if user:
                     if str(user.role).lower() == str(role).lower() or str(user.role).lower() == 'admin':
@@ -37,6 +37,6 @@ def login_required(role):
                 else:
                     return render_template('no_user.html')
             else:
-                return render_template('login.html', next = request.path)
+                return redirect(url_for('login'))
         return wrap
     return wrapper
