@@ -4,8 +4,8 @@ import requests
 import local_config
 
 proxies = {
-    "http":"http://tinyproxy.reed.edu:8888/",
-    "https": "https://tinyproxy.reed.edu:8888/"
+    "http": local_config.HTTP_PROXY,
+    "https": local_config.HTTPS_PROXY
 }
 
 def main(message):
