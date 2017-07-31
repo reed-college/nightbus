@@ -150,6 +150,7 @@ def schedule():
 def login():
     status = b.get_current_status()
     duration = b.get_trip_duration()
+    username = request.environ.get('REMOTE_USER')
     return render_template("rider.html", status=status, duration=duration)
 
 
