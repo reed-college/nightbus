@@ -37,6 +37,6 @@ def login_required(role):
                 else:
                     return render_template('no_user.html')
             else:
-                return redirect(url_for('login'))
+                return redirect('/login')
         return wrap
     return wrapper
