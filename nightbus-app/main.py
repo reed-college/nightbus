@@ -148,7 +148,7 @@ def index():
 
 @app.route('/driver')
 def driver():
-    if vistor.role == 'driver' or vistor.role == 'admin' :
+    if session['role'] == 'driver' or session['role'] == 'admin' :
         #this accesses the driver schedule database and pulls out the drivers so a schedule can be created on the driver page
 
         db = database.get_session()
