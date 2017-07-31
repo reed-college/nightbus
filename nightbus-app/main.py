@@ -78,7 +78,7 @@ def update_state():
 @app.route('/rider', methods=['GET'])
 def home():
     status = b.get_current_status()
-    duration = b.get_trip_duration()
+    username = request.environ.get('REMOTE_USER')
     return render_template("rider.html", status=status, duration=duration)
 
 @app.before_first_request
@@ -121,6 +121,7 @@ def intialize():
 @app.route('/')
 def index():
     status = b.get_current_status()
+    username = request.environ.get('REMOTE_USER')
     user = get_user(username)
 
     return render_template('rider.html', status=status, user=user)
