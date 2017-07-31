@@ -16,18 +16,19 @@
 		<div class="header">
 			<h1><a href="{{ url_for('home')}}">NightBus | Riders</a></h1>
 			<div class="nav">
-				{% if session['logged_in'] %}
-					{% if session['role'] == 'driver' %}
-						<a href="{{ url_for('driver') }}">Driver</a>
-						<a href="{{ url_for('logout') }}">Sign Out</a>
-					{% elif session['role'] == 'admin' %}
-						<a href="{{ url_for('driver') }}">Driver</a>
-						<a href="{{ url_for('admin') }}">Admin</a>
-						<a href="{{ url_for('logout') }}">Sign Out</a>
-					{% endif %}
+			{% if user != None %}
+				{% if user.role == 'admin' %}
+					<a href="{{ url_for('home') }}"> Rider</a>
+					<a href="{{ url_for('driver') }}"> Driver</a>
+					<a href="{{ url_for('admin') }}"> Admin</a>
+					<a href="{{ url_for('logout') }}"> Sign Out </a>
 				{% else %}
-					<a href="{{ url_for('login') }}"> Login</a>
+					<a href="{{ url_for('home') }}"> Rider</a>
+					<a href="{{ url_for('logout') }}"> Sign Out </a>
 				{% endif %}
+			{% else %}
+				<a href="/login">Login</a>
+			{% endif %}
 			</div>
 		</div>
 
@@ -35,9 +36,7 @@
 			<div class="box bussie-center">
 
 				<div class="icon-wrap">
-					{% if "here" in status and duration > 0%}
-						<img class="dex-icon" src="../static/gifs/reedgone.gif" alt="bus-img"/>
-					{% elif "here" in status %}
+					{% if "here" in status %}
 						<img class="dex-icon" src="../static/gifs/reedhere.gif" alt="bus-img"/>
 					{% elif "coming" in status %}
 						<img class="dex-icon" src="../static/gifs/reedcoming.gif" alt="bus-img"/>
@@ -47,14 +46,7 @@
 						<img class="dex-icon" src="../static/gifs/reedgone.gif" alt="bus-img"/>
 					{% endif %}
 				</div>
-
-				{% if status == "here" %}
-				<h2 id="whereis">The NightBus is {{status}}! </h2>
-				{% elif status == "leaving" %}
-				<h2 id="whereis">Route in progress </h2>
-				{% else %}
-				<h2 id="whereis">The NightBus is headed back now </h2>
-				{% endif %}
+				<h2 id="whereis">The nightbus is {{status}}! </h2> 
 
 				<div id="rider-instructions">
 					<p>

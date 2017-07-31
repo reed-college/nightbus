@@ -15,19 +15,18 @@
 	<div class="header">
 		<h1><a href="{{ url_for('home')}}"> NightBus | Drivers</a></h1>
 		<div class="nav">
-		{% if session['logged_in'] %}
-			{% if session['role'] == 'admin' %}
-				<a href="{{ url_for('home') }}"> Rider</a>
-				<a href="{{ url_for('admin') }}"> Admin</a>
-				<a href="{{ url_for('logout') }}"> Sign Out </a>
+			{% if user != None %}
+				{% if user.role == 'admin' %}
+					<a href="{{ url_for('home') }}"> Rider</a>
+					<a href="{{ url_for('admin') }}"> Admin</a>
+					<a href="{{ url_for('logout') }}"> Sign Out </a>
+				{% else %}
+					<a href="{{ url_for('home') }}"> Rider</a>
+					<a href="{{ url_for('logout') }}"> Sign Out </a>
+				{% endif %}
 			{% else %}
-				<a href="{{ url_for('home') }}"> Rider</a>
-				<a href="{{ url_for('logout') }}"> Sign Out </a>
+				<a href="/login">Login</a>
 			{% endif %}
-		{% else %}
-			<a href="{{ url_for('driverlogin') }}">Driver Login</a>
-			<a href="{{ url_for('adminlogin') }}">Admin Login</a>
-		{% endif %}
 		</div>
 	</div>
 

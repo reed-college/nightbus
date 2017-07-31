@@ -16,6 +16,7 @@
 # A documentation on flask view decorators can be found at http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
 from flask import session, flash, redirect, url_for, render_template, request
 from functools import wraps
+import os
 import schema
 import database
 
@@ -26,8 +27,8 @@ def login_required(role):
     def wrapper(function):
         @wraps(function)
         def wrap(*args, **kwargs):
-            if session['logged_in']:
-                username = session['username']
+            username = os.getenv('REMOTE_USER', default=None)
+            if username:
                 user = db.query(schema.User).filter_by(username = username).first()
                 if user:
                     if str(user.role).lower() == str(role).lower() or str(user.role).lower() == 'admin':
@@ -37,6 +38,6 @@ def login_required(role):
                 else:
                     return render_template('no_user.html')
             else:
-                return render_template('login.html', next = request.path)
+                return redirect('/login')
         return wrap
     return wrapper
