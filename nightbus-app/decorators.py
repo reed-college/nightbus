@@ -26,7 +26,7 @@ def login_required(role):
     def wrapper(function):
         @wraps(function)
         def wrap(*args, **kwargs):
-            username = os.environ.get['REMOTE_USER']
+            username = os.getenv('REMOTE_USER', default=None)
             if username:
                 user = db.query(schema.User).filter_by(username = username).first()
                 if user:
