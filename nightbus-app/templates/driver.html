@@ -17,14 +17,10 @@
 		<div class="nav">
 		{% if session['logged_in'] %}
 			{% if session['role'] == 'admin' %}
-				<a href="{{ url_for('tracking') }}"> Tracking </a>
-				<a href="{{ url_for('drivermaps') }}"> Maps </a>
 				<a href="{{ url_for('home') }}"> Rider</a>
 				<a href="{{ url_for('admin') }}"> Admin</a>
 				<a href="{{ url_for('logout') }}"> Sign Out </a>
 			{% else %}
-				<a href="{{ url_for('tracking') }}"> Tracking </a>
-				<a href="{{ url_for('drivermaps') }}"> Maps </a>
 				<a href="{{ url_for('home') }}"> Rider</a>
 				<a href="{{ url_for('logout') }}"> Sign Out </a>
 			{% endif %}
