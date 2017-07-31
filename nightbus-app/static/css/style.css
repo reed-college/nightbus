@@ -535,7 +535,7 @@ on index.html ***/
     padding: 30px;
     margin-top: 7.5%;
     position: relative;
-    
+
   }
   .rider-form input {
     background: transparent;
@@ -594,19 +594,19 @@ on index.html ***/
     background-color: brown;
   }
   .rider-alerts {
-    position: relative;
     width: 100%;
   }
   .rider-errors {
     display: block;
     position: absolute;
-    width: auto;
+    width: 30%;
     height: auto;
-    top: 2%;
-    left: 50%;
+    top: 12%;
+    left: 60%;
     text-align: left;
+    color: whitesmoke;
     z-index: 10;
-    background-color: brown;
+    background-color: #a84649;
     padding: 12px;
   }
 
