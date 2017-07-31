@@ -101,6 +101,13 @@ def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
 
     db = database.get_session()
+    if db.query(schema.User).filter_by(username=REMOTE_USER).first():
+        vistor = db.query(schema.User).filter_by(username=REMOTE_USER).first()
+        session['role'] = vistor.role
+        session['logged_in'] = True
+    else:
+        session['role'] = None
+
     if db.query(schema.Schedule).filter_by(id=1).first():
         if db.query(schema.Auth).filter_by(id=1).first():
                 db.close()
