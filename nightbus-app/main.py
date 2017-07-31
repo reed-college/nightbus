@@ -248,14 +248,13 @@ def assign():
 
 
 @app.route('/admin')
-@login_required('admin')
 def admin():
+    username = request.environ.get('REMOTE_USER')
     user = get_user(username)
 
     return render_template('admin.html', user=user)
 
 @app.route('/adduser')
-@login_required('admin')
 def adduser():
     return render_template('add.html')
 
