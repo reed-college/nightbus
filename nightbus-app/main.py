@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, request
 from decorators import login_required
 from flask_mail import Message, Mail
 from user_handling import generate_confirmation_token, confirm_email_token, send_mail
@@ -99,10 +99,10 @@ def intialize():
     session['logged_in'] = False
 
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
-
+    user = request.environ['REMOTE_USER']
     db = database.get_session()
-    if db.query(schema.User).filter_by(username=Request.remote_user).first():
-        vistor = db.query(schema.User).filter_by(username=Request.remote_user).first()
+    if db.query(schema.User).filter_by(username=user).first():
+        vistor = db.query(schema.User).filter_by(username=user).first()
         session['role'] = vistor.role
         session['logged_in'] = True
     else:
