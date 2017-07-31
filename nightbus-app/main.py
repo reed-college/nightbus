@@ -35,6 +35,7 @@ class NightBus:
         self.trip_duration = 0
         self.origin = 'Reed College'
         self.destinations = []
+
         self.num_of_destinations = 0
     def get_current_status(self):
         return self.current_status
@@ -80,6 +81,8 @@ def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     user = request.environ['REMOTE_USER']
     db = database.get_session()
+    username = os.getenv('REMOTE_USER', default=None)
+    
     if db.query(schema.Schedule).filter_by(id=1).first():
         if db.query(schema.Auth).filter_by(id=1).first():
                 db.close()
@@ -116,7 +119,6 @@ def index():
     status = b.get_current_status()
     duration = b.get_trip_duration()
 
-    username = os.environ.get['REMOTE_USER']
     user = get_user(username)
 
     return render_template('rider.html', status=status, user=user)
@@ -129,7 +131,6 @@ def driver():
         db = database.get_session()
         drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
 
-        username = os.environ.get['REMOTE_USER']
         user = get_user(username)
 
 
@@ -250,7 +251,6 @@ def assign():
 @app.route('/admin')
 @login_required('admin')
 def admin():
-    username = os.environ.get['REMOTE_USER']
     user = get_user(username)
 
     return render_template('admin.html', user=user)
