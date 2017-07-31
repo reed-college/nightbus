@@ -128,7 +128,7 @@ def driver():
 
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
-
+    username = request.environ.get('REMOTE_USER')
     user = get_user(username)
 
 
