@@ -14,7 +14,7 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<a href="{{ url_for('home')}}"><h1>NightBus | Riders</h1></a>
+			<h1><a href="{{ url_for('home')}}">NightBus | Riders</a></h1>
 			<div class="nav">
 				{% if session['logged_in'] %}
 					{% if session['role'] == 'driver' %}
