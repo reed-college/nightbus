@@ -116,7 +116,6 @@ def intialize():
 @app.route('/')
 def index():
     status = b.get_current_status()
-    duration = b.get_trip_duration()
 
     user = get_user(username)
 
