@@ -79,7 +79,6 @@ def home():
 @app.before_first_request
 def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
-    user = request.environ['REMOTE_USER']
     db = database.get_session()
     username = os.getenv('REMOTE_USER', default=None)
     
