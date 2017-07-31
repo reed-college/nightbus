@@ -286,7 +286,6 @@ def add():
     return redirect(url_for('admin'))
 
 @app.route('/removeuser')
-@login_required('admin')
 def removeuser():
     db = database.get_session()
     drivers = db.query(schema.User).all()
