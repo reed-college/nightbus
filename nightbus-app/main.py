@@ -69,35 +69,14 @@ def update_state():
     post_to_fb.main("the Nightbus is " + b.current_status + "!")
     return ('', 204)
 
-@app.route('/realtimetracking', methods=['GET'])
-def realtimetracking():
-    return render_template('realtimetracking.html')
-
-@app.route('/updateduration', methods=['POST'])
-def updateduration():
-    if request.method == 'POST':
-        location = request.get_json()
-        print(location)
-        b.update_current_location((location[0], location[1]))
-        duration = calculate_duration("Reed College", b.get_current_location())
-        b.update_trip_duration(duration)
-
-        return ('', 204)
-
 @app.route('/rider', methods=['GET'])
 def home():
     status = b.get_current_status()
     duration = b.get_trip_duration()
     return render_template("rider.html", status=status, duration=duration)
 
-
-# I added this because the logged_in wasn't set to false everytime the application run which was breaking things.
-
-
 @app.before_first_request
 def intialize():
-    session['logged_in'] = False
-
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     user = request.environ['REMOTE_USER']
     db = database.get_session()
@@ -117,7 +96,6 @@ def intialize():
                 db.add(admin)
                 db.commit()
     else:
-        session['logged_in'] = False
         admin = schema.Auth(username="admin")
         user_auth.encrypt_password('123')
         monday = schema.Schedule(day="Monday")
@@ -270,18 +248,12 @@ def admin():
 def adduser():
     return render_template('add.html')
 
-s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 @app.route('/add', methods=['POST'])
 def add():
 
-    #adds the new user to the User database by taking the form information and creating a User out of it.
 
     db = database.get_session()
 
-    # Using http request method we can get information from html elements by using the request library in python. Give any html element a name and an action associated with that
-    # name for example <form action='\newdriver method=post> and if the form has an element called Name: <input type="text" name="name" we can get the form to send the value of
-    # name entered using the post method and we can get it on the python end by doing request.form['name'] and since the form has an action called '\newdriver the server will know
-    # and run whichever function is below the @app.route('/newdriver) line
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     username = request.form['username']
@@ -301,78 +273,7 @@ def add():
 
     # Let's not forget to do a db.close() for all our sessions with the database. It won't make a difference right now but once we deploy the app or start testing it on Heroku
     # it will be a mess.
-
-    msg = Message('Set Your Password', sender=('Reed College Nightbus','reednightbus@gmail.com'), recipients = [email])
-    # salt separates tokens of the same input values
-    token = s.dumps(email, salt='set-password')
-    link = url_for('set_password', token=token, _external=True)
-    msg.html = '<p>Confirm your email.</p><p> Please follow this link to activate your account: {}</p>'.format(link)
-    mail.send(msg)
-
-
-    # To check if a user has been successfully added to the database open a new tab in terminal, use the command psql nightbus to go to the nightbus database and do
-    # SELECT * FROM "Users"; and it should be the last entry in that table.
-    # Most of the stuff related to the databases I found at https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/ and http-demo
-
     return redirect(url_for('admin'))
-
-@app.route('/forgot_password', methods=['GET', 'POST'])
-def forgot_password():
-    if request.method == "POST":
-
-        email = request.form['email']
-        msg = Message('Reset Your Password', sender=('Reed College Nightbus','reednightbus@gmail.com'), recipients = [email])
-        token = s.dumps(email, salt='reset-password')
-        link = url_for('reset_password', token=token, _external=True)
-        msg.html = '<p>Reset your password.</p><p> Please follow this link to reset your password: {}</p>'.format(link)
-        mail.send(msg)
-        return render_template('check_email.html')
-
-    return render_template('forgot_password.html')
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_password(token):
-    if request.method == "POST":
-        db = database.get_session()
-        email = s.loads(token, salt='reset-password')
-        user = db.query(schema.User).filter_by(email=email).first()
-        new_password = request.form['password']
-        user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-        user_auth.encrypt_password(new_password)
-
-        db.add(user_auth)
-        db.commit()
-
-        if user.role == 'admin':
-            db.close()
-            return redirect(url_for('login'))
-        else:
-            db.close()
-            return redirect(url_for('login'))
-    else:
-        return render_template('reset_password.html', token = token)
-
-
-@app.route('/set_password/<token>', methods=['GET', 'POST'])
-def set_password(token):
-    if request.method == "POST":
-        db = database.get_session()
-        email = s.loads(token, salt='set-password')
-        user = db.query(schema.User).filter_by(email=email).first()
-        new_password = request.form['password']
-        user_auth = schema.Auth(username=user.username)
-        user_auth.encrypt_password(new_password)
-        db.add(user_auth)
-        db.commit()
-        if user.role == 'admin':
-            db.close()
-            flash("Account registered successfully. Please login")
-            return redirect(url_for('login'))
-        else:
-            db.close()
-            flash("Account registered successfully. Please login")
-            return redirect(url_for('login'))
-    return render_template('confirm_password.html', token = token)
 
 @app.route('/removeuser')
 @login_required('admin')
@@ -380,25 +281,13 @@ def removeuser():
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
-    if session['logged_in']:
-        return render_template('remove.html', drivers = drivers)
-    else:
-        return redirect(url_for('adminlogin'))
+    return render_template('remove.html', drivers = drivers)
 
 @app.route('/remove', methods=['POST'])
 def remove():
     db = database.get_session()
-    # This function is basically identical to the user addition function.
-    # We use the get_session method to create a connection with the database.
-    # Next we get the value of the username that was entered in the form
-    # using the request library that comes with flask.
-    username = request.form['username']
 
-    # Next we use the query method to search the table User and we filter our query by the username we got above.
-    # More documentation on querying and just general sqlalchemy knowledge can be found at
-    # http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#querying
-    # After that we just use the built in delete method to remove the user and then
-    # we have to make sure we commit after that to make the deletion permanent.
+    username = request.form['username']
 
     user = db.query(schema.User).filter_by(username=username).first()
     user_auth = db.query(schema.Auth).filter_by(username=username).first()
@@ -415,112 +304,6 @@ def remove():
     else:
         return redirect(url_for('no_user'))
 
-
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    return render_template('signup.html')
-
-@app.route('/username_exists', methods=['POST'])
-def username_exists():
-    db = database.get_session()
-    username_exists = db.query(schema.User).filter_by(username=request.form['username']).first()
-    db.close()
-    if username_exists:
-        return "false"
-    else:
-        return "true"
-
-@app.route('/email_exists', methods=['POST'])
-def email_exists():
-    db = database.get_session()
-    email_exists = db.query(schema.User).filter_by(email=request.form['email']).first()
-    db.close()
-    if email_exists:
-        return "false"
-    else:
-        return "true"
-
-
-@app.route('/register', methods=['GET','POST'])
-def register():
-
-    db = database.get_session()
-    # this function should allow anyone to register and be able to log in right now. Once we have that we can work on different views for different types of users and stuff like that.
-    # it works in similar fashion like the add driver and remove driver functions it connects to the databases using the get session function and gets the data from the form using the
-    # flask request module then it creates a User and an Auth entry. The user entry is just for keeping track of users while the auth entry will contain the username and the password
-    # the person signed up with. We don't actually store the password we encrypt it using the passlib library that we imported above. We then add both entries to their respective
-    # tables and we commit and then we are done.
-
-    db = database.get_session()
-
-    firstname = request.form['firstname']
-    lastname = request.form['lastname']
-    email = request.form['email']
-    username = request.form['username']
-    password = request.form['password']
-    role = (request.form['role']).lower()
-
-    user = schema.User(firstname = firstname, lastname = lastname, email = email, username = username, role=role)
-    user_auth = schema.Auth(username=username)
-    user_auth.encrypt_password(password)
-
-    db.add(user)
-    db.add(user_auth)
-    db.commit()
-
-
-    # The next few lines automatically send an email to the email address the user entered when registering asking them to confirm their email. We use the generate_confirmation_token
-    # we defined in our email_confimation module to generate a random token. The url they will get will be of the format localhost/confirm_email + token and when they click it they
-    # should be redirected to the function immediately below.
-
-#        subject = 'Confirm Your Email'
-#        token = generate_confirmation_token(email, serializer)
-#        confirm_url = url_for('confirm_email', token = token, _external=True)
-#        html = render_template('activate.html', confirm_url = confirm_url)
-#        send_mail(user.email, subject, html, mail)
-
-    db.close()
-    return redirect(url_for('login'))
-
-@app.route('/confirm/<token>')
-def confirm_email(token):
-    db = database.get_session()
-    email = confirm_email_token(token, serializer)
-
-    user = db.query(schema.User).filter_by(email=email).first()
-
-    user_auth = db.query(schema.Auth).filter_by(username=user.username).first()
-
-    db.add(user_auth)
-    db.commit()
-    db.close()
-
-    flash('Email successfully confimed')
-    return redirect(url_for('login'))
-
-#@app.route('/login', methods=['GET', 'POST'])
-#def login():
-#    if request.method == 'POST':
-#        db = database.get_session()
-#        username = request.form['username']
-#        password = request.form['password']
-
-#        user_auth = db.query(schema.Auth).filter_by(username=username).first()
-#        user = db.query(schema.User).filter_by(username=username).first()
-
-#        if user_auth:
-#            if user_auth.verify_password(password):
-#                session['username'] = username
-#                session['logged_in'] = True
-
-#                return redirect(request.args.get("next"))
-#            else:
-#                return redirect(url_for('login'))
-#        else:
-#            return render_template('no_user.html')
-#    else:
-#        return render_template('login.html')
-
 @app.route('/logout')
 def logout():
     session['logged_in'] = False
@@ -530,27 +313,6 @@ def logout():
 @app.route('/no_user')
 def no_user():
     return render_template('no_user.html')
-
-@app.route('/tracking', methods=['GET', 'POST'])
-@login_required('driver')
-def tracking():
-    if request.method == 'POST':
-        origin = b.get_origin()
-        destinations = request.form.getlist('address')
-        num_destinations = len(destinations)
-        b.update_num_of_destinations(num_destinations)
-
-        duration = 0
-
-        for destination in destinations:
-            duration += calculate_duration(origin, destination)
-            origin = destination
-        b.update_trip_duration(duration)
-        b.update_destinations(destinations)
-
-        return redirect(url_for('drivermaps'))
-
-    return render_template('tracking.html')
 
 @app.route('/drivermaps')
 @login_required('driver')
