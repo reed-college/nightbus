@@ -150,11 +150,11 @@ def schedule():
     db.close()
     return render_template('schedule.html', drivers = drivers)
 
-@app.route('/login', methods = ['GET'])
-def login():
-    status = b.get_current_status()
-    duration = b.get_trip_duration()
-    return render_template("rider.html", status=status, duration=duration)
+# @app.route('/login', methods = ['GET'])
+# def login():
+#     status = b.get_current_status()
+#     duration = b.get_trip_duration()
+#     return render_template("rider.html", status=status, duration=duration)
 
 
 
