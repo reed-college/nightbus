@@ -47,12 +47,17 @@
 						<img class="dex-icon" src="../static/gifs/reedgone.gif" alt="bus-img"/>
 					{% endif %}
 				</div>
-				{% if duration > 0 and "cancelled" not in status %}
-				<h2 id="whereis">The nightbus will be on campus in {{ duration }} minutes! </h2> {% else %}
-				<h2 id="whereis">The nightbus is {{status}}! </h2> {% endif %}
+
+				{% if status == "here" %}
+				<h2 id="whereis">The NightBus is {{status}}! </h2>
+				{% elif status == "leaving" %}
+				<h2 id="whereis">Route in progress </h2>
+				{% else %}
+				<h2 id="whereis">The NightBus is headed back now" </h2>
+				{% endif %}
 
 				<div id="rider-instructions">
-					<p> 
+					<p>
 						The Reed NightBus is a shuttle service provided by Reed College to make students who live off campus feel safe getting home late at night. All drivers are fellow Reed students.
 						<br><br>
 						Pick up location: Eliot Circle.
