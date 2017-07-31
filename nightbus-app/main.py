@@ -80,13 +80,6 @@ def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     user = request.environ['REMOTE_USER']
     db = database.get_session()
-    if db.query(schema.User).filter_by(username=user).first():
-        vistor = db.query(schema.User).filter_by(username=user).first()
-        session['role'] = vistor.role
-        session['logged_in'] = True
-    else:
-        session['role'] = None
-
     if db.query(schema.Schedule).filter_by(id=1).first():
         if db.query(schema.Auth).filter_by(id=1).first():
                 db.close()
@@ -122,7 +115,11 @@ def intialize():
 def index():
     status = b.get_current_status()
     duration = b.get_trip_duration()
-    return render_template('rider.html', status=status, duration=duration)
+
+    username = os.environ.get['REMOTE_USER']
+    user = get_user(username)
+
+    return render_template('rider.html', status=status, user=user)
 
 @app.route('/driver')
 def driver():
@@ -131,8 +128,13 @@ def driver():
 
         db = database.get_session()
         drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+
+        username = os.environ.get['REMOTE_USER']
+        user = get_user(username)
+
+
         db.close()
-        return render_template('driver.html', drivers=drivers)
+        return render_template('driver.html', drivers=drivers, user=user)
     else:
         return redirect(url_for('/rider'))
 
@@ -329,6 +331,11 @@ def drivermaps():
     num_of_destinations = int(b.get_num_of_destinations())
     no_destination = False
     return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
+
+def get_user(username):
+    db = database.get_session()
+    user = db.query(schema.User).filter_by(username=username).first()
+    return user
 
 ##### Error Handling #####
 
