@@ -27,12 +27,17 @@
     <div class="header">
         <h1><a href="{{ url_for('home')}}">The NightBus</a></h1>
 		<div class="nav">
-			{% if session['logged_in'] %}
-				<a href="{{ url_for('home') }}">Rider</a>
-				<a href="{{ url_for('driver') }}">Driver</a>
-				<a href="{{ url_for('admin') }}"> Admin</a>
-				<a href="{{ url_for('logout') }}">Sign Out</a>
-			{% endif %}
+                {% if user != None %}
+                  {% if user.role == 'admin' %}
+                    <a href="{{ url_for('home') }}"> Rider</a>
+                    <a href="{{ url_for('admin') }}"> Admin</a>
+                    <a href="{{ url_for('logout') }}"> Sign Out </a>
+                  {% else %}
+                    <a href="{{ url_for('home') }}"> Rider</a>
+                  {% endif %}
+                {% else %}
+                  <a href="/login">Login</a>
+                {% endif %}
 		</div>
     </div>
     <div class="content">
