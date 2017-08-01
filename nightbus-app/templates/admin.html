@@ -19,7 +19,6 @@
 			{% if user != None %}
 					<a href="{{ url_for('home') }}"> Rider</a>
 					<a href="{{ url_for('driver') }}"> Driver</a>
-					<a href="{{ url_for('admin') }}"> Admin</a>
 			{% else %}
 				<a href="/login">Login</a>
 			{% endif %}
