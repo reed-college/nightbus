@@ -124,10 +124,12 @@ def driver():
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     username = request.environ.get('REMOTE_USER')
     user = get_user(username)
-
-
     db.close()
-    return render_template('driver.html', drivers=drivers, user=user)
+
+    if user.role == 'admin' or user.role == 'driver':
+        return render_template('driver.html', drivers=drivers, user=user)
+    else:
+        return render_templates('no_access.html')
 
 
 @app.route('/schedule')
@@ -138,7 +140,10 @@ def schedule():
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
-    return render_template('schedule.html', drivers = drivers)
+    if user.role == 'admin':
+        return render_template('schedule.html', drivers = drivers)
+    else:
+        return render_templates('no_access.html')
 
 @app.route('/login', methods = ['GET'])
 def login():
@@ -158,7 +163,11 @@ def display():
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
-    return render_template('display.html', drivers = drivers)
+    if user.role == 'admin' or user.role == 'driver':
+        return render_template('display.html', drivers = drivers)
+    else:
+        return render_templates('no_access.html')
+    
 
 
 @app.route('/assign', methods=['POST'])
@@ -244,12 +253,18 @@ def assign():
 def admin():
     username = request.environ.get('REMOTE_USER')
     user = get_user(username)
-
-    return render_template('admin.html', user=user)
+    if user.role == 'admin':
+        return render_template('admin.html', user=user)
+    else:
+        return render_templates('no_access.html')
+    
 
 @app.route('/adduser')
 def adduser():
-    return render_template('add.html')
+    if user.role == 'admin':
+        return render_template('add.html')
+    else:
+        return render_templates('no_access.html')
 
 @app.route('/add', methods=['POST'])
 def add():
@@ -283,7 +298,10 @@ def removeuser():
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
-    return render_template('remove.html', drivers = drivers)
+    if user.role == 'admin':
+        return render_template('remove.html', drivers = drivers)
+    else:
+        return render_templates('no_access.html')
 
 @app.route('/remove', methods=['POST'])
 def remove():
@@ -316,15 +334,7 @@ def logout():
 def no_user():
     return render_template('no_user.html')
 
-@app.route('/drivermaps')
-@login_required('driver')
-def drivermaps():
-    origin = b.get_origin()
-    destinations = b.get_destinations()
-    num_of_destinations = int(b.get_num_of_destinations())
-    no_destination = False
-    return render_template('maps.html', origin = origin,  destinations = destinations, no_destination = no_destination, num_of_destinations=num_of_destinations)
-
+#hi
 
 
 ##### Error Handling #####
