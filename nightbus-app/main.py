@@ -86,6 +86,7 @@ def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     db = database.get_session()
     username = request.environ.get('REMOTE_USER')
+    user = None
     
     if db.query(schema.Schedule).filter_by(id=1).first():
         db.close()
@@ -126,7 +127,7 @@ def driver():
     user = get_user(username)
     db.close()
 
-    if user.role == 'admin' or user.role == 'driver':
+    if user != None:
         return render_template('driver.html', drivers=drivers, user=user)
     else:
         return render_templates('no_access.html')
@@ -140,8 +141,11 @@ def schedule():
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
-    if user.role == 'admin':
-        return render_template('schedule.html', drivers = drivers)
+    if user !=None:
+        if user.role == 'admin':
+            return render_template('schedule.html', drivers = drivers)
+        else: 
+            return render_templates('no_access.html')
     else:
         return render_templates('no_access.html')
 
@@ -163,7 +167,7 @@ def display():
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
     db.close()
-    if user.role == 'admin' or user.role == 'driver':
+    if user != None:
         return render_template('display.html', drivers = drivers)
     else:
         return render_templates('no_access.html')
@@ -253,16 +257,22 @@ def assign():
 def admin():
     username = request.environ.get('REMOTE_USER')
     user = get_user(username)
-    if user.role == 'admin':
-        return render_template('admin.html', user=user)
+    if user != None:
+        if user.role == 'admin':
+            return render_template('admin.html', user=user)
+        else:
+            return render_templates('no_access.html')
     else:
         return render_templates('no_access.html')
     
 
 @app.route('/adduser')
 def adduser():
-    if user.role == 'admin':
-        return render_template('add.html')
+    if user != None:
+        if user.role == 'admin':
+            return render_template('add.html')
+        else:
+            return render_templates('no_access.html')
     else:
         return render_templates('no_access.html')
 
@@ -298,8 +308,11 @@ def removeuser():
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
-    if user.role == 'admin':
-        return render_template('remove.html', drivers = drivers)
+    if user != None:
+        if user.role == 'admin':
+            return render_template('remove.html', drivers = drivers)
+        else:
+            return render_templates('no_access.html')
     else:
         return render_templates('no_access.html')
 
