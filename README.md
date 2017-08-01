@@ -1,7 +1,5 @@
 # ![nightbus](http://68.media.tumblr.com/33216ea5cde4feca05bbc3f2553e827d/tumblr_nx1ppi6ZZo1s4p4gno1_500.gif)
 
-nightbus repo
-
 # Welcome to the Reed College Nightbus App GitHub!
 
 The Reed College Nightbus App is a Flask-based web application designed to facilitate two aspects of the student run Nightbus organization. First, the app allows students to see the "status" of the Nightbus, including information regarding whether it is on Campus, has just left, or is returning. Second, the app allows the Nightbus coordinators to do various adminstrative tasks, including assigning drivers to a specific shift and cancelling the Nightbus for the night. 
