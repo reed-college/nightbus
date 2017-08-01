@@ -1,6 +1,5 @@
 
 import facebook
-import requests
 import local_config
 
 proxies = {
