@@ -129,7 +129,7 @@ def driver():
     if user != None:
         return render_template('driver.html', drivers=drivers, user=user)
     else:
-        return render_templates('no_access.html')
+        return render_template('no_access.html')
 
 
 @app.route('/schedule')
@@ -146,9 +146,9 @@ def schedule():
         if user.role == 'admin':
             return render_template('schedule.html', drivers = drivers)
         else: 
-            return render_templates('no_access.html')
+            return render_template('no_access.html')
     else:
-        return render_templates('no_access.html')
+        return render_template('no_access.html')
 
 @app.route('/login', methods = ['GET'])
 def login():
@@ -173,7 +173,7 @@ def display():
     if user != None:
         return render_template('display.html', drivers = drivers)
     else:
-        return render_templates('no_access.html')
+        return render_template('no_access.html')
     
 
 
@@ -264,9 +264,9 @@ def admin():
         if user.role == 'admin':
             return render_template('admin.html', user=user)
         else:
-            return render_templates('no_access.html')
+            return render_template('no_access.html')
     else:
-        return render_templates('no_access.html')
+        return render_template('no_access.html')
     
 
 @app.route('/adduser')
@@ -277,9 +277,9 @@ def adduser():
         if user.role == 'admin':
             return render_template('add.html')
         else:
-            return render_templates('no_access.html')
+            return render_template('no_access.html')
     else:
-        return render_templates('no_access.html')
+        return render_template('no_access.html')
 
 @app.route('/add', methods=['POST'])
 def add():
@@ -319,9 +319,9 @@ def removeuser():
         if user.role == 'admin':
             return render_template('remove.html', drivers = drivers)
         else:
-            return render_templates('no_access.html')
+            return render_template('no_access.html')
     else:
-        return render_templates('no_access.html')
+        return render_template('no_access.html')
 
 @app.route('/remove', methods=['POST'])
 def remove():
