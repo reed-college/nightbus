@@ -86,7 +86,6 @@ def intialize():
     #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     db = database.get_session()
     username = request.environ.get('REMOTE_USER')
-    user = None
     
     if db.query(schema.Schedule).filter_by(id=1).first():
         db.close()
@@ -140,6 +139,8 @@ def schedule():
 
     db = database.get_session()
     drivers = db.query(schema.User).all()
+    username = request.environ.get('REMOTE_USER')
+    user = get_user(username)
     db.close()
     if user !=None:
         if user.role == 'admin':
@@ -166,6 +167,8 @@ def display():
 
     db = database.get_session()
     drivers = db.query(schema.Schedule).order_by(schema.Schedule.id).limit(7).all()
+    username = request.environ.get('REMOTE_USER')
+    user = get_user(username)
     db.close()
     if user != None:
         return render_template('display.html', drivers = drivers)
@@ -268,6 +271,8 @@ def admin():
 
 @app.route('/adduser')
 def adduser():
+    username = request.environ.get('REMOTE_USER')
+    user = get_user(username)
     if user != None:
         if user.role == 'admin':
             return render_template('add.html')
@@ -305,6 +310,8 @@ def add():
 
 @app.route('/removeuser')
 def removeuser():
+    username = request.environ.get('REMOTE_USER')
+    user = get_user(username)
     db = database.get_session()
     drivers = db.query(schema.User).all()
     db.close()
