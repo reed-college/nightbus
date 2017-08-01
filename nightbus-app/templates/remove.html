@@ -10,7 +10,7 @@
 <body>
 <div class="wrapper">
 	<div class="header">
-		<h1>Remove Users</h1>
+		<h1><a href="{{ url_for('home')}}">Nightbus | Remove Users</a></h1>
 		<div class="nav">
 			{% if session['logged_in'] %}
 				<a href="{{ url_for('home') }}">Rider</a>
