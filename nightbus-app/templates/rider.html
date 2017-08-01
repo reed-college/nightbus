@@ -46,7 +46,15 @@
 						<img class="dex-icon" src="../static/gifs/reedgone.gif" alt="bus-img"/>
 					{% endif %}
 				</div>
-				<h2 id="whereis">The nightbus is {{status}}! </h2> 
+					{% if "here" in status %}
+						<h2 id="whereis">The Nightbus is here!</h2>
+					{% elif "coming" in status %}
+						<h2 id="whereis">The NightBus is headed back!</h2>
+					{% elif "cancelled" in status%}
+						<h2 id="whereis">The NightBus is cancelled!</h2>
+					{% else %}
+						<h2 id="whereis">Route in Progress!</h2>
+					{% endif %} 
 
 				<div id="rider-instructions">
 					<p>
