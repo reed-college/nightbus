@@ -4,7 +4,7 @@
 
 The Reed College Nightbus App is a Flask-based web application designed to facilitate two aspects of the student run Nightbus organization. First, the app allows students to see the "status" of the Nightbus, including information regarding whether it is on Campus, has just left, or is returning. Second, the app allows the Nightbus coordinators to do various adminstrative tasks, including assigning drivers to a specific shift and cancelling the Nightbus for the night. 
 
-# Local Devolpment Setup
+# Local Development Setup
 
 This is how you get ready to do development work on the Nightbus app:
 
@@ -28,5 +28,5 @@ nightbus
 7. While in the `nigthbus` directory, you can run the app with `python nightbus-app`. Your terminal should display something like `* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`.
 8. In your browser, go to `http://127.0.0.1:5000/` and you should see the app running!
 
-
+# Deploying the App
 
