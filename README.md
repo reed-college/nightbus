@@ -30,8 +30,9 @@ nightbus
 
 # Deploying the App
 
-1. Email Jason Meinzer or another Reed CIS staff memember in order to gain access to the Reed server. They will ask you to send them your ssh public key for the repo.
-2. `ssh nightbus@sds.reed.edu` in your terminal in order to enter into the Reed virtualenv. If you have access you will not be asked for a password.
+1. Email Jason Meinzer or another Reed CIS staff member in order to gain access to the Reed server. They will ask you to send them your ssh public key for the repo.
+2. `ssh nightbus@sds.reed.edu` in your terminal in order to enter into the Reed virtualenv. If you are prompted for a password check wheter your password protected your ssh key, if so enter that password. If you did not password protect your ssh key then you do not yet have access to the server.
 3. From there if you `ls` you can see that there is a nightbus folder that contains a similar repo as the development one. 
 4. To make changes it is suggested that you edit files from your local host, upload them to github, and then `git pull` in the nightbus repo on the Reed server to commit those changes. Though you may switches branches on the Reed server, the NightBus uses the "reed" branch as its master while local host uses "master", so make sure you are updating the correct branch. The reason for this difference is to prevent the override of certain fies and lines that allow the app to run on the server. Finally, after making changes, to restart the server so that the commits can be integrated type `touch nightbus.wsgi` while in the nightbus directory. This file runs the app with the Reed Apache server and will update the timestamp on the app.
 5. To see the changes go to nightbus.reed.edu.
+6. Note: Be sure you do not override "nightbus.wsgi" from the server or else the app will not run. In the case that you do accidently do this, contact Jason Meinzer or CIS staff member.
