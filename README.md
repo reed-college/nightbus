@@ -27,7 +27,7 @@ nightbus
 
 5. Activate your `nightbus` virtual environment with the `workon nightbus` command, and download all the packages neccesary to run the nightbus app from `requirements.txt`. 
 6. Set up the database
-7. Run the app with `python nightbus-app`. Your terminal should display something like `* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`.
+7. While in the `nigthbus` directory, you can run the app with `python nightbus-app`. Your terminal should display something like `* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`.
 8. In your browser, go to `http://127.0.0.1:5000/` and you should see the app running!
 
 
