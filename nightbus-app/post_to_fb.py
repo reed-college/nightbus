@@ -3,14 +3,14 @@ import facebook
 import local_config
 
 proxies = {
-    "http": local_config.HTTP_PROXY,
-    "https": local_config.HTTPS_PROXY
+    "http": "http://tinyproxy.reed.edu:8888/",
+    "https": "http://tinyproxy.reed.edu:8888/"
 }
 
 def main(message):
     cfg = {
-        "page_id": local_config.FACEBOOK_PAGE_ID,
-        "access_token": local_config.FACEBOOK_ACCESS_TOKEN
+        "page_id": 132893597268288,
+        "access_token": "EAAUg264tb5wBADKZA3dn8x1TUaFWIGGG2ouCOfAfERxnOajfZBaplk2Ivnv2TZATNqd1oCMYNohhwoVzmhN9VZAykP3nfhxQ9xKhQXc2ncdr8qcYwpWrHHZBcQZB2WZBU4OiaBZCZAgHehUhKK3r1sdHybT3tN8E68loZD"
     }
     api = get_api(cfg)
     msg = message
