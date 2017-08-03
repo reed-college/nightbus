@@ -42,7 +42,10 @@ class NightBus:
         self.num_of_destinations = 0
 
     def get_current_status(self):
-        return self.current_status
+        db = database.get_session()
+        state = db.query(schema.Status).filter_by(id=1).first()
+        self.current_status = state.status
+        db.close()
 
     def get_trip_duration(self):
         return self.trip_duration
