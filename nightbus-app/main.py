@@ -1,11 +1,9 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, request
-from decorators import login_required
 from flask_mail import Message, Mail
-from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
-import config
 import schema
+import config
 import database
 import post_to_fb
 
@@ -17,7 +15,7 @@ mail = Mail(app)
 
 # I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
 # we can just create another class called ProdConfig with the appropriate attributes. This wasn't necessary at this point but the main.py was getting messy.
-app.config.from_object('config.TestConfig')
+app.config.from_object(config.TestConfig)
 mail.init_app(app)
 
 # We need to generate a unique token everytime a user registers to confirm their email. We use the URLSafeTimedSerializer serializer from the it's dangerous module.
@@ -41,7 +39,6 @@ class NightBus:
         self.trip_duration = 0
         self.origin = 'Reed College'
         self.destinations = []
-
         self.num_of_destinations = 0
 
     def get_current_status(self):
@@ -55,7 +52,7 @@ class NightBus:
         return self.trip_duration
 
     def update_status(self, new_status):
-        db.database.get_session()
+        db = database.get_session()
         state = db.query(schema.Status).filter_by(id = 1).first()
         state.status = new_status
         db.commit()
@@ -81,7 +78,6 @@ class NightBus:
 
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
-
 
 b = NightBus()
 
@@ -120,7 +116,7 @@ def intialize():
     username = request.environ.get('REMOTE_USER')
 
     if db.query(schema.Schedule).filter_by(id=1).first():
-        db.close()
+        pass
     else:
         admin = schema.Auth(username="admin")
         user_auth.encrypt_password('123')
@@ -139,16 +135,15 @@ def intialize():
         db.add(saturday)
         db.add(sunday)
         db.commit()
-        db.close()
 
     db = database.get_session()
     if db.query(schema.Status).filter_by(id=1).first():
-        db.close()
+        pass
     else:
         status = schema.Status(status="here")
         db.add(status)
         db.commit()
-        db.close()
+    db.close()
 
 # normal app routes
 
@@ -193,7 +188,6 @@ def schedule():
 @app.route('/login', methods = ['GET'])
 def login():
     status = b.get_current_status()
-    duration = b.get_trip_duration()
     username = request.environ.get('REMOTE_USER')
     user = get_user(username)
     return render_template("rider.html", status=status, user=user)
