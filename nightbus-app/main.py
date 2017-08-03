@@ -26,8 +26,6 @@ serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 # functions for udating the NightBus's status and for updating the duration of the trip
 
-status = "here"
-
 def get_user(username):
     db = database.get_session()
     user = db.query(schema.User).filter_by(username=username).first()
@@ -35,7 +33,8 @@ def get_user(username):
 
 class NightBus:
     def __init__(self):
-        self.current_status = status
+        db = database.get_session()
+        self.current_status = db.query(schema.Status).filter_by(id=1).first()
         self.trip_duration = 0
         self.origin = 'Reed College'
         self.destinations = []
@@ -109,6 +108,16 @@ def intialize():
         db.commit()
         db.close()
 
+@app.before_first_request
+def status():
+    db = database.get_session()
+    if db.query(schema.Status).filter_by(id=1).first():
+        db.close()
+    else:
+        status = schema.Status(status="here")
+        db.add(status)
+        db.commit()
+        db.close()
 
 # normal app routes
 

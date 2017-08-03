@@ -1,6 +1,5 @@
 
 import facebook
-import local_config
 
 proxies = {
     "http": "http://tinyproxy.reed.edu:8888/",
