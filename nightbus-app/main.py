@@ -108,9 +108,6 @@ def intialize():
         db.commit()
         db.close()
 
-@app.before_first_request
-def status():
-    db = database.get_session()
     if db.query(schema.Status).filter_by(id=1).first():
         db.close()
     else:
