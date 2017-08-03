@@ -34,10 +34,13 @@ def get_user(username):
 class NightBus:
     def __init__(self):
         db = database.get_session()
-        self.current_status = db.query(schema.Status).filter_by(id=1).first()
+        state = db.query(schema.Status).filter_by(id=1).first()
+        self.current_status = state.status
+        db.close()
         self.trip_duration = 0
         self.origin = 'Reed College'
         self.destinations = []
+
 
         self.num_of_destinations = 0
     def get_current_status(self):
@@ -108,6 +111,7 @@ def intialize():
         db.commit()
         db.close()
 
+    db = database.get_session()
     if db.query(schema.Status).filter_by(id=1).first():
         db.close()
     else:
