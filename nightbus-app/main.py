@@ -71,7 +71,8 @@ b  = NightBus()
 @app.route('/update_state/')
 def update_state():
     state = b.update_status(request.args.get('state'))
-    if state == 'leaving' or state == 'coming' or state == 'here' or state == 'cancelled':
+    acceptable = ['leaving','coming','here', 'cancelled']
+    if state in acceptable:
         if state == 'leaving':
             post_to_fb.main("The NightBus is heading out!")
             return ('', 204)
