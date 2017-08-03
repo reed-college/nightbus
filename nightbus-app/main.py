@@ -220,7 +220,8 @@ def assign():
     drivers= request.form.getlist('drivers[]')
 
     db = database.get_session()
-
+    username = request.environ.get('REMOTE_USER')
+    user = get_user(username)
     if drivers[0] == "No":
         pass
     else:
