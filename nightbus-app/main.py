@@ -179,7 +179,7 @@ def schedule():
     db.close()
     if user !=None:
         if user.role == 'admin':
-            return render_template('schedule.html', drivers = drivers)
+            return render_template('schedule.html', drivers = drivers, user = user)
         else: 
             return render_template('no_access.html')
     else:
@@ -205,7 +205,7 @@ def display():
     user = get_user(username)
     db.close()
     if user != None:
-        return render_template('display.html', drivers = drivers)
+        return render_template('display.html', drivers = drivers, user = user)
     else:
         return render_template('no_access.html')
     
@@ -220,8 +220,7 @@ def assign():
     drivers= request.form.getlist('drivers[]')
 
     db = database.get_session()
-    username = request.environ.get('REMOTE_USER')
-    user = get_user(username)
+
     if drivers[0] == "No":
         pass
     else:
