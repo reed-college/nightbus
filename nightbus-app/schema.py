@@ -65,5 +65,10 @@ class Schedule(Base, IdPrimaryMixin):
     firstname = Column(String(20))
     lastname = Column(String(20))
 
+class Status(Base, IdPrimaryMixin, DateTimeMixin):
+    __tablename__ = 'status'
+
+    status = Column(String(20))
+
 # This creates all the tables that we have defined in our schema.py
 Base.metadata.create_all(database.engine)

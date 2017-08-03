@@ -26,82 +26,81 @@ serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 # functions for udating the NightBus's status and for updating the duration of the trip
 
-status = "here"
-
 def get_user(username):
     db = database.get_session()
     user = db.query(schema.User).filter_by(username=username).first()
     return user
 
+
 class NightBus:
     def __init__(self):
-        self.current_status = status
+        db = database.get_session()
+        state = db.query(schema.Status).filter_by(id=1).first()
+        self.current_status = state.status
+        db.close()
         self.trip_duration = 0
         self.origin = 'Reed College'
         self.destinations = []
 
         self.num_of_destinations = 0
+
     def get_current_status(self):
         return self.current_status
+
     def get_trip_duration(self):
         return self.trip_duration
-    def update_status(self,new_status):
+
+    def update_status(self, new_status):
         self.current_status = new_status
+
     def update_origin(self, new_origin):
         self.origin = new_origin
+
     def get_origin(self):
         return self.origin
+
     def update_trip_duration(self, new_duration):
         self.trip_duration = new_duration
+
     def get_num_of_destinations(self):
         return self.num_of_destinations
+
     def update_num_of_destinations(self, new_num):
         self.num_of_destinations = new_num
+
     def get_destinations(self):
         return self.destinations
+
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
 
 
-b  = NightBus()
+b = NightBus()
 
 
-#updates the status of the NightBus
+# updates the status of the NightBus
 
 @app.route('/update_state/')
 def update_state():
     b.update_status(request.args.get('state'))
-    state = b.get_current_status()
-    acceptable = ['leaving','coming','here', 'cancelled']
-    if state in acceptable:
-        if state == 'leaving':
-            post_to_fb.main("The NightBus is heading out!")
-            return ('', 204)
-        elif state == 'coming':
-            post_to_fb.main("The NightBus is heading back!")
-            return ('', 204)
-        elif state == 'here':
-            post_to_fb.main("The NightBus is here!")
-            return ('', 204)
-        else:
-            post_to_fb.main("The NightBus is cancelled for the night :(")
-            return ('', 204)
-    else:
-        return ('', 204)
+    post_to_fb.main("the Nightbus is " + b.current_status + "!")
+    return ('', 204)
+
 
 @app.route('/rider', methods=['GET'])
 def home():
     status = b.get_current_status()
     username = request.environ.get('REMOTE_USER')
     user = get_user(username)
-    return render_template("rider.html", status=status, user = user)
+    return render_template("rider.html", status=status, user=user)
+
 
 @app.before_first_request
 def intialize():
-    #creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
+    # creates the database for the driver schedule. the if statement checks to see if the database already exists and passes if it does, otherwise it creates the database.
     db = database.get_session()
     username = request.environ.get('REMOTE_USER')
-    
+
     if db.query(schema.Schedule).filter_by(id=1).first():
         db.close()
     else:
@@ -124,6 +123,14 @@ def intialize():
         db.commit()
         db.close()
 
+    db = database.get_session()
+    if db.query(schema.Status).filter_by(id=1).first():
+        db.close()
+    else:
+        status = schema.Status(status="here")
+        db.add(status)
+        db.commit()
+        db.close()
 
 # normal app routes
 
