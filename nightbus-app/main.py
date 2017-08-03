@@ -70,9 +70,22 @@ b  = NightBus()
 
 @app.route('/update_state/')
 def update_state():
-    b.update_status(request.args.get('state'))
-    post_to_fb.main("the Nightbus is " + b.current_status + "!")
-    return ('', 204)
+    state = b.update_status(request.args.get('state'))
+    if state == 'leaving' or state == 'coming' or state == 'here' or state == 'cancelled':
+        if state == 'leaving':
+            post_to_fb.main("The NightBus is heading out!")
+            return ('', 204)
+        elif state == 'coming':
+            post_to_fb.main("The NightBus is heading back!")
+            return ('', 204)
+        elif state == 'here':
+            post_to_fb.main("The NightBus is here!")
+            return ('', 204)
+        else:
+            post_to_fb.main("The NightBus is cancelled for the night :(")
+            return ('', 204)
+    else:
+        return ('', 204)
 
 @app.route('/rider', methods=['GET'])
 def home():
