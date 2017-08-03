@@ -49,6 +49,7 @@ class NightBus:
         state = db.query(schema.Status).filter_by(id=1).first()
         self.current_status = state.status
         db.close()
+        return self.current_status
 
     def get_trip_duration(self):
         return self.trip_duration
