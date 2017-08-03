@@ -51,7 +51,11 @@ class NightBus:
         return self.trip_duration
 
     def update_status(self, new_status):
-        self.current_status = new_status
+        db.database.get_session()
+        state = db.query(schema.Status).filter_by(id = 1).first()
+        state.status = new_status
+        db.commit()
+        db.close()
 
     def update_origin(self, new_origin):
         self.origin = new_origin
