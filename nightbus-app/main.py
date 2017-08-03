@@ -1,11 +1,9 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, request
-from decorators import login_required
 from flask_mail import Message, Mail
-from user_handling import generate_confirmation_token, confirm_email_token, send_mail
 from itsdangerous import URLSafeTimedSerializer
-import config
 import schema
+import config
 import database
 import post_to_fb
 
@@ -17,7 +15,7 @@ mail = Mail(app)
 
 # I created a class that has all the configurations we need for the app to run. If we want to change the configuration or when we have to finally deploy the app
 # we can just create another class called ProdConfig with the appropriate attributes. This wasn't necessary at this point but the main.py was getting messy.
-app.config.from_object('config.TestConfig')
+app.config.from_object(config.TestConfig)
 mail.init_app(app)
 
 # We need to generate a unique token everytime a user registers to confirm their email. We use the URLSafeTimedSerializer serializer from the it's dangerous module.
@@ -50,7 +48,11 @@ class NightBus:
         return self.trip_duration
 
     def update_status(self, new_status):
-        self.current_status = new_status
+        db = database.get_session()
+        state = db.query(schema.Status).filter_by(id = 1).first()
+        state.status = new_status
+        db.commit()
+        db.close()
 
     def update_origin(self, new_origin):
         self.origin = new_origin
