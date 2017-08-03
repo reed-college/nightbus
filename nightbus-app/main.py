@@ -47,6 +47,7 @@ class NightBus:
         return self.trip_duration
     def update_status(self,new_status):
         self.current_status = new_status
+        return current_status
     def update_origin(self, new_origin):
         self.origin = new_origin
     def get_origin(self):
