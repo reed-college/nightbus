@@ -41,7 +41,6 @@ class NightBus:
         self.trip_duration = 0
         self.origin = 'Reed College'
         self.destinations = []
-
         self.num_of_destinations = 0
 
     def get_current_status(self):
@@ -73,7 +72,6 @@ class NightBus:
 
     def update_destinations(self, new_destinations):
         self.destinations = new_destinations
-
 
 b = NightBus()
 
@@ -112,7 +110,7 @@ def intialize():
     username = request.environ.get('REMOTE_USER')
 
     if db.query(schema.Schedule).filter_by(id=1).first():
-        db.close()
+        pass
     else:
         admin = schema.Auth(username="admin")
         user_auth.encrypt_password('123')
@@ -131,16 +129,15 @@ def intialize():
         db.add(saturday)
         db.add(sunday)
         db.commit()
-        db.close()
 
     db = database.get_session()
     if db.query(schema.Status).filter_by(id=1).first():
-        db.close()
+        pass
     else:
         status = schema.Status(status="here")
         db.add(status)
         db.commit()
-        db.close()
+    db.close()
 
 # normal app routes
 
@@ -185,7 +182,6 @@ def schedule():
 @app.route('/login', methods = ['GET'])
 def login():
     status = b.get_current_status()
-    duration = b.get_trip_duration()
     username = request.environ.get('REMOTE_USER')
     user = get_user(username)
     return render_template("rider.html", status=status, user=user)
