@@ -47,7 +47,6 @@ class NightBus:
         return self.trip_duration
     def update_status(self,new_status):
         self.current_status = new_status
-        return current_status
     def update_origin(self, new_origin):
         self.origin = new_origin
     def get_origin(self):
@@ -71,7 +70,8 @@ b  = NightBus()
 
 @app.route('/update_state/')
 def update_state():
-    state = b.update_status(request.args.get('state'))
+    b.update_status(request.args.get('state'))
+    state = b.get_current_status()
     acceptable = ['leaving','coming','here', 'cancelled']
     if state in acceptable:
         if state == 'leaving':
